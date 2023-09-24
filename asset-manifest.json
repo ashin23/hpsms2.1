@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/hpsms2.1/static/css/main.55a7603f.css",
+    "main.js": "/hpsms2.1/static/js/main.5a974ab7.js",
+    "static/media/waiter1.jpg": "/hpsms2.1/static/media/waiter1.1595a75547ab13be3b46.jpg",
+    "static/media/hotelproimage.png": "/hpsms2.1/static/media/hotelproimage.5c95ab314063505ef5fe.png",
+    "index.html": "/hpsms2.1/index.html",
+    "main.55a7603f.css.map": "/hpsms2.1/static/css/main.55a7603f.css.map",
+    "main.5a974ab7.js.map": "/hpsms2.1/static/js/main.5a974ab7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.55a7603f.css",
+    "static/js/main.5a974ab7.js"
+  ]
+}

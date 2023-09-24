@@ -1,0 +1,71 @@
+import React from "react";
+import supabase from "./supabaseClient";
+import { useState } from "react";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+
+const UserListConfig = ({ e , notify }) => {
+  const [view, setView] = useState(false);
+  const [password, setPassword] = useState(e.Password);
+
+  
+
+  async function HandleUpdate() {
+    if(e.Password === password) {
+
+    }else {
+      const { data, error } = await supabase
+      .from("UserList")
+      .update({ Password: password })
+      .eq("id", e.id)
+      .select();
+    setView(false);
+    setPassword(password)
+    notify()
+    }
+    
+  }
+
+  return (
+    <div className="flex bg-slate-200  mt-2 w-[100%] rounded-md">
+      <div className="p-3  hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md flex w-[100%] ">
+        <div className="text-md w-[100%] ">{e.Email}</div>
+        <div className="text-md w-[100%]  flex gap-2">
+          {view ? (
+            <div>
+              <input
+                className="pl-2 rounded-sm "
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+            </div>
+          ) : (
+            <div className="mt-1.5">*****</div>
+          )}
+          <button onClick={() => setView(!view)}>
+            {view ? (
+              <AiFillEyeInvisible className="text-[20px]" />
+            ) : (
+              <AiFillEye className="text-[20px]" />
+            )}
+          </button>
+        </div>
+        <div className="text-md w-[100%] ">{e.userlvl}</div>
+        <div className="w-[10%] mr-10 ">
+          <button
+            onClick={() => HandleUpdate()}
+            className="bg-slate-400 p-1 rounded-md"
+          >
+            Update
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  );
+};
+
+export default UserListConfig;

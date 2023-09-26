@@ -45,7 +45,8 @@ const ModalRequest = ({ isVisible5, onClose5,email }) => {
      onClose5()
     }, [2000]);
   };
-  const HandleRequst = async () => {
+  const HandleRequst = async (e) => {
+    // e.preventDefault()
     if (
       !locations ||
       !hotel ||

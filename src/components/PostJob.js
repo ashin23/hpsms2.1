@@ -25,7 +25,7 @@ const PostJob = ({ isPost, isPostClose }) => {
 
 
 
-  const NotifyError2 = () => {
+  const Postjobnotifyerror = () => {
     toast.warning("Please fill the blanks", {
       position: "top-center",
       autoClose: 2000,
@@ -70,8 +70,8 @@ const PostJob = ({ isPost, isPostClose }) => {
       !qualification ||
       !jobtype
     ) {
-      NotifyError2()
-
+      Postjobnotifyerror()
+      console.log(true)
       return;
     }
 
@@ -246,7 +246,18 @@ const PostJob = ({ isPost, isPostClose }) => {
         </div>
         
       </div>
-      
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </div>
   );
 };

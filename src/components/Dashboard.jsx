@@ -64,6 +64,7 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-2   ">
               {/* right side */}
+              
               {postJobInfo && (
                 <div className="ml-20 pl-20 justify-center bg-white  overflow-scroll overflow-x-hidden h-[590px] rounded-[60px] rounded-e-none ">
                   <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">TO APPLY</h1>

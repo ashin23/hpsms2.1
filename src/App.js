@@ -20,7 +20,8 @@ function App() {
         <Navbar setEmailSend={setEmail} />
         
       </header>
-      <main className="flex-grow roll-in-left  h-[832px] mt-[52px] bg-[#D8D9DA]">
+      <div></div>
+      <main className="flex-grow roll-in-left  h-[830px] mt-[52px] bg-[#D8D9DA]">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/Applicant" element={<Applicant />} />

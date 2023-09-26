@@ -261,14 +261,14 @@ const Navbar = ({ setEmailSend }) => {
 
   return (
     <div className="h-2 w-screen">
-      <div className="flex gap-5  bg-[#162388] text-white font-bold  text-lg ">
+      <div className="flex gap-5  bg-[#162388] text-white font-bold  text-lg h-[65px] ">
         
-        <div className="flex  items-start ">
-        <p className="ml-5 pt-3">HPSMS</p>
-          <img src={logo} alt="/" className="h-[50px] w-[90px] pt-3 ml-3"></img>
+        <div className="flex  place-content-center justify-center ">
+        <p className="ml-5 pt-3 text-[50px]">HPSMS</p>
+          <img src={logo} alt="/" className="h-[50px] w-[70px] pt-3 ml-3"></img>
         </div>
 
-        <div className="flex  md:text-lg text-sm  ml-[23%] pt-2 rounded-lg text-white font-mono gap-4 ">
+        <div className="flex w-[80%] p-4 md:text-lg text-sm  ml-[10%]  rounded-lg text-white font-mono gap-4 ">
           <Link
             to="/"
             className={`hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg `}
@@ -277,7 +277,7 @@ const Navbar = ({ setEmailSend }) => {
           </Link>
           
           <div >
-          <div onClick={() =>{setMenu(!menu)} } className={`${hr || coordinator || admin ?"hover:text-white p-[0.5%] hover:bg-sky-400 gap-2  pt-2" : "hidden"}`} > Module
+          <div onClick={() =>{setMenu(!menu)} } className={`${hr || coordinator || admin ?"hover:text-white p-[0.5%] hover:bg-sky-400 gap-2 rounded-lg  pt-2" : "hidden"}`} > Module
           <ul className={`${menu ? "hidden" : "absolute bg-slate-400 gap-2  rounded-lg p-2"}`}> 
             <li> 
           <Link
@@ -358,7 +358,7 @@ const Navbar = ({ setEmailSend }) => {
             onClick={() => setShowAcc(true)}
             className={`${
               hr || coordinator || emp || admin || applicant
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg"
+                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
                 : "hidden"
             }`}
           >
@@ -369,7 +369,7 @@ const Navbar = ({ setEmailSend }) => {
           <button
             className={`${
               coordinator
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg"
+                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
                 : "hidden "
             }`}
             onClick={() => setShowRequest(true)}
@@ -381,7 +381,7 @@ const Navbar = ({ setEmailSend }) => {
             to="/EmployeeCoord"
             className={`${
               coordinator
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg"
+                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg "
                 : "hidden "
             }`}
           >
@@ -403,7 +403,7 @@ const Navbar = ({ setEmailSend }) => {
             onClick={() => setShowPostJob(true)}
             className={`${
               hr
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg"
+                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
                 : "hidden"
             }`}
           >
@@ -411,7 +411,7 @@ const Navbar = ({ setEmailSend }) => {
             Post a Job
           </button>
         </div>
-        <div className="absolute right-10 top-5 hover:bg-blue-600 translate-x-2 p-2 rounded-md gap-5">
+        <div className="absolute right-10  hover:bg-blue-600 translate-x-2 p-2 rounded-md gap-5 h-fit">
           <div id="signIn">
             <button onClick={() => setModalSignin(true)}>Sign In</button>
           </div>

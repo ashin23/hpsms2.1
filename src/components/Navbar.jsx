@@ -71,6 +71,7 @@ const Navbar = ({ setEmailSend }) => {
     setApplicant(false);
     setCoordinator(false);
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("email");
     window.location.reload();
   }
 

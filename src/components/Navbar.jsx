@@ -275,7 +275,7 @@ const Navbar = ({ setEmailSend }) => {
           >
             Dashboard
           </Link>
-          
+          <div></div>
           <div >
           <div onClick={() =>{setMenu(!menu)} } className={`${hr || coordinator || admin ?"hover:text-white p-[0.5%] hover:bg-sky-400 gap-2 rounded-lg  pt-2" : "hidden"}`} > Module
           <ul className={`${menu ? "hidden" : "absolute bg-slate-400 gap-2  rounded-lg p-2"}`}> 

@@ -56,6 +56,7 @@ const ModalRequest = ({ isVisible5, onClose5,email }) => {
       !personnels
     ) {
       NotifyError2()
+      return
     }
     const { data, error } = await supabase.from("Request").insert([
       {

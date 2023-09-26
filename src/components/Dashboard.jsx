@@ -54,7 +54,7 @@ const Dashboard = () => {
       <div className="grid grid-row-2  ">
         <div className="">
           <div className="">
-            <div className="flex  justify-center mt-10 mb-10 bg-[#D8D9DA] p-2  h-[72px]  ">
+            <div className="flex  justify-center mt-10 mb-10 bg-[#D8D9DA] p-2  h-[70px]  ">
               <input
                 className="w-[750px]  pl-10 pr-3 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Search Here..."

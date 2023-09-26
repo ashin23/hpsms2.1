@@ -261,7 +261,7 @@ const Navbar = ({ setEmailSend }) => {
 
   return (
     <div className="h-2 w-screen">
-      <div className="flex gap-5  bg-[#162388] text-white font-bold  text-lg h-[65px] ">
+      <div className="flex gap-5  bg-[#162388] text-white font-bold  text-lg h-[60px] ">
         
         <div className="flex  place-content-center justify-center ">
         <p className="ml-5 pt-3 text-[50px]">HPSMS</p>
@@ -275,7 +275,7 @@ const Navbar = ({ setEmailSend }) => {
           >
             Dashboard
           </Link>
-          <div></div>
+          
           <div >
           <div onClick={() =>{setMenu(!menu)} } className={`${hr || coordinator || admin ?"hover:text-white p-[0.5%] hover:bg-sky-400 gap-2 rounded-lg  pt-2" : "hidden"}`} > Module
           <ul className={`${menu ? "hidden" : "absolute bg-slate-400 gap-2  rounded-lg p-2"}`}> 

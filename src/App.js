@@ -18,9 +18,9 @@ function App() {
     <div className="App">
       <header className=" z-99  w-screen top-0">
         <Navbar setEmailSend={setEmail} />
-        {console.log(email)}
+        
       </header>
-      <main className="flex-grow roll-in-left  h-[837px] mt-[59px] bg-[#D8D9DA]">
+      <main className="flex-grow roll-in-left  h-[831px] mt-[52px] bg-[#D8D9DA]">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/Applicant" element={<Applicant />} />

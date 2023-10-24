@@ -6,20 +6,32 @@ import Request from "./Request";
 import AccountSetting from "./AccountSetting";
 import Signin from "./Signin";
 import supabase from "./supabaseClient";
+import Profile from "./Profile";
 import Upload from "./Upload";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-
-
-const Navbar = ({ setEmailSend }) => {
+import { AiFillHome, AiFillFile } from "react-icons/ai";
+import { MdManageAccounts, MdPostAdd, MdMarkEmailUnread } from "react-icons/md";
+import { RiProfileLine } from "react-icons/ri";
+import { IoMdNotifications } from "react-icons/io";
+import { PiBooks } from "react-icons/pi";
+import { FaUpload } from "react-icons/fa";
+const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard }) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
   const [showModalRequest, setShowRequest] = useState(false);
   const [showModalAcc, setShowAcc] = useState(false);
   const [showModalSignin, setModalSignin] = useState(false);
   const [showModalUpload, setModalUpload] = useState(false);
+  const [showmodalProfile, setModalProfile] = useState(false);
 
-  const [menu,setMenu] = useState(true)
+  const [menu, setMenu] = useState(true);
+
+  const [notif, setNotif] = useState("");
+  const [notifque, setNotifque] = useState("");
+  const [notifemp, setNotifemp] = useState("");
+  const [notifarch, setNotifarch] = useState("");
+  const [notifreq, setNotifreq] = useState("");
 
   const [emp, setEmp] = useState(false);
   const [applicant, setApplicant] = useState(false);
@@ -37,6 +49,50 @@ const Navbar = ({ setEmailSend }) => {
       setModalSignin(true);
       document.getElementById("signOut").hidden = true;
     }
+    getnotif();
+    getnotifque();
+    getnotifemp();
+    getnotiarch();
+    getnotifreq();
+    const Applicant_List = supabase
+      .channel("custom-all-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Applicant_List" },
+        (payload) => {
+          getnotif();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Queuing_List" },
+        (payload) => {
+          getnotifque();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Employee_List" },
+        (payload) => {
+          getnotifemp();
+        }
+      )
+
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Archive_List" },
+        (payload) => {
+          getnotiarch();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Request" },
+        (payload) => {
+          getnotifreq();
+        }
+      )
+      .subscribe();
   }, []);
 
   async function HandleCheckerUser() {
@@ -47,7 +103,6 @@ const Navbar = ({ setEmailSend }) => {
     if (applist && user) {
       for (let index = 0; index < data.length; index++) {
         if (data[index].token === window.localStorage.getItem("token")) {
-          console.log("Line 42");
           checker(
             true,
             data[index].userlvl,
@@ -86,6 +141,8 @@ const Navbar = ({ setEmailSend }) => {
             .eq("token", window.localStorage.getItem("token"))
             .single();
           await setEmail(getterApplicant);
+          applicant1(getterApplicant);
+          setEmailSend(getterApplicant);
           setApplicant(true);
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
@@ -97,6 +154,8 @@ const Navbar = ({ setEmailSend }) => {
             .eq("Email", email)
             .single();
           await setEmail(getterApplicant);
+          applicant1(getterApplicant);
+          setEmailSend(getterApplicant);
           const { data: userlist } = await supabase
             .from("NewUser")
             .update({ token: generatedToken })
@@ -192,6 +251,7 @@ const Navbar = ({ setEmailSend }) => {
             .eq("token", window.localStorage.getItem("token"))
             .single();
           await setEmail(getterHR);
+          hrdashboard(getterHR);
           setHR(true);
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
@@ -203,12 +263,12 @@ const Navbar = ({ setEmailSend }) => {
             .eq("Email", email)
             .single();
           await setEmail(getterHR);
+          hrdashboard(getterHR);
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })
             .eq("Email", email)
             .single();
-
           localStorage.setItem("token", generatedToken);
           setHR(true);
           document.getElementById("signIn").hidden = true;
@@ -227,10 +287,11 @@ const Navbar = ({ setEmailSend }) => {
             .select()
             .eq("token", window.localStorage.getItem("token"))
             .single();
-          await setEmail(getterAdmin);
+          if (getterAdmin) await setEmail(getterAdmin);
+          admindashboard(getterAdmin)
           setAdmin(true);
           setHR(true);
-          setCoordinator(true);
+
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
           return;
@@ -240,8 +301,8 @@ const Navbar = ({ setEmailSend }) => {
             .select()
             .eq("Email", email)
             .single();
-          await setEmail(getterAdmin);
-
+          if (getterAdmin) await setEmail(getterAdmin);
+          admindashboard(getterAdmin)
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })
@@ -250,7 +311,7 @@ const Navbar = ({ setEmailSend }) => {
           localStorage.setItem("token", generatedToken);
           setAdmin(true);
           setHR(true);
-          setCoordinator(true);
+
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
           return;
@@ -259,156 +320,282 @@ const Navbar = ({ setEmailSend }) => {
     }
   }
 
+  async function getnotifreq() {
+    const { data: notifreq } = await supabase.from("Request").select();
+    for (let index = 0; index < notifreq.length; index++) {
+      if (notifreq[index].Notifications === "true") {
+        setNotifreq(true);
+        return;
+      }
+      if (notifreq[index].Notifications === "false") {
+        setNotifreq(false);
+        return;
+      }
+    }
+  }
+
+  async function getnotif() {
+    const { data: notif } = await supabase.from("Applicant_List").select();
+    for (let index = 0; index < notif.length; index++) {
+      if (notif[index].Notifications === "true") {
+        setNotif(true);
+        return;
+      }
+      if (notif[index].Notifications === "false") {
+        setNotif(false);
+        return;
+      }
+    }
+  }
+
+  async function getnotifque() {
+    const { data: notifq } = await supabase.from("Queuing_List").select();
+    for (let index = 0; index < notifq.length; index++) {
+      if (notifq[index].Notifications === "true") {
+        setNotifque(true);
+        return;
+      }
+      if (notifq[index].Notifications === "false") {
+        setNotifque(false);
+        return;
+      }
+    }
+  }
+
+  async function getnotifemp() {
+    const { data: notifemp } = await supabase.from("Employee_List").select();
+    for (let index = 0; index < notifemp.length; index++) {
+      if (notifemp[index].Notifications === "true") {
+        setNotifemp(true);
+        return;
+      }
+      if (notifemp[index].Notifications === "false") {
+        setNotifemp(false);
+        return;
+      }
+    }
+  }
+
+  async function getnotiarch() {
+    const { data: notifarch } = await supabase.from("Archive_List").select();
+    for (let index = 0; index < notifarch.length; index++) {
+      if (notifarch[index].Notifications === "true") {
+        setNotifarch(true);
+        return;
+      }
+      if (notifarch[index].Notifications === "false") {
+        setNotifarch(false);
+        return;
+      }
+    }
+  }
+
   return (
-    <div className="h-2 w-screen">
-      <div className="flex gap-5  bg-[#162388] text-white font-bold  text-lg h-[60px] ">
-        
-        <div className="flex  place-content-center justify-center ">
-        <p className="ml-5 pt-3 text-[50px]">HPSMS</p>
+    <div className="h-2 w-full">
+      <div className="flex gap-5 bg-[#162388] text-white font-bold text-lg h-[83px] py-2 ">
+        <div className="flex place-content-center justify-between ">
+          <p className="ml-5 pt-3 text-[50px]">HPSMS</p>
           <img src={logo} alt="/" className="h-[50px] w-[70px] pt-3 ml-3"></img>
         </div>
 
         <div className="flex w-[80%] p-4 md:text-lg text-sm  ml-[10%]  rounded-lg text-white font-mono gap-4 ">
           <Link
             to="/"
-            className={`hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg `}
-          >
-            Dashboard
-          </Link>
-          
-          <div >
-          <div onClick={() =>{setMenu(!menu)} } className={`${hr || coordinator || admin ?"hover:text-white p-[0.5%] hover:bg-sky-400 gap-2 rounded-lg  pt-2" : "hidden"}`} > Module
-          <ul className={`${menu ? "hidden" : "absolute bg-slate-400 gap-2  rounded-lg p-2"}`}> 
-            <li> 
-          <Link
             className={`${
-              hr
-                ? " hover:bg-sky-400 hover:text-white p-[0.5%]  rounded-lg"
+              applicant || coordinator || hr || emp || admin
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden"
-            }`}
-            to="/Applicant"
+            } `}
           >
-            Applicants Lists
+            <AiFillHome className="mt-1 text-[20px]" /> Home
           </Link>
-          </li>
-          <li>
-          <Link
-            className={`${
-              hr
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] rounded-lg"
-                : "hidden"
-            }`}
-            to="/Quelist"
-          >
-            Queuing List
-          </Link>
-          </li>
-          <li>
-          <Link
-            to="/Employee"
-            className={`${
-              hr
-                ? " hover:bg-sky-400 hover:text-white p-[0.5%]  rounded-lg"
-                : "hidden"
-            }`}
-          >
-            Employee List
-          </Link>
-          </li>
-          <li>
-          <Link
-            to="/Archive"
-            className={`${
-              hr
-                ? " hover:bg-sky-400 hover:text-white p-[0.5%] rounded-lg"
-                : "hidden"
-            }`}
-          >
-            Archive
-          </Link>
-          </li>
-          <li>
-          <Link
-            to="/RequestList"
-            className={`${
-              hr
-                ? "hover:bg-sky-400 hover:text-white p-[0.5%]  rounded-lg"
-                : "hidden"
-            }`}
-          >
-            Request List
-          </Link>
-          </li>
-          <li>
-          <Link
-            to="/UserList"
-            className={`${
-              hr
-                ? " hover:bg-sky-400 hover:text-white p-[0.5%]  rounded-lg "
-                : "hidden"
-            }`}
-          >
-            User List
-          </Link>
-          </li>
-          </ul>
-          </div>
+
+          <div>
+            <div
+              onClick={() => {
+                setMenu(!menu);
+              }}
+              onMouseLeave={() => setMenu(!menu)}
+              className={`${
+                hr || admin
+                  ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg  pt-2"
+                  : "hidden"
+              }`}
+            >
+              {notif !== true && (
+                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+              )}
+              {notifque !== true && (
+                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+              )}
+              {notifemp !== true && (
+                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+              )}
+              {notifarch !== true && (
+                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+              )}
+              <PiBooks className="mt-1 text-[20px]" />
+              Module
+              <ul
+                className={`${
+                  menu
+                    ? "hidden"
+                    : "absolute bg-[#3F83F8] h-[18rem] gap-2  rounded-lg p-3 mt-9"
+                }`}
+              >
+                <li>
+                  <Link
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                    to="/Applicant"
+                  >
+                    {notif !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}
+                    Applicants Lists
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                    to="/Quelist"
+                  >
+                    {notifque !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}{" "}
+                    Queuing List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Employee"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2 rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    {notifemp !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}
+                    Employee List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Archive"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    {notifarch !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}{" "}
+                    Archive
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/RequestList"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2   rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    Request List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/UserList"
+                    className={`${
+                      admin
+                        ? " flex hover:bg-sky-400 hover:text-white p-2   rounded-lg "
+                        : "hidden"
+                    }`}
+                  >
+                    User List
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <button
             onClick={() => setShowAcc(true)}
             className={`${
               hr || coordinator || emp || admin || applicant
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden"
             }`}
           >
-            Account Managent
+            <MdManageAccounts className="mt-1 text-[20px]" /> Account Managent
           </button>
 
           {/* Coordinator */}
           <button
             className={`${
               coordinator
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden "
             }`}
             onClick={() => setShowRequest(true)}
           >
-            Request
+            <MdMarkEmailUnread className="mt-1 text-[20px]" /> Request
           </button>
 
           <Link
             to="/EmployeeCoord"
             className={`${
               coordinator
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg "
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden "
             }`}
           >
-            Employee List
+            <AiFillFile className="mt-1 text-[20px]" /> Employee List
           </Link>
 
           <button
             onClick={() => setModalUpload(true)}
             className={`${
               emp
-                ? " hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg "
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden"
             }`}
           >
-            Upload
+            <FaUpload className="mt-1 text-[20px]" /> Upload
           </button>
 
           <button
             onClick={() => setShowPostJob(true)}
             className={`${
               hr
-                ? "hover:bg-sky-400  hover:text-white p-[0.5%] hover:-translate-y-2 rounded-lg h-fit"
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
                 : "hidden"
             }`}
           >
             {" "}
-            Post a Job
+            <MdPostAdd className="mt-1 text-[20px]" /> Post a Job
+          </button>
+          <button
+            onClick={() => setModalProfile(true)}
+            className={`${
+              applicant
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
+                : "hidden"
+            }`}
+          >
+            {" "}
+            <RiProfileLine className="mt-1 text-[20px]" /> Profile
           </button>
         </div>
         <div className="absolute right-10  hover:bg-blue-600 translate-x-2 p-2 rounded-md gap-5 h-fit">
@@ -420,6 +607,13 @@ const Navbar = ({ setEmailSend }) => {
           </div>
         </div>
       </div>
+
+      <Profile
+        isProfile={showmodalProfile}
+        isProfileclose={() => setModalProfile(false)}
+        email2={email}
+        applicant={applicant}
+      />
 
       <PostJob
         isPost={showModalPostJob}

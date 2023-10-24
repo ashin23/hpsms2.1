@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import ModalApplicantInfo from "./ModalApplicantInfo";
+import supabase from "./supabaseClient";
 function ApplicantConfig({ e }) {
   const [showJobApplicant, setShowJobApplicant] = useState(false);
   const handleClose = () => setShowJobApplicant(false);
 
+  const updateNotif = async () => {
+    const { data: update } = await supabase
+      .from("Applicant_List")
+      .update({Notifications: "true"})
+      .eq("id", e.id);
+  };
+
   return (
-    <div>
+    <div onClick={() => updateNotif()}>
       <div
-        className="p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-cols-3 w-[100%] bg-slate-100 "
+        className={`${
+          e.Notifications === "false" && "border-2 border-red-500"
+        } p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-cols-3 w-[100%] bg-slate-100 `}
         onClick={() => setShowJobApplicant(true)}
       >
-        <div className="text-md ">{e.FullName}</div>
+        <div className="text-md ">{e.Name}</div>
         <div className="text-md ">{e.Position}</div>
         <div className="text-md ">{e.Email}</div>
-        
       </div>
 
       <ModalApplicantInfo

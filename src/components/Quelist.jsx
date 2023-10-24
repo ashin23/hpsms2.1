@@ -15,7 +15,7 @@ const Quelist = ({ email1 }) => {
       .channel("table-db-changes")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "QueuingList" },
+        { event: "*", schema: "public", table: "Queuing_List" },
         (payload) => {
           queList();
         }
@@ -24,25 +24,25 @@ const Quelist = ({ email1 }) => {
   }, []);
 
   const queList = async () => {
-    const { data: Quelist } = await supabase.from("QueuingList").select();
+    const { data: Quelist } = await supabase.from("Queuing_List").select();
     setApplicants(Quelist);
   };
 
   return (
-    <div className="grid flex-col shadow-lg w-full mb-6 mt-4 ">
-      <div className="w-[100%] overflow-hidden">
-        <div className="flex justify-center mt-5 mb-5 bg-[#D8D9DA]   p-2 h-[62px]">
+    <div className="">
+      <div className="h-screen">
+        <div className="sticky top-5 flex justify-center py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <input
-            className="w-[750px] pl-10 pr-3 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            className="top-96 w-[750px] z-50 mb-10 h-16 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Search name"
             type="search"
             onChange={(e) => setSearch1(e.target.value)}
           ></input>
         </div>
-        <h1 className="font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
           Queuing List
         </h1>
-        <div className=" bg-[#EEEEEE] p-3  w-[100%] ">
+        <div className=" p-3  w-[100%] z-10  pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] rounded-[60px] rounded-e-none  ">
           <div className="grid grid-cols-4 w-[100%] bg-slate-300">
             <div className="text-md p-3">Name</div>
             <div className="text-md p-3 ">Position</div>

@@ -14,7 +14,6 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
     setData(DataSelected);
   }, [DataSelected, Deploy]);
 
-  
   useEffect(() => {
     userList();
   }, []);
@@ -27,7 +26,6 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
           Data: data,
         },
       ]);
-    
   };
 
   const userList = async () => {
@@ -46,7 +44,25 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <div className=" grid grid-cols-1 justify-center bg-white p-10 gap-3 rounded-2xl">
+      <button
+        onClick={() => close()}
+        className="top-[123px] place-content-center ml-[470px] absolute py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
+      >
+        Cancel
+      </button>
+      <div className=" grid grid-cols-1 justify-center h-[65%] w-[30%] bg-white p-10 gap-3 rounded-2xl">
+        <label className=" flex pl-9 pr-40 py-1 ml-2 my-1 h-[70%] text-slate-100 text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          Selected Employees
+        </label>
+        <div className="grid grid-cols-1 w-[30%] h-[20%]">
+          <button
+            onClick={() => HandleSendCoordinator()}
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 mr-5 mb-5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Send
+          </button>
+        </div>
+
         {data.length > 0 ? (
           <ul>
             {data.map((item) => (
@@ -54,7 +70,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
                 key={item.id}
                 className="justify-between flex bg-slate-300 p-3 mt-1 rounded-md"
               >
-                {item.empData.FullName}
+                {item.empData.Name}
               </li>
             ))}
           </ul>
@@ -62,7 +78,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
           "No Data Selected"
         )}
         <div>
-          <h1 className="font-bold pb-2">Coordinator</h1>
+          <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
           <input
             value={datadisplay}
             onChange={(e) => setdatadisplay(e.target.value)}
@@ -100,9 +116,6 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
               ))}
           </div>
         </div>
-        <button onClick={() => HandleSendCoordinator()}>Send</button>
-        <button onClick={() => close()}>Cancel</button>
-       
       </div>
     </div>
   );

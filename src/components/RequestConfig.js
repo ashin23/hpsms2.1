@@ -1,14 +1,16 @@
 import React from "react";
+import supabase from "./supabaseClient";
+const RequestConfig = ({ e }) => {
+  const updateNotif = async () => {
+    const { data: update } = await supabase
+      .from("Applicant_List")
+      .update({ Notifications: "true" })
+      .eq("id", e.id);
+  };
 
-const RequestConfig = ({e}) => {
-
-  
   return (
-    <div className="flex bg-slate-200  mt-2 ">
-      <div
-        
-        className="p-3  hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-cols-6 w-[105%]  "
-      >
+    <div className="flex bg-slate-200  mt-2 " onClick={() => updateNotif()}>
+      <div className="p-3  hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-cols-6 w-[105%]  ">
         <div className="text-md ">{e.Email}</div>
         <div className="text-md ">{e.Position}</div>
         <div className="text-md ">{e.Personel}</div>
@@ -16,7 +18,6 @@ const RequestConfig = ({e}) => {
         <div className="text-md ">{e.Hotel}</div>
         <div className="text-md ">{e.Location}</div>
       </div>
-    
     </div>
   );
 };

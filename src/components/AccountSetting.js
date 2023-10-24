@@ -48,7 +48,6 @@ const AccountSetting = ({
   function codeGenerator() {
     let code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
     setCode(code.toString());
-    
   }
 
   const NotifyCode = () => {
@@ -79,10 +78,10 @@ const AccountSetting = ({
   function HandleCheckCode() {
     if (verCode === otpCode) {
       document.getElementById("saveChanges").disabled = false;
-       NotifyCode();
+      NotifyCode();
       return;
     } else {
-       NotifyError();
+      NotifyError();
     }
   }
 
@@ -100,19 +99,19 @@ const AccountSetting = ({
   };
   const HandleSendCode = () => {
     if (!email) {
-        NotifyError2()
+      NotifyError2();
 
       return;
     }
-    emailjs.send(
-      "service_yj6ye3j",
-      "template_aek4udy",
-      {
-        email2: email,
-        code: otpCode,
-      },
-      "-qtQXoQ1iYx4JDljO"
-    );
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_aek4udy",
+    //   {
+    //     email2: email,
+    //     code: otpCode,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
     setbuttonChange(true);
   };
 
@@ -147,7 +146,30 @@ const AccountSetting = ({
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  "
     >
-      <div className=" grid justify-center bg-white p-10 gap-3 rounded-3xl">
+      <button
+        onClick={() => close()}
+        className="top-[123px] place-content-center ml-[470px] absolute py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
+      >
+        Cancel
+      </button>
+      <div className=" grid justify-center bg-white p-10 gap-3 h-[65%] w-[30%] rounded-3xl shadow-2xl">
+        <label className="flex pl-9 pr-40 py-3 ml-2 my-2  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          Account Settings
+        </label>
+        <div className="flex grid-cols-2 gap-5">
+          <button
+            onClick={() => handleEdit()}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Edit
+          </button>{" "}
+          <button
+            onClick={() => saveChanges()}
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Save
+          </button>
+        </div>
         <label className="flex font-bold">Email</label>
         <input
           className={`${
@@ -183,7 +205,7 @@ const AccountSetting = ({
           id="password1"
           type="text"
         ></input>
-        <div className="flex">
+        <div className="grid grid-cols-2">
           <input
             className={`${
               allow ? "bg-blue-200" : ""
@@ -215,51 +237,29 @@ const AccountSetting = ({
               Check Code
             </button>
           </div>
-        </div>
-        <div className=" grid grid-cols-2 gap-2">
-          <button
-            onClick={() => saveChanges()}
-            id="saveChanges"
-            className=" px-3 py-2 text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-          >
-            Save changes
-          </button>
-          <button
-            onClick={() => handleEdit()}
-            className="px-3 py-2 text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-          >
-            Edit
-          </button>
-        </div>
-        <button
-          onClick={() => close()}
-          className=" px-3 py-2 text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-        >
-          Cancel
-        </button>
-
-        <div className="grid grid-cols-1 mt-14">
-          <button
-            onClick={() => setShowCreateAcc(true)}
-            className={`${
-              hr === "HR"
-                ? "px-3 py-2 text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-                : `${
-                    admin
-                      ? "px-3 py-2 text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-                      : "hidden"
-                  }`
-            }`}
-          >
-            Create Account
-          </button>
+          <div className="ml-[60%] mt-10 w-[100%]">
+            <button
+              onClick={() => setShowCreateAcc(true)}
+              className={`${
+                hr === "HR"
+                  ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                  : `${
+                      admin
+                        ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                        : "hidden"
+                    }`
+              }`}
+            >
+              Create Account
+            </button>
+          </div>
         </div>
       </div>
       <ModalCreateAcc
         isOpen1={showModalCreateAcc}
         isClose1={() => setShowCreateAcc(false)}
       />
-       <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={2000}
         hideProgressBar={false}

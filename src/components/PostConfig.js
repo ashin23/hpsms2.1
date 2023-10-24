@@ -15,6 +15,7 @@ function PostConfig({
   Pspecializations,
   Pqualification,
   Pjobtype,
+  setInfo
 }) {
 
 function HandleClick(){
@@ -31,9 +32,10 @@ function HandleClick(){
     Pspecializations(postInfo.specializations)
     Pqualification(postInfo.qualification)
     Pjobtype(postInfo.jobtype)
-
-}
-    
+    setInfo(postInfo)
+  }
+  
+  
   return (
     
       <div className="hover:bg-[#78C1F3] bg-[#FBF8FF] p-1 my-8 w-[90%]" onClick={()=> HandleClick()} >

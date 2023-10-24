@@ -9,25 +9,35 @@ import AccountSetting from "./components/AccountSetting";
 import RequestList from "./components/RequestList";
 import UserList from "./components/UserList";
 import Archive from "./components/Archive";
-import { useState } from "react";
+import Profile from "./components/Profile"
+import { useEffect, useState } from "react";
 import EmployeeCoord from "./components/EmployeeCoord";
 
 function App() {
   const [email, setEmail] = useState();
+  const [applicant , setApplicant] = useState()
+  const [Hrdashboard, setHrdasboard] = useState();
+  const [admindashboard, setadmindasboard] = useState();
+ 
   return (
-    <div className="App">
-      <header className=" z-99  w-screen top-0">
-        <Navbar setEmailSend={setEmail} />
+    <div className="App ">
+      <header className=" z-50 fixed w-screen top-0 h-fit">
+        <Navbar setEmailSend={setEmail}
+                applicant1={setApplicant}
+                hrdashboard={setHrdasboard}
+                admindashboard={setadmindasboard}
+          />
         
       </header>
-      
-      <main className="flex-grow roll-in-left  h-[830px] mt-[52px] bg-[#D8D9DA]">
+
+      <main className="flex-grow z-10 bg-white w-full">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard email={email} applicant={applicant} Hrdashboard={Hrdashboard} admindashboard={admindashboard}/>} />
           <Route path="/Applicant" element={<Applicant />} />
           <Route path="/Quelist" element={<Quelist />} />
-          <Route path="/Employee" element={<Employee email={email} />} />
+          <Route path="/Employee" element={<Employee  />} />
           <Route path="/EmployeeCoord" element={<EmployeeCoord />} />
+          <Route path="/Profile" element={<Profile />} />
           <Route path="/Archive" element={<Archive />} />
           <Route path="/AccountSetting" element={<AccountSetting />} />
           <Route path="/RequestList" element={<RequestList />} />
@@ -35,7 +45,7 @@ function App() {
         </Routes>
       </main>
 
-      <footer className=" w-screen bottom-0 ">
+      <footer className="absolute  w-full bottom-0 h-fit">
         <Footer />
       </footer>
     </div>

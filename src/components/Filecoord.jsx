@@ -3,13 +3,14 @@ import React from "react";
 function Filecoord({view,Email}) {
   return (
     <div>
-      {view.name}
-      <iframe
-        src={`https://docs.google.com/viewer?url=${encodeURIComponent(
-          `https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${Email}/${view.name}`
-        )}&embedded=true`}
-        title="Document Viewer"
-        style={{ width: "205%", height: "400px", border: "none" }}
+      
+      <img
+      className="border-solid border-4 border-[#2a3695e7] "
+        style={{
+          width: "10%",
+          height: "10%",
+        }}
+        src={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${Email}/${view.name}`}
       />
     </div>
   );

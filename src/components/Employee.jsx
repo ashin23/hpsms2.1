@@ -17,7 +17,6 @@ const Employee = ({ email }) => {
   const [selectstatus, setSelectstatus] = useState("");
   // const [deploy, setUndeploy] = useState({})
 
-  
   const handledeploy = (event) => {
     setSelectstatus(event.target.value);
   };
@@ -37,7 +36,7 @@ const Employee = ({ email }) => {
   }, []);
 
   const FetchEmployee = async () => {
-    const { data: employeee } = await supabase.from("Employee_List").select()
+    const { data: employeee } = await supabase.from("Employee_List").select();
     setEmployee(employeee);
   };
 
@@ -111,12 +110,10 @@ const Employee = ({ email }) => {
                   try {
                     if (selectstatus) {
                       return (
-                        val.status.toLowerCase() ===
-                          selectstatus.toLowerCase() && 
-                          val.Position.toLowerCase().includes(search1.toLowerCase()) ||
-                          val.FullName.toLowerCase().includes(search1.toLowerCase())
-                      )
-              
+                        val.status.toLowerCase() === selectstatus.toLowerCase()  
+                          // val.Position.toLowerCase().includes(search1.toLowerCase()) 
+                        // val.FullName.toLowerCase().includes(search1.toLowerCase())
+                      );
                     } else {
                       if (search1 === "") {
                         return val;

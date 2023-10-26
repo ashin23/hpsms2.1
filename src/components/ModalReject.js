@@ -6,7 +6,7 @@ const ModalReject = ({isOpen42 , isReject42, infoo}) => {
 
     const Reject = async () => {
         const { error } = await supabase
-          .from("ApplicantsList")
+          .from("Applicant_List")
           .delete()
           .eq("id", infoo.id);
       };

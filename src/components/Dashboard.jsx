@@ -35,7 +35,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       .channel("custom-insert-channel")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "PostJob" },
+        { event: "*", schema: "public", table: "PostJob" },
         (payload) => {
           handleGetPost();
         }
@@ -87,7 +87,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       url: "https://pix8.agoda.net/hotelImages/451/45166/45166_14011718200018097318.jpg?ca=2&ce=1&s=1024x768",
     },
     {
-      url: "https://media.hrs.com/media/image/25/f1/fd/Marco_Polo_Ortigas_Manila-Pasig_City-Hotel_outdoor_area-635783.jpg"
+      url: "https://media.hrs.com/media/image/25/f1/fd/Marco_Polo_Ortigas_Manila-Pasig_City-Hotel_outdoor_area-635783.jpg",
     },
     {
       url: "https://www.hospitalitynet.org/picture/xxl_153096644.jpg?t=1548055521",
@@ -100,6 +100,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       url: "https://campbell.com.ph/wp-content/uploads/2019/03/img-hyatt-4.jpg",
     },
   ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
@@ -137,11 +138,11 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   style={{
                     backgroundImage: `url(${slides[currentIndex].url})`,
                   }}
-                  className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
+                  className="w-full h-full object-cover absolute rounded-2xl bg-center bg-cover duration-500 "
                 ></div>
                 {/* Left Arrow */}
                 <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                  <BsChevronCompactLeft onClick={prevSlide} size={30} />
+                  <BsChevronCompactLeft onClick={prevSlide} size={30}  />
                 </div>
                 {/* Right Arrow */}
                 <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
@@ -159,7 +160,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 justify-center  gap-y-5  mt-[3%] ">
+              <div className="grid grid-cols-2 justify-center  gap-y-5  mt-[7%] ">
                 <div className="text-black">
                   <img
                     src={logo1}

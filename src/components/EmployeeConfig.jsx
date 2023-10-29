@@ -4,29 +4,16 @@ import ModalEmp from "./ModalEmp";
 
 const EmployeeConfig = ({
   empData,
-  HandleChangePass,
-  uncheck,
+  handleChange,
   selectedData,
-  setUncheck,
+  setempdetailed,
 }) => {
   const [showmodal, setShowModal] = useState(false);
   const handleclosemodalprofile = () => setShowModal(false);
 
-  const [selected, setSelected] = useState([]);
-
-  const HandleChange = (e, index) => {
-    HandleChangePass(e, empData.id, empData);
-  };
-
   useEffect(() => {
-    for (let index = 0; index < selectedData.length; index++) {
-      if (selectedData[index].empData.id === empData.id) {
-        document.getElementById(empData.id).checked = true;
-      } else {
-        document.getElementById(empData.id).checked = false;
-      }
-    }
-  }, [uncheck]);
+   
+  }, [selectedData, empData]);
 
   const HandleArchive = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
@@ -86,17 +73,22 @@ const EmployeeConfig = ({
       .eq("id", empData.id);
   };
 
+ 
+
+    
+  
   return (
     <div className="flex bg-slate-200  mt-2" onClick={() => updateNotif()}>
       <div className="grid grid-cols-4 w-[100%] bg-slate-100 gap-5">
         <div className=" flex text-md ">
           <input
             type="checkbox"
-            id={empData.id}
-            onChange={(e) => HandleChange(e, empData.id)}
-            value={empData.FullName}
+            // id={empData.Name}
+            onChange={handleChange}
+            value={empData.Name}
             className="mr-1 mb-7 flex"
-          ></input>
+          />
+          {/* <button onClick={() => click()}>asd</button> */}
           <div>{empData.Name}</div>
         </div>
         <div className="text-md  ml-[20%]">{empData.Position}</div>

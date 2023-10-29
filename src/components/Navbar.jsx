@@ -16,7 +16,7 @@ import { RiProfileLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
-const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard }) => {
+const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemailcoord }) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
   const [showModalRequest, setShowRequest] = useState(false);
@@ -182,6 +182,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard }) => {
             .eq("token", window.localStorage.getItem("token"))
             .single();
           await setEmail(getterCoordinator);
+          setemailcoord(getterCoordinator)
           setCoordinator(true);
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
@@ -193,6 +194,8 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard }) => {
             .eq("Email", email)
             .single();
           await setEmail(getterCoordinator);
+          setemailcoord(getterCoordinator)
+          
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })

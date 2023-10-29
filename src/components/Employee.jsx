@@ -4,23 +4,19 @@ import EmployeeConfig from "./EmployeeConfig";
 import supabase from "./supabaseClient";
 import { useEffect } from "react";
 import ModalDeploy from "./ModalDeploy";
-
+import EmployeeStatus from "./EmployeeStatus.json";
 const Employee = ({ email }) => {
-  const [view, setView] = useState(false);
+  
 
   const [search1, setSearch1] = useState("");
   const [employee, setEmployee] = useState();
   const [showModalDeploy, setShowModalDeploy] = useState(false);
-
+  const [empdetailed,setempdetailed] = useState()
   const [selected, setSelected] = useState([]);
 
-  const [selectstatus, setSelectstatus] = useState("");
-  // const [deploy, setUndeploy] = useState({})
-
-  const handledeploy = (event) => {
-    setSelectstatus(event.target.value);
-  };
-
+  const [empStatus, setempstatus] = useState("Employee Status");
+  const [selectednames, setselectednames] = useState("");
+  
   useEffect(() => {
     FetchEmployee();
     const EmployeeList = supabase
@@ -33,25 +29,38 @@ const Employee = ({ email }) => {
         }
       )
       .subscribe();
-  }, []);
+  }, [empStatus]);
 
   const FetchEmployee = async () => {
-    const { data: employeee } = await supabase.from("Employee_List").select();
-    setEmployee(employeee);
+    if (empStatus === "Employee Status") {
+      const { data: employeee } = await supabase.from("Employee_List").select();
+      setEmployee(employeee);
+    } else {
+      const { data: empstats } = await supabase
+        .from("Employee_List")
+        .select()
+        .eq("status", empStatus);
+      setEmployee(empstats);
+    }
   };
 
-  function HandleChange(e, index, empData) {
-    const activedata = document.getElementById(index).checked;
+  function HandleChange(event) {
+    const { value,  checked } = event.target;
 
-    if (activedata === true) {
-      setSelected((oldData) => [...oldData, { empData }]);
-    } else if (activedata !== true) {
-      const updatedItems = selected.filter(
-        (item) => item.empData.Name !== e.target.value
-      );
-      setSelected(updatedItems);
+    if (checked) {
+      setSelected((pre) => [...pre, value]);
+      setselectednames((pre) => [...pre, value]);
+    } else {
+      setSelected((pre) => {
+        return [...pre.filter((test) => test !== value )];
+      });
+      setselectednames((pre) => {
+        return [...pre.filter((test) => test !== value )];
+      });
     }
   }
+  
+  
 
   return (
     <div className=" ">
@@ -71,26 +80,14 @@ const Employee = ({ email }) => {
             Deploy
           </button>
           <div className="text-black gap-2">
-            <input
-              type="radio"
-              id="true"
-              name="choose"
-              value="true"
-              onChange={handledeploy}
-              checked={selectstatus === "true"}
-              className="ml-4 "
-            />
-            Deployed
-            <input
-              type="radio"
-              id="false"
-              name="choose"
-              value="false"
-              onChange={handledeploy}
-              checked={selectstatus === "false"}
-              className="ml-4 "
-            />
-            Undeployed
+            <select
+              className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              onChange={(e) => setempstatus(e.target.value)}
+            >
+              {EmployeeStatus.map((status) => (
+                <option key={status.id}> {status.Employestatus}</option>
+              ))}
+            </select>
           </div>
         </div>
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
@@ -106,30 +103,19 @@ const Employee = ({ email }) => {
           {employee && (
             <div className="h-[520px] overflow-y-auto">
               {employee
+                .sort((a, b) => (a.status <= b.status ? 1 : -1))
                 .filter((val) => {
                   try {
-                    if (selectstatus) {
-                      return (
-                        val.status.toLowerCase() === selectstatus.toLowerCase()  
-                          // val.Position.toLowerCase().includes(search1.toLowerCase()) 
-                        // val.FullName.toLowerCase().includes(search1.toLowerCase())
-                      );
-                    } else {
-                      if (search1 === "") {
-                        return val;
-                      } else if (
-                        val.Position.toLowerCase().includes(
-                          search1.toLowerCase()
-                        )
-                      ) {
-                        return val;
-                      } else if (
-                        val.FullName.toLowerCase().includes(
-                          search1.toLowerCase()
-                        )
-                      ) {
-                        return val;
-                      }
+                    if (search1 === "") {
+                      return val;
+                    } else if (
+                      val.Position.toLowerCase().includes(search1.toLowerCase())
+                    ) {
+                      return val;
+                    } else if (
+                      val.Name.toLowerCase().includes(search1.toLowerCase())
+                    ) {
+                      return val;
                     }
                   } catch (error) {}
                 })
@@ -137,8 +123,10 @@ const Employee = ({ email }) => {
                   <EmployeeConfig
                     key={empData.id}
                     empData={empData}
-                    HandleChangePass={HandleChange}
+                    handleChange={HandleChange}
                     selectedData={selected}
+                    setselectednames={selectednames}
+                    // setempdetailed={setempdetailed}
                   />
                 ))}
             </div>
@@ -150,7 +138,8 @@ const Employee = ({ email }) => {
         isCloseDeploy={() => setShowModalDeploy(false)}
         Deploy={employee}
         DataSelected={selected}
-        setDataSelected={setSelected}
+        selectednames={selectednames}
+        
       />
     </div>
   );

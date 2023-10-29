@@ -199,6 +199,40 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
             {coordInfo.Position_References}
           </div>
         </div>
+        <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
+          <label className="flex font-bold">SSS No:</label>
+          <input
+            className=" pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`"
+            placeholder="SSS Number"
+            value={coordInfo.SSS_Number}
+            type="text"
+            id="sss_number"
+          ></input>
+          <label className="flex font-bold">Phil Health No:</label>
+          <input
+            className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            placeholder="Phil Heatlh Number"
+            value={coordInfo.Phil_Health_No}
+            type="text"
+            id="phil_health_no"
+          ></input>
+          <label className="flex font-bold">Pag-IBIG No:</label>
+          <input
+            className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            placeholder="Pag-IBIG Number"
+            value={coordInfo.Pag_Ibig_No}
+            id="pag_ibig_no"
+            type="text"
+          ></input>
+          <label className="flex font-bold">Tin No:</label>
+          <input
+            className=" pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            placeholder="Tin Number"
+            value={coordInfo.Tin_Number}
+            id="tin_no"
+            type="text"
+          ></input>
+        </div>
       </div>
     </div>
   );

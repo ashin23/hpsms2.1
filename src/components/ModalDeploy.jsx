@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from "react";
 import supabase from "./supabaseClient";
 
-function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
-  const [data, setData] = useState([]);
-  const [emailSend, setEmailSend] = useState(
-    window.localStorage.getItem("email")
-  );
+function ModalDeploy({
+  isOpenDeploy,
+  isCloseDeploy,
+  Deploy,
+  DataSelected,
+  selectednames,
+}) {
+  const [name, setname] = useState([]);
   const [dataEmp, setdataEmp] = useState([]);
   const [datadisplay, setdatadisplay] = useState();
   const [email, setEmail] = useState();
 
   useEffect(() => {
-    setData(DataSelected);
+    setname(DataSelected);
   }, [DataSelected, Deploy]);
 
   useEffect(() => {
     userList();
   }, []);
+
   const HandleSendCoordinator = async () => {
     const { data: coordinator } = await supabase
       .from("EmployeeListCoordinator")
       .insert([
         {
           Email: datadisplay,
-          Data: data,
+          Data: name,
         },
       ]);
+    for (let index = 0; index < selectednames.length; index++) {
+      const { data: employee } = await supabase
+        .from("Employee_List")
+        .update({
+          status: "Deploy",
+        })
+        .eq("Name", name);
+    }
   };
 
   const userList = async () => {
@@ -51,7 +63,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
         Cancel
       </button>
       <div className=" grid grid-cols-1 justify-center h-[65%] w-[30%] bg-white p-10 gap-3 rounded-2xl">
-        <label className=" flex pl-9 pr-40 py-1 ml-2 my-1 h-[70%] text-slate-100 text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label className=" flex pl-9 pr-40 py-5 ml-2 my-1 h-[50%] text-slate-100 text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Selected Employees
         </label>
         <div className="grid grid-cols-1 w-[30%] h-[20%]">
@@ -62,17 +74,12 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
             Send
           </button>
         </div>
-
-        {data.length > 0 ? (
-          <ul>
-            {data.map((item) => (
-              <li
-                key={item.id}
-                className="justify-between flex bg-slate-300 p-3 mt-1 rounded-md"
-              >
-                {item.empData.Name}
-              </li>
-            ))}
+        
+        {name.length > 0 ? (
+          <ul className="grid grid-cols">
+            <li className="bg-slate-400 ">
+              {name}
+            </li>
           </ul>
         ) : (
           "No Data Selected"

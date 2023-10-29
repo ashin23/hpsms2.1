@@ -18,7 +18,9 @@ function App() {
   const [applicant, setApplicant] = useState();
   const [Hrdashboard, setHrdasboard] = useState();
   const [admindashboard, setadmindasboard] = useState();
+  const [emailcoord, setemailcoord] = useState();
 
+  
   return (
     <div className="App ">
       <header className=" z-50 fixed w-screen top-0 h-fit">
@@ -27,9 +29,10 @@ function App() {
           applicant1={setApplicant}
           hrdashboard={setHrdasboard}
           admindashboard={setadmindasboard}
+          setemailcoord={setemailcoord}
         />
       </header>
-
+    
       <main className="flex-grow z-10 bg-white w-full">
         <Routes>
           <Route
@@ -46,7 +49,11 @@ function App() {
           <Route path="/Applicant" element={<Applicant />} />
           <Route path="/Quelist" element={<Quelist />} />
           <Route path="/Employee" element={<Employee />} />
-          <Route path="/EmployeeCoord" element={<EmployeeCoord />} />
+          <Route
+            path="/EmployeeCoord"
+            element={
+            <EmployeeCoord email={emailcoord} />}
+          />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Archive" element={<Archive />} />
           <Route path="/AccountSetting" element={<AccountSetting />} />

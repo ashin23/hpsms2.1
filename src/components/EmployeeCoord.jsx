@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import CoordConfif from "./CoordConfif";
 
-const EmployeeCoord = () => {
+const EmployeeCoord = ({ email1 }) => {
   const [coordinator, setCoordinator] = useState([]);
 
   const [search, setSearch1] = useState("");
@@ -24,11 +24,12 @@ const EmployeeCoord = () => {
   }, []);
 
   const fetchCoordinator = async () => {
-    var email = window.localStorage.getItem("email");
+    var email2 = window.localStorage.getItem("email", email2);
     const { data: coordinatordata } = await supabase
       .from("EmployeeListCoordinator")
-      .select("*")
-      .eq("Email", email);
+      .select()
+      .eq("Email", email2);
+
     setCoordinator(coordinatordata);
   };
 
@@ -52,29 +53,7 @@ const EmployeeCoord = () => {
             {coordinator && (
               <div className="h-[520px] overflow-y-auto">
                 {coordinator.map((e) => (
-                  <div> 
-                    {e.Data.filter((val) => {
-                      try {
-                        if (search === "") {
-                          return val;
-                        } else if (
-                          val.empData.Email.toLowerCase().includes(
-                            search.toLowerCase()
-                          )
-                        ) {
-                          return val;
-                        } else if (
-                          val.empData.Position.toLowerCase().includes(
-                            search.toLowerCase()
-                          )
-                        ) {
-                          return val;
-                        }
-                      } catch (error) {}
-                    }).map((ef) => (
-                      <CoordConfif key={ef.empData} CoordEmp={ef.empData} />
-                    ))}
-                  </div>
+                  <CoordConfif key={e.id} CoordEmp={e.Data} />
                 ))}
               </div>
             )}

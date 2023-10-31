@@ -101,30 +101,30 @@ const PostJob = ({ isPost, isPostClose }) => {
     justify-center items-center top-50 flex  "
     >
       
-      <div className="bg-white h-[550px] w-[75%]   rounded-md shadow-2xl shadow-gray-500  ">
-       <label className="flex pl-9 pr-56 py-3 ml-2 my-4  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">Post a Job</label>
+      <div className="bg-white h-[75%] w-[100%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
+       <label className="flex pl-9 pr-56 py-3 ml-2 my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">Post a Job</label>
        <div className="p-2">
-        <div className="  grid grid-cols-4 gap-3 p-1 overflow-y-auto rounded-md">
-          <label className="justify-center flex font-semibold">Position</label>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-4 p-5 md:p-2 md:m-1 md:gap-3  overflow-y-auto rounded-md ">
+          <label className="justify-center flex font-semibold h-fit text-md md:text-[20px] text-[17px] ">Position</label>
           <select
-            className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            className=" pr-3 py-2 w-[100%]  text-md md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             onChange={(e) => setPositions(e.target.value)}
           >
             {position.map((positions) => (
               <option key={positions.id}> {positions.position}</option>
             ))}
           </select>
-          <label className="justify-center flex font-semibold">Location</label>
+          <label className="justify-center text-md h-fit flex  font-semibold md:text-[20px] text-[17px]">Location</label>
           <input
             onChange={(e) => setLocation(e.target.value)}
             className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Location"
             type="text"
           ></input>
-          <label className="justify-center flex font-semibold">Age Requirements</label>
+          <label className="justify-center flex font-semibold text-md h-fit md-text-[20px] text-[17px]">Age Requirements</label>
           <input
             onChange={(e) => setAge(e.target.value)}
-            className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            className="pl-4 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Age"
             type="text"
           ></input>

@@ -33,7 +33,7 @@ function App() {
         />
       </header>
     
-      <main className="flex-grow z-10 bg-white w-full">
+      <main className="flex-grow z-10 bg-white  w-screen h-screen">
         <Routes>
           <Route
             path="/"

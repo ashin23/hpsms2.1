@@ -126,14 +126,14 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
           <div className="">
             <div className="sticky top-1 flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
               <input
-                className="top-96 w-[750px] z-50 mb-10 h-16 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="top-96 w-[90%] md:w-[750px] z-50 mb-10 h-[30%] md:h-16 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Search Here..."
                 type="search"
                 onChange={(e) => setSearch(e.target.value)}
               ></input>
             </div>
-            <div className=" h-[700px]  overflow-x-auto bg-slate-100 p-10  ">
-              <div className="max-w-[1500px] h-[760px] w-full m-auto py-16 px-4 relative group">
+            <div className=" h-[700px]  w-fit md:w-[100%] overflow-x-auto bg-slate-100 p-5 md:p-10">
+              <div className="max-w-[1500px] md:w-[100%]  h-[50%] md:h-[760px] w-[100%] md:m-auto  relative">
                 <div
                   style={{
                     backgroundImage: `url(${slides[currentIndex].url})`,
@@ -160,20 +160,20 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 justify-center  gap-y-5  mt-[7%] ">
+              <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  mt-[7%] ">
                 <div className="text-black">
                   <img
                     src={logo1}
                     className="
-          ml-[10%]
-          h-[90%] w-[70%] rounded-md "
+                   md:ml-[10%]
+                   h-[100%] w-[100%] rounded-md md:h-[90%] md:w-[70%] "
                   ></img>
                 </div>
-                <div className="text-left">
+                <div className=" md:text-left">
                   <p className="text-blue-700 text-[50px] font-semibold mb-[2%]">
                     About Hotel Pro Services
                   </p>
-                  <p className="mr-[10%] text-justify">
+                  <p className="mr-[10%] text-justify  ">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Quam, ex, quia, nemo quo voluptatibus totam aliquam eum
                     accusamus quisquam unde repudiandae culpa dignissimos
@@ -191,7 +191,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 text-[50px] font-semibold mt-[5%] text-blue-700 ml-[5%]">
+              <div className="grid grid-cols-1  md:grid-cols-3 text-[50px] font-semibold mt-[5%] text-blue-700 ml-[5%]">
                 <div>
                   <h1>300M</h1>
                   <p className="text-[20px]">Unique monthly visitors</p>
@@ -206,12 +206,12 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 mt-[10%]">
+              <div className="grid grid-cols-1 md:grid-cols-2 mt-[10%]">
                 <div>
-                  <h1 className="text-blue-700 text-[50px] font-semibold text-left ml-[10%]">
+                  <h1 className="text-blue-700 text-[50px] font-semibold md:text-left md:ml-[10%]">
                     Our People
                   </h1>
-                  <p className="text-justify ml-[10%] mt-[5%]">
+                  <p className="text-justify md:ml-[10%] mt-[5%]">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Corporis, iusto. Enim rem debitis amet impedit odio, alias
                     quidem veniam dignissimos, dolorem itaque officiis
@@ -232,22 +232,22 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 <div className="text-black">
                   <img
                     src={logo3}
-                    className="h-[90%] w-[70%] rounded-md ml-[21%] mt-10"
+                    className="h-[100%] w-[100%] md:h-[90%] md:w-[70%] rounded-md md:ml-[21%] md:mt-10 mt-5"
                   ></img>
                 </div>
 
                 <div className="text-black mb-[5%]">
                   <img
                     src={logo4}
-                    className="h-[90%] w-[70%] rounded-md ml-20 mt-10"
+                    className="md:h-[90%] md:w-[70%] rounded-md md:ml-20 mt-10"
                   ></img>
                 </div>
 
-                <div className="ml-20 mr-20 mb-[5%]">
+                <div className="md:ml-20 md:mr-20 md:mb-[5%] mb-[5%]">
                   <h1 className="text-[50px] font-semibold text-blue-700 mb-10 text-left mt-[5%]">
                     Our LeaderShip
                   </h1>
-                  <p className="text-justify ">
+                  <p className="text-justify">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Optio ex quibusdam vero vel amet. Doloribus ex alias
                     inventore tenetur, ipsam dignissimos quam eveniet vel magni
@@ -262,15 +262,17 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     blanditiis aut distinctio laudantium, placeat numquam at
                     dignissimos quas tenetur eos fugit officia molestiae.
                   </p>
-                  <button className="rounded-xl text-blue-100 font-bold bg-blue-700 h-[12%] w-[20%]  p-[2%] mr-[90%] mt-[3%]">
+                  <button className="
+                  h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
+                  rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]">
                     Meet Our Team
                   </button>
                 </div>
               </div>
               {/* right side */}
-              <div className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid grid-cols-2 rounded-md ">
+              <div className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md ">
                 {postJobInfo && (
-                  <div className=" ml-20 pl-20 justify-center    rounded-[60px] rounded-e-none ">
+                  <div className=" md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
                     <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">
                       TO APPLY
                     </h1>
@@ -331,21 +333,21 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           onClick={() => setShowModal(true)}
                           className={`${
                             applicant
-                              ? "ml-[40%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                              ? "ml-[40%] md:w-[100%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                               : "hidden"
                           }`}
                         >
                           APPLY
                         </button>
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1  md:grid-cols-3 gap-2 md:gap-3 ">
                           <button
                             onClick={() => setEdit(!edit)}
                             className={`${
                               Hrdashboard === "HR"
-                                ? "text-white w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+                                ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
                                 : `${
                                     admindashboard
-                                      ? "text-white w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                      ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                                       : "hidden"
                                   }`
                             }`}
@@ -356,10 +358,10 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             onClick={() => handleUpdate()}
                             className={`${
                               Hrdashboard === "HR"
-                                ? "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 "
+                                ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 "
                                 : `${
                                     admindashboard
-                                      ? "focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                      ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                       : "hidden"
                                   }`
                             }`}
@@ -370,10 +372,10 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             onClick={() => handleDelete()}
                             className={`${
                               Hrdashboard === "HR"
-                                ? "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-5 mr-3 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                 : `${
                                     admindashboard
-                                      ? "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-3 mr-3 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                      ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                       : "hidden"
                                   }`
                             }`}

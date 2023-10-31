@@ -6,7 +6,6 @@ import supabase from "./supabaseClient";
 import CivilStatus from "./CivilStatus.json";
 import { v4 as uuidv4 } from "uuid";
 
-
 const Register = ({ isRegister, isRegisterClose }) => {
   const [email, setEmail] = useState("");
 
@@ -54,7 +53,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [pag_Ibig_No, setPag_Ibig_No] = useState("");
   const [tin_No, setTin_No] = useState("");
 
-  const [files, setFiles] = useState("")
+  const [files, setFiles] = useState("");
   const Notify = () => {
     toast.success("Account create succesfully!", {
       position: "top-center",
@@ -262,10 +261,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
             Tin_Number: tin_No,
           },
         ]);
-        const {data1,error1} = await supabase
-          .storage
+        const { data1, error1 } = await supabase.storage
           .from("Files")
-          .upload(email + "/" + uuidv4(), files )
+          .upload(email + "/" + uuidv4(), files);
 
         Notify();
       } else if (password !== password2) {
@@ -275,32 +273,38 @@ const Register = ({ isRegister, isRegisterClose }) => {
     }
   };
 
-  
-
   if (!isRegister) return null;
   return (
     <div
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <button
-        onClick={() => isRegisterClose()}
-        className="top-[100px] right-[190px] absolute focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Cancel
-      </button>
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] rounded-3xl  py-6 px-14 shadow-2xl">
+      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
         <div className="">
-          <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          <label
+            className="flex
+          md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          >
             REGISTER
           </label>
-          <button
-            onClick={() => HandleCreate()}
-            className="text-white ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Submit
-          </button>
-          <div className="grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-2 gap-5 md:w-[20%] w-[100%]">
+            <button
+              onClick={() => isRegisterClose()}
+              className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => HandleCreate()}
+              className="text-white ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
             <label className="font-bold">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
@@ -345,10 +349,14 @@ const Register = ({ isRegister, isRegisterClose }) => {
               Check Code
             </button>
           </div>
-          <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          >
             PROFILE
           </label>
-          <div className="grid grid-cols-6 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-1  md:grid-cols-6 gap-4 gap-y-9 mb-3 p-2">
             <label className="flex font-bold">Name</label>
             <input
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -415,7 +423,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-1  md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
             <label className="flex font-bold">Name of Mother</label>
             <input
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -475,10 +483,14 @@ const Register = ({ isRegister, isRegisterClose }) => {
               type="text"
             ></input>
           </div>
-          <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          >
             EDUCATIONAL BACKGROUND
           </label>
-          <div className="grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
             <label className="flex font-bold">College</label>
             <input
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -550,54 +562,83 @@ const Register = ({ isRegister, isRegisterClose }) => {
               type="text"
             ></input>
           </div>
-          <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          >
             EMPLOYMENT HISTORY
           </label>
           <label className="flex ml-10 text-[15px] ">
             (from recent to backwards)
           </label>
-          <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold ml-[30%]">Inclusive Dates</label>
-            <label className="flex font-bold ml-[30%]">Company/Employer</label>
-            <label className="flex font-bold ml-[30%]">Position</label>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setInclusive_Dates(e.target.value)}
-            ></textarea>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setCompany_History(e.target.value)}
-            ></textarea>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setPosition_History(e.target.value)}
-            ></textarea>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
+            <div>
+              <label className="flex justify-center font-bold md:ml-[30%]">Inclusive Dates</label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setInclusive_Dates(e.target.value)}
+              ></textarea>
+            </div>
+            <div>
+              <label className="flex justify-center font-bold md:ml-[30%]">
+                Company/Employer
+              </label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setCompany_History(e.target.value)}
+              ></textarea>
+            </div>
+            <div>
+              <label className="flex justify-center font-bold md:ml-[30%]">Position</label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setPosition_History(e.target.value)}
+              ></textarea>
+            </div>
           </div>
-          <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          >
             CHARACTER REFERENCES
           </label>
-          <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold ml-[30%]">Names</label>
-            <label className="flex font-bold ml-[30%]">Company/Employer</label>
-            <label className="flex font-bold ml-[30%]">Position</label>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setName_References(e.target.value)}
-            ></textarea>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setCompany_References(e.target.value)}
-            ></textarea>
-            <textarea
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="text"
-              onChange={(e) => setPosition_References(e.target.value)}
-            ></textarea>
+
+          <div className="grid grid-cols-1  md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
+            <div className="">
+              <label className="flex justify-center font-bold md:ml-[30%]">
+                Names
+              </label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setName_References(e.target.value)}
+              ></textarea>
+            </div>
+            <div>
+              <label className="flex justify-center font-bold md:ml-[30%]">
+                Company/Employer
+              </label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setCompany_References(e.target.value)}
+              ></textarea>
+            </div>
+            <div>
+              <label className="flex justify-center font-bold md:ml-[30%]">
+                Position
+              </label>
+              <textarea
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="text"
+                onChange={(e) => setPosition_References(e.target.value)}
+              ></textarea>
+            </div>
           </div>
           <label className="flex font-bold ">Upload Image</label>
           <label
@@ -616,28 +657,28 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
             <label className="flex font-bold">SSS No:</label>
             <input
-              className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="SSS Number"
               onChange={(e) => setSSS_Number(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Phil Health No:</label>
             <input
-              className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Phil Heatlh Number"
               onChange={(e) => setPhil_Health_No(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Pag-IBIG No:</label>
             <input
-              className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Pag-IBIG Number"
               onChange={(e) => setPag_Ibig_No(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Tin No:</label>
             <input
-              className="pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Tin Number"
               onChange={(e) => setTin_No(e.target.value)}
               type="text"

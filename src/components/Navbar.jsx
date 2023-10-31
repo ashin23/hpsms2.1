@@ -16,7 +16,13 @@ import { RiProfileLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
-const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemailcoord }) => {
+const Navbar = ({
+  setEmailSend,
+  applicant1,
+  hrdashboard,
+  admindashboard,
+  setemailcoord,
+}) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
   const [showModalRequest, setShowRequest] = useState(false);
@@ -40,7 +46,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
   const [admin, setAdmin] = useState(false);
   const generatedToken = uuidv4();
   const [email, setEmail] = useState("");
-
+  // const [design,setdesign] = useState("")
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       HandleCheckerUser();
@@ -95,6 +101,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
       .subscribe();
   }, []);
 
+  useEffect(() => {}, []);
   async function HandleCheckerUser() {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
@@ -182,7 +189,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
             .eq("token", window.localStorage.getItem("token"))
             .single();
           await setEmail(getterCoordinator);
-          setemailcoord(getterCoordinator)
+          setemailcoord(getterCoordinator);
           setCoordinator(true);
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
@@ -194,8 +201,8 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
             .eq("Email", email)
             .single();
           await setEmail(getterCoordinator);
-          setemailcoord(getterCoordinator)
-          
+          setemailcoord(getterCoordinator);
+
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })
@@ -291,7 +298,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
             .eq("token", window.localStorage.getItem("token"))
             .single();
           if (getterAdmin) await setEmail(getterAdmin);
-          admindashboard(getterAdmin)
+          admindashboard(getterAdmin);
           setAdmin(true);
           setHR(true);
 
@@ -305,7 +312,7 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
             .eq("Email", email)
             .single();
           if (getterAdmin) await setEmail(getterAdmin);
-          admindashboard(getterAdmin)
+          admindashboard(getterAdmin);
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })
@@ -393,29 +400,40 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
     }
   }
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsMobile(true);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+  }, [email]);
+
   return (
-    <div className="h-2 w-full">
-      <div className="flex gap-5 bg-[#162388] text-white font-bold text-lg h-[83px] py-2 ">
-        <div className="flex place-content-center justify-between ">
-          <p className="ml-5 pt-3 text-[50px]">HPSMS</p>
-          <img src={logo} alt="/" className="h-[50px] w-[70px] pt-3 ml-3"></img>
+    <div className="h-2 ">
+      <div className="flex   gap-5 bg-[#162388] text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
+        <div className=" md:w-[200px] w-[130px] flex gap-1 items-center md:font-medium  text-sm ">
+          <img src={logo} alt="/" className="h-[40px] w-[80px] ml-3 "></img>
+          <p className=" text-2xl  md:text-4xl md:flex hidden">HPSMS</p>
         </div>
 
-        <div className="flex w-[80%] p-4 md:text-lg text-sm  ml-[10%]  rounded-lg text-white font-mono gap-4 ">
+        <div className=" w-[90%]  justify-center flex p-4 md:text-lg text-sm  rounded-lg text-white font-mono gap-4 items-center">
           <Link
             to="/"
             className={`${
               applicant || coordinator || hr || emp || admin
-                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit "
                 : "hidden"
             } `}
           >
-            <AiFillHome className="mt-1 text-[20px]" /> Home
+            <AiFillHome className="mt-1 text-[20px]  " />
+            <label className="md:flex hidden">Home</label>
           </Link>
 
           <div>
             <div
-              onClick={() => {
+              onMouseEnter={() => {
                 setMenu(!menu);
               }}
               onMouseLeave={() => setMenu(!menu)}
@@ -437,8 +455,10 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
               {notifarch !== true && (
                 <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
               )}
+
               <PiBooks className="mt-1 text-[20px]" />
-              Module
+              <label className="md:flex hidden">Module</label>
+
               <ul
                 className={`${
                   menu
@@ -541,7 +561,8 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
                 : "hidden"
             }`}
           >
-            <MdManageAccounts className="mt-1 text-[20px]" /> Account Managent
+            <MdManageAccounts className="mt-1 text-[20px]" />
+            <label className="md:flex hidden">Account Management</label>
           </button>
 
           {/* Coordinator */}
@@ -586,8 +607,8 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
                 : "hidden"
             }`}
           >
-            {" "}
-            <MdPostAdd className="mt-1 text-[20px]" /> Post a Job
+            <MdPostAdd className="mt-1 text-[20px]" />{" "}
+            <label className="md:flex hidden">Post A Job</label>
           </button>
           <button
             onClick={() => setModalProfile(true)}
@@ -598,16 +619,26 @@ const Navbar = ({ setEmailSend, applicant1, hrdashboard, admindashboard,setemail
             }`}
           >
             {" "}
-            <RiProfileLine className="mt-1 text-[20px]" /> Profile
+            <RiProfileLine className="mt-1 text-[20px]" />
+            <label className="md:flex hidden">Profile</label>
           </button>
         </div>
-        <div className="absolute right-10  hover:bg-blue-600 translate-x-2 p-2 rounded-md gap-5 h-fit">
-          <div id="signIn">
-            <button onClick={() => setModalSignin(true)}>Sign In</button>
-          </div>
-          <div id="signOut">
-            <button onClick={() => handleSignOut()}>Sign Out</button>
-          </div>
+        <div className="    rounded-md items-center flex">
+          <button
+            id="signIn"
+            onClick={() => setModalSignin(true)}
+            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3"
+          >
+            Sign In
+          </button>
+
+          <button
+            id="signOut"
+            onClick={() => handleSignOut()}
+            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 

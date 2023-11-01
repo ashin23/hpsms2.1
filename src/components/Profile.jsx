@@ -10,7 +10,7 @@ import Fileviewer from "./Fileviewer";
 const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   const [email, setEmail1] = useState("");
   const [allow, setAllow] = useState(false);
-  
+
   const [name, setName] = useState("");
   const [mobile_No, setMobile_No] = useState("");
   const [age, setAge] = useState("");
@@ -53,10 +53,8 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
 
   useEffect(() => {
     getter();
-    Handlefetchfile()
+    Handlefetchfile();
   }, [applicant]);
-
- 
 
   const Notify = () => {
     toast.success("Updated Successfully", {
@@ -116,9 +114,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   };
 
   const Handlefetchfile = async () => {
-    const { data: file } = await supabase.storage
-      .from("Files")
-      .list(email);
+    const { data: file } = await supabase.storage.from("Files").list(email);
     setFile(file);
   };
   function edit() {
@@ -222,17 +218,17 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <button
-        onClick={() => close()}
-        className="top-[100px] right-[190px] absolute focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Cancel
-      </button>
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] rounded-3xl  py-6 px-14 shadow-2xl ">
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
+        <label
+          className="
+        flex 
+        md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           Profile
         </label>
-        <div className="flex grid-cols-2 gap-20">
+        <div className="flex grid-cols-3 md:gap-15 ">
           <button
             onClick={() => edit()}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -245,18 +241,24 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           >
             Save
           </button>
+          <button
+            onClick={() => close()}
+            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Cancel
+          </button>
         </div>
         <div className="">
-            Photo
-            {file1 && (
-              <div className="">
-                {file1.map((file1) => (
-                  <Fileviewer key={file1.id} file1={file1} Email={email} />
-                ))}
-              </div>
-            )}
-          </div>
-        <div className="grid grid-cols-6 gap-4 gap-y-9 mb-3 p-2">
+          Photo
+          {file1 && (
+            <div className="">
+              {file1.map((file1) => (
+                <Fileviewer key={file1.id} file1={file1} Email={email} />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 gap-y-9 mb-3 p-2 ">
           <label className="flex font-bold">Name</label>
           <input
             className={`${
@@ -359,7 +361,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ))}
           </select>
         </div>
-        <div className="grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+        <div className="grid  grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
           <label className="flex font-bold">Name of Mother</label>
           <input
             className={`${
@@ -451,10 +453,14 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             id="contact_number"
           ></input>
         </div>
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           EDUCATIONAL BACKGROUND
         </label>
-        <div className="grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
           <label className="flex font-bold">College</label>
           <input
             className={`${
@@ -566,85 +572,111 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             type="text"
           ></input>
         </div>
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           EMPLOYMENT HISTORY
         </label>
         <label className="flex ml-10 text-[15px] ">
           (from recent to backwards)
         </label>
-        <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-          <label className="flex font-bold ml-[30%]">Inclusive Dates</label>
-          <label className="flex font-bold ml-[30%]">Company/Employer</label>
-          <label className="flex font-bold ml-[30%]">Position</label>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            disabled="true"
-            id="inclusive_dates"
-            value={inclusive_Dates}
-          ></textarea>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            disabled="true"
-            id="company_history"
-            value={company_History}
-          ></textarea>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            disabled="true"
-            id="position_history"
-            value={position_History}
-          ></textarea>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
+          <div>
+            <label className="flex font-bold ml-[30%]">Inclusive Dates</label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              disabled="true"
+              id="inclusive_dates"
+              value={inclusive_Dates}
+            ></textarea>
+          </div>
+          <div>
+            <label className="flex font-bold ml-[30%]">Company/Employer</label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              disabled="true"
+              id="company_history"
+              value={company_History}
+            ></textarea>
+          </div>
+          <div>
+            <label className="flex font-bold ml-[30%]">Position</label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              disabled="true"
+              id="position_history"
+              value={position_History}
+            ></textarea>
+          </div>
         </div>
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           CHARACTER REFERENCES
         </label>
-        <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-          <label className="flex font-bold ml-[30%]">Names</label>
-          <label className="flex font-bold ml-[30%]">Company/Employer</label>
-          <label className="flex font-bold ml-[30%]">Position</label>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            value={name_References}
-            disabled="true"
-            id="name_references"
-          ></textarea>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            disabled="true"
-            id="company_references"
-            value={company_References}
-          ></textarea>
-          <textarea
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            type="text"
-            disabled="true"
-            id="position_references"
-            value={position_References}
-          ></textarea>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
+          <div>
+            <label className="flex font-bold justify-center md:ml-[30%]">
+              Names
+            </label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              value={name_References}
+              disabled="true"
+              id="name_references"
+            ></textarea>
+          </div>
+          <div>
+            <label className="flex font-bold justify-center md:ml-[30%]">
+              Company/Employer
+            </label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              disabled="true"
+              id="company_references"
+              value={company_References}
+            ></textarea>
+          </div>
+          <div>
+            <label className="flex font-bold justify-center md:ml-[30%]">
+              Position
+            </label>
+            <textarea
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              type="text"
+              disabled="true"
+              id="position_references"
+              value={position_References}
+            ></textarea>
+          </div>
         </div>
         <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
           <label className="flex font-bold">SSS No:</label>
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="SSS Number"
             value={sSS_Number}
             type="text"
@@ -655,7 +687,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Phil Heatlh Number"
             value={phil_Health_No}
             type="text"
@@ -666,7 +698,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Pag-IBIG Number"
             value={pag_Ibig_No}
             disabled="true"
@@ -677,7 +709,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Tin Number"
             value={tin_No}
             disabled="true"

@@ -16,7 +16,7 @@ const ModalReject = ({isOpen42 , isReject42, infoo}) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
   justify-center items-center top-50 flex "
     >
-      <div className="bg-white p-5">
+      <div className="bg-white p-5 rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
       <h1 className="font-bold">Are you sure you want to reject?</h1>
       <h1 className="font-normal pt-2">This data wont be recovered</h1>
       <div
@@ -24,14 +24,14 @@ const ModalReject = ({isOpen42 , isReject42, infoo}) => {
            w-[100%]  justify-center pb-2 gap-2 pt-5"
         >
           <button
-            className="bg-green-600 w-[100%]  px-3 py-2 text-sm   hover:bg-green-400 hover:text-black rounded-lg"
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             onClick={isReject42}
           >
            Cancel
           </button>
           <button 
           onClick={() => Reject()}
-          className="  px-3 py-2 text-sm t  hover:bg-red-400 hover:text-black rounded-lg bg-red-600 w-[100%]">
+          className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
             Reject
           </button>
         </div>

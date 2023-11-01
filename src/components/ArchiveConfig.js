@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ModalEmp from "./ModalEmp";
+import ModalEmp3 from "./ModalEmp3";
 import supabase from "./supabaseClient";
 const ArchiveConfig = ({ e }) => {
   const [showmodal, setShowModal] = useState(false);
@@ -18,7 +18,7 @@ const ArchiveConfig = ({ e }) => {
         onClick={() => setShowModal(true)}
         className={`${
           e.Notifications === "false" && "border-2 border-red-500"
-        } p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-cols-3 w-[120%] bg-slate-100 `}
+        } p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 rounded-md overflow-x-hidden grid grid-cols-3 md:w-[100%] bg-slate-100 `}
       >
         <div className="text-md ">{e.Name}</div>
         <div className="text-md ">{e.Position}</div>
@@ -26,7 +26,7 @@ const ArchiveConfig = ({ e }) => {
         {/* <button className="bg-slate-400  p-2 rounded-md">Restore </button> */}
       </div>
       
-      <ModalEmp Info={e} visible={showmodal} Close={handleclosemodalprofile} />
+      <ModalEmp3 Info={e} visible={showmodal} Close={handleclosemodalprofile} />
     </div>
   );
 };

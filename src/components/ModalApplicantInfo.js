@@ -31,34 +31,36 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
   justify-center items-center top-50 flex overflow-auto "
     >
       {" "}
-      <button
-        onClick={CloseJobInfo}
-        className="top-[100px] right-[190px] absolute focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Cancel
-      </button>
       <div
         onClick={() => Handlefetchfile()}
-        className=" bg-white h-[70%] w-[80%] rounded-3xl  py-6 px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
+        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:py-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
       >
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           Applicant Information
         </label>
-        <div className="grid grid-cols-1 col-span-2">
-          <div className="flex gap-5">
-            <button
-              className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-              onClick={() => setShowAccept(true)}
-            >
-              ACCEPT
-            </button>
-            <button
-              onClick={() => setShowReject(true)}
-              className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
-            >
-              REJECT
-            </button>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 w-[70%] justify-center md:w-[30%]">
+          <button
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            onClick={() => setShowAccept(true)}
+          >
+            ACCEPT
+          </button>
+          <button
+            onClick={() => setShowReject(true)}
+            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
+          >
+            REJECT
+          </button>
+          <button
+            onClick={CloseJobInfo}
+            className=" py-5 px-10 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            Cancel
+          </button>
         </div>
         <div className="">
           Photo
@@ -70,7 +72,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
             </div>
           )}
         </div>
-        <div className="mt-10 text-[110%]  grid grid-cols-4 gap-4 gap-y-9 mb-3 p-2 ">
+        <div className="mt-10 text-[110%] grid-cols-1  grid md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2 ">
           <div className="flex mr-1  font-semibold ">
             Full Name: <p className="font-normal pl-1">{Info.Name}</p>{" "}
           </div>
@@ -127,7 +129,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
             Position: <p className="font-normal pl-1">{Info.Position}</p>
           </div>
         </div>
-        <div className="mt-10 text-[110%]  grid grid-cols-2 gap-4 gap-y-9 mb-3 p-2 ">
+        <div className="mt-10 text-[110%] grid-cols-1  grid md:grid-cols-2 gap-4 gap-y-9 mb-3 p-2 ">
           <div className="flex mr-1  font-semibold">
             Person to Notify Incase of Emergency:{Info.Notify_Emergency}
             <p className="font-normal ml-5"></p>
@@ -180,40 +182,70 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
             <p className="font-normal pl-1">{Info.Elementary_Graduated}</p>
           </div>
         </div>
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           EMPLOYMENT HISTORY
         </label>
         <label className="flex ml-10 text-[15px] ">
           (from recent to backwards)
         </label>
-        <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-          <label className="flex font-semibold ml-[30%]">Inclusive Dates</label>
-          <label className="flex font-semibold ml-[30%]">
-            Company/Employer
-          </label>
-          <label className="flex font-semibold ml-[30%]">Position</label>
-          <div className="flex mr-1  font-normal">{Info.Inclusive_Dates}</div>
-          <div className="flex mr-1  font-normal">{Info.Company_History}</div>
-          <div className="flex mr-1  font-normal">{Info.Position_History}</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
+          <div>
+            <label className="flex font-semibold justify-center md:ml-[30%]">
+              Inclusive Dates
+            </label>
+            <div className="flex mr-1 ml-[30%]  font-normal">
+              {Info.Inclusive_Dates}
+            </div>
+          </div>
+          <div>
+            <label className="flex font-semibold justify-center md:ml-[30%]">
+              Company/Employer
+            </label>
+            <div className="flex mr-1 ml-[30%] font-normal">
+              {Info.Company_History}
+            </div>
+          </div>
+          <div>
+            <label className="flex font-semibold justify-center md:ml-[30%]">
+              Position
+            </label>
+            <div className="flex mr-1 ml-[30%] font-normal">
+              {Info.Position_History}
+            </div>
+          </div>
         </div>
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           CHARACTER REFERENCES
         </label>
-        <div className="grid grid-cols-3 gap-4 gap-y-9 mb-3 p-2 mt-5">
-          <label className="flex font-semibold ml-[30%]">Names</label>
-          <label className="flex font-semibold ml-[30%]">
-            Company/Employer
-          </label>
-          <label className="flex font-semibold ml-[30%]">Position</label>
-          <div className="flex mr-1  font-normal">{Info.Name_References}</div>
-          <div className="flex mr-1  font-normal">
-            {Info.Company_References}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2 mt-5">
+          <div>
+            <label className="flex font-semibold justify-center md:ml-[30%]">Names</label>
+            <div className="flex font-semibold justify-center md:ml-[30%]">{Info.Name_References}</div>
           </div>
-          <div className="flex mr-1  font-normal">
-            {Info.Position_References}
+          <div>
+            <label className="flex font-semibold justify-center md:ml-[30%]">
+              Company/Employer
+            </label>
+            <div className="flex font-semibold justify-center md:ml-[30%]">
+              {Info.Company_References}
+            </div>
+          </div>
+          <div>
+            <label className="flex font-semibold ml-[30%]">Position</label>
+            <div className="flex font-semibold justify-center md:ml-[30%]">
+              {Info.Position_References}
+            </div>
           </div>
         </div>
-        <div className="grid mt-10 gap-2">
+        <div className="grid grid-cols-1 mt-10 gap-2">
           <label className="flex font-semibold ml-[30%] text-[18px]">
             SSS No: {Info.SSS_Number}
           </label>

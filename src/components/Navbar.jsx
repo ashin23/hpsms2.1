@@ -433,7 +433,7 @@ const Navbar = ({
 
           <div>
             <div
-              onMouseEnter={() => {
+              onClick={() => {
                 setMenu(!menu);
               }}
               onMouseLeave={() => setMenu(!menu)}

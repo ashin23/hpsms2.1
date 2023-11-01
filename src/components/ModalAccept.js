@@ -61,7 +61,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       Tin_Number: info.Tin_Number,
       Position: info.Position,
       Notification: "false",
-      status: "Undeploy"
+      status: "Undeploy",
     });
 
     const { error } = await supabase
@@ -129,23 +129,31 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <button
-        onClick={isReject}
-        className="top-[193px] right-[530px] absolute focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Cancel
-      </button>
+      
 
-      <div className="h-[50%] w-[45%]  bg-white p-10  mb-50 rounded-2xl overflow-scroll">
-        <label className="flex pl-9 pr-56 py-3  my-4  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
+        <label
+          className="flex md:text-[30px] h-fit text-xl
+          pl-5 pr-36 py-3 my-4 mb-2
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           Select Schedule of Interview
         </label>
+        <div className="grid-cols-2 grid">
         <button
           onClick={() => InfoEmail()}
           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
           Send to Email
         </button>
+        <button
+        onClick={isReject}
+        className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+      >
+        Cancel
+      </button>
+        </div>
+        
         <div className=" grid grid-cols-1 justify-center gap-3">
           {/* email  */}
           <label className="flex font-bold text-[25px]">Email</label>
@@ -159,13 +167,15 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
             Select date and Time
           </label>
           <input
-            className="pl-5 pr-3 py-2 w-[30%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            className="pl-5 pr-3 py-2 md:w-[30%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             type="datetime-local"
             onChange={(e) => setDate(e.target.value)}
           ></input>
 
           {/* location  */}
-          <label className="flex font-bold text-[20px]">Interview Address</label>
+          <label className="flex font-bold text-[20px]">
+            Interview Address
+          </label>
           <input
             className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             onChange={(e) => setLocation(e.target.value)}

@@ -281,6 +281,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="city_address"
             value={city_Address}
+            onChange={(e) => setCity_Address(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Provincial Address</label>
@@ -292,6 +293,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="provincial_address"
             value={provincial_Address}
+            onChange={(e) => setProvincial_Address(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Mobile No.</label>
@@ -303,6 +305,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="mobile_no"
             value={mobile_No}
+            onChange={(e) => setMobile_No(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Religion</label>
@@ -312,6 +315,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Religion"
             value={religion}
+            onChange={(e) => setReligion(e.target.value)}
             disabled="true"
             id="religion1"
             type="text"
@@ -323,6 +327,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Date of Birth"
             value={date_of_Birth}
+            onChange={(e) => setDate_of_Birth(e.target.value)}
             type="date"
             disabled="true"
             id="date_of_birth"
@@ -334,6 +339,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Age"
             value={age}
+            onChange={(e) => setAge(e.target.value)}
             disabled="true"
             id="age1"
             type="text"
@@ -347,6 +353,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="sex1"
             value={sex}
+            onChange={(e) => setSex(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Civil Status</label>
@@ -354,6 +361,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             value={civil_Status}
             disabled="true"
             id="civil_status"
+            onChange={(e) => setCivil_Status(e.target.value)}
             className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
           >
             {CivilStatus.map((civilstatus) => (
@@ -371,6 +379,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="name_of_mother"
             value={name_of_Mother}
+            onChange={(e) => setName_of_Mother(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Occupation</label>
@@ -380,6 +389,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Occupation"
             value={occupation_Mother}
+            onChange={(e) => setOccupation_Mother(e.target.value)}
             type="text"
             disabled="true"
             id="occupation_mother"
@@ -391,6 +401,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Occupation"
             value={name_of_Father}
+            onChange={(e) => setName_of_Father(e.target.value)}
             disabled="true"
             id="name_of_father"
             type="text"
@@ -402,6 +413,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Name of Father"
             value={occupation_Father}
+            onChange={(e) => setOccupation_Father(e.target.value)}
             type="text"
             disabled="true"
             id="occupation_father"
@@ -417,6 +429,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="notify_emergency"
             value={notify_Emergency}
+            onChange={(e) => setNotify_Emergency(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Relationship</label>
@@ -427,6 +440,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             placeholder="Relationship"
             value={relationship}
             disabled="true"
+            onChange={(e) => setRelationship(e.target.value)}
             id="relationship1"
             type="text"
           ></input>
@@ -438,6 +452,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             placeholder="Address"
             value={emegency_Address}
             disabled="true"
+            onChange={(e) => setEmergency_Address(e.target.value)}
             id="emergency_address"
             type="text"
           ></input>
@@ -449,6 +464,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             placeholder="Number"
             disabled="true"
             value={contact_Number}
+            onChange={(e) => setContact_Number(e.target.value)}
             type="text"
             id="contact_number"
           ></input>
@@ -468,6 +484,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="College"
             value={college}
+            onChange={(e) => setCollege(e.target.value)}
             disabled="true"
             id="college1"
             type="text"
@@ -479,6 +496,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Year Graduated"
             value={college_Graduated}
+            onChange={(e) => setCollege_Graduated(e.target.value)}
             id="college_graduated"
             disabled="true"
             type="text"
@@ -490,6 +508,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Course"
             value={course}
+            onChange={(e) => setCourse(e.target.value)}
             disabled="true"
             id="course1"
             type="text"
@@ -503,6 +522,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="special_course"
             value={special_Course}
+            onChange={(e) => setSpecial_Course(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">Vocational</label>
@@ -512,6 +532,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Year Graduated"
             value={vocational}
+            onChange={(e) => setVocational(e.target.value)}
             disabled="true"
             id="vocational1"
             type="text"
@@ -525,6 +546,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="vocational_graduated"
             value={vocational_Graduated}
+            onChange={(e) => setVocational_Graduated(e.target.value)}
             type="text"
           ></input>
           <label className="flex font-bold">High School</label>
@@ -535,6 +557,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             placeholder="High School"
             disabled="true"
             id="highschool"
+            onChange={(e) => setHighSchool(e.target.value)}
             value={highSchool}
             type="text"
           ></input>
@@ -546,6 +569,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             placeholder="Year Graduated"
             id="highschool_graduated"
             disabled="true"
+            onChange={(e) => setHighSchool_Graduated(e.target.value)}
             value={highSchool_Graduated}
             type="text"
           ></input>
@@ -556,6 +580,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Elementary School"
             value={elementary}
+            onChange={(e) => setElementary(e.target.value)}
             disabled="true"
             id="elementary1"
             type="text"
@@ -569,6 +594,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="elementary_graduated"
             value={elementary_Graduated}
+            onChange={(e) => setElementary_Graduated(e.target.value)}
             type="text"
           ></input>
         </div>
@@ -593,6 +619,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               disabled="true"
               id="inclusive_dates"
               value={inclusive_Dates}
+              onChange={(e) => setInclusive_Dates(e.target.value)}
             ></textarea>
           </div>
           <div>
@@ -605,6 +632,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               disabled="true"
               id="company_history"
               value={company_History}
+              onChange={(e) => setCompany_History(e.target.value)}
             ></textarea>
           </div>
           <div>
@@ -616,6 +644,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               type="text"
               disabled="true"
               id="position_history"
+              onChange={(e) => setPosition_History(e.target.value)}
               value={position_History}
             ></textarea>
           </div>
@@ -638,6 +667,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
               type="text"
               value={name_References}
+              onChange={(e) => setName_References(e.target.value)}
               disabled="true"
               id="name_references"
             ></textarea>
@@ -653,6 +683,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               type="text"
               disabled="true"
               id="company_references"
+              onChange={(e) => setCompany_References(e.target.value)}
               value={company_References}
             ></textarea>
           </div>
@@ -668,6 +699,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               disabled="true"
               id="position_references"
               value={position_References}
+              onChange={(e) => setPosition_References(e.target.value)}
             ></textarea>
           </div>
         </div>
@@ -679,6 +711,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="SSS Number"
             value={sSS_Number}
+            onChange={(e) => setSSS_Number(e.target.value)}
             type="text"
             id="sss_number"
             disabled="true"
@@ -690,6 +723,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Phil Heatlh Number"
             value={phil_Health_No}
+            onChange={(e) => setPhil_Health_No(e.target.value)}
             type="text"
             disabled="true"
             id="phil_health_no"
@@ -700,6 +734,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
               allow ? "bg-blue-200 " : ""
             } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Pag-IBIG Number"
+            onChange={(e) => setPag_Ibig_No(e.target.value)}
             value={pag_Ibig_No}
             disabled="true"
             id="pag_ibig_no"
@@ -712,6 +747,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Tin Number"
             value={tin_No}
+            onChange={(e) => setTin_No(e.target.value)}
             disabled="true"
             id="tin_no"
             type="text"

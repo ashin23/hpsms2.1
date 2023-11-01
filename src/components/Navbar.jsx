@@ -562,7 +562,7 @@ const Navbar = ({
             }`}
           >
             <MdManageAccounts className="mt-1 text-[20px]" />
-            <label className="md:flex hidden">Account Management</label>
+            <label className="md:flex hidden">Account Settings</label>
           </button>
 
           {/* Coordinator */}
@@ -574,7 +574,8 @@ const Navbar = ({
             }`}
             onClick={() => setShowRequest(true)}
           >
-            <MdMarkEmailUnread className="mt-1 text-[20px]" /> Request
+            <MdMarkEmailUnread className="mt-1 text-[20px]" />{" "}
+            <label className="md:flex hidden">Request</label>
           </button>
 
           <Link
@@ -585,7 +586,8 @@ const Navbar = ({
                 : "hidden "
             }`}
           >
-            <AiFillFile className="mt-1 text-[20px]" /> Employee List
+            <AiFillFile className="mt-1 text-[20px]" />
+            <label className="md:flex hidden">Employee List</label>
           </Link>
 
           <button
@@ -596,7 +598,8 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            <FaUpload className="mt-1 text-[20px]" /> Upload
+            <FaUpload className="mt-1 text-[20px]" />
+            <label className="md:flex hidden">Upload</label>
           </button>
 
           <button

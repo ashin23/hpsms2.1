@@ -6,6 +6,15 @@ import logo1 from "./images/waiter1.jpg";
 import logo2 from "./images/hotelproimage.png";
 import logo3 from "./images/hotel.jpg";
 import logo4 from "./images/leadership.png";
+import Solaire from "./images/Solaire_Resort_logo.png";
+import Sheraton from "./images/sheraton.jpg";
+import Marriot from "./images/Marriot.png";
+import Heritage from "./images/Heritage.jpg";
+import newWorld from "./images/newWorld.png";
+import Shangrila from "./images/Shangrila.png";
+import Richmonde from "./images/Richmonde.jpg";
+import Grand from "./images/Grandhyatt.png";
+import Marco from "./images/Marco_Polo_Hotels_Logo.jpg";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
@@ -101,18 +110,25 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     },
   ];
 
+  useEffect(() => {
+    startslider();
+  }, []);
+
+  const startslider = () => {
+     setInterval(() => {
+      nextSlide();
+    }, 10000);
+  };
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex(currentIndex === slides.length - 1 ? 0 : currentIndex + 1);
   };
 
   const nextSlide = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex(currentIndex === 0 ? slides.length - 1 : currentIndex - 1);
+    
   };
 
   const goToSlide = (slideIndex) => {
@@ -132,35 +148,57 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 onChange={(e) => setSearch(e.target.value)}
               ></input>
             </div>
-            <div className=" h-[700px]  w-fit md:w-[100%] overflow-x-auto bg-slate-100 p-5 md:p-10">
-              <div className="max-w-[1500px] md:w-[100%]  h-[50%] md:h-[760px] w-[100%] md:m-auto  relative">
-                <div
-                  style={{
-                    backgroundImage: `url(${slides[currentIndex].url})`,
-                  }}
-                  className="w-full h-full object-cover absolute rounded-2xl bg-center bg-cover duration-500 "
-                ></div>
-                {/* Left Arrow */}
-                <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                  <BsChevronCompactLeft onClick={prevSlide} size={30}  />
+            <div className=" h-[700px]   w-fit md:w-[100%] overflow-x-auto bg-slate-100 p-5 md:p-10">
+              <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
+                Our Partners
+              </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Image slider */}
+                <div className="max-w-[1500px]  md:w-[100%]  h-[900%] md:h-[760px] w-[100%] md:m-auto  relative">
+                  <div
+                    style={{
+                      backgroundImage: `url(${slides[currentIndex].url})`,
+                    }}
+                    className="w-full h-full object-cover absolute rounded-2xl bg-center bg-cover duration-500 "
+                  ></div>
+                  {/* Left Arrow */}
+                  <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                    <BsChevronCompactLeft onClick={prevSlide} size={30} />
+                  </div>
+                  {/* Right Arrow */}
+                  <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                    <BsChevronCompactRight onClick={nextSlide} size={30} />
+                  </div>
+                  <div className="flex top-4 justify-center py-2">
+                    {slides.map((slide, slideIndex) => (
+                      <div
+                        key={slideIndex}
+                        onClick={() => goToSlide(slideIndex)}
+                        className="text-2xl cursor-pointer"
+                      >
+                        <RxDotFilled />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                {/* Right Arrow */}
-                <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                  <BsChevronCompactRight onClick={nextSlide} size={30} />
-                </div>
-                <div className="flex top-4 justify-center py-2">
-                  {slides.map((slide, slideIndex) => (
-                    <div
-                      key={slideIndex}
-                      onClick={() => goToSlide(slideIndex)}
-                      className="text-2xl cursor-pointer"
-                    >
-                      <RxDotFilled />
-                    </div>
-                  ))}
+
+                <div className="grid grid-cols-1 md:grid-cols-3 mt-[95%] md:mt-0 gap-2">
+                  <img src={Solaire} className="w-[100%]" />
+                  <img src={Sheraton} className="w-[100%]" />
+                  <img src={Marriot} className="w-[100%]" />
+                  <img src={Heritage} className="w-[100%]" />
+                  <img src={newWorld} className="w-[100%]" />
+                  <img src={Shangrila} className="w-[100%]" />
+                  <img src={Richmonde} className="w-[100%]" />
+                  <img
+                    src={Grand}
+                    className="md:ml-[20%] md:h-[70%] md:w-[70%]"
+                  />
+                  <img src={Marco} className="w-[100%]" />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  mt-[7%] ">
+              {/* wala pang animation */}
+              <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
                 <div className="text-black">
                   <img
                     src={logo1}
@@ -262,9 +300,11 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     blanditiis aut distinctio laudantium, placeat numquam at
                     dignissimos quas tenetur eos fugit officia molestiae.
                   </p>
-                  <button className="
+                  <button
+                    className="
                   h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
-                  rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]">
+                  rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]"
+                  >
                     Meet Our Team
                   </button>
                 </div>

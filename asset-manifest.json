@@ -1,17 +1,23 @@
 {
   "files": {
-    "main.css": "/hpsms2.1/static/css/main.9ec33a1f.css",
-    "main.js": "/hpsms2.1/static/js/main.a0deaed3.js",
+    "main.css": "/hpsms2.1/static/css/main.7827a598.css",
+    "main.js": "/hpsms2.1/static/js/main.763f6cb7.js",
+    "static/media/Richmonde.jpg": "/hpsms2.1/static/media/Richmonde.7280ba81525688e630fb.jpg",
     "static/media/hotel.jpg": "/hpsms2.1/static/media/hotel.1fc733e12ed7a72fc4c2.jpg",
     "static/media/leadership.png": "/hpsms2.1/static/media/leadership.34d8e91725bfc767a15f.png",
     "static/media/waiter1.jpg": "/hpsms2.1/static/media/waiter1.1595a75547ab13be3b46.jpg",
+    "static/media/Grandhyatt.png": "/hpsms2.1/static/media/Grandhyatt.a634e2dcf7cab5e0e936.png",
+    "static/media/Marco_Polo_Hotels_Logo.jpg": "/hpsms2.1/static/media/Marco_Polo_Hotels_Logo.708269fc9026101daec1.jpg",
+    "static/media/Solaire_Resort_logo.png": "/hpsms2.1/static/media/Solaire_Resort_logo.1d259819411f2126b43e.png",
+    "static/media/Marriot.png": "/hpsms2.1/static/media/Marriot.f629149dba9c067c8c0e.png",
+    "static/media/sheraton.jpg": "/hpsms2.1/static/media/sheraton.698828b1d3b9bcb3e4b8.jpg",
     "static/media/hotelproimage.png": "/hpsms2.1/static/media/hotelproimage.5c95ab314063505ef5fe.png",
     "index.html": "/hpsms2.1/index.html",
-    "main.9ec33a1f.css.map": "/hpsms2.1/static/css/main.9ec33a1f.css.map",
-    "main.a0deaed3.js.map": "/hpsms2.1/static/js/main.a0deaed3.js.map"
+    "main.7827a598.css.map": "/hpsms2.1/static/css/main.7827a598.css.map",
+    "main.763f6cb7.js.map": "/hpsms2.1/static/js/main.763f6cb7.js.map"
   },
   "entrypoints": [
-    "static/css/main.9ec33a1f.css",
-    "static/js/main.a0deaed3.js"
+    "static/css/main.7827a598.css",
+    "static/js/main.763f6cb7.js"
   ]
 }

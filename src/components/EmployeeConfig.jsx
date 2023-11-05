@@ -26,7 +26,7 @@ const EmployeeConfig = ({
 
   return (
     <div className="flex bg-slate-200 w-[100%] mt-2" onClick={() => updateNotif()}>
-      <div className="grid  grid-cols-3 w-[100%] bg-slate-100 md:gap-5">
+      <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] bg-slate-100 md:gap-5">
         <div className=" flex text-md ">
           <input
             type="checkbox"

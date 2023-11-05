@@ -70,11 +70,11 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <div className="bg-white h-[600px] w-[45%] rounded-3xl p-10 shadow-2xl">
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4  text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+      <div className="bg-white h-[75%] w-[100%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto">
+        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Request
         </label>
-        <div className="grid grid-cols-2 gap-3 ">
+        <div className="grid grid-cols-1 gap-5  md:grid-cols-2 md:gap-3 ">
           <label className="justify-center flex font-semibold">Location</label>
           <input
             onChange={(e) => setLocations(e.target.value)}

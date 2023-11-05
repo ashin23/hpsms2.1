@@ -10,7 +10,7 @@ const CoordConfif = ({ CoordEmp }) => {
 
   return (
     <div className="flex bg-[#EEEEEE]  mt-2 ">
-      <div className="p-3 rounded-md  w-[80%]">
+      <div className="p-3 rounded-md  w-[100%]">
         {CoordEmp && (
           <div>
             {CoordEmp.map((e) => (

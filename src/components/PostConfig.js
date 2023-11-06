@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function PostConfig({
   postInfo,
@@ -15,37 +15,37 @@ function PostConfig({
   Pspecializations,
   Pqualification,
   Pjobtype,
-  setInfo
+  setInfo,
 }) {
-
-function HandleClick(){
-    Pposition(postInfo.position)
-    Plocation(postInfo.location)
-    Page(postInfo.age)
-    Pheight(postInfo.height)
-    Psalary(postInfo.salary)
-    Photel(postInfo.hotel)
-    Pdob(postInfo.dob)
-    PjobDescrip(postInfo.jobdescrip)
-    Pcareer(postInfo.carrier)
-    Pexperience(postInfo.experience)
-    Pspecializations(postInfo.specializations)
-    Pqualification(postInfo.qualification)
-    Pjobtype(postInfo.jobtype)
-    setInfo(postInfo)
+  function HandleClick() {
+    Pposition(postInfo.position);
+    Plocation(postInfo.location);
+    Page(postInfo.age);
+    Pheight(postInfo.height);
+    Psalary(postInfo.salary);
+    Photel(postInfo.hotel);
+    Pdob(postInfo.dob);
+    PjobDescrip(postInfo.jobdescrip);
+    Pcareer(postInfo.carrier);
+    Pexperience(postInfo.experience);
+    Pspecializations(postInfo.specializations);
+    Pqualification(postInfo.qualification);
+    Pjobtype(postInfo.jobtype);
+    setInfo(postInfo);
   }
-  
-  
+
   return (
-    
-      <div className="hover:bg-[#78C1F3] bg-[#FBF8FF] p-1 my-8 w-[90%]" onClick={()=> HandleClick()} >
+    <>
+      <button
+        className="hover:bg-[#78C1F3] focus:outline-none focus:border-red-500 focus:ring   border-2 bg-[#FBF8FF] p-5 my-3 w-[90%] "
+        onClick={() => HandleClick()}
+      >
         <h1>Position: {postInfo.position}</h1>
         <p>Location: {postInfo.location}</p>
         <p>Salary: {postInfo.salary}</p>
-        
-      </div>
-    
+      </button>
+    </>
   );
-  }
+}
 
 export default PostConfig;

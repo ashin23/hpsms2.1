@@ -28,7 +28,7 @@ const Displaycoordinator = ({
   return (
     <>
       {empcoord && (
-        <div className="grid grid-cols-2 hover:translate-x-2 hover:p-4 duration-500 mt-1">
+        <div className="grid grid-cols-2 hover:translate-x-2 hover:p-4 duration-500 mt-1 lg:h-10">
           {" "}
           {console.log(empcoord)}
           {empcoord.Name}

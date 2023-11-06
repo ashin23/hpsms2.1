@@ -44,8 +44,8 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     }
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
-
-    var data = await applist.concat(user);
+    const {data: emp} = await supabase.from("Employee_List").select()
+    var data = await applist.concat(user,emp);
     if (data) {
       for (let index = 0; index < data.length; index++) {
         if (data[index].Email === email && data[index].Password === pass) {

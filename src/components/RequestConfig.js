@@ -10,7 +10,7 @@ const RequestConfig = ({ e }) => {
 
   return (
     <div className="flex bg-slate-200  mt-2 " onClick={() => updateNotif()}>
-      <div className="p-3  hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-rows-3 md:grid-cols-6 w-[105%]  ">
+      <div className="p-3  hover:translate-x-2  hover:p-4 duration-500 mt-1 lg:h-10 rounded-md grid grid-rows-3 md:grid-cols-6 w-[105%]  ">
         <div className="text-md md:flex hidden ">{e.Email}</div>
         <div className="text-md ">{e.Position}</div>
         <div className="text-md ">{e.Personel}</div>

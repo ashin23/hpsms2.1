@@ -22,6 +22,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
   async function HandleTransfer() {
     const { info: Quelist } = await supabase.from("Queuing_List").insert({
       Email: info.Email,
+      Password: info.Password,
       Name: info.Name,
       Mobile_No: info.Mobile_No,
       Age: info.Age,

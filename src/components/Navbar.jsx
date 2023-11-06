@@ -16,12 +16,14 @@ import { RiProfileLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
+import { useRef } from "react";
 const Navbar = ({
   setEmailSend,
   applicant1,
   hrdashboard,
   admindashboard,
   setemailcoord,
+  setaccettingemp,
 }) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
@@ -31,7 +33,7 @@ const Navbar = ({
   const [showModalUpload, setModalUpload] = useState(false);
   const [showmodalProfile, setModalProfile] = useState(false);
 
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
 
   const [notif, setNotif] = useState("");
   const [notifque, setNotifque] = useState("");
@@ -46,7 +48,7 @@ const Navbar = ({
   const [admin, setAdmin] = useState(false);
   const generatedToken = uuidv4();
   const [email, setEmail] = useState("");
-  // const [design,setdesign] = useState("")
+
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       HandleCheckerUser();
@@ -105,9 +107,9 @@ const Navbar = ({
   async function HandleCheckerUser() {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
-
-    var data = applist.concat(user);
-    if (applist && user) {
+    const { data: emp } = await supabase.from("Employee_List").select();
+    var data = applist.concat(user, emp);
+    if (applist && user && emp) {
       for (let index = 0; index < data.length; index++) {
         if (data[index].token === window.localStorage.getItem("token")) {
           checker(
@@ -217,27 +219,47 @@ const Navbar = ({
         }
       } catch (error) {}
     }
+
     // Employee
     if (verify === true && userlvl === "Employee") {
       try {
         if (window.localStorage.getItem("token") === token) {
-          const { data: getterEmp } = await supabase
+          const { data: emp2 } = await supabase
+            .from("Employee_List")
+            .select()
+            .eq("token", window.localStorage.getItem("token"))
+            .single();
+          if (emp2) await setEmail(emp2);
+          const { data: User } = await supabase
             .from("UserList")
             .select()
             .eq("token", window.localStorage.getItem("token"))
             .single();
-          await setEmail(getterEmp);
+          if (User) await setEmail(User);
           setEmp(true);
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
+
           return;
         } else {
-          const { data: getterEmp } = await supabase
+          const { data: emp1 } = await supabase
+            .from("Employee_List")
+            .select()
+            .eq("Email", email)
+            .single();
+          if (emp1) await setEmail(emp1);
+          const { data: emp } = await supabase
+            .from("Employee_List")
+            .update({ token: generatedToken })
+            .eq("Email", email)
+            .single();
+
+          const { data: getterEmp1 } = await supabase
             .from("UserList")
             .select()
             .eq("Email", email)
             .single();
-          await setEmail(getterEmp);
+          if (getterEmp1) await setEmail(getterEmp1);
           const { data: userlist } = await supabase
             .from("UserList")
             .update({ token: generatedToken })
@@ -433,10 +455,7 @@ const Navbar = ({
 
           <div>
             <div
-              onClick={() => {
-                setMenu(!menu);
-              }}
-              onMouseLeave={() => setMenu(!menu)}
+              onClick={() => setMenu(!menu)}
               className={`${
                 hr || admin
                   ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg  pt-2"
@@ -455,102 +474,105 @@ const Navbar = ({
               {notifarch !== true && (
                 <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
               )}
-
+              {notifreq !== true && (
+                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+              )}
               <PiBooks className="mt-1 text-[20px]" />
               <label className="md:flex hidden">Module</label>
-
-              <ul
-                className={`${
-                  menu
-                    ? "hidden"
-                    : "absolute bg-[#3F83F8] h-[18rem] gap-2  rounded-lg p-3 mt-9"
-                }`}
-              >
-                <li>
-                  <Link
-                    className={`${
-                      hr
-                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
-                        : "hidden"
-                    }`}
-                    to="/Applicant"
-                  >
-                    {notif !== true && (
-                      <IoMdNotifications className=" text-red-500 text-[20px] " />
-                    )}
-                    Applicants Lists
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={`${
-                      hr
-                        ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg"
-                        : "hidden"
-                    }`}
-                    to="/Quelist"
-                  >
-                    {notifque !== true && (
-                      <IoMdNotifications className=" text-red-500 text-[20px] " />
-                    )}{" "}
-                    Queuing List
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/Employee"
-                    className={`${
-                      hr
-                        ? "flex hover:bg-sky-400 hover:text-white p-2 rounded-lg"
-                        : "hidden"
-                    }`}
-                  >
-                    {notifemp !== true && (
-                      <IoMdNotifications className=" text-red-500 text-[20px] " />
-                    )}
-                    Employee List
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/Archive"
-                    className={`${
-                      hr
-                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
-                        : "hidden"
-                    }`}
-                  >
-                    {notifarch !== true && (
-                      <IoMdNotifications className=" text-red-500 text-[20px] " />
-                    )}{" "}
-                    Archive
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/RequestList"
-                    className={`${
-                      hr
-                        ? "flex hover:bg-sky-400 hover:text-white p-2   rounded-lg"
-                        : "hidden"
-                    }`}
-                  >
-                    Request List
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/UserList"
-                    className={`${
-                      admin
-                        ? " flex hover:bg-sky-400 hover:text-white p-2   rounded-lg "
-                        : "hidden"
-                    }`}
-                  >
-                    User List
-                  </Link>
-                </li>
-              </ul>
+              {menu && (
+                <ul
+                  className={`${
+                    menu
+                      ? "absolute bg-[#3F83F8] md:h-[18rem] gap-2  rounded-lg p-3 mt-9"
+                      : "hidden"
+                  }`}
+                >
+                  <li>
+                    <Link
+                      className={`${
+                        hr
+                          ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                          : "hidden"
+                      }`}
+                      to="/Applicant"
+                    >
+                      {notif !== true && (
+                        <IoMdNotifications className=" text-red-500 text-[20px] " />
+                      )}
+                      Applicants Lists
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className={`${
+                        hr
+                          ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg"
+                          : "hidden"
+                      }`}
+                      to="/Quelist"
+                    >
+                      {notifque !== true && (
+                        <IoMdNotifications className=" text-red-500 text-[20px] " />
+                      )}{" "}
+                      Queuing List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/Employee"
+                      className={`${
+                        hr
+                          ? "flex hover:bg-sky-400 hover:text-white p-2 rounded-lg"
+                          : "hidden"
+                      }`}
+                    >
+                      {notifemp !== true && (
+                        <IoMdNotifications className=" text-red-500 text-[20px] " />
+                      )}
+                      Employee List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/Archive"
+                      className={`${
+                        hr
+                          ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                          : "hidden"
+                      }`}
+                    >
+                      {notifarch !== true && (
+                        <IoMdNotifications className=" text-red-500 text-[20px] " />
+                      )}{" "}
+                      Archive
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/RequestList"
+                      className={`${
+                        hr
+                          ? "flex hover:bg-sky-400 hover:text-white p-2   rounded-lg"
+                          : "hidden"
+                      }`}
+                    >
+                      Request List
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/UserList"
+                      className={`${
+                        admin
+                          ? " flex hover:bg-sky-400 hover:text-white p-2   rounded-lg "
+                          : "hidden"
+                      }`}
+                    >
+                      User List
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
           <button
@@ -672,6 +694,7 @@ const Navbar = ({
         email2={email}
         emp={emp}
       />
+      {console.log(email)}
       <Signin
         isSignin={showModalSignin}
         isSignClose={() => setModalSignin(false)}

@@ -142,31 +142,31 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
           <div className="">
             <div className="sticky top-1 flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
               <input
-                className="top-96 w-[90%] md:w-[750px] z-50 mb-10 h-[30%] md:h-16 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Search Here..."
                 type="search"
                 onChange={(e) => setSearch(e.target.value)}
               ></input>
             </div>
             <div className=" h-[700px]   w-fit md:w-[100%] overflow-x-auto bg-slate-100 p-5 md:p-10">
-              <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
+              {/* <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
                 Our Partners
-              </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              </label> */}
+              <div className="grid grid-cols-1 gap-3">
                 {/* Image slider */}
                 <div className="max-w-[1500px]  md:w-[100%]  h-[900%] md:h-[760px] w-[100%] md:m-auto  relative">
                   <div
                     style={{
                       backgroundImage: `url(${slides[currentIndex].url})`,
                     }}
-                    className="w-full h-full object-cover absolute rounded-2xl bg-center bg-cover duration-500 "
+                    className="w-full h-full object-cover  rounded-2xl bg-center bg-cover duration-500 "
                   ></div>
                   {/* Left Arrow */}
-                  <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                  <div className="hidden group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
                     <BsChevronCompactLeft onClick={prevSlide} size={30} />
                   </div>
                   {/* Right Arrow */}
-                  <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                  <div className="hidden group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
                     <BsChevronCompactRight onClick={nextSlide} size={30} />
                   </div>
                   <div className="flex top-4 justify-center py-2">
@@ -181,22 +181,21 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     ))}
                   </div>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 mt-[95%] md:mt-0 gap-2">
-                  <img src={Solaire} className="w-[100%]" />
-                  <img src={Sheraton} className="w-[100%]" />
-                  <img src={Marriot} className="w-[100%]" />
+              </div>
+              <div className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:mt-[5%]  md:gap-5 gap-2">
+                  <img src={Solaire} className="" />
+                  <img src={Sheraton} className="" />
+                  <img src={Marriot} className="" />
                   <img src={Heritage} className="w-[100%]" />
-                  <img src={newWorld} className="w-[100%]" />
-                  <img src={Shangrila} className="w-[100%]" />
-                  <img src={Richmonde} className="w-[100%]" />
+                  <img src={newWorld} className="" />
+                  <img src={Shangrila} className="" />
+                  <img src={Richmonde} className="" />
                   <img
                     src={Grand}
-                    className="md:ml-[20%] md:h-[70%] md:w-[70%]"
+                    className=""
                   />
                   <img src={Marco} className="w-[100%]" />
                 </div>
-              </div>
               {/* wala pang animation */}
               <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
                 <div className="text-black">
@@ -373,7 +372,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           onClick={() => setShowModal(true)}
                           className={`${
                             applicant
-                              ? "ml-[40%] md:w-[100%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                              ? "md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                               : "hidden"
                           }`}
                         >

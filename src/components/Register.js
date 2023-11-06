@@ -289,7 +289,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             REGISTER
           </label>
-          <div className="grid grid-cols-2 gap-5 md:w-[20%] w-[100%]">
+          <div className="flex grid-cols-2 md:gap-5 md:w-[100%] w-[100%]">
             <button
               onClick={() => isRegisterClose()}
               className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
@@ -304,7 +304,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
             <label className="font-bold">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
@@ -356,59 +356,59 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             PROFILE
           </label>
-          <div className="grid grid-cols-1  md:grid-cols-6 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid grid-cols-1  md:grid-cols-6 gap-4 lg:gap-10 gap-y-9 mb-3 p-2">
             <label className="flex font-bold">Name</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">City Address</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="City Address"
               onChange={(e) => setCity_Address(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Provincial Address</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Provincial Address"
               onChange={(e) => setProvincial_Address(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Mobile No.</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Mobile Number"
               onChange={(e) => setMobile_No(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Religion</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Religion"
               onChange={(e) => setReligion(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Date of Birth</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Date of Birth"
               onChange={(e) => setDate_of_Birth(e.target.value)}
               type="date"
             ></input>
             <label className="flex font-bold">Age</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Age"
               onChange={(e) => setAge(e.target.value)}
               type="text"
             ></input>
             <label className="flex font-bold">Sex</label>
             <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Sex"
               onChange={(e) => setSex(e.target.value)}
               type="text"
@@ -416,7 +416,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <label className="flex font-bold">Civil Status</label>
             <select
               onChange={(e) => setCivil_Status(e.target.value)}
-              className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-4 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             >
               {CivilStatus.map((civilstatus) => (
                 <option key={civilstatus.id}> {civilstatus.Civilstatus}</option>
@@ -574,7 +574,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">Inclusive Dates</label>
+              <label className="flex justify-center  font-bold md:ml-[30%]">Inclusive Dates</label>
               <textarea
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
@@ -610,7 +610,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
           <div className="grid grid-cols-1  md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div className="">
-              <label className="flex justify-center font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
                 Names
               </label>
               <textarea
@@ -620,7 +620,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
                 Company/Employer
               </label>
               <textarea
@@ -630,7 +630,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
                 Position
               </label>
               <textarea

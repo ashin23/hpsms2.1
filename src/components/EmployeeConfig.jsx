@@ -26,7 +26,7 @@ const EmployeeConfig = ({
 
   return (
     <div className="flex bg-slate-200 w-[100%] mt-2" onClick={() => updateNotif()}>
-      <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] bg-slate-100 md:gap-5">
+      <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] lg:h-10 bg-slate-100 md:gap-5">
         <div className=" flex text-md ">
           <input
             type="checkbox"
@@ -42,7 +42,7 @@ const EmployeeConfig = ({
           onClick={() => setShowModal(true)}
           className={`${
             empData.Notifications === "false" && "border-2 border-red-500"
-          } md:p-3 md:hover:translate-x-2  md:hover:p-4 duration-500 md:mt-1 md:rounded-md`}
+          } md:p-3 md:hover:translate-x-2  md:hover:p-4 duration-500  md:mt-1 md:rounded-md`}
         >
           {empData.Email}
         </div>

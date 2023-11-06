@@ -26,6 +26,7 @@ function ModalEmp({ visible, Close, Info }) {
   const HandleAccept = async () => {
     const { data: employee } = await supabase.from("Employee_List").insert({
       Email: Info.Email,
+      Password: Info.Password,
       Name: Info.Name,
       Mobile_No: Info.Mobile_No,
       Age: Info.Age,

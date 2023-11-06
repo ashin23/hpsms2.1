@@ -218,7 +218,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
+      <div className="overflow-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
         <label
           className="
         flex 
@@ -258,12 +258,12 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             </div>
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 gap-y-9 mb-3 p-2 ">
+        <div className="grid grid-cols-1 md:grid-cols-6 lg:gap-10 gap-4 gap-y-9 mb-3 p-2 ">
           <label className="flex font-bold">Name</label>
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="name"
             value={name}
             disabled="true"
@@ -276,7 +276,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="City Address"
             disabled="true"
             id="city_address"
@@ -288,7 +288,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Provincial Address"
             disabled="true"
             id="provincial_address"
@@ -300,7 +300,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Mobile Number"
             disabled="true"
             id="mobile_no"
@@ -312,7 +312,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Religion"
             value={religion}
             onChange={(e) => setReligion(e.target.value)}
@@ -324,7 +324,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Date of Birth"
             value={date_of_Birth}
             onChange={(e) => setDate_of_Birth(e.target.value)}
@@ -336,7 +336,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
@@ -348,7 +348,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           <input
             className={`${
               allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
             placeholder="Sex"
             disabled="true"
             id="sex1"
@@ -362,7 +362,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             disabled="true"
             id="civil_status"
             onChange={(e) => setCivil_Status(e.target.value)}
-            className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            className="pl-4 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
           >
             {CivilStatus.map((civilstatus) => (
               <option key={civilstatus.id}> {civilstatus.Civilstatus}</option>
@@ -610,7 +610,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
           <div>
-            <label className="flex font-bold ml-[30%]">Inclusive Dates</label>
+            <label className="flex font-bold md:ml-[30%]">Inclusive Dates</label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -623,7 +623,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold ml-[30%]">Company/Employer</label>
+            <label className="flex font-bold md:ml-[30%]">Company/Employer</label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -636,7 +636,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold ml-[30%]">Position</label>
+            <label className="flex font-bold md:ml-[30%]">Position</label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -658,7 +658,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
           <div>
-            <label className="flex font-bold justify-center md:ml-[30%]">
+            <label className="flex font-bold  md:ml-[30%]">
               Names
             </label>
             <textarea
@@ -673,7 +673,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold justify-center md:ml-[30%]">
+            <label className="flex font-bold  md:ml-[30%]">
               Company/Employer
             </label>
             <textarea
@@ -688,7 +688,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold justify-center md:ml-[30%]">
+            <label className="flex font-bold  md:ml-[30%]">
               Position
             </label>
             <textarea

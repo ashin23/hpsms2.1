@@ -19,7 +19,8 @@ function App() {
   const [Hrdashboard, setHrdasboard] = useState();
   const [admindashboard, setadmindasboard] = useState();
   const [emailcoord, setemailcoord] = useState();
-
+  const [accsettingemp,setaccettingemp] = useState();
+  const [accsettinglist,setaccsettinglist] = useState()
   
   return (
     <div className="App ">
@@ -30,6 +31,8 @@ function App() {
           hrdashboard={setHrdasboard}
           admindashboard={setadmindasboard}
           setemailcoord={setemailcoord}
+          setaccettingemp={setaccettingemp}
+          setaccsettinglist={setaccsettinglist}
         />
       </header>
     
@@ -56,7 +59,7 @@ function App() {
           />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Archive" element={<Archive />} />
-          <Route path="/AccountSetting" element={<AccountSetting />} />
+          <Route path="/AccountSetting" element={<AccountSetting accsettingemp={accsettingemp}/>} />
           <Route path="/RequestList" element={<RequestList />} />
           <Route path="/UserList" element={<UserList />} />
         </Routes>

@@ -30,7 +30,7 @@ const UserListConfig = ({ e , notify }) => {
 
   return (
     <div className="flex bg-slate-200  mt-2 w-[100%] rounded-md">
-      <div className="p-3  md:hover:translate-x-2   md:hover:p-4 md:duration-500 mt-1 rounded-md grid grid-rows-3 md:flex w-[100%] ">
+      <div className="p-3  md:hover:translate-x-2   md:hover:p-4 md:duration-500 mt-1 lg:h-10 rounded-md grid grid-rows-3 md:flex w-[100%] ">
         <div className="text-md w-[100%] ">{e.Email}</div>
         <div className="text-md md:w-[100%]   flex gap-2">
           {view ? (

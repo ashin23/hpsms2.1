@@ -39,7 +39,7 @@ const Applicant = () => {
           <div>
             <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
               <input
-                className="top-96 w-[90%] md:w-[750px] z-50 mb-10 h-[30%] md:h-16 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%] lg:h-10 md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Search name"
                 type="search"
                 onChange={(e) => setSearch1(e.target.value)}

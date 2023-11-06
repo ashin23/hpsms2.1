@@ -37,7 +37,7 @@ function PostConfig({
   return (
     <>
       <button
-        className="hover:bg-[#78C1F3] focus:outline-none focus:border-red-500 focus:ring   border-2 bg-[#FBF8FF] p-5 my-3 w-[90%] "
+        className="hover:bg-[#78C1F3] focus:outline-none focus:border-red-500 focus:ring   border-2 bg-[#FBF8FF] md:p-3 md:my-4 p-2 my-5 w-[90%] "
         onClick={() => HandleClick()}
       >
         <h1>Position: {postInfo.position}</h1>

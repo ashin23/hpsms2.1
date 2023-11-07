@@ -5,10 +5,10 @@ const Footer = () => {
     <div className=" w-full">
       <footer className="">
         
-        <div className="w-full bg-[#162388] text-white px-5 ">
+        <div className="w-full bg-white text-white px-5 ">
           <div>
             <div className="text-center ">
-              <div className="pt-2 pb-2">
+              <div className="pt-2 pb-2 text-[#162388]">
                 Copyright <strong><span>HPSMS</span></strong>. All Rights Reserved
               </div>
               

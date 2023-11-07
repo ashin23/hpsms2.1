@@ -16,7 +16,7 @@ import { RiProfileLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
-import { useRef } from "react";
+
 const Navbar = ({
   setEmailSend,
   applicant1,
@@ -434,10 +434,10 @@ const Navbar = ({
 
   return (
     <div className="h-2 ">
-      <div className="flex   gap-5 bg-[#162388] text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
-        <div className=" md:w-[200px] w-[130px] flex gap-1 items-center md:font-medium  text-sm ">
+      <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
+        <div className=" md:w-[200px] w-[130px] flex gap-1 items-center md:font-bold  text-sm ">
           <img src={logo} alt="/" className="h-[40px] w-[80px] ml-3 "></img>
-          <p className=" text-2xl  md:text-4xl md:flex hidden">HPSMS</p>
+          <p className=" text-2xl  md:text-4xl text-[#162388] md:flex hidden">HPSMS</p>
         </div>
 
         <div className=" w-[90%]  justify-center flex p-4 md:text-lg text-sm  rounded-lg text-white font-mono gap-4 items-center">
@@ -449,8 +449,8 @@ const Navbar = ({
                 : "hidden"
             } `}
           >
-            <AiFillHome className="mt-1 text-[20px]  " />
-            <label className="md:flex hidden">Home</label>
+            <AiFillHome className="mt-1 text-[20px] text-[#162388] " />
+            <label className="md:flex hidden text-[#162388]">Home</label>
           </Link>
 
           <div>
@@ -477,8 +477,8 @@ const Navbar = ({
               {notifreq !== true && (
                 <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
               )}
-              <PiBooks className="mt-1 text-[20px]" />
-              <label className="md:flex hidden">Module</label>
+              <PiBooks className="mt-1 text-[20px] text-[#162388]" />
+              <label className="md:flex hidden text-[#162388]">Module</label>
               {menu && (
                 <ul
                   className={`${
@@ -583,8 +583,8 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            <MdManageAccounts className="mt-1 text-[20px]" />
-            <label className="md:flex hidden">Account Settings</label>
+            <MdManageAccounts className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Account Settings</label>
           </button>
 
           {/* Coordinator */}
@@ -596,8 +596,8 @@ const Navbar = ({
             }`}
             onClick={() => setShowRequest(true)}
           >
-            <MdMarkEmailUnread className="mt-1 text-[20px]" />{" "}
-            <label className="md:flex hidden">Request</label>
+            <MdMarkEmailUnread className="mt-1 text-[20px] text-[#162388]" />{" "}
+            <label className="md:flex hidden text-[#162388]">Request</label>
           </button>
 
           <Link
@@ -608,8 +608,8 @@ const Navbar = ({
                 : "hidden "
             }`}
           >
-            <AiFillFile className="mt-1 text-[20px]" />
-            <label className="md:flex hidden">Employee List</label>
+            <AiFillFile className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Employee List</label>
           </Link>
 
           <button
@@ -620,8 +620,8 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            <FaUpload className="mt-1 text-[20px]" />
-            <label className="md:flex hidden">Upload</label>
+            <FaUpload className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Upload</label>
           </button>
 
           <button
@@ -632,8 +632,8 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            <MdPostAdd className="mt-1 text-[20px]" />{" "}
-            <label className="md:flex hidden">Post A Job</label>
+            <MdPostAdd className="mt-1 text-[20px] text-[#162388]" />{" "}
+            <label className="md:flex hidden text-[#162388]">Post A Job</label>
           </button>
           <button
             onClick={() => setModalProfile(true)}
@@ -644,15 +644,15 @@ const Navbar = ({
             }`}
           >
             {" "}
-            <RiProfileLine className="mt-1 text-[20px]" />
-            <label className="md:flex hidden">Profile</label>
+            <RiProfileLine className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Profile</label>
           </button>
         </div>
         <div className="    rounded-md items-center flex">
           <button
             id="signIn"
             onClick={() => setModalSignin(true)}
-            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3"
+            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3 text-[#162388]"
           >
             Sign In
           </button>
@@ -660,7 +660,7 @@ const Navbar = ({
           <button
             id="signOut"
             onClick={() => handleSignOut()}
-            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3"
+            className="md:text-base text-sm w-[90px] h-fit  hover:bg-blue-600 p-2 md:mr-5 mr-3 text-[#162388]"
           >
             Sign Out
           </button>

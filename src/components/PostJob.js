@@ -101,7 +101,7 @@ const PostJob = ({ isPost, isPostClose }) => {
     justify-center items-center top-50 flex  "
     >
       
-      <div className="bg-white h-[75%] w-[100%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
+      <div className="bg-white h-[75%] w-[100%] lg:h-[60%] lg:w-[50%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">Post a Job</label>
        <div className="p-2">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-4 p-5 md:p-2 md:m-1 md:gap-3  overflow-y-auto rounded-md ">

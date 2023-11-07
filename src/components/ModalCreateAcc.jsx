@@ -163,7 +163,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex w-screen h-screen"
     >
-      <div className=" flex-col justify-center bg-white md:p-6 p-3 h-[52%]  md:w-[30%] w-[100%] rounded-3xl shadow-2xl items-center">
+      <div className=" flex-col justify-center bg-white md:p-6 p-3 h-[52%] lg:h-[70%]  md:w-[30%] w-[100%] rounded-3xl shadow-2xl items-center">
         <label className="flex pl-9 pr-40 py-3 ml-2 my-2  text-slate-100 md:text-[30px] text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Create Account
         </label>

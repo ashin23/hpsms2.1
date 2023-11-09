@@ -49,7 +49,7 @@ const Archive = () => {
             <div className="text-md p-3">Email</div>
           </div>
           {archive1 && (
-            <div className=" overflow-y-hidden ">
+            <div className="h-[520px] overflow-y-hidden ">
               {archive1
                 .filter((val) => {
                   try {

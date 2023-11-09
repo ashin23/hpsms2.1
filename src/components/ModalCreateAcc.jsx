@@ -4,6 +4,7 @@ import userlvl from "./userLvl.json";
 import emailjs from "emailjs-com";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,8 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
 
   const [password2, setPassword2] = useState("");
   const [password, setPassword] = useState("");
+  const [view, setView] = useState(false);
+  const [view1, setView1] = useState(false);
 
   const [otpCode, setCode] = useState("");
   const [codeStatus, setCodeStatus] = useState(true);
@@ -119,6 +122,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   function HandleCheckCode() {
     if (verCode === otpCode) {
       setCodeStatus(false);
+
       NotifyCode();
       return;
     } else {
@@ -163,7 +167,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex w-screen h-screen"
     >
-      <div className=" flex-col justify-center bg-white md:p-6 p-3 h-[52%] lg:h-[70%]  md:w-[30%] w-[100%] rounded-3xl shadow-2xl items-center">
+      <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  md:h-[65%]  h-[80%] lg:w-[40%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
         <label className="flex pl-9 pr-40 py-3 ml-2 my-2  text-slate-100 md:text-[30px] text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Create Account
         </label>
@@ -191,21 +195,38 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           </select>
 
           <label className="flex font-bold">Password</label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className="pl-3 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Password"
-            type="password"
-          ></input>
+          <div className="text-md flex justify-between md:w-[100%] gap-2">
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              className="pl-3 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Password"
+              type={view ? "text" : "password"}
+            ></input>
+            <button onClick={() => setView(!view)}>
+              {view ? (
+                <AiFillEyeInvisible className="text-[20px]" />
+              ) : (
+                <AiFillEye className="text-[20px]" />
+              )}
+            </button>
+          </div>
 
           <label className="flex font-bold">Confirm Password</label>
-
-          <input
-            onChange={(e) => setPassword2(e.target.value)}
-            className="pl-3 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Confirm Password"
-            type="text"
-          ></input>
+          <div className="text-md flex justify-between md:w-[100%] gap-2">
+            <input
+              onChange={(e) => setPassword2(e.target.value)}
+              className="pl-3 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Confirm Password"
+              type={view1 ? "text" : "password"}
+            ></input>
+            <button onClick={() => setView1(!view1)}>
+              {view1 ? (
+                <AiFillEyeInvisible className="text-[20px]" />
+              ) : (
+                <AiFillEye className="text-[20px]" />
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="flex gap-2 items-center  mt-3 ">

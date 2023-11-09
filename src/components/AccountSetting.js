@@ -5,8 +5,7 @@ import emailjs from "emailjs-com";
 import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CgArrowsExpandUpLeft } from "react-icons/cg";
-
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 const AccountSetting = ({
   isAcc,
   isAccClose,
@@ -16,7 +15,7 @@ const AccountSetting = ({
   emp,
   coordinator,
   applicant,
-  accsettingemp
+  accsettingemp,
 }) => {
   const [showModalCreateAcc, setShowCreateAcc] = useState(false);
   const [email, setEmail1] = useState("");
@@ -29,12 +28,14 @@ const AccountSetting = ({
   const [verCode, setVerCode] = useState();
   const [buttonChange, setbuttonChange] = useState(false);
 
+  const [isCode, setIsCode] = useState(false);
+  const [view, setView] = useState(false);
+  const [view1, setView1] = useState(false);
+
   useEffect(() => {
     getter();
     codeGenerator();
   }, [hr, admin, emp, coordinator, applicant]);
-
-
 
   const getter = async () => {
     setEmail1(email2.Email);
@@ -54,8 +55,8 @@ const AccountSetting = ({
     setCode(code.toString());
   }
 
-  const NotifyCode = () => {
-    toast.success("Correct code", {
+  const NotifyCodeSend = () => {
+    toast.success("Send Code", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -65,6 +66,22 @@ const AccountSetting = ({
       progress: undefined,
       theme: "light",
     });
+  };
+
+  const Notifysucces = () => {
+    toast.success("Successfully Updated", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      close();
+    }, [2000]);
   };
 
   const NotifyError = () => {
@@ -79,18 +96,9 @@ const AccountSetting = ({
       theme: "light",
     });
   };
-  function HandleCheckCode() {
-    if (verCode === otpCode) {
-      document.getElementById("saveChanges").disabled = false;
-      NotifyCode();
-      return;
-    } else {
-      NotifyError();
-    }
-  }
 
-  const NotifyError2 = () => {
-    toast.warning("Please fill the blanks", {
+  const ErrorMessenge = () => {
+    toast.error("Password do not match", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -101,12 +109,8 @@ const AccountSetting = ({
       theme: "light",
     });
   };
-  const HandleSendCode = () => {
-    if (!email) {
-      NotifyError2();
 
-      return;
-    }
+  const HandleSendCode = () => {
     // emailjs.send(
     //   "service_yj6ye3j",
     //   "template_aek4udy",
@@ -116,12 +120,13 @@ const AccountSetting = ({
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
-    setbuttonChange(true);
+    console.log(otpCode);
+    NotifyCodeSend();
   };
 
   async function saveChanges() {
     try {
-      if (pass === pass1) {
+      if (pass === pass1 && verCode === otpCode) {
         const { data: NewUserupdate } = await supabase
           .from("NewUser")
           .update({ Password: pass1 })
@@ -139,15 +144,21 @@ const AccountSetting = ({
           .update({ Password: pass1 })
           .eq("Email", email)
           .single();
-        alert("dsadsa");
+        Notifysucces();
+      } else if (pass !== pass1) {
+        ErrorMessenge();
+        return;
+      } else {
+        NotifyError();
+        return;
       }
-      alert("doenst match");
     } catch (error) {}
   }
 
   function close() {
-    isAccClose();
+    setIsCode(false);
     setAllow(false);
+    isAccClose();
   }
 
   if (!isAcc) return null;
@@ -195,59 +206,66 @@ const AccountSetting = ({
             onChange={(e) => setEmail1(e.target.value)}
           ></input>
           <label className="flex font-bold">Password</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 
+          <div className="text-md flex justify-between md:w-[50%] gap-2">
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 
           text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Password"
-            disabled="true"
-            value={pass}
-            id="password"
-            onChange={(e) => setPass(e.target.value)}
-            type="text"
-          ></input>
+              placeholder="Password"
+              disabled="true"
+              value={pass}
+              id="password"
+              onChange={(e) => setPass(e.target.value)}
+              type={view ? "text" : "password"}
+            ></input>
+            <button onClick={() => setView(!view)}>
+              {view ? (
+                <AiFillEyeInvisible className="text-[20px]" />
+              ) : (
+                <AiFillEye className="text-[20px]" />
+              )}
+            </button>
+          </div>
+
           <label className="flex font-bold">Confirm Password</label>
-          <input
-            onChange={(e) => setPass1(e.target.value)}
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Confirm Password"
-            disabled="true"
-            id="password1"
-            type="text"
-          ></input>
+          <div className="text-md flex justify-between md:w-[50%] gap-2">
+            <input
+              onChange={(e) => setPass1(e.target.value)}
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Confirm Password"
+              disabled="true"
+              id="password1"
+              type={view1 ? "text" : "password"}
+            ></input>
+            <button onClick={() => setView1(!view1)}>
+              {view1 ? (
+                <AiFillEyeInvisible className="text-[20px]" />
+              ) : (
+                <AiFillEye className="text-[20px]" />
+              )}
+            </button>
+          </div>
+
           <div className="grid grid-cols-2">
             <input
               className={`${
                 allow ? "bg-blue-200" : ""
               } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
               placeholder="Verification Code"
+              onChange={(e) => setVerCode(e.target.value)}
               disabled="true"
               id="code"
-              type="text"
+              type="number"
             ></input>
             <div className="w-[100%]">
               <button
                 onClick={() => HandleSendCode()}
-                className={`${
-                  buttonChange
-                    ? "hidden"
-                    : "ml-5 px-3 py-2 w-[45%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-                }`}
+                className="ml-5 px-3 py-2 w-[45%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
               >
                 Send Code
-              </button>
-              <button
-                onClick={() => HandleCheckCode()}
-                className={`${
-                  buttonChange
-                    ? "ml-5 px-3 py-2 w-[45%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-                    : "hidden"
-                }`}
-              >
-                Check Code
               </button>
             </div>
           </div>

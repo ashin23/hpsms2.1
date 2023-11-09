@@ -109,27 +109,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       .eq("id", info.id);
   };
 
-  const slides = [
-    logo1,
-    logo3,
-    logo4,
-    // {
-    //   url: "https://pix8.agoda.net/hotelImages/451/45166/45166_14011718200018097318.jpg?ca=2&ce=1&s=1024x768",
-    // },
-    // {
-    //   url: "https://media.hrs.com/media/image/25/f1/fd/Marco_Polo_Ortigas_Manila-Pasig_City-Hotel_outdoor_area-635783.jpg",
-    // },
-    // {
-    //   url: "https://www.hospitalitynet.org/picture/xxl_153096644.jpg?t=1548055521",
-    // },
-
-    // {
-    //   url: "https://secure.s.forbestravelguide.com/img/properties/sky-tower-at-solaire-resort-and-casino/extra-large/sky-tower-at-solaire-resort-casino-exterior.jpg",
-    // },
-    // {
-    //   url: "https://campbell.com.ph/wp-content/uploads/2019/03/img-hyatt-4.jpg",
-    // },
-  ];
+  const slides = [logo1, logo3, logo4];
 
   useEffect(() => {
     startslider();
@@ -166,16 +146,16 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               {/* <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
               Our Partners
             </label> */}
-            
+
               <div className="md:justify-center md:flex md:gap-5 grid-cols-2 justify-between mt-[30%] md:mt-[5%] grid">
                 <button
-                  className="md:h-[100%] w-[100px] md:ml-[2%] flex md:grid  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  className="md:h-[100%] w-[100px]  flex md:grid  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => handleabout()}
                 >
                   About us
                 </button>
                 <button
-                  className="md:h-[100%]  w-[100px] md:ml-[2%] flex md:grid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  className="md:h-[100%]  w-[100px]  flex md:grid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => handleapply()}
                 >
                   Apply
@@ -227,7 +207,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               <div ref={about}>
                 <div
                   data-aos="fade-up"
-                  
                   className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] "
                 >
                   <div className="text-black">

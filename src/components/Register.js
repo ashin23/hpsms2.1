@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import supabase from "./supabaseClient";
 import CivilStatus from "./CivilStatus.json";
 import { v4 as uuidv4 } from "uuid";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const Register = ({ isRegister, isRegisterClose }) => {
   const [email, setEmail] = useState("");
@@ -12,8 +13,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [password2, setPassword2] = useState("");
   const [password, setPassword] = useState("");
   const [otpCode, setCode] = useState("");
-  const [codeStatus, setCodeStatus] = useState(true);
   const [verCode, setVerCode] = useState();
+
+  const [view, setView] = useState(false);
+  const [view1, setView1] = useState(false);
 
   const [name, setName] = useState("");
   const [mobile_No, setMobile_No] = useState("");
@@ -66,22 +69,15 @@ const Register = ({ isRegister, isRegisterClose }) => {
       theme: "light",
     });
     setTimeout(() => {
-      isRegisterClose();
+      close();
     }, [2000]);
   };
 
-  const NotifyCode = () => {
-    toast.success("Correct code", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
+  function close() {
+    setVerCode("")
+    isRegisterClose();
+  }
+
   const VeriCode = () => {
     toast.success("Code sent succesfully", {
       position: "top-center",
@@ -121,7 +117,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   };
 
   const NotifyError2 = () => {
-    toast.warning("Please fill the blanks", {
+    toast.warning("Email is required", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -133,6 +129,18 @@ const Register = ({ isRegister, isRegisterClose }) => {
     });
   };
 
+  const NotifyFillblanks = () => {
+    toast.warning("Please fill up the blanks", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   useEffect(() => {
     codeGenerator();
   }, []);
@@ -151,126 +159,121 @@ const Register = ({ isRegister, isRegisterClose }) => {
     //   "service_yj6ye3j",
     //   "template_aek4udy",
     //   {
-    //     email: email,
+    //     email2: email,
     //     code: otpCode,
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
     // VeriCode();
+    console.log(otpCode);
   };
 
-  function HandleCheckCode() {
-    if (verCode === otpCode) {
-      setCodeStatus(false);
-      NotifyCode();
-      return;
-    } else {
-      NotifyError();
-    }
-  }
-
   const HandleCreate = async () => {
-    if (
-      !email ||
-      !password ||
-      !name ||
-      !mobile_No ||
-      !age ||
-      !city_Address ||
-      !religion ||
-      !sex ||
-      !provincial_Address ||
-      !date_of_Birth ||
-      !civil_Status ||
-      !name_of_Mother ||
-      !occupation_Mother ||
-      !name_of_Father ||
-      !occupation_Father ||
-      !notify_Emergency ||
-      !relationship ||
-      !emegency_Address ||
-      !contact_Number ||
-      !college ||
-      !college_Graduated ||
-      !course ||
-      !college_Graduated ||
-      !special_Course ||
-      !vocational ||
-      !vocational_Graduated ||
-      !highSchool ||
-      !highSchool_Graduated ||
-      !elementary ||
-      !elementary_Graduated ||
-      !inclusive_Dates ||
-      !company_History ||
-      !position_History ||
-      !name_References ||
-      !company_References ||
-      !position_References ||
-      !sSS_Number ||
-      !phil_Health_No ||
-      !pag_Ibig_No ||
-      !tin_No ||
-      !files
-    ) {
-      NotifyError2();
-      return;
-    } else {
-      if (password2 === password) {
-        const { data, error } = await supabase.from("NewUser").insert([
-          {
-            Email: email,
-            Password: password,
-            userlvl: "applicant",
-            Name: name,
-            Mobile_No: mobile_No,
-            Age: age,
-            City_Address: city_Address,
-            Religion: religion,
-            Sex: sex,
-            Provincial_Address: provincial_Address,
-            Date_of_Birth: date_of_Birth,
-            CivilStatus: civil_Status,
-            Name_of_Mother: name_of_Mother,
-            Occupation_Mother: occupation_Mother,
-            Name_of_Father: name_of_Father,
-            Occupation_Father: occupation_Father,
-            Notify_Emergency: notify_Emergency,
-            Relationship: relationship,
-            Emergency_Address: emegency_Address,
-            Contact_Number: contact_Number,
-            College: college,
-            College_Graduated: college_Graduated,
-            Course: course,
-            Special_Course: special_Course,
-            Vocational: vocational,
-            Vocational_Graduated: vocational_Graduated,
-            HighSchool: highSchool,
-            HighSchool_Graduated: highSchool_Graduated,
-            Elementary: elementary,
-            Elementary_Graduated: elementary_Graduated,
-            Inclusive_Dates: inclusive_Dates,
-            Company_History: company_History,
-            Position_History: position_History,
-            Name_References: name_References,
-            Company_References: company_References,
-            Position_References: position_References,
-            SSS_Number: sSS_Number,
-            Phil_Health_No: phil_Health_No,
-            Pag_Ibig_No: pag_Ibig_No,
-            Tin_Number: tin_No,
-          },
-        ]);
-        const { data1, error1 } = await supabase.storage
-          .from("Files")
-          .upload(email + "/" + uuidv4(), files);
-
-        Notify();
-      } else if (password !== password2) {
-        NotifyError1();
+    try {
+      if (
+        !email ||
+        !password ||
+        !name ||
+        !mobile_No ||
+        !age ||
+        !city_Address ||
+        !religion ||
+        !sex ||
+        !provincial_Address ||
+        !date_of_Birth ||
+        !civil_Status ||
+        !name_of_Mother ||
+        !occupation_Mother ||
+        !name_of_Father ||
+        !occupation_Father ||
+        !notify_Emergency ||
+        !relationship ||
+        !emegency_Address ||
+        !contact_Number ||
+        !college ||
+        !college_Graduated ||
+        !course ||
+        !college_Graduated ||
+        !special_Course ||
+        !vocational ||
+        !vocational_Graduated ||
+        !highSchool ||
+        !highSchool_Graduated ||
+        !elementary ||
+        !elementary_Graduated ||
+        !inclusive_Dates ||
+        !company_History ||
+        !position_History ||
+        !name_References ||
+        !company_References ||
+        !position_References ||
+        !sSS_Number ||
+        !phil_Health_No ||
+        !pag_Ibig_No ||
+        !tin_No ||
+        !files
+      ) {
+        NotifyFillblanks();
         return;
+      } else {
+        if (password2 === password && verCode === otpCode) {
+          const { data, error } = await supabase.from("NewUser").insert([
+            {
+              Email: email,
+              Password: password,
+              userlvl: "applicant",
+              Name: name,
+              Mobile_No: mobile_No,
+              Age: age,
+              City_Address: city_Address,
+              Religion: religion,
+              Sex: sex,
+              Provincial_Address: provincial_Address,
+              Date_of_Birth: date_of_Birth,
+              CivilStatus: civil_Status,
+              Name_of_Mother: name_of_Mother,
+              Occupation_Mother: occupation_Mother,
+              Name_of_Father: name_of_Father,
+              Occupation_Father: occupation_Father,
+              Notify_Emergency: notify_Emergency,
+              Relationship: relationship,
+              Emergency_Address: emegency_Address,
+              Contact_Number: contact_Number,
+              College: college,
+              College_Graduated: college_Graduated,
+              Course: course,
+              Special_Course: special_Course,
+              Vocational: vocational,
+              Vocational_Graduated: vocational_Graduated,
+              HighSchool: highSchool,
+              HighSchool_Graduated: highSchool_Graduated,
+              Elementary: elementary,
+              Elementary_Graduated: elementary_Graduated,
+              Inclusive_Dates: inclusive_Dates,
+              Company_History: company_History,
+              Position_History: position_History,
+              Name_References: name_References,
+              Company_References: company_References,
+              Position_References: position_References,
+              SSS_Number: sSS_Number,
+              Phil_Health_No: phil_Health_No,
+              Pag_Ibig_No: pag_Ibig_No,
+              Tin_Number: tin_No,
+            },
+          ]);
+          const { data1, error1 } = await supabase.storage
+            .from("Files")
+            .upload(email + "/" + uuidv4(), files);
+
+          Notify();
+        } else if (password !== password2) {
+          NotifyError1();
+          return;
+        } else {
+          NotifyError();
+        }
       }
-    }
+    } catch (error) {}
   };
 
   if (!isRegister) return null;
@@ -289,6 +292,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             REGISTER
           </label>
+          {/* Button */}
           <div className="flex grid-cols-2 md:gap-5 md:w-[100%] w-[100%]">
             <button
               onClick={() => isRegisterClose()}
@@ -303,52 +307,80 @@ const Register = ({ isRegister, isRegisterClose }) => {
               Submit
             </button>
           </div>
+          {/* Email  */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
+            <div>
+              <label className="font-bold">Email</label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Email"
+                type="text"
+              ></input>
+            </div>
+            {/* Verification Code */}
+            <div>
+              <div className="flex flex-col">
+                <label className="flex font-bold">Verification Code</label>
+                <div className="flex items-center">
+                  <input
+                    className="m pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                    placeholder="Verification Code"
+                    value={verCode}
+                    onChange={(e) => setVerCode(e.target.value)}
+                    type="number"
+                  ></input>
+                  <button
+                    onClick={() => HandleSendCode()}
+                    className="md:ml-2 ml-2 md:px-5 md:py-2 md:w-[20%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
+                  >
+                    Send Code
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Password */}
+          <div className="md:grid-cols-2  md:grid lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
+            <div className="flex flex-col md:mb-0 mb-5 ">
+              <label className="flex font-bold">Password</label>
+              <div className="flex items-center ">
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10 pr-3 py-2  w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  placeholder="Password"
+                  type={view ? "text" : "password"}
+                ></input>
+                <div className=" ml-1" onClick={() => setView(!view)}>
+                  {view ? (
+                    <AiFillEyeInvisible className="text-[20px]" />
+                  ) : (
+                    <AiFillEye className="text-[20px]" />
+                  )}
+                </div>
+              </div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
-            <label className="font-bold">Email</label>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Email"
-              type="text"
-            ></input>
-            <label className="font-bold">Password</label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Password"
-              type="text"
-            ></input>
-            <label className="flex font-bold">Confirm Password</label>
-            <input
-              onChange={(e) => setPassword2(e.target.value)}
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Confirm Password"
-              type="text"
-            ></input>
-            <label className="flex font-bold">Verification Code</label>
-            <input
-              className="m pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Verification Code"
-              value={verCode}
-              onChange={(e) => setVerCode(e.target.value)}
-              type="text"
-            ></input>
+            <div className="flex-col flex">
+              <label className="flex font-bold">Confirm Password</label>
+              <div className="flex items-center ">
+                <input
+                  onChange={(e) => setPassword2(e.target.value)}
+                  className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  placeholder="Confirm Password"
+                  type={view1 ? "text" : "password"}
+                ></input>
+                <div className="ml-1" onClick={() => setView1(!view1)}>
+                  {view1 ? (
+                    <AiFillEyeInvisible className="text-[20px]" />
+                  ) : (
+                    <AiFillEye className="text-[20px]" />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center space-x-6 p-2 w-full">
-            <button
-              onClick={() => HandleSendCode()}
-              className=" px-10 py-2 w-fit text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-            >
-              Send Code
-            </button>
-            <button
-              onClick={() => HandleCheckCode()}
-              className="px-10 py-2 w-fit text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-            >
-              Check Code
-            </button>
-          </div>
+
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
@@ -356,132 +388,171 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             PROFILE
           </label>
-          <div className="grid grid-cols-1  md:grid-cols-6 gap-4 lg:gap-10 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold">Name</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">City Address</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="City Address"
-              onChange={(e) => setCity_Address(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Provincial Address</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Provincial Address"
-              onChange={(e) => setProvincial_Address(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Mobile No.</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Mobile Number"
-              onChange={(e) => setMobile_No(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Religion</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Religion"
-              onChange={(e) => setReligion(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Date of Birth</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Date of Birth"
-              onChange={(e) => setDate_of_Birth(e.target.value)}
-              type="date"
-            ></input>
-            <label className="flex font-bold">Age</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Age"
-              onChange={(e) => setAge(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Sex</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Sex"
-              onChange={(e) => setSex(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Civil Status</label>
-            <select
-              onChange={(e) => setCivil_Status(e.target.value)}
-              className="pl-4 pr-3 py-2 w-[100%] lg:w-[120%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            >
-              {CivilStatus.map((civilstatus) => (
-                <option key={civilstatus.id}> {civilstatus.Civilstatus}</option>
-              ))}
-            </select>
+          {/* Profile Info */}
+          <div className="grid grid-cols-1  md:grid-cols-3 gap-4 lg:gap-10 gap-y-9  mb-3 p-2">
+            <div className="">
+              <label className="flex font-bold">Name</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">City Address</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="City Address"
+                onChange={(e) => setCity_Address(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Provincial Address</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Provincial Address"
+                onChange={(e) => setProvincial_Address(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Mobile No.</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Mobile Number"
+                onChange={(e) => setMobile_No(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Religion</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Religion"
+                onChange={(e) => setReligion(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Date of Birth</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Date of Birth"
+                onChange={(e) => setDate_of_Birth(e.target.value)}
+                type="date"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Age</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Age"
+                onChange={(e) => setAge(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Sex</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Sex"
+                onChange={(e) => setSex(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Civil Status</label>
+              <select
+                onChange={(e) => setCivil_Status(e.target.value)}
+                className="pl-4 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              >
+                {CivilStatus.map((civilstatus) => (
+                  <option key={civilstatus.id}>
+                    {" "}
+                    {civilstatus.Civilstatus}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="grid grid-cols-1  md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold">Name of Mother</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Name of Mother"
-              onChange={(e) => setName_of_Mother(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Occupation</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Occupation"
-              onChange={(e) => setOccupation_Mother(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Name of Father</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Occupation"
-              onChange={(e) => setName_of_Father(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Occupation</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Name of Father"
-              onChange={(e) => setOccupation_Father(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">
-              Person to Notify Incase of Emergency
-            </label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Notify"
-              onChange={(e) => setNotify_Emergency(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Relationship</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Relationship"
-              onChange={(e) => setRelationship(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">His/her Address</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Address"
-              onChange={(e) => setEmergency_Address(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Contact No:</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Number"
-              onChange={(e) => setContact_Number(e.target.value)}
-              type="text"
-            ></input>
+          {/* Profile Background */}
+          <div className="grid grid-cols-1  md:grid-cols-2 gap-4 gap-y-9 mb-3 p-2">
+            <div>
+              <label className="flex font-bold">Name of Mother</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Name of Mother"
+                onChange={(e) => setName_of_Mother(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Occupation</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Occupation"
+                onChange={(e) => setOccupation_Mother(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Name of Father</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Occupation"
+                onChange={(e) => setName_of_Father(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Occupation</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Name of Father"
+                onChange={(e) => setOccupation_Father(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">
+                Person to Notify Incase of Emergency
+              </label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Notify"
+                onChange={(e) => setNotify_Emergency(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Relationship</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Relationship"
+                onChange={(e) => setRelationship(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">His/her Address</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Address"
+                onChange={(e) => setEmergency_Address(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Contact No:</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Number"
+                onChange={(e) => setContact_Number(e.target.value)}
+                type="text"
+              ></input>
+            </div>
           </div>
           <label
             className="flex md:text-[30px] h-fit text-xl
@@ -490,77 +561,99 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             EDUCATIONAL BACKGROUND
           </label>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold">College</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="College"
-              onChange={(e) => setCollege(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Year Graduated</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Year Graduated"
-              onChange={(e) => setCollege_Graduated(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Course</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Course"
-              onChange={(e) => setCourse(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Special Course & Training</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Course & Training"
-              onChange={(e) => setSpecial_Course(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Vocational</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Year Graduated"
-              onChange={(e) => setVocational(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Year Graduated</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Year Graduated"
-              onChange={(e) => setVocational_Graduated(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">High School</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="High School"
-              onChange={(e) => setHighSchool(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Year Graduated</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Year Graduated"
-              onChange={(e) => setHighSchool_Graduated(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Elementary School</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Elementary School"
-              onChange={(e) => setElementary(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Year Graduated</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Year Graduated"
-              onChange={(e) => setElementary_Graduated(e.target.value)}
-              type="text"
-            ></input>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-9 mb-3 p-2">
+            <div>
+              <label className="flex font-bold">College</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="College"
+                onChange={(e) => setCollege(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Year Graduated</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Year Graduated"
+                onChange={(e) => setCollege_Graduated(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Course</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Course"
+                onChange={(e) => setCourse(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">
+                Special Course & Training
+              </label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Course & Training"
+                onChange={(e) => setSpecial_Course(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Vocational</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Year Graduated"
+                onChange={(e) => setVocational(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Year Graduated</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Year Graduated"
+                onChange={(e) => setVocational_Graduated(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">High School</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="High School"
+                onChange={(e) => setHighSchool(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Year Graduated</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Year Graduated"
+                onChange={(e) => setHighSchool_Graduated(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Elementary School</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Elementary School"
+                onChange={(e) => setElementary(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Year Graduated</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Year Graduated"
+                onChange={(e) => setElementary_Graduated(e.target.value)}
+                type="text"
+              ></input>
+            </div>
           </div>
           <label
             className="flex md:text-[30px] h-fit text-xl
@@ -574,7 +667,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div>
-              <label className="flex justify-center  font-bold md:ml-[30%]">Inclusive Dates</label>
+              <label className="flex justify-center  font-bold md:ml-[30%]">
+                Inclusive Dates
+              </label>
               <textarea
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
@@ -592,7 +687,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">Position</label>
+              <label className="flex justify-center font-bold md:ml-[30%]">
+                Position
+              </label>
               <textarea
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
@@ -655,34 +752,42 @@ const Register = ({ isRegister, isRegisterClose }) => {
             accept="image/png, image/jpeg"
           ></input>
           <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
-            <label className="flex font-bold">SSS No:</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="SSS Number"
-              onChange={(e) => setSSS_Number(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Phil Health No:</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Phil Heatlh Number"
-              onChange={(e) => setPhil_Health_No(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Pag-IBIG No:</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Pag-IBIG Number"
-              onChange={(e) => setPag_Ibig_No(e.target.value)}
-              type="text"
-            ></input>
-            <label className="flex font-bold">Tin No:</label>
-            <input
-              className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Tin Number"
-              onChange={(e) => setTin_No(e.target.value)}
-              type="text"
-            ></input>
+            <div>
+              <label className="flex font-bold">SSS No:</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="SSS Number"
+                onChange={(e) => setSSS_Number(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Phil Health No:</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Phil Heatlh Number"
+                onChange={(e) => setPhil_Health_No(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Pag-IBIG No:</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Pag-IBIG Number"
+                onChange={(e) => setPag_Ibig_No(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div>
+              <label className="flex font-bold">Tin No:</label>
+              <input
+                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Tin Number"
+                onChange={(e) => setTin_No(e.target.value)}
+                type="text"
+              ></input>
+            </div>
           </div>
         </div>
 

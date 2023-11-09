@@ -694,7 +694,7 @@ const Navbar = ({
         email2={email}
         emp={emp}
       />
-      {console.log(email)}
+      
       <Signin
         isSignin={showModalSignin}
         isSignClose={() => setModalSignin(false)}

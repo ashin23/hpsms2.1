@@ -6,26 +6,35 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
-const UserListConfig = ({ e , notify }) => {
+const UserListConfig = ({ e, notify }) => {
   const [view, setView] = useState(false);
   const [password, setPassword] = useState(e.Password);
 
-  
+  const Notifysucces = () => {
+    toast.success("Successfully Updated", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   async function HandleUpdate() {
-    if(e.Password === password) {
-
-    }else {
+    if (e.Password === password) {
+    } else {
       const { data, error } = await supabase
-      .from("UserList")
-      .update({ Password: password })
-      .eq("id", e.id)
-      .select();
-    setView(false);
-    setPassword(password)
-    notify()
+        .from("UserList")
+        .update({ Password: password })
+        .eq("id", e.id)
+        .select();
+      setView(false);
+      setPassword(password);
+      Notifysucces();
     }
-    
   }
 
   return (
@@ -62,8 +71,19 @@ const UserListConfig = ({ e , notify }) => {
             Update
           </button>
         </div>
-        
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </div>
   );
 };

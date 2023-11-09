@@ -23,18 +23,17 @@ const EmployeeConfig = ({
       .update({ Notifications: "true" })
       .eq("id", empData.id);
   };
-
+  console.log(empData)
   return (
     <div className="flex bg-slate-200 w-[100%] mt-2" onClick={() => updateNotif()}>
       <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] lg:h-10 bg-slate-100 md:gap-5">
-        <div className=" flex text-md ">
+        <div className=" md:grid md:mr-[80%] md:grid-cols-2 ">
           <input
             type="checkbox"
             onChange={handleChange}
             value={empData.Name}
-            className="mr-1 mb-7 flex"
+            className="md:mt-2"
           />
-         
           <div className="">{empData.Name}</div>
         </div>
         <div className="text-md  md:ml-[20%]">{empData.Position}</div>

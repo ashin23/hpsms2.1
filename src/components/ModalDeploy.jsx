@@ -56,30 +56,29 @@ function ModalDeploy({
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <button
-        onClick={() => close()}
-        className="top-[123px] place-content-center ml-[470px] absolute py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
-      >
-        Cancel
-      </button>
-      <div className=" grid grid-cols-1 justify-center h-[65%] w-[30%] bg-white p-10 gap-3 rounded-2xl">
-        <label className=" flex pl-9 pr-40 py-5 ml-2 my-1 h-[50%] text-slate-100 text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+      <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  md:h-[45%]  h-[60%] md:w-[20%] w-[100%] rounded-3xl shadow-2xl">
+        <label className=" flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
+          bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Selected Employees
         </label>
-        <div className="grid grid-cols-1 w-[30%] h-[20%]">
+        <div className="grid grid-cols-2 md:w-[70%] gap-10 md:gap-5 md:h-[20%]">
           <button
             onClick={() => HandleSendCoordinator()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 mr-5 mb-5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm md:px-15 md:py-5 md:mr-5 md:mb-5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
             Send
           </button>
+          <button
+            onClick={() => close()}
+            className=" md:px-15 md:py-5 md:mr-5 md:mb-5 text-sm font-medium text-gray-600 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-600 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600"
+          >
+            Cancel
+          </button>
         </div>
-        
+
         {name.length > 0 ? (
-          <ul className="grid grid-cols">
-            <li className="bg-slate-400 ">
-              {name}
-            </li>
+          <ul className="grid grid-cols  ">
+            <li className=" h-[50%] bg-slate-400 ">{name}</li>
           </ul>
         ) : (
           "No Data Selected"
@@ -96,7 +95,7 @@ function ModalDeploy({
             className={`${
               datadisplay === ""
                 ? "hidden"
-                : `max-h-[50px] bg-slate-400 overflow-y-auto`
+                : ` bg-slate-400 overflow-y-auto`
             }`}
           >
             {dataEmp
@@ -115,7 +114,7 @@ function ModalDeploy({
               })
               .map((e) => (
                 <div
-                  className={`${datadisplay === email ? "hidden" : ""}`}
+                  className={`${datadisplay === email ? "hidden" : "md:h-[20%]"}`}
                   onClick={() => setdatadisplay(e.Email) || setEmail(e.Email)}
                 >
                   {e.Email}

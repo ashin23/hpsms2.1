@@ -6,17 +6,15 @@ import { useEffect } from "react";
 import ModalDeploy from "./ModalDeploy";
 import EmployeeStatus from "./EmployeeStatus.json";
 const Employee = ({ email }) => {
-  
-
   const [search1, setSearch1] = useState("");
-  const [employee, setEmployee] = useState();
+  const [employee, setEmployee] = useState([]);
   const [showModalDeploy, setShowModalDeploy] = useState(false);
-  const [empdetailed,setempdetailed] = useState()
+  const [empdetailed, setempdetailed] = useState();
   const [selected, setSelected] = useState([]);
 
   const [empStatus, setempstatus] = useState("Employee Status");
   const [selectednames, setselectednames] = useState("");
-  
+
   useEffect(() => {
     FetchEmployee();
     const EmployeeList = supabase
@@ -45,22 +43,37 @@ const Employee = ({ email }) => {
   };
 
   function HandleChange(event) {
-    const { value,  checked } = event.target;
+    const { value, checked } = event.target;
 
     if (checked) {
       setSelected((pre) => [...pre, value]);
       setselectednames((pre) => [...pre, value]);
     } else {
       setSelected((pre) => {
-        return [...pre.filter((test) => test !== value )];
+        return [...pre.filter((test) => test !== value)];
       });
       setselectednames((pre) => {
-        return [...pre.filter((test) => test !== value )];
+        return [...pre.filter((test) => test !== value)];
       });
     }
   }
-  
-  
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postperpage, setpostperpage] = useState(10);
+
+  const lastPostIndex = currentPage * postperpage;
+  const firstPostIndex = lastPostIndex - postperpage;
+  const currentpost = employee.slice(firstPostIndex, lastPostIndex);
+
+  let pages = [];
+
+  for (
+    let index = 1;
+    index <= Math.ceil(employee.length / postperpage);
+    index++
+  ) {
+    pages.push(index);
+  }
 
   return (
     <div className=" ">
@@ -93,6 +106,20 @@ const Employee = ({ email }) => {
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
           Employee List
         </h1>
+        <div className="grid ml-2 mb-2 grid-cols-5 md:ml-[5%] md:mb-1 gap-16 w-[20%] md:flex mt-2 md:gap-2">
+          {" "}
+          {pages.map((page, index) => {
+            return (
+              <button
+                key={index}
+                className="hover:bg-blue-300  focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
+                onClick={() => setCurrentPage(page)}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
         <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none   ">
           <div className=" grid grid-cols-3 w-[100%]  bg-slate-300">
             <div className="text-md p-3">Name</div>
@@ -100,10 +127,9 @@ const Employee = ({ email }) => {
             <div className="text-md p-3 md:ml-[20%]">Email</div>
           </div>
 
-          {employee && (
+          {currentpost && (
             <div className="h-[520px] overflow-y-auto">
-              {employee
-                .sort((a, b) => (a.status <= b.status ? 1 : -1))
+              {currentpost
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -119,6 +145,7 @@ const Employee = ({ email }) => {
                     }
                   } catch (error) {}
                 })
+                .sort((a, b) => (b.id <= a.id ? 1 : -1))
                 .map((empData) => (
                   <EmployeeConfig
                     key={empData.id}
@@ -138,7 +165,6 @@ const Employee = ({ email }) => {
         Deploy={employee}
         DataSelected={selected}
         selectednames={selectednames}
-        
       />
     </div>
   );

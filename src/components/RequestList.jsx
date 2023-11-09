@@ -6,7 +6,7 @@ import RequestConfig from "./RequestConfig";
 
 const RequestList = () => {
   const [search1, setSearch1] = useState("");
-  const [request, setRequest] = useState();
+  const [request, setRequest] = useState([]);
 
   useEffect(() => {
     FetchRequest();
@@ -27,6 +27,23 @@ const RequestList = () => {
     setRequest(request);
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postperpage, setpostperpage] = useState(10);
+
+  const lastPostIndex = currentPage * postperpage;
+  const firstPostIndex = lastPostIndex - postperpage;
+  const currentpost = request.slice(firstPostIndex, lastPostIndex);
+
+  let pages = [];
+
+  for (
+    let index = 1;
+    index <= Math.ceil(request.length / postperpage);
+    index++
+  ) {
+    pages.push(index);
+  }
+
   return (
     <div className="">
       <div className="h-screen">
@@ -41,6 +58,20 @@ const RequestList = () => {
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
           Request List
         </h1>
+        <div className="grid ml-2 mb-2 grid-cols-5 md:ml-[5%] md:mb-1 gap-16 w-[20%] md:flex mt-2 md:gap-2">
+          {" "}
+          {pages.map((page, index) => {
+            return (
+              <button
+                key={index}
+                className="hover:bg-blue-300  focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
+                onClick={() => setCurrentPage(page)}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
         <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
           <div className="grid grid-cols-3 md:grid-cols-6 w-[100%] bg-slate-300">
             <div className="text-md md:flex hidden p-3">Name</div>
@@ -50,9 +81,9 @@ const RequestList = () => {
             <div className="text-md md:flex hidden p-3">Hotel</div>
             <div className="text-md md:flex hidden p-3">Location</div>
           </div>
-          {request && (
-            <div className="h-[520px] overflow-y-auto">
-              {request
+          {currentpost && (
+            <div className="h-[520px] overflow-x-hidden">
+              {currentpost
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -74,6 +105,7 @@ const RequestList = () => {
                     }
                   } catch (error) {}
                 })
+                .sort((a, b) => (b.id <= a.id ? 1 : -1))
                 .map((e) => (
                   <RequestConfig key={e.id} e={e} />
                 ))}

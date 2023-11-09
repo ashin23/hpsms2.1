@@ -25,6 +25,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
   const [postJobInfo, setPostJobInfo] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postperpage, setpostperpage] = useState(5);
+
   const [info, setInfo] = useState();
   const [positions, setPositions] = useState();
   const [location, setLocation] = useState();
@@ -135,6 +138,20 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     setCurrentIndex(slideIndex);
   };
 
+  const lastPostIndex = currentPage * postperpage;
+  const firstPostIndex = lastPostIndex - postperpage;
+  const currentpost = postJobInfo.slice(firstPostIndex, lastPostIndex);
+
+  let pages = [];
+
+  for (
+    let index = 1;
+    index <= Math.ceil(postJobInfo.length / postperpage);
+    index++
+  ) {
+    pages.push(index);
+  }
+
   return (
     <>
       <div className="grid grid-row-2 ">
@@ -203,7 +220,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 <img src={Grand} className="" />
                 <img src={Marco} className="w-[100%]" />
               </div>
-              {/* wala pang animation */}
+              {/* About us */}
               <div ref={about}>
                 <div
                   data-aos="fade-up"
@@ -342,16 +359,32 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 ></input>
               </div>
               {/* right side */}
+
               <div
                 ref={apply}
                 className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md "
               >
-                {postJobInfo && (
-                  <div className=" md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
+                {currentpost && (
+                  <div className="md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
+                    <div className="grid grid-cols-5 gap-16 w-[20%] md:flex mt-2 md:gap-2">
+                      {" "}
+                      {pages.map((page, index) => {
+                        return (
+                          <button
+                            key={index}
+                            className="hover:bg-blue-300 focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
+                            onClick={() => setCurrentPage(page)}
+                          >
+                            {page}
+                          </button>
+                        );
+                      })}
+                    </div>
+
                     <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">
                       TO APPLY
                     </h1>
-                    {postJobInfo
+                    {currentpost
                       .filter((val) => {
                         if (search === "") {
                           return val;

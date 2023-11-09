@@ -51,7 +51,7 @@ const EmployeeCoord = ({ email1 }) => {
           </div>
           <div className="w-[100%] h-[90%] bg-[#EEEEEE] grid ">
             {coordinator && (
-              <div className="h-[520px] overflow-y-auto">
+              <div className="h-[520px] overflow-x-hidden">
                 {coordinator.map((e) => (
                   <CoordConfif key={e.id} CoordEmp={e.Data} />
                 ))}

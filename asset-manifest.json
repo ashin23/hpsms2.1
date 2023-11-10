@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/hpsms2.1/static/css/main.9578bad5.css",
-    "main.js": "/hpsms2.1/static/js/main.9f4a2bd4.js",
+    "main.css": "/hpsms2.1/static/css/main.6c4d47ce.css",
+    "main.js": "/hpsms2.1/static/js/main.6805e28e.js",
     "static/media/Richmonde.jpg": "/hpsms2.1/static/media/Richmonde.7280ba81525688e630fb.jpg",
     "static/media/hotel.jpg": "/hpsms2.1/static/media/hotel.1fc733e12ed7a72fc4c2.jpg",
     "static/media/leadership.png": "/hpsms2.1/static/media/leadership.34d8e91725bfc767a15f.png",
@@ -13,11 +13,11 @@
     "static/media/sheraton.jpg": "/hpsms2.1/static/media/sheraton.698828b1d3b9bcb3e4b8.jpg",
     "static/media/hotelproimage.png": "/hpsms2.1/static/media/hotelproimage.5c95ab314063505ef5fe.png",
     "index.html": "/hpsms2.1/index.html",
-    "main.9578bad5.css.map": "/hpsms2.1/static/css/main.9578bad5.css.map",
-    "main.9f4a2bd4.js.map": "/hpsms2.1/static/js/main.9f4a2bd4.js.map"
+    "main.6c4d47ce.css.map": "/hpsms2.1/static/css/main.6c4d47ce.css.map",
+    "main.6805e28e.js.map": "/hpsms2.1/static/js/main.6805e28e.js.map"
   },
   "entrypoints": [
-    "static/css/main.9578bad5.css",
-    "static/js/main.9f4a2bd4.js"
+    "static/css/main.6c4d47ce.css",
+    "static/js/main.6805e28e.js"
   ]
 }

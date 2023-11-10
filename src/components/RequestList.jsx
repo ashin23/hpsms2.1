@@ -4,6 +4,9 @@ import supabase from "./supabaseClient";
 import { useEffect } from "react";
 import RequestConfig from "./RequestConfig";
 
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import ReactPaginate from "react-paginate";
+
 const RequestList = () => {
   const [search1, setSearch1] = useState("");
   const [request, setRequest] = useState([]);
@@ -27,22 +30,22 @@ const RequestList = () => {
     setRequest(request);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postperpage, setpostperpage] = useState(10);
+  const [currentitems, setcurrentitems] = useState([]);
+  const [pagecount, setpagecount] = useState(0);
+  const [itemsOffset, setItemOffset] = useState(0);
+  const perpage = 7;
 
-  const lastPostIndex = currentPage * postperpage;
-  const firstPostIndex = lastPostIndex - postperpage;
-  const currentpost = request.slice(firstPostIndex, lastPostIndex);
+  useEffect(() => {
+    const endoffsett = itemsOffset + perpage;
+    setcurrentitems(request.slice(itemsOffset, endoffsett));
+    setpagecount(Math.ceil(request.length / perpage));
+  }, [itemsOffset, perpage, request]);
 
-  let pages = [];
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * perpage) % request.length;
 
-  for (
-    let index = 1;
-    index <= Math.ceil(request.length / postperpage);
-    index++
-  ) {
-    pages.push(index);
-  }
+    setItemOffset(newOffset);
+  };
 
   return (
     <div className="">
@@ -58,19 +61,25 @@ const RequestList = () => {
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
           Request List
         </h1>
-        <div className="grid ml-2 mb-2 grid-cols-5 md:ml-[5%] md:mb-1 gap-16 w-[20%] md:flex mt-2 md:gap-2">
-          {" "}
-          {pages.map((page, index) => {
-            return (
-              <button
-                key={index}
-                className="hover:bg-blue-300  focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            );
-          })}
+        <div>
+          <ReactPaginate
+            previousLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                <BsChevronCompactLeft />
+              </span>
+            }
+            nextLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                <BsChevronCompactRight />
+              </span>
+            }
+            pageCount={pagecount}
+            onPageChange={handlePageClick}
+            renderOnZeroPageCount={null}
+            pageRangeDisplayed={5}
+            containerClassName="flex mt-2   "
+            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+          />
         </div>
         <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
           <div className="grid grid-cols-3 md:grid-cols-6 w-[100%] bg-slate-300">
@@ -81,9 +90,9 @@ const RequestList = () => {
             <div className="text-md md:flex hidden p-3">Hotel</div>
             <div className="text-md md:flex hidden p-3">Location</div>
           </div>
-          {currentpost && (
+          {currentitems && (
             <div className="h-[520px] overflow-x-hidden">
-              {currentpost
+              {currentitems
                 .filter((val) => {
                   try {
                     if (search1 === "") {

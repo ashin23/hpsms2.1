@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import logo from "./images/magnifying-glass.png";
 import supabase from "./supabaseClient";
 import ApplicantConfig from "./ApplicantConfig";
-
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import ReactPaginate from "react-paginate";
 import ModalAccept from "./ModalAccept";
 import QuelingConfig from "./QuelingConfig";
 const Quelist = ({ email1 }) => {
@@ -28,22 +29,22 @@ const Quelist = ({ email1 }) => {
     setApplicants(Quelist);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postperpage, setpostperpage] = useState(10);
+  const [currentitems, setcurrentitems] = useState([]);
+  const [pagecount, setpagecount] = useState(0);
+  const [itemsOffset, setItemOffset] = useState(0);
+  const perpage = 7;
 
-  const lastPostIndex = currentPage * postperpage;
-  const firstPostIndex = lastPostIndex - postperpage;
-  const currentpost = applicants.slice(firstPostIndex, lastPostIndex);
+  useEffect(() => {
+    const endoffsett = itemsOffset + perpage;
+    setcurrentitems(applicants.slice(itemsOffset, endoffsett));
+    setpagecount(Math.ceil(applicants.length / perpage));
+  }, [itemsOffset, perpage, applicants]);
 
-  let pages = [];
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * perpage) % applicants.length;
 
-  for (
-    let index = 1;
-    index <= Math.ceil(applicants.length / postperpage);
-    index++
-  ) {
-    pages.push(index);
-  }
+    setItemOffset(newOffset);
+  };
 
   return (
     <div className="">
@@ -59,19 +60,25 @@ const Quelist = ({ email1 }) => {
         <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
           Queuing List
         </h1>
-        <div className="grid ml-2 mb-2 grid-cols-5 md:ml-[5%] md:mb-1 gap-16 w-[20%] md:flex mt-2 md:gap-2">
-          {" "}
-          {pages.map((page, index) => {
-            return (
-              <button
-                key={index}
-                className="hover:bg-blue-300  focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            );
-          })}
+        <div>
+          <ReactPaginate
+            previousLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                <BsChevronCompactLeft />
+              </span>
+            }
+            nextLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                <BsChevronCompactRight />
+              </span>
+            }
+            pageCount={pagecount}
+            onPageChange={handlePageClick}
+            renderOnZeroPageCount={null}
+            pageRangeDisplayed={5}
+            containerClassName="flex mt-2   "
+            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+          />
         </div>
         <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
           <div className="grid grid-cols-3 w-[100%] bg-slate-300">
@@ -79,10 +86,10 @@ const Quelist = ({ email1 }) => {
             <div className="text-md p-3 ">Position</div>
             <div className="text-md p-3 mr-20">Email</div>
           </div>
-          {currentpost && (
+          {currentitems && (
             <div className="h-[520px] overflow-x-hidden">
               {" "}
-              {currentpost
+              {currentitems
                 .filter((val) => {
                   try {
                     if (search1 === "") {

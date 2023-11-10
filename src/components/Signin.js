@@ -66,9 +66,10 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     >
       <div>
         <div className=" justify-center items-center bg-white p-10 gap-3 rounded-3xl shadow-2xl">
+        <CgProfile className="ml-[40%] text-5xl" />
           <div className="grid grid-cols-1">
             <label className="items-center font-semibold text-[30px] place-content-center justify-center flex">
-              <CgProfile /> Log in
+               Log in
             </label>
 
             <div className="">

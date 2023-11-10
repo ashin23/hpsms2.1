@@ -24,6 +24,7 @@ function App() {
   
   return (
     <div className="App ">
+      {/* h-fit pinalitan */}
       <header className=" z-50 fixed w-screen top-0 h-fit">
         <Navbar
           setEmailSend={setEmail}

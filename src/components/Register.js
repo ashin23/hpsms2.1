@@ -6,6 +6,7 @@ import supabase from "./supabaseClient";
 import CivilStatus from "./CivilStatus.json";
 import { v4 as uuidv4 } from "uuid";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import Gender from "./Gender.json"
 
 const Register = ({ isRegister, isRegisterClose }) => {
   const [email, setEmail] = useState("");
@@ -455,12 +456,17 @@ const Register = ({ isRegister, isRegisterClose }) => {
             </div>
             <div>
               <label className="flex font-bold">Sex</label>
-              <input
-                className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                placeholder="Sex"
+              <select
                 onChange={(e) => setSex(e.target.value)}
-                type="text"
-              ></input>
+                className="pl-4 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              >
+                {Gender.map((gender) => (
+                  <option key={gender.id}>
+                    {" "}
+                    {gender.gender}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="flex font-bold">Civil Status</label>

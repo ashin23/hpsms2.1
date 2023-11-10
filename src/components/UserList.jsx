@@ -5,6 +5,8 @@ import UserListConfig from "./UserListConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import ReactPaginate from "react-paginate";
 const UserList = () => {
   const [search1, setSearch1] = useState("");
   const [userList, setUserList] = useState([]);
@@ -47,22 +49,22 @@ const UserList = () => {
     setUserList(request.concat(requestEmp));
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postperpage, setpostperpage] = useState(10);
+  const [currentitems, setcurrentitems] = useState([]);
+  const [pagecount, setpagecount] = useState(0);
+  const [itemsOffset, setItemOffset] = useState(0);
+  const perpage = 7;
 
-  const lastPostIndex = currentPage * postperpage;
-  const firstPostIndex = lastPostIndex - postperpage;
-  const currentpost = userList.slice(firstPostIndex, lastPostIndex);
+  useEffect(() => {
+    const endoffsett = itemsOffset + perpage;
+    setcurrentitems(userList.slice(itemsOffset, endoffsett));
+    setpagecount(Math.ceil(userList.length / perpage));
+  }, [itemsOffset, perpage, userList]);
 
-  let pages = [];
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * perpage) % userList.length;
 
-  for (
-    let index = 1;
-    index <= Math.ceil(userList.length / postperpage);
-    index++
-  ) {
-    pages.push(index);
-  }
+    setItemOffset(newOffset);
+  };
 
   return (
     <div className="">
@@ -78,19 +80,25 @@ const UserList = () => {
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
           User List
         </h1>
-        <div className="grid ml-2 mb-2 grid-cols-5 md:ml-[5%] md:mb-1 gap-16 w-[20%] md:flex mt-2 md:gap-2">
-          {" "}
-          {pages.map((page, index) => {
-            return (
-              <button
-                key={index}
-                className="hover:bg-blue-300  focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            );
-          })}
+        <div>
+          <ReactPaginate
+            previousLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                <BsChevronCompactLeft />
+              </span>
+            }
+            nextLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                <BsChevronCompactRight />
+              </span>
+            }
+            pageCount={pagecount}
+            onPageChange={handlePageClick}
+            renderOnZeroPageCount={null}
+            pageRangeDisplayed={5}
+            containerClassName="flex mt-2   "
+            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+          />
         </div>
         <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none ">
           <div className="flex w-[100%] bg-slate-300">
@@ -99,9 +107,9 @@ const UserList = () => {
             <label className="text-md p-3 w-[100%]">Position</label>
             <label className="text-md p-3 w-[10%]"></label>
           </div>
-          {currentpost && (
+          {currentitems && (
             <div className="h-[520px]  overflow-x-hidden ">
-              {currentpost
+              {currentitems
                 .filter((val) => {
                   try {
                     if (search1 === "") {

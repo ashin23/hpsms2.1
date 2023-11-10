@@ -18,15 +18,13 @@ import Grand from "./images/Grandhyatt.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import ReactPaginate from "react-paginate";
+
 import Marco from "./images/Marco_Polo_Hotels_Logo.jpg";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
-  const [postJobInfo, setPostJobInfo] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postperpage, setpostperpage] = useState(5);
 
   const [info, setInfo] = useState();
   const [positions, setPositions] = useState();
@@ -138,19 +136,26 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     setCurrentIndex(slideIndex);
   };
 
-  const lastPostIndex = currentPage * postperpage;
-  const firstPostIndex = lastPostIndex - postperpage;
-  const currentpost = postJobInfo.slice(firstPostIndex, lastPostIndex);
+  const [postJobInfo, setPostJobInfo] = useState([]);
 
-  let pages = [];
+  const [currentitems, setcurrentitems] = useState([]);
+  const [pagecount, setpagecount] = useState(0);
+  const [itemsOffset, setItemOffset] = useState(0);
+  const perpage = 5;
 
-  for (
-    let index = 1;
-    index <= Math.ceil(postJobInfo.length / postperpage);
-    index++
-  ) {
-    pages.push(index);
-  }
+  useEffect(() => {
+    const endoffsett = itemsOffset + perpage;
+    setcurrentitems(postJobInfo.slice(itemsOffset, endoffsett));
+    setpagecount(Math.ceil(postJobInfo.length / perpage));
+  }, [itemsOffset, perpage, postJobInfo]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * perpage) % postJobInfo.length;
+
+    setItemOffset(newOffset);
+  };
+
+  
 
   return (
     <>
@@ -159,7 +164,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
           <div className="">
             {/* {NAUULOL YUNG ANIMATION PAG MAY HEIGHT  } */}
             {/* {DASHBOARD MAY SCROLL SA IBABA} */}
-            <div className="w-fit md:w-[100%] overflow-x-hidden bg-slate-100 p-5 md:p-10">
+            <div className=" w-fit md:w-[100%] overflow-x-hidden bg-slate-100 p-5 md:p-10">
               {/* <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
               Our Partners
             </label> */}
@@ -206,28 +211,27 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   </div>
                 </div>
               </div>
-              <div
-                data-aos="fade-up"
-                className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:mt-[5%]  md:gap-5 gap-2"
-              >
-                <img src={Solaire} className="" />
-                <img src={Sheraton} className="" />
-                <img src={Marriot} className="" />
-                <img src={Heritage} className="w-[100%]" />
-                <img src={newWorld} className="" />
-                <img src={Shangrila} className="" />
-                <img src={Richmonde} className="" />
-                <img src={Grand} className="" />
-                <img src={Marco} className="w-[100%]" />
+              <div className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:mt-[5%]  md:gap-5 gap-2">
+                <img data-aos="fade-right" src={Solaire} className="" />
+                <img data-aos="fade-right" src={Sheraton} className="" />
+                <img data-aos="fade-right" src={Marriot} className="" />
+                <img
+                  data-aos="fade-right"
+                  src={Heritage}
+                  className="w-[100%]"
+                />
+                <img data-aos="fade-right" src={newWorld} className="" />
+                <img data-aos="fade-left" src={Shangrila} className="" />
+                <img data-aos="fade-left" src={Richmonde} className="" />
+                <img data-aos="fade-left" src={Grand} className="" />
+                <img data-aos="fade-left" src={Marco} className="w-[100%]" />
               </div>
               {/* About us */}
               <div ref={about}>
-                <div
-                  data-aos="fade-up"
-                  className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] "
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
                   <div className="text-black">
                     <img
+                      data-aos="fade-right"
                       src={logo1}
                       className="
                md:ml-[10%]
@@ -235,10 +239,13 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     ></img>
                   </div>
                   <div className=" md:text-left">
-                    <p className="text-blue-700 text-[50px] font-semibold mb-[2%]">
+                    <p
+                      data-aos="fade-left"
+                      className="text-blue-700 text-[50px] font-semibold mb-[2%]"
+                    >
                       About Hotel Pro Services
                     </p>
-                    <p className="mr-[10%] text-justify  ">
+                    <p data-aos="fade-left" className="mr-[10%] text-justify  ">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Quam, ex, quia, nemo quo voluptatibus totam aliquam eum
                       accusamus quisquam unde repudiandae culpa dignissimos
@@ -257,33 +264,39 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   </div>
                 </div>
 
-                <div
-                  data-aos="fade-up"
-                  className="grid grid-cols-1  md:grid-cols-3 text-[50px] font-semibold mt-[5%] text-blue-700 ml-[5%]"
-                >
+                <div className="grid grid-cols-1  md:grid-cols-3 text-[50px] font-semibold mt-[5%] text-blue-700 ml-[5%]">
                   <div>
-                    <h1>300M</h1>
-                    <p className="text-[20px]">Unique monthly visitors</p>
+                    <h1 data-aos="fade-right">300M</h1>
+                    <p data-aos="fade-right" className="text-[20px]">
+                      Unique monthly visitors
+                    </p>
                   </div>
                   <div>
-                    <h1>250M</h1>
-                    <p className="text-[20px]">Resumes On Hotel Pro Services</p>
+                    <h1 data-aos="fade-up">250M</h1>
+                    <p data-aos="fade-up" className="text-[20px]">
+                      Resumes On Hotel Pro Services
+                    </p>
                   </div>
                   <div>
-                    <h1>800M+</h1>
-                    <p className="text-[20px]">Total ratings and reviews</p>
+                    <h1 data-aos="fade-left">800M+</h1>
+                    <p data-aos="fade-left" className="text-[20px]">
+                      Total ratings and reviews
+                    </p>
                   </div>
                 </div>
 
-                <div
-                  data-aos="fade-up"
-                  className="grid grid-cols-1 md:grid-cols-2 mt-[10%]"
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 mt-[10%]">
                   <div>
-                    <h1 className="text-blue-700 text-[50px] font-semibold md:text-left md:ml-[10%]">
+                    <h1
+                      data-aos="fade-right"
+                      className="text-blue-700 text-[50px] font-semibold md:text-left md:ml-[10%]"
+                    >
                       Our People
                     </h1>
-                    <p className="text-justify md:ml-[10%] mt-[5%]">
+                    <p
+                      data-aos="fade-right"
+                      className="text-justify md:ml-[10%] mt-[5%]"
+                    >
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Corporis, iusto. Enim rem debitis amet impedit odio, alias
                       quidem veniam dignissimos, dolorem itaque officiis
@@ -301,28 +314,30 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     </p>
                   </div>
 
-                  <div data-aos="fade-up" className="text-black">
+                  <div className="text-black">
                     <img
+                      data-aos="fade-right"
                       src={logo3}
                       className="h-[100%] w-[100%] md:h-[90%] md:w-[70%] rounded-md md:ml-[21%] md:mt-10 mt-5"
                     ></img>
                   </div>
 
-                  <div data-aos="fade-up" className="text-black mb-[5%]">
+                  <div className="text-black mb-[5%]">
                     <img
+                      data-aos="fade-left"
                       src={logo4}
                       className="md:h-[90%] md:w-[70%] rounded-md md:ml-20 mt-10"
                     ></img>
                   </div>
 
-                  <div
-                    data-aos="fade-up"
-                    className="md:ml-20 md:mr-20 md:mb-[5%] mb-[5%]"
-                  >
-                    <h1 className="text-[50px] font-semibold text-blue-700 mb-10 text-left mt-[5%]">
+                  <div className="md:ml-20 md:mr-20 md:mb-[5%] mb-[5%]">
+                    <h1
+                      data-aos="fade-right"
+                      className="text-[50px] font-semibold text-blue-700 mb-10 text-left mt-[5%]"
+                    >
                       Our Leadership
                     </h1>
-                    <p className="text-justify">
+                    <p data-aos="fade-right" className="text-justify">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Optio ex quibusdam vero vel amet. Doloribus ex alias
                       inventore tenetur, ipsam dignissimos quam eveniet vel
@@ -364,27 +379,33 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 ref={apply}
                 className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md "
               >
-                {currentpost && (
+                {currentitems && (
                   <div className="md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
-                    <div className="grid grid-cols-5 gap-16 w-[20%] md:flex mt-2 md:gap-2">
-                      {" "}
-                      {pages.map((page, index) => {
-                        return (
-                          <button
-                            key={index}
-                            className="hover:bg-blue-300 focus:outline-none focus:border-blue-400 focus:ring focus:bg-blue-500  border-2 h-10 px-5  transition-colors duration-150 bg-white text-black  border-blue-600 focus:shadow-outline"
-                            onClick={() => setCurrentPage(page)}
-                          >
-                            {page}
-                          </button>
-                        );
-                      })}
+                    <div>
+                      <ReactPaginate
+                        previousLabel={
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                            <BsChevronCompactLeft />
+                          </span>
+                        }
+                        nextLabel={
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                            <BsChevronCompactRight />
+                          </span>
+                        }
+                        pageCount={pagecount}
+                        onPageChange={handlePageClick}
+                        renderOnZeroPageCount={null}
+                        pageRangeDisplayed={5}
+                        containerClassName="flex mt-2   "
+                        pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+                      />
                     </div>
 
                     <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">
                       TO APPLY
                     </h1>
-                    {currentpost
+                    {currentitems
                       .filter((val) => {
                         if (search === "") {
                           return val;

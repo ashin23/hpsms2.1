@@ -15,7 +15,10 @@ const EmployeeConfig = ({
    
   }, [selectedData, empData]);
 
- 
+  const handleshowApplicant =  (e) => {
+    e.stopPropagation()
+    setShowModal(true)
+  }
 
   const updateNotif = async () => {
     const { data: update } = await supabase
@@ -23,7 +26,7 @@ const EmployeeConfig = ({
       .update({ Notifications: "true" })
       .eq("id", empData.id);
   };
-  console.log(empData)
+
   return (
     <div className="flex bg-slate-200 w-[100%] mt-2" onClick={() => updateNotif()}>
       <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] lg:h-10 bg-slate-100 md:gap-5">
@@ -38,7 +41,7 @@ const EmployeeConfig = ({
         </div>
         <div className="text-md  md:ml-[20%]">{empData.Position}</div>
         <div
-          onClick={() => setShowModal(true)}
+          onClick={handleshowApplicant}
           className={`${
             empData.Notifications === "false" && "border-2 border-red-500"
           } md:p-3 md:hover:translate-x-2  md:hover:p-4 duration-500  md:mt-1 md:rounded-md`}

@@ -132,7 +132,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     >
       
 
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
+      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[50%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
         <label
           className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
@@ -140,7 +140,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
         >
           Select Schedule of Interview
         </label>
-        <div className="grid-cols-2 grid">
+        <div className="grid-cols-2 grid w-[100%] md:w-[40%]">
         <button
           onClick={() => InfoEmail()}
           className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"

@@ -23,6 +23,8 @@ const UserListConfig = ({ e, notify }) => {
     });
   };
 
+
+
   async function HandleUpdate() {
     if (e.Password === password) {
     } else {

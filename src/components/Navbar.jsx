@@ -35,7 +35,7 @@ const Navbar = ({
 
   const [menu, setMenu] = useState(false);
 
-  const [notif, setNotif] = useState("");
+  const [notifa, setNotif] = useState("");
   const [notifque, setNotifque] = useState("");
   const [notifemp, setNotifemp] = useState("");
   const [notifarch, setNotifarch] = useState("");
@@ -57,6 +57,9 @@ const Navbar = ({
       setModalSignin(true);
       document.getElementById("signOut").hidden = true;
     }
+  }, []);
+
+  useEffect(() => {
     getnotif();
     getnotifque();
     getnotifemp();
@@ -103,7 +106,6 @@ const Navbar = ({
       .subscribe();
   }, []);
 
-  useEffect(() => {}, []);
   async function HandleCheckerUser() {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
@@ -437,7 +439,9 @@ const Navbar = ({
       <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
         <div className=" md:w-[200px] w-[130px] flex gap-1 items-center md:font-bold  text-sm ">
           <img src={logo} alt="/" className="h-[40px] w-[80px] ml-3 "></img>
-          <p className=" text-2xl  md:text-4xl text-[#162388] md:flex hidden">HPSMS</p>
+          <p className=" text-2xl  md:text-4xl text-[#162388] md:flex hidden">
+            HPSMS
+          </p>
         </div>
 
         <div className=" w-[90%]  justify-center flex p-4 md:text-lg text-sm  rounded-lg text-white font-mono gap-4 items-center">
@@ -453,128 +457,127 @@ const Navbar = ({
             <label className="md:flex hidden text-[#162388]">Home</label>
           </Link>
 
-          <div>
-            <div
-              onClick={() => setMenu(!menu)}
-              className={`${
-                hr || admin
-                  ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg  pt-2"
-                  : "hidden"
-              }`}
-            >
-              {notif !== true && (
-                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-              )}
-              {notifque !== true && (
-                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-              )}
-              {notifemp !== true && (
-                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-              )}
-              {notifarch !== true && (
-                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-              )}
-              {notifreq !== true && (
-                <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-              )}
-              <PiBooks className="mt-1 text-[20px] text-[#162388]" />
-              <label className="md:flex hidden text-[#162388]">Module</label>
-              {menu && (
-                <ul
-                  className={`${
-                    menu
-                      ? "absolute bg-[#3F83F8] md:h-[18rem] gap-2  rounded-lg p-3 mt-9"
-                      : "hidden"
-                  }`}
-                >
-                  <li>
-                    <Link
-                      className={`${
-                        hr
-                          ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
-                          : "hidden"
-                      }`}
-                      to="/Applicant"
-                    >
-                      {notif !== true && (
-                        <IoMdNotifications className=" text-red-500 text-[20px] " />
-                      )}
-                      Applicants Lists
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className={`${
-                        hr
-                          ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg"
-                          : "hidden"
-                      }`}
-                      to="/Quelist"
-                    >
-                      {notifque !== true && (
-                        <IoMdNotifications className=" text-red-500 text-[20px] " />
-                      )}{" "}
-                      Queuing List
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/Employee"
-                      className={`${
-                        hr
-                          ? "flex hover:bg-sky-400 hover:text-white p-2 rounded-lg"
-                          : "hidden"
-                      }`}
-                    >
-                      {notifemp !== true && (
-                        <IoMdNotifications className=" text-red-500 text-[20px] " />
-                      )}
-                      Employee List
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/Archive"
-                      className={`${
-                        hr
-                          ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
-                          : "hidden"
-                      }`}
-                    >
-                      {notifarch !== true && (
-                        <IoMdNotifications className=" text-red-500 text-[20px] " />
-                      )}{" "}
-                      Archive
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/RequestList"
-                      className={`${
-                        hr
-                          ? "flex hover:bg-sky-400 hover:text-white p-2   rounded-lg"
-                          : "hidden"
-                      }`}
-                    >
-                      Request List
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/UserList"
-                      className={`${
-                        admin
-                          ? " flex hover:bg-sky-400 hover:text-white p-2   rounded-lg "
-                          : "hidden"
-                      }`}
-                    >
-                      User List
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </div>
+          <div
+            onClick={() => setMenu(!menu)}
+            className={`${
+              hr || admin
+                ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg  pt-2"
+                : "hidden"
+            }`}
+          >
+            {notifa !== true && (
+              <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+            )}
+            {notifque !== true && (
+              <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+            )}
+            {notifemp !== true && (
+              <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+            )}
+            {notifarch !== true && (
+              <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+            )}
+            {notifreq !== true && (
+              <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
+            )}
+            <PiBooks className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Module</label>
+            {menu && (
+              <ul
+                className={`${
+                  menu
+                    ? "absolute bg-[#3F83F8] md:h-[18rem] gap-2  rounded-lg p-3 mt-9"
+                    : "hidden"
+                }`}
+              >
+                <li>
+                  <Link
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                    to="/Applicant"
+                  >
+                    {notifa !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}
+                    Applicants Lists
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400  hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                    to="/Quelist"
+                  >
+                    {notifque !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}{" "}
+                    Queuing List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Employee"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2 rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    {notifemp !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}
+                    Employee List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Archive"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2  rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    {notifarch !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}{" "}
+                    Archive
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/RequestList"
+                    className={`${
+                      hr
+                        ? "flex hover:bg-sky-400 hover:text-white p-2   rounded-lg"
+                        : "hidden"
+                    }`}
+                  >
+                    Request List
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/UserList"
+                    className={`${
+                      admin
+                        ? " flex hover:bg-sky-400 hover:text-white p-2   rounded-lg "
+                        : "hidden"
+                    }`}
+                  >
+                    User List
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
+
           <button
             onClick={() => setShowAcc(true)}
             className={`${
@@ -584,7 +587,9 @@ const Navbar = ({
             }`}
           >
             <MdManageAccounts className="mt-1 text-[20px] text-[#162388]" />
-            <label className="md:flex hidden text-[#162388]">Account Settings</label>
+            <label className="md:flex hidden text-[#162388]">
+              Account Settings
+            </label>
           </button>
 
           {/* Coordinator */}
@@ -609,7 +614,9 @@ const Navbar = ({
             }`}
           >
             <AiFillFile className="mt-1 text-[20px] text-[#162388]" />
-            <label className="md:flex hidden text-[#162388]">Employee List</label>
+            <label className="md:flex hidden text-[#162388]">
+              Employee List
+            </label>
           </Link>
 
           <button
@@ -694,7 +701,7 @@ const Navbar = ({
         email2={email}
         emp={emp}
       />
-      
+
       <Signin
         isSignin={showModalSignin}
         isSignClose={() => setModalSignin(false)}

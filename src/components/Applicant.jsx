@@ -29,7 +29,7 @@ const Applicant = () => {
     }
     if (error) {
     }
-    console.log(data);
+   
   };
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -42,8 +42,10 @@ const Applicant = () => {
     setcurrentitems(applicants.slice(itemsOffset, endoffsett));
     setpagecount(Math.ceil(applicants.length / perpage));
   }, [itemsOffset, perpage, applicants]);
+  // , , applicants
 
   const handlePageClick = (event) => {
+    
     const newOffset = (event.selected * perpage) % applicants.length;
 
     setItemOffset(newOffset);

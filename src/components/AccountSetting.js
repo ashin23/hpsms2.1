@@ -168,7 +168,7 @@ const AccountSetting = ({
         className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  w-screen h-screen"
       >
-        <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  md:h-[65%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+        <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[65%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
           <label
             className="flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
           bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
@@ -249,7 +249,8 @@ const AccountSetting = ({
             </button>
           </div>
 
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center  mt-3 ">
+          <label className="flex font-bold">Verification Code</label>
             <input
               className={`${
                 allow ? "bg-blue-200" : ""

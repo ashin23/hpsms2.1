@@ -37,7 +37,7 @@ function App() {
         />
       </header>
     
-      <main className="flex-grow  z-10 bg-white  w-screen h-screen">
+      <main className="flex-grow  z-10 bg-white  ">
         <Routes>
           <Route
             path="/"

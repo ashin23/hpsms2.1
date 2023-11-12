@@ -17,7 +17,7 @@ const RequestList = () => {
       .channel("custom-insert-channel")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "Request" },
+        { event: "*", schema: "public", table: "Request" },
         (payload) => {
           FetchRequest();
         }

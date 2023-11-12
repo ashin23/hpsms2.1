@@ -15,6 +15,17 @@ function ModalEmp3({ visible, Close, Info }) {
       .list(Info.Email);
     setFile(file);
   };
+
+  const close = () => {
+    updateNotif()
+    Close(!visible)
+  }
+  const updateNotif = async () => {
+    const { data: update } = await supabase
+      .from("Archive_List")
+      .update({ Notifications: "true" })
+      .eq("id", Info.id);
+  };
   if (!visible) return null;
   return (
     <div
@@ -34,7 +45,7 @@ justify-center items-center top-50 flex overflow-auto "
           Employee Information
         </label>
         <button
-          onClick={Close}
+          onClick={close}
           className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
         >
           Cancel

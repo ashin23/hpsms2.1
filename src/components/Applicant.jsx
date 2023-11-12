@@ -29,23 +29,20 @@ const Applicant = () => {
     }
     if (error) {
     }
-   
   };
 
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 7;
+  const perpage = 20;
 
   useEffect(() => {
     const endoffsett = itemsOffset + perpage;
     setcurrentitems(applicants.slice(itemsOffset, endoffsett));
     setpagecount(Math.ceil(applicants.length / perpage));
   }, [itemsOffset, perpage, applicants]);
-  // , , applicants
 
   const handlePageClick = (event) => {
-    
     const newOffset = (event.selected * perpage) % applicants.length;
 
     setItemOffset(newOffset);
@@ -53,7 +50,7 @@ const Applicant = () => {
 
   return (
     <div className="">
-      <div className="h-screen">
+      <div className="h-screen overflow-hidden overflow-x-hidden">
         <div>
           <div>
             <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
@@ -87,16 +84,17 @@ const Applicant = () => {
                 pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
               />
             </div>
-            <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
-              <div className="grid grid-cols-3 md:w-[100%] w-[100%] bg-slate-300 ">
+            <div className=" p-3  w-[100%] z-10 mr-20 md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none  ">
+              <div className="grid grid-cols-3   w-[100%]  bg-slate-300 ">
                 <div className="text-md p-3">Name</div>
                 <div className="text-md p-3">Position</div>
                 <div className="text-md p-3 ">Email</div>
               </div>
               {currentitems && (
-                <div className="h-[520px]   overflow-x-hidden">
+                <div className="h-[520px]   overflow-scroll  ">
                   {" "}
                   {currentitems
+                    
                     .filter((val) => {
                       try {
                         if (search1 === "") {
@@ -116,7 +114,7 @@ const Applicant = () => {
                         }
                       } catch (error) {}
                     })
-                    .sort((a, b) => (b.id <= a.id ? 1 : -1))
+                    .sort((a, b) => (b.id > a.id ? 1 : -1))
                     .map((e) => (
                       <ApplicantConfig key={e.id} e={e} />
                     ))}

@@ -118,8 +118,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
   const startslider = () => {
     setInterval(() => {
-      prevSlide();
-    }, 5000);
+      nextSlide();
+    }, 4000);
   };
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -159,7 +159,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
   return (
     <>
-      <div className="grid grid-row-2 ">
+      <div className="grid grid-row-2  ">
         <div className="">
           <div className="">
             {/* {NAUULOL YUNG ANIMATION PAG MAY HEIGHT  } */}

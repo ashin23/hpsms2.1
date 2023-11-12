@@ -35,7 +35,7 @@ const Navbar = ({
 
   const [menu, setMenu] = useState(false);
 
-  const [notifa, setNotif] = useState("");
+  const [notifapplicant, setNotif] = useState("");
   const [notifque, setNotifque] = useState("");
   const [notifemp, setNotifemp] = useState("");
   const [notifarch, setNotifarch] = useState("");
@@ -60,7 +60,7 @@ const Navbar = ({
   }, []);
 
   useEffect(() => {
-    getnotif();
+    getnotifapplicant();
     getnotifque();
     getnotifemp();
     getnotiarch();
@@ -71,7 +71,7 @@ const Navbar = ({
         "postgres_changes",
         { event: "*", schema: "public", table: "Applicant_List" },
         (payload) => {
-          getnotif();
+          getnotifapplicant();
         }
       )
       .on(
@@ -353,13 +353,13 @@ const Navbar = ({
       } catch (error) {}
     }
   }
-
+ 
   async function getnotifreq() {
     const { data: notifreq } = await supabase.from("Request").select();
     for (let index = 0; index < notifreq.length; index++) {
       if (notifreq[index].Notifications === "true") {
         setNotifreq(true);
-        return;
+        
       }
       if (notifreq[index].Notifications === "false") {
         setNotifreq(false);
@@ -368,12 +368,12 @@ const Navbar = ({
     }
   }
 
-  async function getnotif() {
+  async function getnotifapplicant() {
     const { data: notif } = await supabase.from("Applicant_List").select();
     for (let index = 0; index < notif.length; index++) {
       if (notif[index].Notifications === "true") {
         setNotif(true);
-        return;
+        
       }
       if (notif[index].Notifications === "false") {
         setNotif(false);
@@ -387,7 +387,7 @@ const Navbar = ({
     for (let index = 0; index < notifq.length; index++) {
       if (notifq[index].Notifications === "true") {
         setNotifque(true);
-        return;
+        
       }
       if (notifq[index].Notifications === "false") {
         setNotifque(false);
@@ -396,12 +396,13 @@ const Navbar = ({
     }
   }
 
+  
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
       if (notifemp[index].Notifications === "true") {
         setNotifemp(true);
-        return;
+       
       }
       if (notifemp[index].Notifications === "false") {
         setNotifemp(false);
@@ -415,7 +416,7 @@ const Navbar = ({
     for (let index = 0; index < notifarch.length; index++) {
       if (notifarch[index].Notifications === "true") {
         setNotifarch(true);
-        return;
+       
       }
       if (notifarch[index].Notifications === "false") {
         setNotifarch(false);
@@ -433,6 +434,17 @@ const Navbar = ({
     };
     window.addEventListener("resize", handleResize);
   }, [email]);
+
+  if (
+    showModalAcc ||
+    showModalSignin ||
+    showModalPostJob ||
+    showModalRequest ||
+    showModalUpload ||
+    showmodalProfile
+  )
+    document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
 
   return (
     <div className="h-2 ">
@@ -465,7 +477,7 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            {notifa !== true && (
+            {notifapplicant !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
             {notifque !== true && (
@@ -499,7 +511,7 @@ const Navbar = ({
                     }`}
                     to="/Applicant"
                   >
-                    {notifa !== true && (
+                    {notifapplicant !== true && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}
                     Applicants Lists
@@ -559,6 +571,9 @@ const Navbar = ({
                         : "hidden"
                     }`}
                   >
+                    {notifreq !== true && (
+                      <IoMdNotifications className=" text-red-500 text-[20px] " />
+                    )}{" "}
                     Request List
                   </Link>
                 </li>

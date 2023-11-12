@@ -32,7 +32,7 @@ const Quelist = ({ email1 }) => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 7;
+  const perpage = 20;
 
   useEffect(() => {
     const endoffsett = itemsOffset + perpage;

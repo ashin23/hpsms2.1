@@ -38,24 +38,33 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
       .update({ Notifications: "true" })
       .eq("id", Info.id);
   };
- const close = () =>{
-  updateNotif()
-  CloseJobInfo(!isOpen)
-
- } 
-
+  const close = () => {
+    updateNotif();
+    CloseJobInfo(!isOpen);
+  };
 
   if (!isOpen) return null;
   return (
     <div
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
-  justify-center items-center top-50 flex overflow-auto "
+  justify-center items-center z-50 top-50 flex overflow-auto "
     >
       {" "}
       <div
-        onClick={() => Handlefetchfile()}
-        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:py-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
+        
+        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:pb-7 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
       >
+        <div className="sticky top-0 bg-white w-full h-[13%] p-5">
+          <div className="flex justify-end   ">
+            <button
+              onClick={close}
+              className="-mr-7 py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+
         <label
           className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
@@ -63,7 +72,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
         >
           Applicant Information
         </label>
-        <div className="grid grid-cols-1 w-[50%] md:grid-cols-3 md:w-[30%]">
+        <div className="grid grid-cols-1 w-[50%] md:grid-cols-2 md:w-[30%]">
           <button
             className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             onClick={handleAccept}
@@ -75,12 +84,6 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
             className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
           >
             REJECT
-          </button>
-          <button
-            onClick={close}
-            className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Cancel
           </button>
         </div>
         <div className="">

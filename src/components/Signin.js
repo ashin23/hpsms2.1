@@ -6,8 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CgProfile } from "react-icons/cg";
 import { BiSolidLogIn } from "react-icons/bi";
+import { GiCancel } from "react-icons/gi";
 const Signin = ({ isSignin, isSignClose, checker }) => {
-  const navigate = useNavigate();
   const [showModalRegister, setModalRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -44,8 +44,8 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     }
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
-    const {data: emp} = await supabase.from("Employee_List").select()
-    var data = await applist.concat(user,emp);
+    const { data: emp } = await supabase.from("Employee_List").select();
+    var data = await applist.concat(user, emp);
     if (data) {
       for (let index = 0; index < data.length; index++) {
         if (data[index].Email === email && data[index].Password === pass) {
@@ -65,11 +65,16 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     justify-center items-center top-50 flex "
     >
       <div>
-        <div className=" justify-center items-center bg-white p-10 gap-3 rounded-3xl shadow-2xl">
-        <CgProfile className="ml-[40%] text-5xl" />
+        
+        <div className=" justify-center items-center bg-white p-10 gap-3 rounded-md shadow-2xl">
+        <div className="flex justify-end" onClick={isSignClose}>
+          {" "}
+          <GiCancel className="text-[150%] hover:bg-red-400 -mt-6 -mr-4"/>
+        </div>
+          <CgProfile className="ml-[40%] text-5xl" />
           <div className="grid grid-cols-1">
             <label className="items-center font-semibold text-[30px] place-content-center justify-center flex">
-               Log in
+              Log in
             </label>
 
             <div className="">

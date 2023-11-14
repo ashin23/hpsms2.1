@@ -54,9 +54,9 @@ function ModalDeploy({
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
-    justify-center items-center top-50 flex "
+    justify-center items-center z-50 top-50 flex "
     >
-      <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  md:h-[45%]  h-[60%] md:w-[20%] w-[100%] rounded-3xl shadow-2xl">
+      <div className=" grid justify-center bg-white md:p-5  p-2 gap-3 lg:h-[50%] lg:w-[30%]  md:h-[45%]  h-[60%] md:w-[20%] w-[100%] rounded-3xl shadow-2xl">
         <label className=" flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
           bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Selected Employees

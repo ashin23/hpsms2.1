@@ -87,6 +87,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     }, [5000]);
   };
 
+  var date1 = moment(date).format("LLL");
   const NotifyError2 = () => {
     toast.warning("Please fill the blanks", {
       position: "top-center mt-20",
@@ -99,9 +100,8 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       theme: "light",
     });
   };
-
-  function InfoEmail(e) {
-    var date1 = moment(date).format("LLL");
+  
+  function InfoEmail() {
     if (!date || !location) {
       NotifyError2();
       return;
@@ -130,8 +130,6 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      
-
       <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[50%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
         <label
           className="flex md:text-[30px] h-fit text-xl
@@ -141,20 +139,20 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
           Select Schedule of Interview
         </label>
         <div className="grid-cols-2 grid w-[100%] md:w-[40%]">
-        <button
-          onClick={() => InfoEmail()}
-          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Send to Email
-        </button>
-        <button
-        onClick={isReject}
-        className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Cancel
-      </button>
+          <button
+            onClick={() => InfoEmail()}
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Send to Email
+          </button>
+          <button
+            onClick={isReject}
+            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          >
+            Cancel
+          </button>
         </div>
-        
+
         <div className=" grid grid-cols-1 justify-center gap-3">
           {/* email  */}
           <label className="flex font-bold text-[25px]">Email</label>

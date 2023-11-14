@@ -168,7 +168,7 @@ const AccountSetting = ({
         className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  w-screen h-screen"
       >
-        <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[65%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+        <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
           <label
             className="flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
           bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
@@ -192,65 +192,66 @@ const AccountSetting = ({
               Save
             </button>
           </div>
-          <label className="flex font-bold">Email</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 
-          text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Email"
-            type="text"
-            disabled="true"
-            value={email}
-            id="email"
-            onChange={(e) => setEmail1(e.target.value)}
-          ></input>
-          <label className="flex font-bold">Password</label>
-          <div className="text-md flex justify-between md:w-[50%] gap-2">
+          <div>
+            <label className="flex font-bold">Email</label>
             <input
               className={`${
                 allow ? "bg-blue-200 " : ""
               } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 
           text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-              placeholder="Password"
+              placeholder="Email"
+              type="text"
               disabled="true"
-              value={pass}
-              id="password"
-              onChange={(e) => setPass(e.target.value)}
-              type={view ? "text" : "password"}
+              value={email}
+              id="email"
+              onChange={(e) => setEmail1(e.target.value)}
             ></input>
-            <button onClick={() => setView(!view)}>
-              {view ? (
-                <AiFillEyeInvisible className="text-[20px]" />
-              ) : (
-                <AiFillEye className="text-[20px]" />
-              )}
-            </button>
-          </div>
+            <label className="flex font-bold">Password</label>
+            <div className="text-md flex justify-between md:w-[50%] gap-2">
+              <input
+                className={`${
+                  allow ? "bg-blue-200 " : ""
+                } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 
+          text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+                placeholder="Password"
+                disabled="true"
+                value={pass}
+                id="password"
+                onChange={(e) => setPass(e.target.value)}
+                type={view ? "text" : "password"}
+              ></input>
+              <button onClick={() => setView(!view)}>
+                {view ? (
+                  <AiFillEyeInvisible className="text-[20px]" />
+                ) : (
+                  <AiFillEye className="text-[20px]" />
+                )}
+              </button>
+            </div>
 
-          <label className="flex font-bold">Confirm Password</label>
-          <div className="text-md flex justify-between md:w-[50%] gap-2">
-            <input
-              onChange={(e) => setPass1(e.target.value)}
-              className={`${
-                allow ? "bg-blue-200 " : ""
-              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-              placeholder="Confirm Password"
-              disabled="true"
-              id="password1"
-              type={view1 ? "text" : "password"}
-            ></input>
-            <button onClick={() => setView1(!view1)}>
-              {view1 ? (
-                <AiFillEyeInvisible className="text-[20px]" />
-              ) : (
-                <AiFillEye className="text-[20px]" />
-              )}
-            </button>
+            <label className="flex font-bold">Confirm Password</label>
+            <div className="text-md flex justify-between md:w-[50%] gap-2">
+              <input
+                onChange={(e) => setPass1(e.target.value)}
+                className={`${
+                  allow ? "bg-blue-200 " : ""
+                } pl-3 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+                placeholder="Confirm Password"
+                disabled="true"
+                id="password1"
+                type={view1 ? "text" : "password"}
+              ></input>
+              <button onClick={() => setView1(!view1)}>
+                {view1 ? (
+                  <AiFillEyeInvisible className="text-[20px]" />
+                ) : (
+                  <AiFillEye className="text-[20px]" />
+                )}
+              </button>
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center  mt-3 ">
           <label className="flex font-bold">Verification Code</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center  ">
             <input
               className={`${
                 allow ? "bg-blue-200" : ""

@@ -54,7 +54,7 @@ const Navbar = ({
       HandleCheckerUser();
       document.getElementById("signIn").hidden = true;
     } else {
-      setModalSignin(true);
+      // setModalSignin(true);
       document.getElementById("signOut").hidden = true;
     }
   }, []);
@@ -353,13 +353,12 @@ const Navbar = ({
       } catch (error) {}
     }
   }
- 
+
   async function getnotifreq() {
     const { data: notifreq } = await supabase.from("Request").select();
     for (let index = 0; index < notifreq.length; index++) {
       if (notifreq[index].Notifications === "true") {
         setNotifreq(true);
-        
       }
       if (notifreq[index].Notifications === "false") {
         setNotifreq(false);
@@ -373,7 +372,6 @@ const Navbar = ({
     for (let index = 0; index < notif.length; index++) {
       if (notif[index].Notifications === "true") {
         setNotif(true);
-        
       }
       if (notif[index].Notifications === "false") {
         setNotif(false);
@@ -387,7 +385,6 @@ const Navbar = ({
     for (let index = 0; index < notifq.length; index++) {
       if (notifq[index].Notifications === "true") {
         setNotifque(true);
-        
       }
       if (notifq[index].Notifications === "false") {
         setNotifque(false);
@@ -396,13 +393,11 @@ const Navbar = ({
     }
   }
 
-  
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
       if (notifemp[index].Notifications === "true") {
         setNotifemp(true);
-       
       }
       if (notifemp[index].Notifications === "false") {
         setNotifemp(false);
@@ -416,7 +411,6 @@ const Navbar = ({
     for (let index = 0; index < notifarch.length; index++) {
       if (notifarch[index].Notifications === "true") {
         setNotifarch(true);
-       
       }
       if (notifarch[index].Notifications === "false") {
         setNotifarch(false);
@@ -466,7 +460,7 @@ const Navbar = ({
             } `}
           >
             <AiFillHome className="mt-1 text-[20px] text-[#162388] " />
-            <label className="md:flex hidden text-[#162388]">Home</label>
+            <label className="md:flex hidden text-[#162388]">Dashboard</label>
           </Link>
 
           <div

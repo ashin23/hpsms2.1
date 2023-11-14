@@ -3,9 +3,12 @@ import supabase from "./supabaseClient";
 import ApplicantConfig from "./ApplicantConfig";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
+import position from "./position.json";
 const Applicant = () => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
+  const [date, setDate] = useState("");
+  const [applicantPosition, setApplicantPosition] = useState("Select Position");
 
   useEffect(() => {
     handleApplicantsPost();
@@ -19,15 +22,32 @@ const Applicant = () => {
         }
       )
       .subscribe();
-  }, []);
+  }, [date, applicantPosition]);
 
   const handleApplicantsPost = async () => {
-    const { data, error } = await supabase.from("Applicant_List").select();
-
-    if (data) {
+    if (date === "" && applicantPosition === "Select Position") {
+      const { data, error } = await supabase.from("Applicant_List").select();
       setApplicants(data);
-    }
-    if (error) {
+    } else {
+      if (date !== "") {
+        const { data: app1 } = await supabase
+          .from("Applicant_List")
+          .select()
+          .eq("created_at", date);
+        setApplicants(app1);
+      } else if (applicantPosition !== "Select Position") {
+        const { data: app2 } = await supabase
+          .from("Applicant_List")
+          .select()
+          .eq("Position", applicantPosition);
+        setApplicants(app2);
+      } else {
+        const { data: app3 } = await supabase
+          .from("Applicant_List")
+          .select()
+          .match({ created_at: date, Position: applicantPosition });
+        setApplicants(app3);
+      }
     }
   };
 
@@ -50,78 +70,90 @@ const Applicant = () => {
 
   return (
     <div className="">
-      <div className="h-screen overflow-hidden overflow-x-hidden">
-        <div>
-          <div>
-            <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
+      <div className="h-screen ">
+        <div className="sticky top-5 md:flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
+            <input
+              className="top-96 w-[90%] md:w-[100%] z-50 mb-10 h-[30%] lg:h-10 md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Search name"
+              type="search"
+              onChange={(e) => setSearch1(e.target.value)}
+            ></input>
+            <div className=" flex">
+              <label className=" ml-2  text-xl font-semibold">Date</label>
               <input
-                className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%] lg:h-10 md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                placeholder="Search name"
-                type="search"
-                onChange={(e) => setSearch1(e.target.value)}
+                onChange={(e) => setDate(e.target.value)}
+                className="pl-4 ml-2 pr-3 py-2 h-[50%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="date"
               ></input>
             </div>
-            <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
-              Applicants List
-            </h1>
-            <div>
-              <ReactPaginate
-                previousLabel={
-                  <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
-                    <BsChevronCompactLeft />
-                  </span>
-                }
-                nextLabel={
-                  <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
-                    <BsChevronCompactRight />
-                  </span>
-                }
-                pageCount={pagecount}
-                onPageChange={handlePageClick}
-                renderOnZeroPageCount={null}
-                pageRangeDisplayed={5}
-                containerClassName="flex mt-2   "
-                pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
-              />
-            </div>
-            <div className=" p-3  w-[100%] z-10 mr-20 md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none  ">
-              <div className="grid grid-cols-3   w-[100%]  bg-slate-300 ">
-                <div className="text-md p-3">Name</div>
-                <div className="text-md p-3">Position</div>
-                <div className="text-md p-3 ">Email</div>
-              </div>
-              {currentitems && (
-                <div className="h-[520px]   overflow-scroll  ">
-                  {" "}
-                  {currentitems
-                    
-                    .filter((val) => {
-                      try {
-                        if (search1 === "") {
-                          return val;
-                        } else if (
-                          val.Position.toLowerCase().includes(
-                            search1.toLowerCase()
-                          )
-                        ) {
-                          return val;
-                        } else if (
-                          val.FullName.toLowerCase().includes(
-                            search1.toLowerCase()
-                          )
-                        ) {
-                          return val;
-                        }
-                      } catch (error) {}
-                    })
-                    .sort((a, b) => (b.id > a.id ? 1 : -1))
-                    .map((e) => (
-                      <ApplicantConfig key={e.id} e={e} />
-                    ))}
-                </div>
-              )}
+            <div className="text-black gap-2">
+              <select
+                className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                onChange={(e) => setApplicantPosition(e.target.value)}
+              >
+                {position.map((position) => (
+                  <option key={position.id}> {position.position}</option>
+                ))}
+              </select>
             </div>
           </div>
+        </div>
+        <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
+          Applicants List
+        </h1>
+        <div>
+          <ReactPaginate
+            previousLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                <BsChevronCompactLeft />
+              </span>
+            }
+            nextLabel={
+              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                <BsChevronCompactRight />
+              </span>
+            }
+            pageCount={pagecount}
+            onPageChange={handlePageClick}
+            renderOnZeroPageCount={null}
+            pageRangeDisplayed={5}
+            containerClassName="flex mt-2   "
+            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+          />
+        </div>
+        <div className=" p-3  w-[100%] z-10 mr-20 md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]    h-[590px] md:rounded-[60px] md:rounded-e-none  ">
+          <div className="grid grid-cols-3   w-[100%]  bg-slate-300 ">
+            <div className="text-md p-3">Name</div>
+            <div className="text-md p-3">Position</div>
+            <div className="text-md p-3 ">Email</div>
+          </div>
+          {currentitems && (
+            <div className="h-[520px] overflow-y-auto  ">
+              {" "}
+              {currentitems
+
+                .filter((val) => {
+                  try {
+                    if (search1 === "") {
+                      return val;
+                    } else if (
+                      val.Position.toLowerCase().includes(search1.toLowerCase())
+                    ) {
+                      return val;
+                    } else if (
+                      val.FullName.toLowerCase().includes(search1.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  } catch (error) {}
+                })
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .map((e) => (
+                  <ApplicantConfig key={e.id} e={e} />
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

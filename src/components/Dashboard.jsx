@@ -46,8 +46,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const about = useRef(null);
   const apply = useRef(null);
 
+  //AOS
   useEffect(() => {
-    AOS.init({ duration: 2000, easing: "linear" });
+    AOS.init({ duration: 1000, easing: "linear" });
   }, []);
 
   const handleabout = () => {
@@ -56,7 +57,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const handleapply = () => {
     apply.current?.scrollIntoView();
   };
-
+  //POSTED JOB
   useEffect(() => {
     handleGetPost();
     const PostJob = supabase
@@ -70,7 +71,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       )
       .subscribe();
   }, []);
-
+  //GETTER NG POST
   const handleGetPost = async () => {
     const { data, error } = await supabase.from("PostJob").select();
 
@@ -155,7 +156,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     setItemOffset(newOffset);
   };
 
-  
+  if (showModal) document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
 
   return (
     <>

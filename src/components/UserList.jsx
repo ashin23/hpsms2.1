@@ -125,7 +125,7 @@ const UserList = () => {
                     }
                   } catch (error) {}
                 })
-                .sort((a, b) => (b.id <= a.id ? 1 : -1))
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
                 .map((e) => (
                   <UserListConfig key={e.id} e={e} notify={NotifyCode} />
                 ))}

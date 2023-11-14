@@ -42,8 +42,8 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
     isClose1();
   }
 
-  const NotifyCode = () => {
-    toast.success("Correct code", {
+  const NotifyCodeSend = () => {
+    toast.success("Send Code", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -54,6 +54,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       theme: "light",
     });
   };
+
   const NotifyError = () => {
     toast.error("Incorrect Code", {
       position: "top-center",
@@ -111,31 +112,20 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
     //   "service_n50nfk8",
     //   "template_5jyo2vi",
     //   {
-    //     email: email,
+    //     email2: email,
     //     code: otpCode,
     //   },
     //   "R_XlHjwitXGKhI2NS"
     // );
-    setIsCode(true);
+    NotifyCodeSend();
   };
-
-  function HandleCheckCode() {
-    if (verCode === otpCode) {
-      setCodeStatus(false);
-
-      NotifyCode();
-      return;
-    } else {
-      NotifyError();
-    }
-  }
 
   const HandleCreate = async () => {
     if (!email || !position || !password) {
       NotifyError2();
       return;
     } else {
-      if (password2 === password) {
+      if (password2 === password && verCode === otpCode) {
         const { data, error } = await supabase.from("UserList").insert([
           {
             Email: email,
@@ -157,6 +147,8 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       } else if (password !== password2) {
         NotifyError1();
         return;
+      } else {
+        NotifyError();
       }
     }
   };
@@ -168,9 +160,11 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
     justify-center items-center  flex w-screen h-screen"
     >
       <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[65%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[35%] w-[100%] rounded-3xl shadow-2xl">
-        <label className="flex h-fit text-xl
+        <label
+          className="flex h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 md:text-[30px] text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 md:text-[30px] text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+        >
           Create Account
         </label>
         <div className="grid grid-cols-1   gap-5  ">
@@ -243,23 +237,13 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             value={verCode}
             onChange={(e) => setVerCode(e.target.value)}
           ></input>
-          {isCode ? (
-            <button
-              onClick={() => HandleCheckCode()}
-              className="px-3 py-2 w-[80px] text-[10px] 
-              bg-white hover:bg-green-400 hover:text-white
-               rounded-lg border-2 border-green-400"
-            >
-              Check Code
-            </button>
-          ) : (
-            <button
-              onClick={() => HandleSendCode()}
-              className="px-3 py-2 w-[80px] text-[10px] bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-blue-500"
-            >
-              Send Code
-            </button>
-          )}
+
+          <button
+            onClick={() => HandleSendCode()}
+            className="px-3 py-2 w-[80px] text-[10px] bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-blue-500"
+          >
+            Send Code
+          </button>
         </div>
         <div className="flex w-[100%] justify-center mt-3">
           <button

@@ -56,6 +56,8 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
     Notify();
   };
 
+  
+
   const Notify = () => {
     toast.success("Submitted succesfully!", {
       position: "top-center mt-20",
@@ -77,17 +79,17 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
   if (!isVisible) return null;
   return (
     <div
-      className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
+      className=" fixed z-50 inset-0 bg-black bg-opacity-25 backdrop-blur-sm
       justify-center items-center flex  "
     >
-      <div className="  bg-white sm:h-[10%] sm:w-[20%] md:h-[20%] md:w-[30%] rounded-3xl p-3 shadow-2xl">
+      <div className="  bg-white  md:h-[25%]  md:w-[25%] lg:w-[20%] lg:h-[25%] rounded-3xl p-3 shadow-2xl">
         <div className="mt-2">
           <label className="text-[20px] font-semibold ">
             {" "}
             Would you like to submit an application?
           </label>
         </div>
-        <div className="grid grid-cols-2 mt-10 md:w-[70%] gap-5 sm:ml-10 md:ml-20">
+        <div className="grid grid-cols-2 mt-10 md:w-[70%] lg:ml-10 gap-5 sm:ml-10 md:ml-14">
           <button
             onClick={() => handleSubmit()}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

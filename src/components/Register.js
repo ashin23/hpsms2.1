@@ -6,7 +6,7 @@ import supabase from "./supabaseClient";
 import CivilStatus from "./CivilStatus.json";
 import { v4 as uuidv4 } from "uuid";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import Gender from "./Gender.json"
+import Gender from "./Gender.json";
 
 const Register = ({ isRegister, isRegisterClose }) => {
   const [email, setEmail] = useState("");
@@ -75,7 +75,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   };
 
   function close() {
-    setVerCode("")
+    setVerCode("");
     isRegisterClose();
   }
 
@@ -283,7 +283,18 @@ const Register = ({ isRegister, isRegisterClose }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
+      <div className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl">
+        <div className="sticky top-0 bg-white  w-full h-[13%] p-5">
+          <div className="flex justify-end   ">
+            <button
+              onClick={() => isRegisterClose()}
+              className="-mr-7 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+
         <div className="">
           <label
             className="flex
@@ -294,13 +305,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             REGISTER
           </label>
           {/* Button */}
-          <div className="flex grid-cols-2 md:gap-5 md:w-[100%] w-[100%]">
-            <button
-              onClick={() => isRegisterClose()}
-              className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-            >
-              Cancel
-            </button>
+          <div className="flex grid-cols-1 md:gap-5 md:w-[100%] w-[100%]">
             <button
               onClick={() => HandleCreate()}
               className="text-white ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -461,10 +466,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 className="pl-4 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               >
                 {Gender.map((gender) => (
-                  <option key={gender.id}>
-                    {" "}
-                    {gender.gender}
-                  </option>
+                  <option key={gender.id}> {gender.gender}</option>
                 ))}
               </select>
             </div>

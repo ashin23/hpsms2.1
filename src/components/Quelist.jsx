@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./images/magnifying-glass.png";
 import supabase from "./supabaseClient";
-import ApplicantConfig from "./ApplicantConfig";
+
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 import ModalAccept from "./ModalAccept";
@@ -80,14 +80,14 @@ const Quelist = ({ email1 }) => {
             pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
           />
         </div>
-        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
+        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none  ">
           <div className="grid grid-cols-3 w-[100%] bg-slate-300">
             <div className="text-md p-3">Name</div>
             <div className="text-md p-3 ">Position</div>
             <div className="text-md p-3 mr-20">Email</div>
           </div>
           {currentitems && (
-            <div className="h-[520px] overflow-x-hidden">
+            <div className="h-[520px] overflow-y-auto">
               {" "}
               {currentitems
                 .filter((val) => {
@@ -105,7 +105,7 @@ const Quelist = ({ email1 }) => {
                     }
                   } catch (error) {}
                 })
-                .sort((a, b) => (b.id <= a.id ? 1 : -1))
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
                 .map((e) => (
                   <QuelingConfig key={e.id} e={e} />
                 ))}

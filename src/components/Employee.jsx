@@ -20,6 +20,9 @@ const Employee = ({ email }) => {
 
   const [selectednames, setselectednames] = useState("");
 
+  if(showModalDeploy)document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
+  
   useEffect(() => {
     FetchEmployee();
     const EmployeeList = supabase
@@ -40,27 +43,39 @@ const Employee = ({ email }) => {
       setEmployee(emp);
     } else {
       if (empStatus !== "Employee Status") {
-        const { data: emp } = await supabase
+        const { data: empS } = await supabase
           .from("Employee_List")
           .select()
           .eq("status", empStatus);
-        setEmployee(emp);
+        setEmployee(empS);
       } else if (empPosition !== "Select Position") {
-        const { data: emp } = await supabase
+        const { data: empP } = await supabase
           .from("Employee_List")
           .select()
           .eq("Position", empPosition);
-        setEmployee(emp);
-      } else {
+        setEmployee(empP);
+      } else if ( empStatus !== "Employee Status" && empPosition !== "Select Position"){
+        const { data: empS } = await supabase
+          .from("Employee_List")
+          .select()
+          .eq("status", empStatus);
+        setEmployee(empS);
+        const { data: empP } = await supabase
+          .from("Employee_List")
+          .select()
+          .eq("Position", empPosition);
+        setEmployee(empP);
+      }
+      
+        else {
         const { data: empstats } = await supabase
           .from("Employee_List")
           .select()
           .match({ status: empStatus, Position: empPosition });
         setEmployee(empstats);
       }
+     
     }
-
-    
   };
 
   function HandleChange(event) {
@@ -97,7 +112,7 @@ const Employee = ({ email }) => {
 
   return (
     <div className=" ">
-      <div className="">
+      <div className="h-screen">
         <div className="sticky top-5 md:flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
@@ -183,7 +198,7 @@ const Employee = ({ email }) => {
                     }
                   } catch (error) {}
                 })
-                .sort((a, b) => (b.status <= a.status ? 1 : -1))
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
                 .map((empData) => (
                   <EmployeeConfig
                     key={empData.id}

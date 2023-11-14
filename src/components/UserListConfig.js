@@ -65,10 +65,10 @@ const UserListConfig = ({ e, notify }) => {
           </button>
         </div>
         <div className="text-md w-[100%] ">{e.userlvl}</div>
-        <div className="w-[10%] mr-10 ">
+        <div className="w-[10%] mr-10  ">
           <button
             onClick={() => HandleUpdate()}
-            className="bg-slate-400 p-1 rounded-md"
+            className="bg-slate-400 p-1 rounded-md  "
           >
             Update
           </button>

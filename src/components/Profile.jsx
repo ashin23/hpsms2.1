@@ -67,9 +67,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      isProfileclose();
-    }, [2000]);
   };
 
   const getter = async () => {
@@ -218,7 +215,17 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <div className="overflow-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
+      <div className="overflow-y-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
+        <div className="sticky top-0 bg-white w-full h-[13%] p-5">
+          <div className="flex justify-end   ">
+            <button
+              onClick={close}
+              className="-mr-7 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            >
+              Close
+            </button>
+          </div>
+        </div>
         <label
           className="
         flex 
@@ -228,7 +235,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         >
           Profile
         </label>
-        <div className="flex grid-cols-3 md:gap-15 ">
+        <div className="flex grid-cols-2 md:gap-15 ">
           <button
             onClick={() => edit()}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -241,12 +248,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           >
             Save
           </button>
-          <button
-            onClick={() => close()}
-            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          >
-            Cancel
-          </button>
         </div>
         <div className="">
           Photo
@@ -258,116 +259,133 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             </div>
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-6 lg:gap-10 gap-4 gap-y-9 mb-3 p-2 ">
-          <label className="flex font-bold">Name</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="name"
-            value={name}
-            disabled="true"
-            id="name1"
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-
-          <label className="flex font-bold">City Address</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="City Address"
-            disabled="true"
-            id="city_address"
-            value={city_Address}
-            onChange={(e) => setCity_Address(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Provincial Address</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Provincial Address"
-            disabled="true"
-            id="provincial_address"
-            value={provincial_Address}
-            onChange={(e) => setProvincial_Address(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Mobile No.</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Mobile Number"
-            disabled="true"
-            id="mobile_no"
-            value={mobile_No}
-            onChange={(e) => setMobile_No(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Religion</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Religion"
-            value={religion}
-            onChange={(e) => setReligion(e.target.value)}
-            disabled="true"
-            id="religion1"
-            type="text"
-          ></input>
-          <label className="flex font-bold">Date of Birth</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Date of Birth"
-            value={date_of_Birth}
-            onChange={(e) => setDate_of_Birth(e.target.value)}
-            type="date"
-            disabled="true"
-            id="date_of_birth"
-          ></input>
-          <label className="flex font-bold">Age</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Age"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            disabled="true"
-            id="age1"
-            type="text"
-          ></input>
-          <label className="flex font-bold">Sex</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Sex"
-            disabled="true"
-            id="sex1"
-            value={sex}
-            onChange={(e) => setSex(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Civil Status</label>
-          <select
-            value={civil_Status}
-            disabled="true"
-            id="civil_status"
-            onChange={(e) => setCivil_Status(e.target.value)}
-            className="pl-4 pr-3 py-2 w-[100%] lg:w-[115%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-          >
-            {CivilStatus.map((civilstatus) => (
-              <option key={civilstatus.id}> {civilstatus.Civilstatus}</option>
-            ))}
-          </select>
+        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 lg:gap-10 gap-4 gap-y-9 mb-3 p-2 ">
+          <div>
+            <label className="flex font-bold">Name</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%]  lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="name"
+              value={name}
+              disabled="true"
+              id="name1"
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">City Address</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="City Address"
+              disabled="true"
+              id="city_address"
+              value={city_Address}
+              onChange={(e) => setCity_Address(e.target.value)}
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Provincial Address</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[100%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Provincial Address"
+              disabled="true"
+              id="provincial_address"
+              value={provincial_Address}
+              onChange={(e) => setProvincial_Address(e.target.value)}
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Mobile No.</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Mobile Number"
+              disabled="true"
+              id="mobile_no"
+              value={mobile_No}
+              onChange={(e) => setMobile_No(e.target.value)}
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Religion</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Religion"
+              value={religion}
+              onChange={(e) => setReligion(e.target.value)}
+              disabled="true"
+              id="religion1"
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Date of Birth</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Date of Birth"
+              value={date_of_Birth}
+              onChange={(e) => setDate_of_Birth(e.target.value)}
+              type="date"
+              disabled="true"
+              id="date_of_birth"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Age</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              disabled="true"
+              id="age1"
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Sex</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Sex"
+              disabled="true"
+              id="sex1"
+              value={sex}
+              onChange={(e) => setSex(e.target.value)}
+              type="text"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Civil Status</label>
+            <select
+              value={civil_Status}
+              disabled="true"
+              id="civil_status"
+              onChange={(e) => setCivil_Status(e.target.value)}
+              className="pl-4 pr-3 py-2 w-[20%] lg:w-[80%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            >
+              {CivilStatus.map((civilstatus) => (
+                <option key={civilstatus.id}> {civilstatus.Civilstatus}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="grid  grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2">
           <label className="flex font-bold">Name of Mother</label>
@@ -610,7 +628,9 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
           <div>
-            <label className="flex font-bold md:ml-[30%]">Inclusive Dates</label>
+            <label className="flex font-bold md:ml-[30%]">
+              Inclusive Dates
+            </label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -623,7 +643,9 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold md:ml-[30%]">Company/Employer</label>
+            <label className="flex font-bold md:ml-[30%]">
+              Company/Employer
+            </label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -658,9 +680,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
           <div>
-            <label className="flex font-bold  md:ml-[30%]">
-              Names
-            </label>
+            <label className="flex font-bold  md:ml-[30%]">Names</label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""
@@ -688,9 +708,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
           <div>
-            <label className="flex font-bold  md:ml-[30%]">
-              Position
-            </label>
+            <label className="flex font-bold  md:ml-[30%]">Position</label>
             <textarea
               className={`${
                 allow ? "bg-blue-200 " : ""

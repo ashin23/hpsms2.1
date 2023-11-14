@@ -52,7 +52,9 @@ const EmployeeCoord = ({ email1 }) => {
           <div className="w-[100%] h-[90%] bg-[#EEEEEE] grid ">
             {coordinator && (
               <div className="h-[520px] overflow-x-hidden">
-                {coordinator.map((e) => (
+                {coordinator
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .map((e) => (
                   <CoordConfif key={e.id} CoordEmp={e.Data} />
                 ))}
               </div>

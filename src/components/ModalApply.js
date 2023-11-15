@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useEffect } from "react";
+
 
 
 const ModalApply = ({ isVisible, onClose, Position, Data }) => {
@@ -56,7 +58,9 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
     Notify();
   };
 
-  
+  useEffect(() => {
+    AOS.init({ duration: 200, easing: "linear" });
+  }, []);
 
   const Notify = () => {
     toast.success("Submitted succesfully!", {
@@ -75,14 +79,18 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
     }, [5000]);
   };
 
+
  
   if (!isVisible) return null;
   return (
     <div
+     
       className=" fixed z-50 inset-0 bg-black bg-opacity-25 backdrop-blur-sm
       justify-center items-center flex  "
     >
-      <div className="  bg-white  md:h-[25%]  md:w-[25%] lg:w-[20%] lg:h-[25%] rounded-3xl p-3 shadow-2xl">
+      <div
+       data-aos="zoom-in"
+      className="  bg-white  md:h-[25%]  md:w-[25%] lg:w-[20%] lg:h-[25%] rounded-3xl p-3 shadow-2xl">
         <div className="mt-2">
           <label className="text-[20px] font-semibold ">
             {" "}

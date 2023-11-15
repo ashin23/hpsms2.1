@@ -5,8 +5,8 @@ function ApplicantConfig({ e }) {
   const [showJobApplicant, setShowJobApplicant] = useState(false);
 
  
- 
-
+ if(showJobApplicant)document.documentElement.style.overflowY = "hidden";
+ else document.documentElement.style.overflowY = "unset";
   return (
     <>
       <div >

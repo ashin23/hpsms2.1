@@ -42,32 +42,19 @@ const Employee = ({ email }) => {
       const { data: emp } = await supabase.from("Employee_List").select();
       setEmployee(emp);
     } else {
-      if (empStatus !== "Employee Status") {
+      if (empStatus !== "Employee Status" && empPosition === "Select Position") {
         const { data: empS } = await supabase
           .from("Employee_List")
           .select()
           .eq("status", empStatus);
         setEmployee(empS);
-      } else if (empPosition !== "Select Position") {
+      } else if (empPosition !== "Select Position" && empStatus === "Employee Status") {
         const { data: empP } = await supabase
           .from("Employee_List")
           .select()
           .eq("Position", empPosition);
         setEmployee(empP);
-      } else if ( empStatus !== "Employee Status" && empPosition !== "Select Position"){
-        const { data: empS } = await supabase
-          .from("Employee_List")
-          .select()
-          .eq("status", empStatus);
-        setEmployee(empS);
-        const { data: empP } = await supabase
-          .from("Employee_List")
-          .select()
-          .eq("Position", empPosition);
-        setEmployee(empP);
-      }
-      
-        else {
+      }  else {
         const { data: empstats } = await supabase
           .from("Employee_List")
           .select()

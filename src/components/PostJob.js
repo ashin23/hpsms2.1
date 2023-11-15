@@ -46,9 +46,9 @@ const PostJob = ({ isPost, isPostClose }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      isPostClose();
-    }, [2000]);
+    // setTimeout(() => {
+    //   isPostClose();
+    // }, [2000]);
   };
 
   const handleStoreData = async () => {
@@ -68,7 +68,7 @@ const PostJob = ({ isPost, isPostClose }) => {
       !jobtype
     ) {
       Postjobnotifyerror();
-      console.log(true);
+   
       return;
     }
 

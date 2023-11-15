@@ -5,6 +5,9 @@ function QuelingConfig({ e }) {
   const [showJobApplicant, setShowJobApplicant] = useState(false);
   const handleClose = () => setShowJobApplicant(false);
 
+
+  if(showJobApplicant)document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
   return (
     <>
       <div>

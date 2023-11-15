@@ -25,6 +25,9 @@ const EmployeeConfig = ({
       .eq("id", empData.id);
   };
 
+  if(showmodal)document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
+
   return (
     <>
       {" "}

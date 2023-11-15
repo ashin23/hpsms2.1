@@ -6,6 +6,10 @@ import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const AccountSetting = ({
   isAcc,
   isAccClose,
@@ -31,6 +35,11 @@ const AccountSetting = ({
   const [isCode, setIsCode] = useState(false);
   const [view, setView] = useState(false);
   const [view1, setView1] = useState(false);
+
+  useEffect(() => {
+    AOS.init({ duration: 200, easing: "linear" });
+  }, []);
+
 
   useEffect(() => {
     getter();
@@ -168,7 +177,9 @@ const AccountSetting = ({
         className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  w-screen h-screen"
       >
-        <div className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+        <div 
+        data-aos="zoom-in"
+        className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
           <label
             className="flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
           bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"

@@ -17,6 +17,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
 
+
 const Navbar = ({
   setEmailSend,
   applicant1,
@@ -48,7 +49,9 @@ const Navbar = ({
   const [admin, setAdmin] = useState(false);
   const generatedToken = uuidv4();
   const [email, setEmail] = useState("");
-
+//AOS
+ 
+  // Sign in
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       HandleCheckerUser();
@@ -58,7 +61,7 @@ const Navbar = ({
       document.getElementById("signOut").hidden = true;
     }
   }, []);
-
+//Notifications realtime
   useEffect(() => {
     getnotifapplicant();
     getnotifque();
@@ -136,8 +139,7 @@ const Navbar = ({
     setAdmin(false);
     setApplicant(false);
     setCoordinator(false);
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("email");
+    window.localStorage.clear();
     window.location.reload();
   }
 

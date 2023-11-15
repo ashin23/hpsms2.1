@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Fileviewer from "./Fileviewer";
 import supabase from "./supabaseClient";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 function ModalEmp3({ visible, Close, Info }) {
   const [file1, setFile] = useState();
+
+  useEffect(() => {
+    AOS.init({ duration: 200, easing: "linear" });
+  }, []);
+
 
   useEffect(() => {
     Handlefetchfile();
@@ -17,9 +23,9 @@ function ModalEmp3({ visible, Close, Info }) {
   };
 
   const close = () => {
-    updateNotif()
-    Close(!visible)
-  }
+    updateNotif();
+    Close(!visible);
+  };
   const updateNotif = async () => {
     const { data: update } = await supabase
       .from("Archive_List")
@@ -34,9 +40,20 @@ justify-center items-center z-50 top-50 flex overflow-auto "
     >
       {" "}
       <div
-        onClick={() => Handlefetchfile()}
-        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:py-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
+      data-aos="zoom-in"
+        // onClick={() => Handlefetchfile()}
+        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:pb-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
       >
+        <div className="sticky top-0 bg-white w-full h-[13%] p-5">
+          <div className="flex justify-end   ">
+            <button
+              onClick={close}
+              className="-mr-7 py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
         <label
           className="flex md:text-[30px] h-fit text-xl
     pl-5 pr-36 py-3 my-4 mb-2
@@ -44,12 +61,7 @@ justify-center items-center z-50 top-50 flex overflow-auto "
         >
           Employee Information
         </label>
-        <button
-          onClick={close}
-          className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
-        >
-          Cancel
-        </button>
+
         <div className="">
           Photo
           {file1 && (
@@ -60,10 +72,13 @@ justify-center items-center z-50 top-50 flex overflow-auto "
             </div>
           )}
         </div>
-        <div className="mt-10 text-[110%]  grid grid-cols-1 md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2 ">
+        <div className="mt-10 text-[110%]  grid grid-cols-1 md:grid-cols-4 gap-5 gap-y-10 gap-x-36 mb-3 p-2 ">
+          
           <div className="flex mr-1  font-semibold ">
             Full Name: <p className="font-normal pl-1">{Info.Name}</p>{" "}
           </div>
+          
+          
           <div className="flex mr-1  font-semibold ">
             Email: <p className="font-normal pl-1 ">{Info.Email}</p>
           </div>

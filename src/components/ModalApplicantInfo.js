@@ -3,6 +3,8 @@ import ModalAccept from "./ModalAccept";
 import ModalReject from "./ModalReject";
 import supabase from "./supabaseClient";
 import Fileviewer from "./Fileviewer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
   const [showAccept, setShowAccept] = useState(false);
@@ -43,6 +45,10 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
     CloseJobInfo(!isOpen);
   };
 
+  useEffect(() => {
+    AOS.init({ duration: 200, easing: "linear" });
+  }, []);
+
   if (!isOpen) return null;
   return (
     <div
@@ -51,7 +57,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
     >
       {" "}
       <div
-        
+        data-aos="zoom-in"
         className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:pb-7 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
       >
         <div className="sticky top-0 bg-white w-full h-[13%] p-5">

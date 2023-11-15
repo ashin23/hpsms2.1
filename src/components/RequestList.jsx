@@ -82,13 +82,14 @@ const RequestList = () => {
           />
         </div>
         <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
-          <div className="grid grid-cols-3 md:grid-cols-6 w-[100%] bg-slate-300">
+          <div className="grid grid-cols-3 md:grid-cols-7 w-[100%] bg-slate-300">
             <div className="text-md md:flex hidden p-3">Name</div>
             <div className="text-md p-3">Position</div>
             <div className="text-md p-3">Personnel</div>
             <div className="text-md p-3">Date Needed</div>
             <div className="text-md md:flex hidden p-3">Hotel</div>
             <div className="text-md md:flex hidden p-3">Location</div>
+            <div className="text-md md:flex hidden p-3">Action</div>
           </div>
           {currentitems && (
             <div className="h-[520px] overflow-x-hidden">

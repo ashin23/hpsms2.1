@@ -318,7 +318,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
                   <div className="text-black">
                     <img
-                      data-aos="fade-right"
+                      data-aos="fade-left"
                       src={logo3}
                       className="h-[100%] w-[100%] md:h-[90%] md:w-[70%] rounded-md md:ml-[21%] md:mt-10 mt-5"
                     ></img>
@@ -356,6 +356,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       molestiae.
                     </p>
                     <button
+                    data-aos="fade-up"
                       className="
               h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
               rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]"

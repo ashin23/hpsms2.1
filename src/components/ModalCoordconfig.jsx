@@ -3,12 +3,18 @@ import supabase from "./supabaseClient";
 import { useEffect } from "react";
 import { useState } from "react";
 import Filecoord from "./Filecoord";
+import AOS from "aos";
+import "aos/dist/aos.css";
 const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
   const [fileview, setFileView] = useState();
 
   useEffect(() => {
     Handlefile();
   }, [coordInfo]);
+
+  useEffect(() => {
+    AOS.init({ duration: 200, easing: "linear" });
+  }, []);
 
   function handleclose() {
     isClose();
@@ -23,7 +29,9 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
   if (!isOpen) return null;
   return (
     <div className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm justify-center items-center top-50 flex overflow-auto ">
-      <div className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:py-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden">
+      <div 
+      data-aos="zoom-in"
+      className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 py-2 md:py-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden">
         <label
           className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2

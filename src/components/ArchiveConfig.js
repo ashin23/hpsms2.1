@@ -5,7 +5,8 @@ const ArchiveConfig = ({ e }) => {
   const [showmodal, setShowModal] = useState(false);
   const handleclosemodalprofile = () => setShowModal(false);
 
- 
+ if(showmodal)document.documentElement.style.overflowY = "hidden";
+ else document.documentElement.style.overflowY = "unset";
 
   return (
     <>

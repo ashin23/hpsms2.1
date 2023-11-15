@@ -17,7 +17,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const [request1, setRequest] = useState();
 
   const NotifyError2 = () => {
-    toast.warning("Please fill the blanks", {
+    toast.warning("Please fill up the blanks", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -64,13 +64,15 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
     Notify();
   };
 
+  
+
   if (!isVisible5) return null;
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <div className="bg-white h-[75%] w-[100%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto">
+      <div className="bg-white h-[75%] w-[100%] md:h-[57%] lg:h-[60%] lg:w-[50%] lg:p-5 md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto">
         <label className="flex pl-9 pr-56 py-3 ml-2 my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
           Request
         </label>

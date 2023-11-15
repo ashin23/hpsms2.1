@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
@@ -7,6 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { CgProfile } from "react-icons/cg";
 import { BiSolidLogIn } from "react-icons/bi";
 import { GiCancel } from "react-icons/gi";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Signin = ({ isSignin, isSignClose, checker }) => {
   const [showModalRegister, setModalRegister] = useState(false);
   const [email, setEmail] = useState("");
@@ -37,6 +40,10 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     });
   };
 
+  useEffect(() => {
+    AOS.init({ duration: 150, easing: "linear" });
+  }, []);
+
   async function HandleSignIn() {
     if (!email || !pass) {
       NotifyError1();
@@ -66,7 +73,9 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     >
       <div>
         
-        <div className=" justify-center items-center bg-white p-10 gap-3 rounded-md shadow-2xl">
+        <div 
+        data-aos="zoom-in"
+        className=" justify-center items-center bg-white p-10 gap-3 rounded-md shadow-2xl">
         <div className="flex justify-end" onClick={isSignClose}>
           {" "}
           <GiCancel className="text-[150%] hover:bg-red-400 -mt-6 -mr-4"/>

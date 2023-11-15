@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "./images/magnifying-glass.png";
 import supabase from "./supabaseClient";
-
+import position from "./position.json";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 import ModalAccept from "./ModalAccept";
@@ -9,6 +9,9 @@ import QuelingConfig from "./QuelingConfig";
 const Quelist = ({ email1 }) => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
+
+  const [date, setDate] = useState("");
+  const [applicantPosition, setApplicantPosition] = useState("Select Position");
 
   useEffect(() => {
     queList();
@@ -22,11 +25,37 @@ const Quelist = ({ email1 }) => {
         }
       )
       .subscribe();
-  }, []);
+  }, [date, applicantPosition]);
+
+
+  //*date format
+  
 
   const queList = async () => {
-    const { data: Quelist } = await supabase.from("Queuing_List").select();
-    setApplicants(Quelist);
+    if (date === "" && applicantPosition === "Select Position") {
+      const { data: Quelist } = await supabase.from("Queuing_List").select();
+      setApplicants(Quelist);
+    } else {
+      if (date !== "" && applicantPosition === "Select Position") {
+        const { data: app1 } = await supabase
+          .from("Queuing_List")
+          .select()
+          .eq("date", date);
+        setApplicants(app1);
+      } else if (applicantPosition !== "Select Position" && date === "") {
+        const { data: app2 } = await supabase
+          .from("Queuing_List")
+          .select()
+          .eq("Position", applicantPosition);
+        setApplicants(app2);
+      } else {
+        const { data: app3 } = await supabase
+          .from("Queuing_List")
+          .select()
+          .match({ date: date, Position: applicantPosition });
+        setApplicants(app3);
+      }
+    }
   };
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -50,12 +79,32 @@ const Quelist = ({ email1 }) => {
     <div className="">
       <div className="h-screen">
         <div className="sticky top-5 flex justify-center py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
-          <input
-            className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Search name"
-            type="search"
-            onChange={(e) => setSearch1(e.target.value)}
-          ></input>
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
+            <input
+              className="top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%] lg:h-10 md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Search name"
+              type="search"
+              onChange={(e) => setSearch1(e.target.value)}
+            ></input>
+            <div className=" flex">
+              <label className=" ml-2  text-xl font-semibold">Date</label>
+              <input
+                onChange={(e) => setDate(e.target.value)}
+                className="pl-4 ml-2 pr-3 py-2 h-[50%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                type="date"
+              ></input>
+            </div>
+            <div className="text-black gap-2">
+              <select
+                className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                onChange={(e) => setApplicantPosition(e.target.value)}
+              >
+                {position.map((position) => (
+                  <option key={position.id}> {position.position}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
         <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
           Queuing List

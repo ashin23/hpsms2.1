@@ -10,6 +10,7 @@ emailjs.init("-qtQXoQ1iYx4JDljO");
 
 const ModalAccept = ({ isAccepted, isReject, info }) => {
   const [date, setDate] = useState();
+  const [time, setTime] = useState();
   const [location, setLocation] = useState();
 
   const [email1, setEmail] = useState(info.Email);
@@ -17,9 +18,11 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
   const [name, setName] = useState(info.FullName);
 
   const [company1, setCompany] = useState("Hotel Pro Services INC.");
-  const [message1, setMessage] = useState();
+  const [message1, setMessage] = useState("");
 
-  async function HandleTransfer() {
+  var date1 = moment(date).format("LLL");
+
+  const HandleTransfer = async () => {
     const { info: Quelist } = await supabase.from("Queuing_List").insert({
       Email: info.Email,
       Password: info.Password,
@@ -61,8 +64,11 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       Pag_Ibig_No: info.Pag_Ibig_No,
       Tin_Number: info.Tin_Number,
       Position: info.Position,
-      Notification: "false",
+      userlvl: "Employee",
       status: "Undeploy",
+      Notifications: "false",
+      date: date,
+      Time: time,
     });
 
     const { error } = await supabase
@@ -70,7 +76,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       .from("Applicant_List")
       .delete()
       .eq("id", info.id);
-  }
+  };
   const Notify = () => {
     toast.success("Sent succesfully!", {
       position: "top-center mt-20",
@@ -82,12 +88,11 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      isReject();
-    }, [5000]);
+    // setTimeout(() => {
+    //   isReject();
+    // }, [5000]);
   };
 
-  var date1 = moment(date).format("LLL");
   const NotifyError2 = () => {
     toast.warning("Please fill the blanks", {
       position: "top-center mt-20",
@@ -100,8 +105,8 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       theme: "light",
     });
   };
-  
-  function InfoEmail() {
+
+  const InfoEmail = async () => {
     if (!date || !location) {
       NotifyError2();
       return;
@@ -114,7 +119,8 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       //     message: message1,
       //     email1: email1,
       //     location: location,
-      //     date: date1,
+      //     date: date,
+      //     time: time
       //   },
       //   "-qtQXoQ1iYx4JDljO"
       // );
@@ -122,8 +128,16 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       HandleTransfer();
       Notify();
     }
-  }
+  };
 
+  //*To prevent user inputting past dates
+  const disablePastDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate() + 1).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+  };
   if (!isAccepted) return null;
   return (
     <div
@@ -138,10 +152,10 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
         >
           Select Schedule of Interview
         </label>
-        <div className="grid-cols-2 grid w-[100%] md:w-[40%]">
+        <div className="grid grid-cols-1 w-[50%] md:grid-cols-2 md:w-[30%]">
           <button
             onClick={() => InfoEmail()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
             Send to Email
           </button>
@@ -165,12 +179,19 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
           <label className="flex font-semibold text-[20px]">
             Select date and Time
           </label>
-          <input
-            className="pl-5 pr-3 py-2 md:w-[30%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            type="datetime-local"
-            onChange={(e) => setDate(e.target.value)}
-          ></input>
-
+          <div className="">
+            <input
+              className="pl-5 pr-3 py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              type="date"
+              onChange={(e) => setDate(e.target.value)}
+              min={disablePastDate()}
+            ></input>
+            <input
+              className="ml-3 pl-5 pr-3 py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              type="time"
+              onChange={(e) => setTime(e.target.value)}
+            ></input>
+          </div>
           {/* location  */}
           <label className="flex font-bold text-[20px]">
             Interview Address

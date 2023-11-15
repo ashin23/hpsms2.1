@@ -28,9 +28,9 @@ const Displaycoordinator = ({
   return (
     <>
       {empcoord && (
-        <div className="grid grid-cols-2 hover:translate-x-2 hover:p-4 duration-500 mt-1 lg:h-10">
+        <div className="p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-rows-3 lg:h-10  md:grid-cols-3  w-[100%] bg-slate-100 ">
           {" "}
-          {console.log(empcoord)}
+          
           {empcoord.Name}
           <div onClick={() => click()}>{empcoord.Position}</div>
         </div>

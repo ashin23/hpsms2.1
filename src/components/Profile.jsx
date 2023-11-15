@@ -7,6 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fileviewer from "./Fileviewer";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   const [email, setEmail1] = useState("");
   const [allow, setAllow] = useState(false);
@@ -55,6 +58,11 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     getter();
     Handlefetchfile();
   }, [applicant]);
+
+  useEffect(() => {
+    AOS.init({ duration: 300, easing: "linear" });
+  }, []);
+
 
   const Notify = () => {
     toast.success("Updated Successfully", {
@@ -215,7 +223,9 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <div className="overflow-y-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
+      <div
+      data-aos="zoom-in"
+      className="overflow-y-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
         <div className="sticky top-0 bg-white w-full h-[13%] p-5">
           <div className="flex justify-end   ">
             <button

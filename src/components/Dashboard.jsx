@@ -52,10 +52,10 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   }, []);
 
   const handleabout = () => {
-    about.current?.scrollIntoView();
+    about.current?.scrollIntoView({behavior: "smooth"});
   };
   const handleapply = () => {
-    apply.current?.scrollIntoView();
+    apply.current?.scrollIntoView({behavior: "smooth"});
   };
   //POSTED JOB
   useEffect(() => {
@@ -176,7 +176,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   className="md:h-[100%] w-[100px]  flex md:grid  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   onClick={() => handleabout()}
                 >
-                  About us
+                  About Us
                 </button>
                 <button
                   className="md:h-[100%]  w-[100px]  flex md:grid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -226,12 +226,12 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 <img data-aos="fade-left" src={Shangrila} className="" />
                 <img data-aos="fade-left" src={Richmonde} className="" />
                 <img data-aos="fade-left" src={Grand} className="" />
-                <img data-aos="fade-left" src={Marco} className="w-[100%]" />
+                <img ref={about} data-aos="fade-left" src={Marco} className="w-[100%]" />
               </div>
               {/* About us */}
-              <div ref={about}>
+              <div >
                 <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
-                  <div className="text-black">
+                  <div   className="text-black">
                     <img
                       data-aos="fade-right"
                       src={logo1}
@@ -240,8 +240,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                h-[100%] w-[100%] rounded-md md:h-[90%] md:w-[70%] "
                     ></img>
                   </div>
-                  <div className=" md:text-left">
-                    <p
+                  <div   className=" md:text-left">
+                    <p 
                       data-aos="fade-left"
                       className="text-blue-700 text-[50px] font-semibold mb-[2%]"
                     >
@@ -368,7 +368,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               </div>
 
               {/* Search */}
-              <div className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
+              <div ref={apply} className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
                 <input
                   className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Search Here..."
@@ -379,7 +379,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               {/* right side */}
 
               <div
-                ref={apply}
+                
                 className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md "
               >
                 {currentitems && (

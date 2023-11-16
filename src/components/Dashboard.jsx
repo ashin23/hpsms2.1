@@ -356,7 +356,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       molestiae.
                     </p>
                     <button
-                    data-aos="fade-up"
+                      data-aos="fade-up"
                       className="
               h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
               rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]"
@@ -384,24 +384,25 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               >
                 {currentitems && (
                   <div className="md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
-                    <div>
+                    <div className="-mr-5">
                       <ReactPaginate
                         previousLabel={
-                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 md:mr-4">
                             <BsChevronCompactLeft />
                           </span>
                         }
                         nextLabel={
-                          <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center md:mr-4 rounded-md -ml-10 md:ml-0 bg-gray-200">
                             <BsChevronCompactRight />
                           </span>
                         }
+                        breakLabel={<span className="mr-4 mt-4">...</span>}
+                        pageRangeDisplayed={3}
                         pageCount={pagecount}
                         onPageChange={handlePageClick}
                         renderOnZeroPageCount={null}
-                        pageRangeDisplayed={5}
                         containerClassName="flex mt-2   "
-                        pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+                        pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-5 mr-5 md:w-10 h-10 flex items-center justify-center roundend-md  md:mr-4 "
                       />
                     </div>
 

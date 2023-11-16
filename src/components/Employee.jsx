@@ -20,8 +20,8 @@ const Employee = ({ email }) => {
 
   const [selectednames, setselectednames] = useState("");
 
-  if(showModalDeploy)document.documentElement.style.overflowY = "hidden";
-  else document.documentElement.style.overflowY = "unset";
+  if(showModalDeploy) document.body.style.overflow = 'hidden';
+  else   document.body.style.overflow = 'unset';
   
   useEffect(() => {
     FetchEmployee();
@@ -99,8 +99,8 @@ const Employee = ({ email }) => {
 
   return (
     <div className=" ">
-      <div className="h-screen">
-        <div className="sticky top-5 md:flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
+      <div className="h-screen overflow-y-hidden">
+        <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
               className="top-96 w-[90%] ml-5 md:ml-0  md:w-[100%] z-50 mb-10 h-[30%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -137,7 +137,7 @@ const Employee = ({ email }) => {
             </div>
           </div>
         </div>
-        <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
           Employee List
         </h1>
         <div>
@@ -160,7 +160,7 @@ const Employee = ({ email }) => {
             pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
           />
         </div>
-        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden  h-[590px] md:rounded-[60px] md:rounded-e-none   ">
+        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none   ">
           <div className=" grid grid-cols-3 w-[100%]  bg-slate-300">
             <div className="text-md p-3">Name</div>
             <div className="text-md p-3 md:ml-[20%]">Position</div>
@@ -168,7 +168,7 @@ const Employee = ({ email }) => {
           </div>
 
           {currentitems && (
-            <div className="h-[520px] overflow-y-auto">
+            <div className="h-[300px] overflow-x-hidden overflow-y-auto">
               {currentitems
                 .filter((val) => {
                   try {

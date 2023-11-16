@@ -49,7 +49,7 @@ const RequestList = () => {
 
   return (
     <div className="">
-      <div className="h-screen">
+      <div className="h-screen overflow-y-hidden">
         <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <input
             className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -81,7 +81,7 @@ const RequestList = () => {
             pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
           />
         </div>
-        <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] md:rounded-[60px] md:rounded-e-none  ">
+        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none ">
           <div className="grid grid-cols-3 md:grid-cols-7 w-[100%] bg-slate-300">
             <div className="text-md md:flex hidden p-3">Name</div>
             <div className="text-md p-3">Position</div>
@@ -92,7 +92,7 @@ const RequestList = () => {
             <div className="text-md md:flex hidden p-3">Action</div>
           </div>
           {currentitems && (
-            <div className="h-[520px] overflow-x-hidden">
+            <div className="h-[300px] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

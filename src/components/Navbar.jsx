@@ -17,7 +17,6 @@ import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
 
-
 const Navbar = ({
   setEmailSend,
   applicant1,
@@ -49,8 +48,8 @@ const Navbar = ({
   const [admin, setAdmin] = useState(false);
   const generatedToken = uuidv4();
   const [email, setEmail] = useState("");
-//AOS
- 
+  //AOS
+
   // Sign in
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
@@ -61,7 +60,7 @@ const Navbar = ({
       document.getElementById("signOut").hidden = true;
     }
   }, []);
-//Notifications realtime
+  //Notifications realtime
   useEffect(() => {
     getnotifapplicant();
     getnotifque();
@@ -439,9 +438,10 @@ const Navbar = ({
     showModalUpload ||
     showmodalProfile
   )
-    document.documentElement.style.overflowY = "hidden";
-  else document.documentElement.style.overflowY = "unset";
+    document.body.style.overflow = 'hidden';
+  else document.body.style.overflow = 'unset';
 
+ 
   return (
     <div className="h-2 ">
       <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">

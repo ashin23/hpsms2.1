@@ -75,8 +75,7 @@ function ModalDeploy({
           <div className="flex grid-cols-2 gap-5">
             <button
               onClick={() => HandleSendCoordinator()}
-              className=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300
-              font-medium rounded-lg md:h-[40%] h-[50%] text-sm md:p-4 p-2 w-[60px] md:w-[100px] dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              className="  focus:outline-none md:h-[40%] h-[50%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
             >
               Send
             </button>
@@ -88,6 +87,7 @@ function ModalDeploy({
             </button>
           </div>
           <div className="grid grid-cols-1">
+            <label className="font-semibold text-lg">Selected Employees</label>
             {name.length > 0 ? (
               <ul className="grid grid-cols-1 ">
                 <li className="  h-[50%] bg-slate-400 ml-2">{`\n${name}`}</li>
@@ -107,7 +107,7 @@ function ModalDeploy({
             ></input>
             <div
               className={`${
-                datadisplay === "" ? "hidden" : ` bg-slate-400 overflow-y-auto`
+                datadisplay === "" ? "hidden" : ` bg-slate-400 overflow-y-auto absolute`
               }`}
             >
               {userlist
@@ -129,7 +129,7 @@ function ModalDeploy({
                 .map((e) => (
                   <div
                     className={`${
-                      datadisplay === email ? "hidden" : "md:h-[20%]"
+                      datadisplay === email ? "hidden" : "md:h-[20%] "
                     }`}
                     onClick={() => setdatadisplay(e.Email) || setEmail(e.Email)}
                   >

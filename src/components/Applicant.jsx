@@ -70,8 +70,8 @@ const Applicant = () => {
 
   return (
     <div className="">
-      <div className="h-screen ">
-        <div className="sticky top-5 md:flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
+      <div className="h-screen overflow-y-hidden ">
+        <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           {/* Filter */}
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
@@ -100,49 +100,45 @@ const Applicant = () => {
             </div>
           </div>
         </div>
-        <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
           Applicants List
         </h1>
         <div>
           <ReactPaginate
             previousLabel={
-              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
+              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 md:mr-4">
                 <BsChevronCompactLeft />
               </span>
             }
             nextLabel={
-              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
+              <span className="mt-2 w-10 h-10 flex items-center justify-center md:mr-4 rounded-md -ml-10 md:ml-0 bg-gray-200">
                 <BsChevronCompactRight />
               </span>
             }
+            breakLabel={<span className="mr-4 mt-4">...</span>}
             pageCount={pagecount}
             onPageChange={handlePageClick}
             renderOnZeroPageCount={null}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={3}
             containerClassName="flex mt-2   "
-            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
+            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-5 mr-5 md:w-10 h-10 flex items-center justify-center roundend-md  md:mr-4 "
           />
         </div>
-        <div className=" p-3  w-[100%] z-10 mr-20 md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]    h-[590px] md:rounded-[60px] md:rounded-e-none  ">
+        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-nones  ">
           <div className="grid grid-cols-3   w-[100%]  bg-slate-300 ">
             <div className="text-md p-3">Name</div>
             <div className="text-md p-3">Position</div>
             <div className="text-md p-3 ">Email</div>
           </div>
           {currentitems && (
-            <div className="h-[520px] overflow-y-auto  ">
+            <div className="h-[300px]  overflow-y-auto overflow-x-hidden">
               {" "}
               {currentitems
-
                 .filter((val) => {
                   try {
                     if (search1 === "") {
                       return val;
-                    } else if (
-                      val.Position.toLowerCase().includes(search1.toLowerCase())
-                    ) {
-                      return val;
-                    } else if (
+                    }  else if (
                       val.Name.toLowerCase().includes(search1.toLowerCase())
                     ) {
                       return val;

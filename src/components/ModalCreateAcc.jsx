@@ -82,7 +82,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   };
 
   const NotifyError2 = () => {
-    toast.warning("Please fill the blanks", {
+    toast.warning("Please fill up the blanks", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -100,7 +100,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   function codeGenerator() {
     let code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
     setCode(code.toString());
-    console.log(code);
+   
   }
 
   const HandleSendCode = () => {
@@ -117,11 +117,12 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
     //   },
     //   "R_XlHjwitXGKhI2NS"
     // );
+    console.log(otpCode)
     NotifyCodeSend();
   };
 
   const HandleCreate = async () => {
-    if (!email || !position || !password) {
+    if (!email || position ==="Select Position" || !password) {
       NotifyError2();
       return;
     } else {

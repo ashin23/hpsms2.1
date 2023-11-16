@@ -28,16 +28,16 @@ const AccountSetting = ({
   const [allow, setAllow] = useState(false);
 
   const [otpCode, setCode] = useState("");
-  const [codeStatus, setCodeStatus] = useState(true);
-  const [verCode, setVerCode] = useState();
-  const [buttonChange, setbuttonChange] = useState(false);
 
-  const [isCode, setIsCode] = useState(false);
+  const [verCode, setVerCode] = useState();
+  
+
+  
   const [view, setView] = useState(false);
   const [view1, setView1] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 200, easing: "linear" });
+    AOS.init({ duration: 50, easing: "linear" });
   }, []);
 
 
@@ -88,9 +88,9 @@ const AccountSetting = ({
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      close();
-    }, [2000]);
+    // setTimeout(() => {
+    //   close();
+    // }, [2000]);
   };
 
   const NotifyError = () => {
@@ -153,6 +153,7 @@ const AccountSetting = ({
           .update({ Password: pass1 })
           .eq("Email", email)
           .single();
+        setVerCode("")
         Notifysucces();
       } else if (pass !== pass1) {
         ErrorMessenge();
@@ -165,7 +166,7 @@ const AccountSetting = ({
   }
 
   function close() {
-    setIsCode(false);
+ 
     setAllow(false);
     isAccClose();
   }
@@ -264,6 +265,7 @@ const AccountSetting = ({
           <label className="flex font-bold">Verification Code</label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center  ">
             <input
+              value={verCode}
               className={`${
                 allow ? "bg-blue-200" : ""
               } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}

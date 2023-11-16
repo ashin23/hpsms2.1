@@ -77,7 +77,7 @@ const Quelist = ({ email1 }) => {
 
   return (
     <div className="">
-      <div className="h-screen">
+      <div className="h-screen overflow-y-hidden">
         <div className="sticky top-5 flex justify-center py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
@@ -124,7 +124,7 @@ const Quelist = ({ email1 }) => {
             pageCount={pagecount}
             onPageChange={handlePageClick}
             renderOnZeroPageCount={null}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={3}
             containerClassName="flex mt-2   "
             pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
           />
@@ -136,19 +136,15 @@ const Quelist = ({ email1 }) => {
             <div className="text-md p-3 mr-20">Email</div>
           </div>
           {currentitems && (
-            <div className="h-[520px] overflow-y-auto">
+            <div className="h-[300px] overflow-y-auto overflow-x-hidden">
               {" "}
               {currentitems
                 .filter((val) => {
                   try {
                     if (search1 === "") {
                       return val;
-                    } else if (
-                      val.Position.toLowerCase().includes(search1.toLowerCase())
-                    ) {
-                      return val;
-                    } else if (
-                      val.FullName.toLowerCase().includes(search1.toLowerCase())
+                    }  else if (
+                      val.Name.toLowerCase().includes(search1.toLowerCase())
                     ) {
                       return val;
                     }

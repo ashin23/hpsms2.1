@@ -24,6 +24,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
 
   const HandleTransfer = async () => {
     const { info: Quelist } = await supabase.from("Queuing_List").insert({
+      id: info.id,
       Email: info.Email,
       Password: info.Password,
       Name: info.Name,
@@ -76,6 +77,8 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       .from("Applicant_List")
       .delete()
       .eq("id", info.id);
+
+    
   };
   const Notify = () => {
     toast.success("Sent succesfully!", {
@@ -88,9 +91,9 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       progress: undefined,
       theme: "light",
     });
-    // setTimeout(() => {
-    //   isReject();
-    // }, [5000]);
+    setTimeout(() => {
+      isReject();
+    }, [5000]);
   };
 
   const NotifyError2 = () => {

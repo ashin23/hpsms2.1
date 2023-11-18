@@ -16,7 +16,7 @@ function PostConfig({
   Pqualification,
   Pjobtype,
   setInfo,
-  
+  handleJob
 }) {
   function HandleClick() {
     Pposition(postInfo.position);
@@ -33,6 +33,7 @@ function PostConfig({
     Pqualification(postInfo.qualification);
     Pjobtype(postInfo.jobtype);
     setInfo(postInfo);
+   
   }
   
 

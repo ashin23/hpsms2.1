@@ -131,7 +131,7 @@ const Applicant = () => {
             <div className="text-md p-3 ">Email</div>
           </div>
           {currentitems && (
-            <div className="h-[300px]  overflow-y-auto overflow-x-hidden">
+            <div className="h-[40%]   overflow-y-auto overflow-x-hidden">
               {" "}
               {currentitems
                 .filter((val) => {

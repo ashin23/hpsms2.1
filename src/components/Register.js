@@ -73,7 +73,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
     });
     setTimeout(() => {
       close();
-    }, [2000]);
+    }, [1000]);
   };
 
   useEffect(() => {
@@ -125,6 +125,45 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
   const NotifyError2 = () => {
     toast.warning("Email is required", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const NotifySex = () => {
+    toast.warning("Select Gender is required", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Notifycivilstatus = () => {
+    toast.warning("Select Civil status", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Notifyphoto = () => {
+    toast.warning("Photo is required", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -217,8 +256,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
         !sSS_Number ||
         !phil_Health_No ||
         !pag_Ibig_No ||
-        !tin_No ||
-        !files
+        !tin_No 
+        
       ) {
         NotifyFillblanks();
         return;
@@ -271,12 +310,52 @@ const Register = ({ isRegister, isRegisterClose }) => {
           const { data1, error1 } = await supabase.storage
             .from("Files")
             .upload(email + "/" + uuidv4(), files);
-
+          setEmail("");
+          setPassword("");
+          setName("");
+          setMobile_No("");
+          setAge("");
+          setCity_Address("");
+          setReligion("");
+          setSex("Select Here");
+          setCivil_Status("Select Here")
+          setProvincial_Address("")
+          setDate_of_Birth("")
+          setCivil_Status("")
+          setName_of_Mother("")
+          setOccupation_Mother("")
+          setName_of_Father("")
+          setOccupation_Father("")
+          setNotify_Emergency("")
+          setRelationship("")
+          setEmergency_Address("")
+          setContact_Number("")
+          setCollege("")
+          setCollege_Graduated("")
+          setCourse("")
+          setSpecial_Course("")
+          setVocational("")
+          setVocational_Graduated("")
+          setHighSchool("")
+          setHighSchool_Graduated("")
+          setElementary("")
+          setElementary_Graduated("")
+          setInclusive_Dates("")
+          setCompany_History("")
+          setPosition_History("")
+          setName_References("")
+          setCompany_References("")
+          setPosition_References("")
+          setSSS_Number("")
+          setPag_Ibig_No("")
+          setPhil_Health_No("")
+          setTin_No("")
           Notify();
         } else if (password !== password2) {
           NotifyError1();
           return;
-        } else {
+        }
+        else {
           NotifyError();
         }
       }
@@ -289,14 +368,22 @@ const Register = ({ isRegister, isRegisterClose }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex "
     >
-      <div
-      
-      className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl">
-        <div className="sticky top-0 bg-white  w-full h-[13%] p-5">
-          <div className="flex justify-end   ">
+      <div className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl">
+        <div className="sticky top-0 bg-white  w-full h-[50%] md:h-[13%] p-5">
+          <div className="md:flex md:justify-between  grid grid-cols-1  ">
+            <button
+              onClick={() => HandleCreate()}
+              className="text-white md:ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
+            <label className="md:-ml-7 font-serif text-xl">
+              if the data is not available type not available
+            </label>
+
             <button
               onClick={() => isRegisterClose()}
-              className="-mr-7 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              className="md:-mr-7  focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
               Close
             </button>
@@ -313,19 +400,13 @@ const Register = ({ isRegister, isRegisterClose }) => {
             REGISTER
           </label>
           {/* Button */}
-          <div className="flex grid-cols-1 md:gap-5 md:w-[100%] w-[100%]">
-            <button
-              onClick={() => HandleCreate()}
-              className="text-white ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Submit
-            </button>
-          </div>
+
           {/* Email  */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
             <div>
               <label className="font-bold">Email</label>
               <input
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Email"
@@ -360,6 +441,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <label className="flex font-bold">Password</label>
               <div className="flex items-center ">
                 <input
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 pr-3 py-2  w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Password"
@@ -379,6 +461,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <label className="flex font-bold">Confirm Password</label>
               <div className="flex items-center ">
                 <input
+                  value={password2}
                   onChange={(e) => setPassword2(e.target.value)}
                   className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Confirm Password"
@@ -407,6 +490,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div className="">
               <label className="flex font-bold">Name</label>
               <input
+                value={name}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
@@ -416,6 +500,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">City Address</label>
               <input
+                value={city_Address}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="City Address"
                 onChange={(e) => setCity_Address(e.target.value)}
@@ -425,6 +510,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Provincial Address</label>
               <input
+                value={provincial_Address}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Provincial Address"
                 onChange={(e) => setProvincial_Address(e.target.value)}
@@ -434,6 +520,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Mobile No.</label>
               <input
+                value={mobile_No}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Mobile Number"
                 onChange={(e) => setMobile_No(e.target.value)}
@@ -443,6 +530,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Religion</label>
               <input
+                value={religion}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Religion"
                 onChange={(e) => setReligion(e.target.value)}
@@ -452,6 +540,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Date of Birth</label>
               <input
+                value={date_of_Birth}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Date of Birth"
                 onChange={(e) => setDate_of_Birth(e.target.value)}
@@ -461,6 +550,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Age</label>
               <input
+                value={age}
                 className="pl-10 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Age"
                 onChange={(e) => setAge(e.target.value)}
@@ -470,6 +560,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Sex</label>
               <select
+                value={sex}
                 onChange={(e) => setSex(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               >
@@ -481,6 +572,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Civil Status</label>
               <select
+                value={civil_Status}
                 onChange={(e) => setCivil_Status(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%] lg:w-[90%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               >
@@ -498,6 +590,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Name of Mother</label>
               <input
+                value={name_of_Mother}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Name of Mother"
                 onChange={(e) => setName_of_Mother(e.target.value)}
@@ -507,6 +600,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Occupation</label>
               <input
+                value={occupation_Mother}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Occupation"
                 onChange={(e) => setOccupation_Mother(e.target.value)}
@@ -516,6 +610,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Name of Father</label>
               <input
+                value={name_of_Father}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Occupation"
                 onChange={(e) => setName_of_Father(e.target.value)}
@@ -525,6 +620,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Occupation</label>
               <input
+                value={occupation_Father}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Name of Father"
                 onChange={(e) => setOccupation_Father(e.target.value)}
@@ -536,6 +632,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Person to Notify Incase of Emergency
               </label>
               <input
+                value={notify_Emergency}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Notify"
                 onChange={(e) => setNotify_Emergency(e.target.value)}
@@ -545,6 +642,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Relationship</label>
               <input
+                value={relationship}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Relationship"
                 onChange={(e) => setRelationship(e.target.value)}
@@ -554,6 +652,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">His/her Address</label>
               <input
+                value={emegency_Address}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Address"
                 onChange={(e) => setEmergency_Address(e.target.value)}
@@ -563,6 +662,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Contact No:</label>
               <input
+                value={contact_Number}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Number"
                 onChange={(e) => setContact_Number(e.target.value)}
@@ -581,6 +681,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">College</label>
               <input
+                value={college}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="College"
                 onChange={(e) => setCollege(e.target.value)}
@@ -590,6 +691,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Year Graduated</label>
               <input
+                value={college_Graduated}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Year Graduated"
                 onChange={(e) => setCollege_Graduated(e.target.value)}
@@ -599,6 +701,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Course</label>
               <input
+                value={course}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Course"
                 onChange={(e) => setCourse(e.target.value)}
@@ -610,6 +713,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Special Course & Training
               </label>
               <input
+                value={special_Course}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Course & Training"
                 onChange={(e) => setSpecial_Course(e.target.value)}
@@ -617,8 +721,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></input>
             </div>
             <div>
-              <label className="flex font-bold">Vocational</label>
+              <label className="flex font-bold">Senior HighSchool</label>
               <input
+                value={vocational}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Year Graduated"
                 onChange={(e) => setVocational(e.target.value)}
@@ -628,6 +733,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Year Graduated</label>
               <input
+                value={vocational_Graduated}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Year Graduated"
                 onChange={(e) => setVocational_Graduated(e.target.value)}
@@ -637,6 +743,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">High School</label>
               <input
+                value={highSchool}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="High School"
                 onChange={(e) => setHighSchool(e.target.value)}
@@ -646,6 +753,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Year Graduated</label>
               <input
+                value={highSchool_Graduated}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Year Graduated"
                 onChange={(e) => setHighSchool_Graduated(e.target.value)}
@@ -655,6 +763,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Elementary School</label>
               <input
+                value={elementary}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Elementary School"
                 onChange={(e) => setElementary(e.target.value)}
@@ -664,6 +773,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Year Graduated</label>
               <input
+                value={elementary_Graduated}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Year Graduated"
                 onChange={(e) => setElementary_Graduated(e.target.value)}
@@ -687,6 +797,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Inclusive Dates
               </label>
               <textarea
+                value={inclusive_Dates}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setInclusive_Dates(e.target.value)}
@@ -697,6 +808,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Company/Employer
               </label>
               <textarea
+                value={company_History}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setCompany_History(e.target.value)}
@@ -707,6 +819,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Position
               </label>
               <textarea
+                value={position_History}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setPosition_History(e.target.value)}
@@ -727,6 +840,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Names
               </label>
               <textarea
+                value={name_References}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setName_References(e.target.value)}
@@ -737,6 +851,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Company/Employer
               </label>
               <textarea
+                value={company_References}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setCompany_References(e.target.value)}
@@ -747,6 +862,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Position
               </label>
               <textarea
+                value={position_References}
                 className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="text"
                 onChange={(e) => setPosition_References(e.target.value)}
@@ -761,6 +877,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             Upload Image
           </label>
           <input
+            value={files}
             className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
             id="multiple_files"
             type="file"
@@ -771,6 +888,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">SSS No:</label>
               <input
+                value={sSS_Number}
                 className="pl-10 pr-3 py-2 w-[100%] md:w-[20%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="SSS Number"
                 onChange={(e) => setSSS_Number(e.target.value)}
@@ -780,6 +898,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Phil Health No:</label>
               <input
+                value={phil_Health_No}
                 className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Phil Heatlh Number"
                 onChange={(e) => setPhil_Health_No(e.target.value)}
@@ -789,6 +908,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Pag-IBIG No:</label>
               <input
+                value={pag_Ibig_No}
                 className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Pag-IBIG Number"
                 onChange={(e) => setPag_Ibig_No(e.target.value)}
@@ -798,6 +918,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             <div>
               <label className="flex font-bold">Tin No:</label>
               <input
+                value={tin_No}
                 className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Tin Number"
                 onChange={(e) => setTin_No(e.target.value)}

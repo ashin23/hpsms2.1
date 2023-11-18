@@ -9,14 +9,40 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const [locations, setLocations] = useState("");
   const [hotel, setHotel] = useState("");
   const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
+  // const [description, setDescription] = useState("");
   const [info, setInfo] = useState("");
-  const [positions, setPositions] = useState("");
-  const [personnels, setPersonnels] = useState("");
+  const [positions, setPositions] = useState("Select Position");
+  const [personnels, setPersonnels] = useState("Number of Personnel");
 
   const [request1, setRequest] = useState();
 
   const NotifyError2 = () => {
+    toast.warning("Please fill up the blanks", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Requesterror = () => {
+    toast.warning("Please fill up the blanks", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Requesterror1 = () => {
     toast.warning("Please fill up the blanks", {
       position: "top-center",
       autoClose: 2000,
@@ -40,13 +66,20 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      onClose5();
-    }, [2000]);
+    // setTimeout(() => {
+    //   onClose5();
+    // }, [2000]);
   };
-  const HandleRequst = async (e) => {
+  const HandleRequst = async () => {
     // e.preventDefault()
-    if (!locations || !hotel || !date || !info || !positions || !personnels) {
+    if (
+      !locations ||
+      !hotel ||
+      !date ||
+      !info ||
+      personnels === "Number of Personnel" ||
+      positions === "Select Position"
+    ) {
       NotifyError2();
       return;
     }
@@ -61,10 +94,13 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
         Hotel: hotel,
       },
     ]);
+    setLocations("");
+    setDate("");
+    setHotel("");
+    setInfo("");
+    
     Notify();
   };
-
-  
 
   if (!isVisible5) return null;
   return (
@@ -79,6 +115,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
         <div className="grid grid-cols-1 gap-5  md:grid-cols-2 md:gap-3 ">
           <label className="justify-center flex font-semibold">Location</label>
           <input
+            value={locations}
             onChange={(e) => setLocations(e.target.value)}
             className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Location"
@@ -86,6 +123,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
           ></input>
           <label className="justify-center flex font-semibold">Hotel</label>
           <input
+            value={hotel}
             onChange={(e) => setHotel(e.target.value)}
             className=" pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Hotel"
@@ -95,6 +133,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             Date Needed
           </label>
           <input
+            value={date}
             onChange={(e) => setDate(e.target.value)}
             className=" pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder=""
@@ -105,6 +144,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             Additional Information
           </label>
           <input
+            value={info}
             onChange={(e) => setInfo(e.target.value)}
             className=" pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder="Additional Information"
@@ -115,6 +155,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
           </label>
           <div className="">
             <select
+              value={personnels}
               onClick={(e) => setPersonnels(e.target.value)}
               className=" pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 "
             >
@@ -129,6 +170,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
           <label className="justify-center flex font-semibold">Position</label>
           <div className="">
             <select
+              value={positions}
               onClick={(e) => setPositions(e.target.value)}
               className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 "
             >
@@ -150,7 +192,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
 
             <button
               onClick={onClose5}
-              className="py-2.5 w-[40%] px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              className="py-2.5 w-[40%] px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
             >
               Cancel
             </button>

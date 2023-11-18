@@ -11,6 +11,7 @@ import { useEffect } from "react";
 const ModalApply = ({ isVisible, onClose, Position, Data }) => {
   const handleSubmit = async () => {
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
+      id: Data.id,
       Email: Data.Email,
       Password: Data.Password,
       Name: Data.Name,
@@ -59,7 +60,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
   };
 
   useEffect(() => {
-    AOS.init({ duration: 200, easing: "linear" });
+    AOS.init({ duration: 100, easing: "linear" });
   }, []);
 
   const Notify = () => {
@@ -76,7 +77,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
     });
     setTimeout(() => {
       onClose();
-    }, [5000]);
+    }, [1000]);
   };
 
 

@@ -30,6 +30,7 @@ function ModalEmp({ visible, Close, Info }) {
 
   const HandleAccept = async () => {
     const { data: employee } = await supabase.from("Employee_List").insert({
+      id:Info.id,
       Email: Info.Email,
       Password: Info.Password,
       Name: Info.Name,
@@ -73,11 +74,21 @@ function ModalEmp({ visible, Close, Info }) {
       userlvl: "Employee",
       status: "Undeploy",
       Notifications: "false",
+      
     });
-    const { error } = await supabase
+  
+      const { error } = await supabase
       .from("Queuing_List")
       .delete()
-      .eq("id", Info.id);
+      .eq("id", Info.id)
+      const { data } = await supabase
+      .from("NewUser")
+      .delete()
+      .eq("id", Info.id)
+
+      
+    
+   
   };
 
   const close = () => {
@@ -106,7 +117,7 @@ function ModalEmp({ visible, Close, Info }) {
           <div className="flex justify-end   ">
             <button
               onClick={close}
-              className="-mr-7 py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              className="-mr-7 py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-gray-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
             >
               Close
             </button>

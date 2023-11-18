@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import supabase from "./supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ToastContainer, toast } from "react-toastify";
 function ModalDeploy({
   isOpenDeploy,
   isCloseDeploy,
@@ -13,7 +14,8 @@ function ModalDeploy({
   const [userlist, setUserList] = useState([]);
   const [datadisplay, setdatadisplay] = useState();
   const [email, setEmail] = useState();
-
+  const [coord, setcoord] = useState("Coordinator");
+  const currentdate = new Date().toDateString()
   useEffect(() => {
     setname(DataSelected);
   }, [DataSelected, Deploy]);
@@ -26,28 +28,84 @@ function ModalDeploy({
     AOS.init({ duration: 200, easing: "linear" });
   }, []);
 
+  const Notify = () => {
+    toast.success("Sent Succesfully!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      isCloseDeploy();
+    }, [1000]);
+  };
+
+  const NotifyNodataselected = () => {
+    toast.warning("No data selected", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+  const Notifycoord = () => {
+    toast.warning("Select Coordinator", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const HandleSendCoordinator = async () => {
-    const { data: coordinator } = await supabase
-      .from("EmployeeListCoordinator")
-      .insert([
-        {
-          Email: datadisplay,
-          Data: name,
-        },
-      ]);
-    for (let index = 0; index < selectednames.length; index++) {
-      const { data: employee } = await supabase
-        .from("Employee_List")
-        .update({
-          status: "Deploy",
-        })
-        .eq("Name", name);
+    if(!datadisplay){
+      Notifycoord()
+      return
+    }else{
+      if (name.length > 0) {
+        const { data: coordinator } = await supabase
+          .from("EmployeeListCoordinator")
+          .insert([
+            {
+              created_at: currentdate,
+              Email: datadisplay,
+              Data: name,
+            },
+          ]);
+        for (let index = 0; index < selectednames.length; index++) {
+          const { data: employee } = await supabase
+            .from("Employee_List")
+            .update({
+              status: "Deploy",
+            })
+            .eq("Name", name);
+        }
+        setdatadisplay("")
+        Notify();
+      }else if( name.length <= 0){
+        NotifyNodataselected()
+      }
     }
+    
   };
 
   const userList = async () => {
-    const { data: userList } = await supabase.from("UserList").select();
+    const { data: userList } = await supabase
+      .from("UserList")
+      .select()
+      .eq("userlvl", coord);
     setUserList(userList);
   };
 
@@ -64,8 +122,9 @@ function ModalDeploy({
   justify-center items-center z-50 top-50 flex "
       >
         <div
-        data-aos="zoom-in"
-        className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[60%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+          data-aos="zoom-in"
+          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[60%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl"
+        >
           <label
             className=" flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
             bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl -mb-24"
@@ -107,7 +166,9 @@ function ModalDeploy({
             ></input>
             <div
               className={`${
-                datadisplay === "" ? "hidden" : ` bg-slate-400 overflow-y-auto absolute`
+                datadisplay === ""
+                  ? "hidden"
+                  : ` bg-slate-400 overflow-y-auto absolute`
               }`}
             >
               {userlist
@@ -139,6 +200,18 @@ function ModalDeploy({
             </div>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="light"
+        />
       </div>
     </>
   );

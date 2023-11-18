@@ -31,21 +31,21 @@ const EmployeeCoord = ({ email1 }) => {
   const fetchCoordinator = async () => {
     var email2 = window.localStorage.getItem("email", email2);
     if (date === "") {
-    const { data: coordinatordata } = await supabase
-      .from("EmployeeListCoordinator")
-      .select()
-      .eq("Email", email2);
-    setCoordinator(coordinatordata);
-  }else {
-    if (date !== "") {
-      const { data: app1 } = await supabase
+      const { data: coordinatordata } = await supabase
         .from("EmployeeListCoordinator")
         .select()
-        .eq("created_at", date);
-      setCoordinator(app1);
+        .eq("Email", email2);
+      setCoordinator(coordinatordata);
+    } else {
+      if (date !== "") {
+        const { data: app1 } = await supabase
+          .from("EmployeeListCoordinator")
+          .select()
+          .eq("created_at", date);
+        setCoordinator(app1);
+      }
     }
-  }
-}
+  };
 
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
@@ -64,10 +64,10 @@ const EmployeeCoord = ({ email1 }) => {
     setItemOffset(newOffset);
   };
 
-  console.log(currentitems)
+  console.log(currentitems);
   return (
     <div className=" ">
-      <div className="h-screen">
+      <div className="h-screen overflow-y-hidden">
         <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
@@ -84,7 +84,6 @@ const EmployeeCoord = ({ email1 }) => {
                 type="date"
               ></input>
             </div>
-            
           </div>
         </div>
         <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
@@ -110,40 +109,35 @@ const EmployeeCoord = ({ email1 }) => {
             pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
           />
         </div>
-        <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] overflow-scroll overflow-x-hidden h-[590px] rounded-[60px] rounded-e-none  ">
+        <div className="p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-nones  ">
           <div className="grid grid-cols-2 w-[100%] bg-slate-300">
             <div className="text-md p-3">Name</div>
             <div className="text-md p-3">Position</div>
           </div>
-          <div className="w-[100%] h-[90%] bg-[#EEEEEE] grid ">
-            {currentitems && (
-              <div className="h-[520px] overflow-x-hidden">
-                {currentitems
-                  .filter((val) => {
-                    try {
-                      if (search === "") {
-                        return val;
-                      } else if (
-                        val.Position.toLowerCase().includes(
-                          search.toLowerCase()
-                        )
-                      ) {
-                        return val;
-                      } else if (
-                        val.Name.toLowerCase().includes(search.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    } catch (error) {}
-                  })
-                  .sort((a, b) => (b.id > a.id ? 1 : -1))
-                  .map((e) => (
-                    <CoordConfif key={e.id} CoordEmp={e.Data} />
-                    
-                  ))}
-              </div>
-            )}
-          </div>
+          {currentitems && (
+            <div className="overflow-y-auto overflow-x-hidden h-[40%]">
+              {currentitems
+                .filter((val) => {
+                  try {
+                    if (search === "") {
+                      return val;
+                    } else if (
+                      val.Position.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return val;
+                    } else if (
+                      val.Name.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  } catch (error) {}
+                })
+                .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .map((e) => (
+                  <CoordConfif key={e.id} CoordEmp={e.Data} />
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

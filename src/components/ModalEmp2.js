@@ -26,6 +26,7 @@ function ModalEmp2({ visible, Close, Info }) {
 
   const HandleArchive = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
+      id:Info.id,
       Email: Info.Email,
       Name: Info.Name,
       Mobile_No: Info.Mobile_No,

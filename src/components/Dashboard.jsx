@@ -45,6 +45,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
   const about = useRef(null);
   const apply = useRef(null);
+  const Job = useRef(null);
 
   //AOS
   useEffect(() => {
@@ -52,11 +53,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   }, []);
 
   const handleabout = () => {
-    about.current?.scrollIntoView({behavior: "smooth"});
+    about.current?.scrollIntoView({ behavior: "smooth" });
   };
   const handleapply = () => {
-    apply.current?.scrollIntoView({behavior: "smooth"});
+    apply.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const handleJob = () => {
+    Job.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   //POSTED JOB
   useEffect(() => {
     handleGetPost();
@@ -193,11 +198,11 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     className="h-full w-full absolute object-cover  rounded-2xl bg-center bg-cover duration-500 "
                   ></img>
                   {/* Left Arrow */}
-                  <div className="hidden group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                  <div className="absolute group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
                     <BsChevronCompactLeft onClick={prevSlide} size={30} />
                   </div>
                   {/* Right Arrow */}
-                  <div className="hidden group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+                  <div className="absolute group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
                     <BsChevronCompactRight onClick={nextSlide} size={30} />
                   </div>
                   <div className="flex  top-4 justify-center py-2">
@@ -226,12 +231,17 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                 <img data-aos="fade-left" src={Shangrila} className="" />
                 <img data-aos="fade-left" src={Richmonde} className="" />
                 <img data-aos="fade-left" src={Grand} className="" />
-                <img ref={about} data-aos="fade-left" src={Marco} className="w-[100%]" />
+                <img
+                  
+                  data-aos="fade-left"
+                  src={Marco}
+                  className="w-[100%]"
+                />
               </div>
               {/* About us */}
-              <div >
+              <div ref={about}>
                 <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
-                  <div   className="text-black">
+                  <div className="text-black">
                     <img
                       data-aos="fade-right"
                       src={logo1}
@@ -240,8 +250,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                h-[100%] w-[100%] rounded-md md:h-[90%] md:w-[70%] "
                     ></img>
                   </div>
-                  <div   className=" md:text-left">
-                    <p 
+                  <div className=" md:text-left">
+                    <p
                       data-aos="fade-left"
                       className="text-blue-700 text-[50px] font-semibold mb-[2%]"
                     >
@@ -356,6 +366,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       molestiae.
                     </p>
                     <button
+                     ref={apply}
                       data-aos="fade-up"
                       className="
               h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
@@ -363,12 +374,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     >
                       Meet Our Team
                     </button>
-                  </div>
+                  </div >
                 </div>
               </div>
 
               {/* Search */}
-              <div ref={apply} className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
+              <div
+               
+                className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500"
+              >
                 <input
                   className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Search Here..."
@@ -378,10 +392,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               </div>
               {/* right side */}
 
-              <div
-                
-                className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md "
-              >
+              <div className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md ">
                 {currentitems && (
                   <div className="md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
                     <div className="-mr-5">
@@ -445,13 +456,18 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           Pqualification={setQualification}
                           Pjobtype={setJobType}
                           setInfo={setInfo}
+                          
                         />
                       ))}
                   </div>
                 )}
 
                 {/* left side */}
-                <div className="  right-0 rounded-[60px] rounded-s   mb-24 p-1 mr-32 justify-center pl-2 text-center items-center">
+
+                <div
+                  ref={Job}
+                  className="  right-0 rounded-[60px] rounded-s   mb-24 p-1 mr-32 justify-center pl-2 text-center items-center"
+                >
                   <div className=" ">
                     <ModalApply
                       isVisible={showModal}

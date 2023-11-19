@@ -58,7 +58,6 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const Notify = () => {
     toast.success("Request sent successfully!", {
       position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -66,40 +65,41 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       progress: undefined,
       theme: "light",
     });
-    // setTimeout(() => {
-    //   onClose5();
-    // }, [2000]);
+    setTimeout(() => {
+      onClose5();
+    }, [2000]);
   };
   const HandleRequst = async () => {
-    // e.preventDefault()
-    if (
-      !locations ||
-      !hotel ||
-      !date ||
-      !info ||
-      personnels === "Number of Personnel" ||
-      positions === "Select Position"
-    ) {
-      NotifyError2();
-      return;
-    }
-    const { data, error } = await supabase.from("Request").insert([
-      {
-        Email: email.Email,
-        Location: locations,
-        Date: date,
-        Personel: personnels,
-        Position: positions,
-        AddInfo: info,
-        Hotel: hotel,
-      },
-    ]);
-    setLocations("");
-    setDate("");
-    setHotel("");
-    setInfo("");
-    
-    Notify();
+    try {
+      if (
+        !locations ||
+        !hotel ||
+        !date ||
+        !info ||
+        personnels === "Number of Personnel" ||
+        positions === "Select Position"
+      ) {
+        NotifyError2();
+        return;
+      }
+      const { data, error } = await supabase.from("Request").insert([
+        {
+          Email: email.Email,
+          Location: locations,
+          Date: date,
+          Personel: personnels,
+          Position: positions,
+          AddInfo: info,
+          Hotel: hotel,
+        },
+      ]);
+      setLocations("");
+      setDate("");
+      setHotel("");
+      setInfo("");
+      Notify();
+    } catch (error) {}
+   
   };
 
   if (!isVisible5) return null;
@@ -201,7 +201,6 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       </div>
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

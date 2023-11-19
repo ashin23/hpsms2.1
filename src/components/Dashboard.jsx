@@ -118,15 +118,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
   const slides = [logo1, logo3, logo4];
 
-  useEffect(() => {
-    startslider();
-  }, []);
+  // useEffect(() => {
+  //   startslider();
+  // }, []);
 
-  const startslider = () => {
-    setInterval(() => {
-      nextSlide();
-    }, 4000);
-  };
+  // const startslider = () => {
+  //   setInterval(() => {
+  //     nextSlide();
+  //   }, 4000);
+  // };
 
   const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -81,9 +81,8 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     
   };
   const Notify = () => {
-    toast.success("Sent succesfully!", {
+    toast.success("Success", {
       position: "top-center mt-20",
-      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -93,7 +92,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     });
     setTimeout(() => {
       isReject();
-    }, [5000]);
+    }, [2000]);
   };
 
   const NotifyError2 = () => {
@@ -110,27 +109,27 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
   };
 
   const InfoEmail = async () => {
-    if (!date || !location) {
-      NotifyError2();
-      return;
-    } else {
-      // emailjs.send(
-      //   "service_yj6ye3j",
-      //   "template_v7ln2cg",
-      //   {
-      //     from_name: info.FullName,
-      //     message: message1,
-      //     email1: email1,
-      //     location: location,
-      //     date: date,
-      //     time: time
-      //   },
-      //   "-qtQXoQ1iYx4JDljO"
-      // );
+    // if (!date || !location) {
+    //   NotifyError2();
+    //   return;
+    // } else {
+    //   // emailjs.send(
+    //   //   "service_yj6ye3j",
+    //   //   "template_v7ln2cg",
+    //   //   {
+    //   //     from_name: info.FullName,
+    //   //     message: message1,
+    //   //     email1: email1,
+    //   //     location: location,
+    //   //     date: date,
+    //   //     time: time
+    //   //   },
+    //   //   "-qtQXoQ1iYx4JDljO"
+    //   // );
 
-      HandleTransfer();
+    //   HandleTransfer();
       Notify();
-    }
+    // }
   };
 
   //*To prevent user inputting past dates
@@ -180,7 +179,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
           ></input>
           {/* date  */}
           <label className="flex font-semibold text-[20px]">
-            Select date and Time
+            Select Date and Time
           </label>
           <div className="">
             <input
@@ -219,8 +218,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
           ></textarea>
 
           <ToastContainer
-            position="top-center"
-            autoClose={5000}
+           
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

@@ -23,7 +23,7 @@ const PostJob = ({ isPost, isPostClose }) => {
   const [jobtype, setJobType] = useState("Job Type");
 
   const Postjobnotifyerror = () => {
-    toast.warning("Please fill up the blanks", {
+    toast.warning("Please fill up all the blanks", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
@@ -35,10 +35,13 @@ const PostJob = ({ isPost, isPostClose }) => {
     });
   };
 
+  function close() {
+    isPostClose();
+  }
+
   const Notify = () => {
     toast.success("Posted Successfully!", {
       position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -46,9 +49,10 @@ const PostJob = ({ isPost, isPostClose }) => {
       progress: undefined,
       theme: "light",
     });
-    // setTimeout(() => {
-    //   isPostClose();
-    // }, [2000]);
+    setTimeout(() => {
+      close();
+    },[2000])
+    
   };
 
   const handleStoreData = async () => {
@@ -89,27 +93,25 @@ const PostJob = ({ isPost, isPostClose }) => {
         },
       ]);
 
-      setPositions("Select Position");
-      setLocation("");
-      setAge("")
-      setHeight("")
-      setSalary("")
-      setHotel("")
-      setDob("")
-      setJobDescrip("")
-      setCareer("Carrer Level")
-      setExperience("Employee Experience")
-      setSpecializations("")
-      setQualification("")
-      setJobType("Job Type")
-      Notify();
-
-      return;
+    setPositions("Select Position");
+    setLocation("");
+    setAge("")
+    setHeight("")
+    setSalary("")
+    setHotel("")
+    setDob("")
+    setJobDescrip("")
+    setCareer("Carrer Level")
+    setExperience("Employee Experience")
+    setSpecializations("")
+    setQualification("")
+    setJobType("Job Type")
+    Notify();
+    return;
     }
   };
 
   if (!isPost) return null;
-
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
@@ -241,7 +243,7 @@ const PostJob = ({ isPost, isPostClose }) => {
             </label>
             <div>
               <input
-              value={qualification}
+                value={qualification}
                 onChange={(e) => setQualification(e.target.value)}
                 className="pl-5 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Bachelor's/College Degree"
@@ -253,7 +255,7 @@ const PostJob = ({ isPost, isPostClose }) => {
               Job Type
             </label>
             <select
-            value={jobtype}
+              value={jobtype}
               className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               onChange={(e) => setJobType(e.target.value)}
             >
@@ -271,7 +273,7 @@ const PostJob = ({ isPost, isPostClose }) => {
             </button>
 
             <button
-              onClick={isPostClose}
+              onClick={() => isPostClose()}
               className=" w-[100%]   hover:bg-sky-400 border border-black text-black hover:text-white  hover:-translate-y-1 rounded-lg"
             >
               Cancel
@@ -281,7 +283,6 @@ const PostJob = ({ isPost, isPostClose }) => {
       </div>
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

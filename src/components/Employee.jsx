@@ -84,7 +84,7 @@ const Employee = ({ email }) => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 20;
+  const perpage = 5;
 
   useEffect(() => {
     const endoffsett = itemsOffset + perpage;
@@ -103,19 +103,19 @@ const Employee = ({ email }) => {
         <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
           <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
             <input
-              className="top-96 w-[90%] ml-5 md:ml-0  md:w-[100%] z-50 mb-10 h-[30%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="-mt-8 md:-mt-0 top-96 w-[100%]   md:w-[100%] z-50 mb-10 h-[50%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Search name"
               type="search"
               onChange={(e) => setSearch1(e.target.value)}
             ></input>
             <button
               onClick={() => setShowModalDeploy(true)}
-              className=" md:h-12 w-[100%]  md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="-mt-16 md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               {" "}
               Deploy
             </button>
-            <div className="text-black gap-2">
+            <div className="text-black gap-2 -mt-7">
               <select
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setempstatus(e.target.value)}
@@ -152,6 +152,7 @@ const Employee = ({ email }) => {
                 <BsChevronCompactRight />
               </span>
             }
+            breakLabel={<span className="mr-4 mt-4">...</span>}
             pageCount={pagecount}
             onPageChange={handlePageClick}
             renderOnZeroPageCount={null}
@@ -168,7 +169,7 @@ const Employee = ({ email }) => {
           </div>
 
           {currentitems && (
-            <div className="h-[300px] overflow-x-hidden overflow-y-auto">
+            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

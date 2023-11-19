@@ -108,7 +108,7 @@ const UserList = () => {
             <label className="text-md p-3 w-[10%]"></label>
           </div>
           {currentitems && (
-            <div className="h-[300px] overflow-y-auto overflow-x-hidden ">
+            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

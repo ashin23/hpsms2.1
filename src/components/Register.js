@@ -60,10 +60,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [tin_No, setTin_No] = useState("");
 
   const [files, setFiles] = useState("");
+
   const Notify = () => {
     toast.success("Account create succesfully!", {
       position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -73,7 +73,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
     });
     setTimeout(() => {
       close();
-    }, [1000]);
+    },[1000])
+    
   };
 
   useEffect(() => {
@@ -195,7 +196,6 @@ const Register = ({ isRegister, isRegisterClose }) => {
     let code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
     setCode(code.toString());
   }
-
   const HandleSendCode = () => {
     if (!email) {
       NotifyError2();
@@ -256,8 +256,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
         !sSS_Number ||
         !phil_Health_No ||
         !pag_Ibig_No ||
-        !tin_No 
-        
+        !tin_No
       ) {
         NotifyFillblanks();
         return;
@@ -318,44 +317,43 @@ const Register = ({ isRegister, isRegisterClose }) => {
           setCity_Address("");
           setReligion("");
           setSex("Select Here");
-          setCivil_Status("Select Here")
-          setProvincial_Address("")
-          setDate_of_Birth("")
-          setCivil_Status("")
-          setName_of_Mother("")
-          setOccupation_Mother("")
-          setName_of_Father("")
-          setOccupation_Father("")
-          setNotify_Emergency("")
-          setRelationship("")
-          setEmergency_Address("")
-          setContact_Number("")
-          setCollege("")
-          setCollege_Graduated("")
-          setCourse("")
-          setSpecial_Course("")
-          setVocational("")
-          setVocational_Graduated("")
-          setHighSchool("")
-          setHighSchool_Graduated("")
-          setElementary("")
-          setElementary_Graduated("")
-          setInclusive_Dates("")
-          setCompany_History("")
-          setPosition_History("")
-          setName_References("")
-          setCompany_References("")
-          setPosition_References("")
-          setSSS_Number("")
-          setPag_Ibig_No("")
-          setPhil_Health_No("")
-          setTin_No("")
+          setCivil_Status("Select Here");
+          setProvincial_Address("");
+          setDate_of_Birth("");
+          setCivil_Status("");
+          setName_of_Mother("");
+          setOccupation_Mother("");
+          setName_of_Father("");
+          setOccupation_Father("");
+          setNotify_Emergency("");
+          setRelationship("");
+          setEmergency_Address("");
+          setContact_Number("");
+          setCollege("");
+          setCollege_Graduated("");
+          setCourse("");
+          setSpecial_Course("");
+          setVocational("");
+          setVocational_Graduated("");
+          setHighSchool("");
+          setHighSchool_Graduated("");
+          setElementary("");
+          setElementary_Graduated("");
+          setInclusive_Dates("");
+          setCompany_History("");
+          setPosition_History("");
+          setName_References("");
+          setCompany_References("");
+          setPosition_References("");
+          setSSS_Number("");
+          setPag_Ibig_No("");
+          setPhil_Health_No("");
+          setTin_No("");
           Notify();
         } else if (password !== password2) {
           NotifyError1();
           return;
-        }
-        else {
+        } else {
           NotifyError();
         }
       }
@@ -930,7 +928,6 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
         <ToastContainer
           position="top-center"
-          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

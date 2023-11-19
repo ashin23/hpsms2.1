@@ -30,16 +30,13 @@ const AccountSetting = ({
   const [otpCode, setCode] = useState("");
 
   const [verCode, setVerCode] = useState();
-  
 
-  
   const [view, setView] = useState(false);
   const [view1, setView1] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 50, easing: "linear" });
+    AOS.init({ duration: 100, easing: "linear" });
   }, []);
-
 
   useEffect(() => {
     getter();
@@ -80,7 +77,6 @@ const AccountSetting = ({
   const Notifysucces = () => {
     toast.success("Successfully Updated", {
       position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -88,9 +84,9 @@ const AccountSetting = ({
       progress: undefined,
       theme: "light",
     });
-    // setTimeout(() => {
-    //   close();
-    // }, [2000]);
+    setTimeout(() => {
+      close();
+    }, [2000]);
   };
 
   const NotifyError = () => {
@@ -153,7 +149,7 @@ const AccountSetting = ({
           .update({ Password: pass1 })
           .eq("Email", email)
           .single();
-        setVerCode("")
+        setVerCode("");
         Notifysucces();
       } else if (pass !== pass1) {
         ErrorMessenge();
@@ -166,7 +162,6 @@ const AccountSetting = ({
   }
 
   function close() {
- 
     setAllow(false);
     isAccClose();
   }
@@ -178,9 +173,10 @@ const AccountSetting = ({
         className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  w-screen h-screen"
       >
-        <div 
-        data-aos="zoom-in"
-        className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+        <div
+          data-aos="zoom-in"
+          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl"
+        >
           <label
             className="flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
           bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
@@ -262,27 +258,28 @@ const AccountSetting = ({
               </button>
             </div>
           </div>
-          <label className="flex font-bold">Verification Code</label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center  ">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center md:-mt-10  ">
+            <label className="flex font-bold w-[400px]">
+              Verification Code
+            </label>
             <input
               value={verCode}
               className={`${
                 allow ? "bg-blue-200" : ""
-              } pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              } ml-3 pl-2 pr-3 py-2 w-[95%] md:w-[125%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
               placeholder="Verification Code"
               onChange={(e) => setVerCode(e.target.value)}
               disabled="true"
               id="code"
               type="number"
             ></input>
-            <div className="w-[100%]">
-              <button
-                onClick={() => HandleSendCode()}
-                className="ml-5 px-3 py-2 w-[45%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
-              >
-                Send Code
-              </button>
-            </div>
+            <button
+              onClick={() => HandleSendCode()}
+              className="md:ml-10 px-3 py-2 md:w-[50%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
+            >
+              Send Code
+            </button>
           </div>
           <div className=" flex w-[100%]   justify-center items-center h-fit mt-2">
             <button
@@ -316,7 +313,6 @@ const AccountSetting = ({
       />
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

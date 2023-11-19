@@ -32,7 +32,7 @@ const Archive = () => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 7;
+  const perpage = 5;
 
   useEffect(() => {
     const endoffsett = itemsOffset + perpage;
@@ -86,7 +86,7 @@ const Archive = () => {
             <div className="text-md p-3">Email</div>
           </div>
           {currentitems && (
-            <div className="h-[300px] overflow-x-hidden overflow-y-auto">
+            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

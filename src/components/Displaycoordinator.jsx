@@ -22,15 +22,14 @@ const Displaycoordinator = ({
 
   function click() {
     setShowModalcoord(!showmodalcoord);
-    setholder(empcoord)
+    setholder(empcoord);
   }
 
   return (
     <>
       {empcoord && (
-        <div className="p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-rows-3 lg:h-10  md:grid-cols-3  w-[100%] bg-slate-100 ">
+        <div className="p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 mb-2 rounded-md w-[100%]   grid grid-rows-3 md:grid-cols-3 md:w-[100%] bg-slate-100 ">
           {" "}
-          
           {empcoord.Name}
           <div onClick={() => click()}>{empcoord.Position}</div>
         </div>

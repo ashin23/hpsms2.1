@@ -9,10 +9,11 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import Gender from "./Gender.json";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import Termsandcondition from "./Termsandcondition";
 const Register = ({ isRegister, isRegisterClose }) => {
   const [email, setEmail] = useState("");
 
+  const [showTerms, setTerms] = useState(false);
   const [password2, setPassword2] = useState("");
   const [password, setPassword] = useState("");
   const [otpCode, setCode] = useState("");
@@ -58,7 +59,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [phil_Health_No, setPhil_Health_No] = useState("");
   const [pag_Ibig_No, setPag_Ibig_No] = useState("");
   const [tin_No, setTin_No] = useState("");
-
+  const [terms1, setTerms1] = useState("");
   const [files, setFiles] = useState("");
 
   const Notify = () => {
@@ -73,8 +74,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
     });
     setTimeout(() => {
       close();
-    },[1000])
-    
+    }, [1000]);
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const VeriCode = () => {
     toast.success("Code sent succesfully", {
       position: "top-center",
-      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -101,7 +101,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const NotifyError = () => {
     toast.error("Incorrect Code", {
       position: "top-center",
-      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -114,7 +114,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const NotifyError1 = () => {
     toast.error("Incorrect Password", {
       position: "top-center",
-      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -127,7 +127,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const NotifyError2 = () => {
     toast.warning("Email is required", {
       position: "top-center",
-      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -137,36 +137,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
     });
   };
 
-  const NotifySex = () => {
-    toast.warning("Select Gender is required", {
+  const NotifyCheckbox = () => {
+    toast.warning("Please check terms and conditions", {
       position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
-  const Notifycivilstatus = () => {
-    toast.warning("Select Civil status", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const Notifyphoto = () => {
-    toast.warning("Photo is required", {
-      position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -179,7 +153,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const NotifyFillblanks = () => {
     toast.warning("Please fill up the blanks", {
       position: "top-center",
-      autoClose: 2000,
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -309,6 +283,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           const { data1, error1 } = await supabase.storage
             .from("Files")
             .upload(email + "/" + uuidv4(), files);
+
           setEmail("");
           setPassword("");
           setName("");
@@ -353,6 +328,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
         } else if (password !== password2) {
           NotifyError1();
           return;
+        } else if (!terms1) {
+          NotifyCheckbox();
+          return;
         } else {
           NotifyError();
         }
@@ -367,7 +345,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
     justify-center items-center  flex "
     >
       <div className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl">
-        <div className="sticky top-0 bg-white  w-full h-[50%] md:h-[13%] p-5">
+        <div className="sticky top-0 bg-white  w-full h-[40%] md:h-[13%] p-5">
           <div className="md:flex md:justify-between  grid grid-cols-1  ">
             <button
               onClick={() => HandleCreate()}
@@ -375,8 +353,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
             >
               Submit
             </button>
-            <label className="md:-ml-7 font-serif text-xl">
-              if the data is not available type not available
+            <label className="md:-ml-7 font-semibold text-xl">
+              Type N.A. if the data is not available.
             </label>
 
             <button
@@ -831,7 +809,6 @@ const Register = ({ isRegister, isRegisterClose }) => {
           >
             CHARACTER REFERENCES
           </label>
-
           <div className="grid grid-cols-1  md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div className="">
               <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
@@ -923,9 +900,21 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 type="text"
               ></input>
             </div>
+            <div className="flex">
+              <input
+                type="checkbox"
+                onChange={(e) => setTerms1(e.target.checked)}
+              />
+              <button
+                className="border-b-2 border-blue-400"
+                onClick={() => setTerms(true)}
+              >
+                Terms and Condition
+              </button>
+            </div>
           </div>
         </div>
-
+        <Termsandcondition isOpen={showTerms} isClose={() => setTerms(false)} />
         <ToastContainer
           position="top-center"
           hideProgressBar={false}

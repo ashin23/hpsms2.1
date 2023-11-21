@@ -8,10 +8,13 @@ import { useEffect } from "react";
 
 
 
-const ModalApply = ({ isVisible, onClose, Position, Data }) => {
+const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
+  const currentDate = new Date().toDateString();
+
   const handleSubmit = async () => {
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
-      id: Data.id,
+      // id: Data.id,
+      created_at: currentDate,
       Email: Data.Email,
       Password: Data.Password,
       Name: Data.Name,
@@ -53,7 +56,8 @@ const ModalApply = ({ isVisible, onClose, Position, Data }) => {
       Tin_Number: Data.Tin_Number,
       Position: Position,
       status: "applicant",
-      Notifications: "false"
+      Notifications: "false",
+      Hotel: Hotel,
     });
     
     Notify();

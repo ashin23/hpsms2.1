@@ -6,20 +6,15 @@ import logo1 from "./images/waiter1.jpg";
 import logo2 from "./images/hotelproimage.png";
 import logo3 from "./images/hotel.jpg";
 import logo4 from "./images/leadership.png";
-import Solaire from "./images/Solaire_Resort_logo.png";
-import Sheraton from "./images/sheraton.jpg";
-import Marriot from "./images/Marriot.png";
-import Heritage from "./images/Heritage.jpg";
-import newWorld from "./images/newWorld.png";
-import Shangrila from "./images/Shangrila.png";
-import Richmonde from "./images/Richmonde.jpg";
-import Grand from "./images/Grandhyatt.png";
-
+import hotelstaff from "./images/hotel-staff.jpg";
+import hotelstaff1 from "./images/hotel-staff1.jpg";
+import hotelstaff2 from "./images/hotel-staff2.jpg";
+import hotelstaff3 from "./images/hotel-staff4.jpg";
+import hotelstaff5 from "./images/hotel-staff5.jpg";
+import hotelstaff6 from "./images/hotel-staff6.jpg";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import ReactPaginate from "react-paginate";
-
 import Marco from "./images/Marco_Polo_Hotels_Logo.jpg";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
@@ -51,15 +46,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   useEffect(() => {
     AOS.init({ duration: 1000, easing: "linear" });
   }, []);
-
+  // { behavior: "smooth" }
   const handleabout = () => {
-    about.current?.scrollIntoView({ behavior: "smooth" });
+    about.current?.scrollIntoView();
   };
   const handleapply = () => {
-    apply.current?.scrollIntoView({ behavior: "smooth" });
+    apply.current?.scrollIntoView();
   };
   const handleJob = () => {
-    Job.current?.scrollIntoView({ behavior: "smooth" });
+    Job.current?.scrollIntoView();
   };
 
   //POSTED JOB
@@ -190,7 +185,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   Apply
                 </button>
               </div>
-              <div className="grid grid-cols-1 mt-[5%] md:mt-[2%] gap-3">
+              <div className="grid grid-cols-1 mt-[5%] md:mb-2 md:mt-[2%] gap-3">
                 {/* Image slider */}
                 <div className="max-w-[1500px]  md:w-[100%]  h-[900%] md:h-[760px] w-[100%] md:m-auto  relative ">
                   <img
@@ -218,23 +213,28 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                   </div>
                 </div>
               </div>
-              <div className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:mt-[5%]  md:gap-5 gap-2">
-                <img data-aos="fade-right" src={Solaire} className="" />
-                <img data-aos="fade-right" src={Sheraton} className="" />
-                <img data-aos="fade-right" src={Marriot} className="" />
+              <div className="mb-2">
+                <label className="md:ml-[45%]  text-4xl font-semibold text-blue-700 ">
+                  Our Partners
+                </label>
+              </div>
+
+              <div className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:-mt-0  md:gap-5 gap-2">
+                <img data-aos="fade-right" src={hotelstaff} className="" />
+                <img data-aos="fade-right" src={hotelstaff1} className="" />
+                <img data-aos="fade-right" src={hotelstaff2} className="" />
                 <img
                   data-aos="fade-right"
-                  src={Heritage}
+                  src={hotelstaff3}
                   className="w-[100%]"
                 />
-                <img data-aos="fade-right" src={newWorld} className="" />
-                <img data-aos="fade-left" src={Shangrila} className="" />
-                <img data-aos="fade-left" src={Richmonde} className="" />
-                <img data-aos="fade-left" src={Grand} className="" />
+                <img data-aos="fade-right" src={hotelstaff} className="" />
+                <img data-aos="fade-left" src={hotelstaff5} className="" />
+                <img data-aos="fade-left" src={hotelstaff6} className="" />
+                <img data-aos="fade-left" src={hotelstaff2} className="" />
                 <img
-                  
                   data-aos="fade-left"
-                  src={Marco}
+                  src={hotelstaff1}
                   className="w-[100%]"
                 />
               </div>
@@ -366,7 +366,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       molestiae.
                     </p>
                     <button
-                     ref={apply}
+                      ref={apply}
                       data-aos="fade-up"
                       className="
               h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
@@ -374,15 +374,12 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     >
                       Meet Our Team
                     </button>
-                  </div >
+                  </div>
                 </div>
               </div>
 
               {/* Search */}
-              <div
-               
-                className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500"
-              >
+              <div className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
                 <input
                   className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Search Here..."
@@ -456,7 +453,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           Pqualification={setQualification}
                           Pjobtype={setJobType}
                           setInfo={setInfo}
-                          
                         />
                       ))}
                   </div>
@@ -473,6 +469,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       isVisible={showModal}
                       onClose={() => setShowModal(false)}
                       Position={positions}
+                      Hotel={hotel}
                       Data={email}
                     />
 

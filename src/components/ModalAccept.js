@@ -21,10 +21,12 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
   const [message1, setMessage] = useState("");
 
   var date1 = moment(date).format("LLL");
+  const currentDate = new Date().toDateString();
 
   const HandleTransfer = async () => {
     const { info: Quelist } = await supabase.from("Queuing_List").insert({
-      id: info.id,
+      // id: info.id,
+      created_at: currentDate,
       Email: info.Email,
       Password: info.Password,
       Name: info.Name,
@@ -73,7 +75,6 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     });
 
     const { error } = await supabase
-
       .from("Applicant_List")
       .delete()
       .eq("id", info.id);
@@ -127,7 +128,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     //   //   "-qtQXoQ1iYx4JDljO"
     //   // );
 
-    //   HandleTransfer();
+     HandleTransfer();
       Notify();
     // }
   };

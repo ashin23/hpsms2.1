@@ -110,12 +110,12 @@ const Employee = ({ email }) => {
             ></input>
             <button
               onClick={() => setShowModalDeploy(true)}
-              className="-mt-16 md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="-mt-16 md:-mt-0 md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               {" "}
               Deploy
             </button>
-            <div className="text-black gap-2 -mt-7">
+            <div className="text-black gap-2 -mt-7 md:-mt-0">
               <select
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setempstatus(e.target.value)}

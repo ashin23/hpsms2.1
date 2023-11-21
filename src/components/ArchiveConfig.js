@@ -14,8 +14,8 @@ const ArchiveConfig = ({ e }) => {
         <div
           onClick={() => setShowModal(true)}
           className={`${
-            e.Notifications === "false" && "border-2 border-red-500"
-          } p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 rounded-md w-[100%] h-20 overflow-x-hidden grid grid-rows-3 md:grid-cols-3 md:w-[100%] bg-slate-100 `}
+            e.Notifications === "false" && "border-2 border-red-500 h-10"
+          } p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 rounded-md w-[100%] h-10 overflow-x-hidden grid grid-rows-3 md:grid-cols-3 md:w-[100%] bg-slate-100 `}
         >
           <div className="text-md ">{e.Name}</div>
           <div className="text-md ">{e.Position}</div>

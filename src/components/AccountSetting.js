@@ -64,7 +64,7 @@ const AccountSetting = ({
   const NotifyCodeSend = () => {
     toast.success("Send Code", {
       position: "top-center",
-      autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -92,7 +92,7 @@ const AccountSetting = ({
   const NotifyError = () => {
     toast.error("Incorrect Code", {
       position: "top-center",
-      autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -105,7 +105,7 @@ const AccountSetting = ({
   const ErrorMessenge = () => {
     toast.error("Password do not match", {
       position: "top-center",
-      autoClose: 2000,
+      
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,

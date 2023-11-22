@@ -9,6 +9,7 @@ import ReactPaginate from "react-paginate";
 const EmployeeCoord = ({ email1 }) => {
   const [coordinator, setCoordinator] = useState([]);
 
+ 
   const [search, setSearch1] = useState("");
 
   const [date, setDate] = useState("");
@@ -76,7 +77,7 @@ const EmployeeCoord = ({ email1 }) => {
               type="search"
               onChange={(e) => setSearch1(e.target.value)}
             ></input>
-            <div className=" flex -mt-14">
+            <div className=" flex -mt-14 md:-mt-0">
               <label className=" md:ml-2  text-xl font-semibold">Date</label>
               <input
                 onChange={(e) => setDate(e.target.value)}

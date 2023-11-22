@@ -24,6 +24,9 @@ const Navbar = ({
   admindashboard,
   setemailcoord,
   setaccettingemp,
+  setuserauth,
+  // HandleCheckerUser,
+  // checker
 }) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
@@ -138,218 +141,230 @@ const Navbar = ({
     setAdmin(false);
     setApplicant(false);
     setCoordinator(false);
+    setuserauth("");
     window.localStorage.clear();
     window.location.reload();
   }
 
   async function checker(verify, userlvl, email, token) {
-    try {
-      // Applicant
-      if (verify === true && userlvl === "applicant") {
-        if (window.localStorage.getItem("token") === token) {
-          const { data: getterApplicant } = await supabase
-            .from("NewUser")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          await setEmail(getterApplicant);
-          applicant1(getterApplicant);
-          setEmailSend(getterApplicant);
-          setApplicant(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        } else {
-          const { data: getterApplicant } = await supabase
-            .from("NewUser")
-            .select()
-            .eq("Email", email)
-            .single();
-          await setEmail(getterApplicant);
-          applicant1(getterApplicant);
-          setEmailSend(getterApplicant);
-          const { data: userlist } = await supabase
-            .from("NewUser")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
-
-          localStorage.setItem("token", generatedToken);
-          setApplicant(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        }
-      }
-    } catch (error) {}
-
-    // Coordinator
-    if (verify === true && userlvl === "Coordinator") {
-      window.localStorage.setItem("email", email);
+    if (email) {
       try {
-        if (window.localStorage.getItem("token") === token) {
-          const { data: getterCoordinator } = await supabase
-            .from("UserList")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          await setEmail(getterCoordinator);
-          setemailcoord(getterCoordinator);
-          setCoordinator(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        } else {
-          const { data: getterCoordinator } = await supabase
-            .from("UserList")
-            .select()
-            .eq("Email", email)
-            .single();
-          await setEmail(getterCoordinator);
-          setemailcoord(getterCoordinator);
-
-          const { data: userlist } = await supabase
-            .from("UserList")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
-
-          localStorage.setItem("token", generatedToken);
-          setCoordinator(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
+        // Applicant
+        if (verify === true && userlvl === "applicant") {
+          if (window.localStorage.getItem("token") === token) {
+            const { data: getterApplicant } = await supabase
+              .from("NewUser")
+              .select()
+              .eq("token", window.localStorage.getItem("token"))
+              .single();
+            await setEmail(getterApplicant);
+            applicant1(getterApplicant);
+            setEmailSend(getterApplicant);
+            setuserauth("applicant");
+            setApplicant(true);
+            document.getElementById("signIn").hidden = true;
+            document.getElementById("signOut").hidden = false;
+            return;
+          } else {
+            const { data: getterApplicant } = await supabase
+              .from("NewUser")
+              .select()
+              .eq("Email", email)
+              .single();
+            await setEmail(getterApplicant);
+            applicant1(getterApplicant);
+            setEmailSend(getterApplicant);
+            setuserauth("applicant");
+            const { data: userlist } = await supabase
+              .from("NewUser")
+              .update({ token: generatedToken })
+              .eq("Email", email)
+              .single();
+            localStorage.setItem("token", generatedToken);
+            setApplicant(true);
+            document.getElementById("signIn").hidden = true;
+            document.getElementById("signOut").hidden = false;
+            return;
+          }
         }
-      } catch (error) {}
-    }
+        // Coordinator
 
-    // Employee
-    if (verify === true && userlvl === "Employee") {
-      try {
-        if (window.localStorage.getItem("token") === token) {
-          const { data: emp2 } = await supabase
-            .from("Employee_List")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          if (emp2) await setEmail(emp2);
-          const { data: User } = await supabase
-            .from("UserList")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          if (User) await setEmail(User);
-          setEmp(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
+        if (verify === true && userlvl === "Coordinator") {
+          window.localStorage.setItem("email", email);
+          try {
+            if (window.localStorage.getItem("token") === token) {
+              const { data: getterCoordinator } = await supabase
+                .from("UserList")
+                .select()
+                .eq("token", window.localStorage.getItem("token"))
+                .single();
+              await setEmail(getterCoordinator);
+              setemailcoord(getterCoordinator);
+              setuserauth("Coordinator");
+              setCoordinator(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            } else {
+              const { data: getterCoordinator } = await supabase
+                .from("UserList")
+                .select()
+                .eq("Email", email)
+                .single();
+              await setEmail(getterCoordinator);
+              setemailcoord(getterCoordinator);
 
-          return;
-        } else {
-          const { data: emp1 } = await supabase
-            .from("Employee_List")
-            .select()
-            .eq("Email", email)
-            .single();
-          if (emp1) await setEmail(emp1);
-          const { data: emp } = await supabase
-            .from("Employee_List")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
+              const { data: userlist } = await supabase
+                .from("UserList")
+                .update({ token: generatedToken })
+                .eq("Email", email)
+                .single();
 
-          const { data: getterEmp1 } = await supabase
-            .from("UserList")
-            .select()
-            .eq("Email", email)
-            .single();
-          if (getterEmp1) await setEmail(getterEmp1);
-          const { data: userlist } = await supabase
-            .from("UserList")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
-          localStorage.setItem("token", generatedToken);
-          setEmp(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
+              localStorage.setItem("token", generatedToken);
+              setCoordinator(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            }
+          } catch (error) {}
         }
-      } catch (error) {}
-    }
-    // HR
-    if (verify === true && userlvl === "HR") {
-      try {
-        if (window.localStorage.getItem("token") === token) {
-          const { data: getterHR } = await supabase
-            .from("UserList")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          await setEmail(getterHR);
-          hrdashboard(getterHR);
-          setHR(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        } else {
-          const { data: getterHR } = await supabase
-            .from("UserList")
-            .select()
-            .eq("Email", email)
-            .single();
-          await setEmail(getterHR);
-          hrdashboard(getterHR);
-          const { data: userlist } = await supabase
-            .from("UserList")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
-          localStorage.setItem("token", generatedToken);
-          setHR(true);
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
+
+        // Employee
+        if (verify === true && userlvl === "Employee") {
+          try {
+            if (window.localStorage.getItem("token") === token) {
+              const { data: emp2 } = await supabase
+                .from("Employee_List")
+                .select()
+                .eq("token", window.localStorage.getItem("token"))
+                .single();
+              if (emp2) await setEmail(emp2);
+              setuserauth("Employee");
+              const { data: User } = await supabase
+                .from("UserList")
+                .select()
+                .eq("token", window.localStorage.getItem("token"))
+                .single();
+              if (User) await setEmail(User);
+              setuserauth("Employee");
+              setEmp(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+
+              return;
+            } else {
+              const { data: emp1 } = await supabase
+                .from("Employee_List")
+                .select()
+                .eq("Email", email)
+                .single();
+              if (emp1) await setEmail(emp1);
+              setuserauth("Employee");
+              const { data: emp } = await supabase
+                .from("Employee_List")
+                .update({ token: generatedToken })
+                .eq("Email", email)
+                .single();
+
+              const { data: getterEmp1 } = await supabase
+                .from("UserList")
+                .select()
+                .eq("Email", email)
+                .single();
+              if (getterEmp1) await setEmail(getterEmp1);
+              setuserauth("Employee");
+              const { data: userlist } = await supabase
+                .from("UserList")
+                .update({ token: generatedToken })
+                .eq("Email", email)
+                .single();
+              localStorage.setItem("token", generatedToken);
+              setEmp(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            }
+          } catch (error) {}
         }
-      } catch (error) {}
-    }
-    //admin
-    if (verify === true && userlvl === "admin") {
-      window.localStorage.setItem("email", email);
-      try {
-        if (window.localStorage.getItem("token") === token) {
-          const { data: getterAdmin } = await supabase
-            .from("UserList")
-            .select()
-            .eq("token", window.localStorage.getItem("token"))
-            .single();
-          if (getterAdmin) await setEmail(getterAdmin);
-          admindashboard(getterAdmin);
-          setAdmin(true);
-          setHR(true);
+        // HR
+        if (verify === true && userlvl === "HR") {
+          try {
+            if (window.localStorage.getItem("token") === token) {
+              const { data: getterHR } = await supabase
+                .from("UserList")
+                .select()
+                .eq("token", window.localStorage.getItem("token"))
+                .single();
+              await setEmail(getterHR);
+              hrdashboard(getterHR);
+              setuserauth("HR");
+              setHR(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            } else {
+              const { data: getterHR } = await supabase
+                .from("UserList")
+                .select()
+                .eq("Email", email)
+                .single();
+              await setEmail(getterHR);
+              setuserauth("HR");
+              hrdashboard(getterHR);
+              const { data: userlist } = await supabase
+                .from("UserList")
+                .update({ token: generatedToken })
+                .eq("Email", email)
+                .single();
+              localStorage.setItem("token", generatedToken);
+              setHR(true);
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            }
+          } catch (error) {}
+        }
+        //admin
+        if (verify === true && userlvl === "admin") {
+          window.localStorage.setItem("email", email);
+          try {
+            if (window.localStorage.getItem("token") === token) {
+              const { data: getterAdmin } = await supabase
+                .from("UserList")
+                .select()
+                .eq("token", window.localStorage.getItem("token"))
+                .single();
+              if (getterAdmin) await setEmail(getterAdmin);
+              admindashboard(getterAdmin);
+              setAdmin(true);
+              setHR(true);
+              setuserauth("admin");
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            } else {
+              const { data: getterAdmin } = await supabase
+                .from("UserList")
+                .select()
+                .eq("Email", email)
+                .single();
+              if (getterAdmin) await setEmail(getterAdmin);
+              setuserauth("admin");
+              admindashboard(getterAdmin);
+              const { data: userlist } = await supabase
+                .from("UserList")
+                .update({ token: generatedToken })
+                .eq("Email", email)
+                .single();
+              localStorage.setItem("token", generatedToken);
+              setAdmin(true);
+              setHR(true);
 
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        } else {
-          const { data: getterAdmin } = await supabase
-            .from("UserList")
-            .select()
-            .eq("Email", email)
-            .single();
-          if (getterAdmin) await setEmail(getterAdmin);
-          admindashboard(getterAdmin);
-          const { data: userlist } = await supabase
-            .from("UserList")
-            .update({ token: generatedToken })
-            .eq("Email", email)
-            .single();
-          localStorage.setItem("token", generatedToken);
-          setAdmin(true);
-          setHR(true);
-
-          document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
+              document.getElementById("signIn").hidden = true;
+              document.getElementById("signOut").hidden = false;
+              return;
+            }
+          } catch (error) {}
         }
       } catch (error) {}
     }
@@ -438,10 +453,9 @@ const Navbar = ({
     showModalUpload ||
     showmodalProfile
   )
-    document.body.style.overflow = 'hidden';
-  else document.body.style.overflow = 'unset';
+    document.body.style.overflow = "hidden";
+  else document.body.style.overflow = "unset";
 
- 
   return (
     <div className="h-2 ">
       <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
@@ -685,12 +699,14 @@ const Navbar = ({
         </div>
       </div>
 
-      <Profile
-        isProfile={showmodalProfile}
-        isProfileclose={() => setModalProfile(false)}
-        email2={email}
-        applicant={applicant}
-      />
+      
+        <Profile
+          isProfile={showmodalProfile}
+          isProfileclose={() => setModalProfile(false)}
+          email2={email}
+          applicant={applicant}
+        />
+      
 
       <PostJob
         isPost={showModalPostJob}

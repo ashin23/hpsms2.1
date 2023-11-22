@@ -18,7 +18,7 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
   const NotifyError2 = () => {
     toast.warning("Invalid Credentials", {
       position: "top-center",
-      autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -30,7 +30,7 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
   const NotifyError1 = () => {
     toast.error("Please Fill up the blanks", {
       position: "top-center",
-      autoClose: 2000,
+      
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -136,7 +136,6 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
 
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

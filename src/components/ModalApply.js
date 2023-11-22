@@ -6,12 +6,16 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 
-
-
-const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
+const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
   const currentDate = new Date().toDateString();
+  const [disable, setdisable] = useState(true);
+  useEffect(() => {
+    AOS.init({ duration: 100, easing: "linear" });
+    if (Data) ;
+  }, []);
 
   const handleSubmit = async () => {
+    // setdisable(true);
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
       // id: Data.id,
       created_at: currentDate,
@@ -59,24 +63,21 @@ const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
       Notifications: "false",
       Hotel: Hotel,
     });
-    
+    // setdisable(false);
     Notify();
   };
 
-  useEffect(() => {
-    AOS.init({ duration: 100, easing: "linear" });
-  }, []);
+ 
 
   const Notify = () => {
     toast.success("Submitted succesfully!", {
       position: "top-center mt-20",
-      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
-      
+
       theme: "light",
     });
     setTimeout(() => {
@@ -84,18 +85,16 @@ const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
     }, [1000]);
   };
 
-
- 
   if (!isVisible) return null;
   return (
     <div
-     
       className=" fixed z-50 inset-0 bg-black bg-opacity-25 backdrop-blur-sm
       justify-center items-center flex  "
     >
       <div
-       data-aos="zoom-in"
-      className="  bg-white  md:h-[25%]  md:w-[25%] lg:w-[20%] lg:h-[25%] rounded-3xl p-3 shadow-2xl">
+        data-aos="zoom-in"
+        className="  bg-white  md:h-[25%]  md:w-[25%] lg:w-[20%] lg:h-[25%] rounded-3xl p-3 shadow-2xl"
+      >
         <div className="mt-2">
           <label className="text-[20px] font-semibold ">
             {" "}
@@ -104,8 +103,14 @@ const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
         </div>
         <div className="grid grid-cols-2 mt-10 md:w-[70%] lg:ml-10 gap-5 sm:ml-10 md:ml-14">
           <button
+            // disabled={disable}
             onClick={() => handleSubmit()}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            // className={`${
+            //   disable
+            //     ? "bg-black "
+            //     : "bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300"
+            // }text-white  focus:ring-4  font-medium 
+            // rounded-lg text-sm px-2 py-2 mr-2 mb-2 `}
           >
             Submit
           </button>
@@ -119,7 +124,6 @@ const ModalApply = ({ isVisible, onClose, Position, Data,Hotel }) => {
       </div>
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

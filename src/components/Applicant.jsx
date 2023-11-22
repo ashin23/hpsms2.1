@@ -4,11 +4,14 @@ import ApplicantConfig from "./ApplicantConfig";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 import position from "./position.json";
+import { useNavigate } from "react-router-dom";
 const Applicant = () => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
   const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
+  const [token, setToken] = useState("")
+  const nav = useNavigate();
 
   useEffect(() => {
     handleApplicantsPost();
@@ -22,7 +25,19 @@ const Applicant = () => {
         }
       )
       .subscribe();
+  //  fetchuser()
   }, [date, applicantPosition]);
+
+  // async function fetchuser() {
+  //   const { data: user } = await supabase.from("UserList").select()
+  //   for (let index = 0; index < user.length; index++) {
+  //     if(user[index].token === window.localStorage.getItem("token")){
+
+  //     }else {
+  //       nav("/")
+  //     }
+  //   }
+  // };
 
   const handleApplicantsPost = async () => {
     if (date === "" && applicantPosition === "Select Position") {
@@ -138,7 +153,7 @@ const Applicant = () => {
                   try {
                     if (search1 === "") {
                       return val;
-                    }  else if (
+                    } else if (
                       val.Name.toLowerCase().includes(search1.toLowerCase())
                     ) {
                       return val;

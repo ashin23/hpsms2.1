@@ -34,7 +34,8 @@ const UserList = () => {
           event: "*",
           schema: "public",
           table: "UserList",
-          table: "EmployeeList",
+          table: "Employee_List",
+          table: "NewUser"
         },
         (payload) => {
           FetchUserList();
@@ -45,8 +46,9 @@ const UserList = () => {
 
   const FetchUserList = async () => {
     const { data: request } = await supabase.from("UserList").select();
-    const { data: requestEmp } = await supabase.from("EmployeeList").select();
-    setUserList(request.concat(requestEmp));
+    const { data: requestEmp } = await supabase.from("Employee_List").select();
+    const {data: newUser} = await supabase.from("NewUser").select()
+    setUserList(request.concat(requestEmp, newUser));
   };
 
   const [currentitems, setcurrentitems] = useState([]);

@@ -6,13 +6,14 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 import ModalAccept from "./ModalAccept";
 import QuelingConfig from "./QuelingConfig";
+import { useNavigate } from "react-router-dom";
 const Quelist = ({ email1 }) => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
 
   const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
-
+  const nav = useNavigate();
   useEffect(() => {
     queList();
     const ApplicantsList = supabase
@@ -25,10 +26,20 @@ const Quelist = ({ email1 }) => {
         }
       )
       .subscribe();
+      // fetchuser()
   }, [date, applicantPosition]);
 
 
-  //*date format
+  // async function fetchuser() {
+  //   const { data: user } = await supabase.from("UserList").select()
+  //   for (let index = 0; index < user.length; index++) {
+  //     if(user[index].token === window.localStorage.getItem("token")){
+
+  //     }else {
+  //       nav("/")
+  //     }
+  //   }
+  // };
   
 
   const queList = async () => {

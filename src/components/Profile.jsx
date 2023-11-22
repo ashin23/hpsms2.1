@@ -9,6 +9,7 @@ import Fileviewer from "./Fileviewer";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   const [email, setEmail1] = useState("");
@@ -53,12 +54,20 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   const [tin_No, setTin_No] = useState("");
 
   const [file1, setFile] = useState();
+  const nav = useNavigate()
 
   useEffect(() => {
-    getter();
+
+    if(email2 !== undefined){
+      getter();
+    }else{
+      nav("/")
+    }
+    
     Handlefetchfile();
   }, [applicant]);
 
+ 
   useEffect(() => {
     AOS.init({ duration: 300, easing: "linear" });
   }, []);

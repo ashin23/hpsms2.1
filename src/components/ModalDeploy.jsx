@@ -31,7 +31,7 @@ function ModalDeploy({
   const Notify = () => {
     toast.success("Sent Succesfully!", {
       position: "top-center",
-      autoClose: 2000,
+      
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -47,7 +47,7 @@ function ModalDeploy({
   const NotifyNodataselected = () => {
     toast.warning("No data selected", {
       position: "top-center",
-      autoClose: 2000,
+     
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -59,7 +59,7 @@ function ModalDeploy({
   const Notifycoord = () => {
     toast.warning("Select Coordinator", {
       position: "top-center",
-      autoClose: 2000,
+      
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -202,7 +202,7 @@ function ModalDeploy({
         </div>
         <ToastContainer
           position="top-center"
-          autoClose={2000}
+         
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

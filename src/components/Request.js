@@ -137,7 +137,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             onChange={(e) => setDate(e.target.value)}
             className=" pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             placeholder=""
-            type="datetime-local"
+            type="date"
           ></input>
 
           <label className="justify-center flex font-semibold">

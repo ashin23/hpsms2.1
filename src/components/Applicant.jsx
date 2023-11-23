@@ -25,19 +25,10 @@ const Applicant = () => {
         }
       )
       .subscribe();
-  //  fetchuser()
+  
   }, [date, applicantPosition]);
 
-  // async function fetchuser() {
-  //   const { data: user } = await supabase.from("UserList").select()
-  //   for (let index = 0; index < user.length; index++) {
-  //     if(user[index].token === window.localStorage.getItem("token")){
-
-  //     }else {
-  //       nav("/")
-  //     }
-  //   }
-  // };
+ 
 
   const handleApplicantsPost = async () => {
     if (date === "" && applicantPosition === "Select Position") {

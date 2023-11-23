@@ -134,19 +134,19 @@ const AccountSetting = ({
       if (pass === pass1 && verCode === otpCode) {
         const { data: NewUserupdate } = await supabase
           .from("NewUser")
-          .update({ Password: pass1 })
+          .update({ Password: pass1 , Email: email})
           .eq("Email", email)
           .single();
 
         const { data: UserListupdate } = await supabase
           .from("UserList")
-          .update({ Password: pass1 })
+          .update({ Password: pass1 , Email: email })
           .eq("Email", email)
           .single();
 
         const { data: emp } = await supabase
           .from("Employee_List")
-          .update({ Password: pass1 })
+          .update({ Password: pass1 , Email: email })
           .eq("Email", email)
           .single();
         setVerCode("");

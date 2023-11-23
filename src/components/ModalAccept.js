@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { v4 as uuidv4 } from "uuid";
 emailjs.init("-qtQXoQ1iYx4JDljO");
 
 const ModalAccept = ({ isAccepted, isReject, info }) => {
@@ -26,6 +26,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
   const HandleTransfer = async () => {
     const { info: Quelist } = await supabase.from("Queuing_List").insert({
       // id: info.id,
+      uuid: info.uuid,
       created_at: currentDate,
       Email: info.Email,
       Password: info.Password,

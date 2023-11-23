@@ -5,19 +5,21 @@ import "react-toastify/dist/ReactToastify.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
   const currentDate = new Date().toDateString();
   const [disable, setdisable] = useState(true);
   useEffect(() => {
     AOS.init({ duration: 100, easing: "linear" });
-    if (Data) ;
+    if (Data);
   }, []);
 
   const handleSubmit = async () => {
     // setdisable(true);
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
       // id: Data.id,
+      uuid: Data.uuid,
       created_at: currentDate,
       Email: Data.Email,
       Password: Data.Password,
@@ -67,8 +69,6 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
     Notify();
   };
 
- 
-
   const Notify = () => {
     toast.success("Submitted succesfully!", {
       position: "top-center mt-20",
@@ -105,12 +105,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
           <button
             // disabled={disable}
             onClick={() => handleSubmit()}
-            // className={`${
-            //   disable
-            //     ? "bg-black "
-            //     : "bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300"
-            // }text-white  focus:ring-4  font-medium 
-            // rounded-lg text-sm px-2 py-2 mr-2 mb-2 `}
+            className="bg-blue-700   hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300 text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2"
           >
             Submit
           </button>

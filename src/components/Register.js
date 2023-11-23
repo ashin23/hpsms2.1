@@ -235,7 +235,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
         NotifyFillblanks();
         return;
       } else {
-        if (password2 === password && verCode === otpCode) {
+        if (password2 === password && verCode === otpCode && terms1) {
           const { data, error } = await supabase.from("NewUser").insert([
             {
               Email: email,
@@ -278,6 +278,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               Phil_Health_No: phil_Health_No,
               Pag_Ibig_No: pag_Ibig_No,
               Tin_Number: tin_No,
+              uuid: uuidv4()
             },
           ]);
           const { data1, error1 } = await supabase.storage
@@ -857,7 +858,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             id="multiple_files"
             type="file"
             onChange={(e) => setFiles(e.target.value)}
-            accept="image/png, image/jpeg"
+            // accept="image/png, image/jpeg"
           ></input>
           <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
             <div>

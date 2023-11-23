@@ -25,7 +25,6 @@ const PostJob = ({ isPost, isPostClose }) => {
   const Postjobnotifyerror = () => {
     toast.warning("Please fill up all the blanks", {
       position: "top-center",
-      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -182,7 +181,7 @@ const PostJob = ({ isPost, isPostClose }) => {
               type="text"
             ></input>
             <label className="justify-center flex font-semibold">
-              Date and Time
+              Date
             </label>
             <input
               value={dob}

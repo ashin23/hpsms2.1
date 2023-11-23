@@ -58,11 +58,11 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
 
   useEffect(() => {
 
-    if(email2 !== undefined){
-      getter();
-    }else{
-      nav("/")
-    }
+    // if(email2 !== undefined){
+    //   getter();
+    // }else{
+    //   nav("/")
+    // }
     
     Handlefetchfile();
   }, [applicant]);

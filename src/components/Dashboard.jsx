@@ -159,16 +159,17 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   if (showModal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
 
-
   const [disable, setdisable] = useState(false);
   async function checker(Hotel) {
-    setdisable(true)
+    setdisable(true);
     const { data: applicant } = await supabase.from("Applicant_List").select();
-    
+
     for (let index = 0; index < applicant.length; index++) {
-     
-      if (applicant[index].Email === email.Email && applicant[index].Hotel === Hotel ) {
-       setdisable(false)
+      if (
+        applicant[index].Email === email.Email &&
+        applicant[index].Hotel === Hotel
+      ) {
+        setdisable(false);
       }
     }
   }
@@ -498,14 +499,13 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     {positions ? (
                       <div className="flex items-start flex-col p-2 ">
                         <button
-                        //  disabled={disable}
+                          //  disabled={disable}
                           onClick={() => apply1(hotel)}
-                          // className={`${disable > " "}`}
-                          // {`${
-                          //   applicant
-                          //     ? "md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                          //     : "hidden"
-                          // }`}
+                          className={`${
+                            applicant
+                              ? "md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                              : "hidden"
+                          }`}
                         >
                           APPLY
                         </button>

@@ -3,6 +3,7 @@ import Fileviewer from "./Fileviewer";
 import supabase from "./supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { v4 as uuidv4 } from "uuid";
 function ModalEmp({ visible, Close, Info }) {
   const [file1, setFile] = useState();
 
@@ -24,6 +25,7 @@ function ModalEmp({ visible, Close, Info }) {
   const HandleDelete = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
       // id:Info.id,
+      uuid: uuidv4(),
       Email: Info.Email,
       Name: Info.Name,
       Mobile_No: Info.Mobile_No,
@@ -72,6 +74,7 @@ function ModalEmp({ visible, Close, Info }) {
   const HandleAccept = async () => {
     const { data: employee } = await supabase.from("Employee_List").insert({
       // id:Info.id,
+      uuid: Info.uuid,
       Email: Info.Email,
       Password: Info.Password,
       Name: Info.Name,
@@ -123,8 +126,8 @@ function ModalEmp({ visible, Close, Info }) {
       .eq("id", Info.id);
     const { data } = await supabase
       .from("NewUser")
-      .update({ userlvl: "Employee" })
-      .eq("id", Info.id);
+      .delete()
+      .eq("uuid", Info.uuid);
   };
 
   const close = () => {

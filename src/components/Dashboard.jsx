@@ -38,6 +38,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(true);
 
+  const [disable, setdisable1] = useState();
+
   const about = useRef(null);
   const apply = useRef(null);
   const Job = useRef(null);
@@ -159,25 +161,24 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   if (showModal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
 
-  const [disable, setdisable] = useState(false);
-  async function checker(Hotel) {
-    setdisable(true);
-    const { data: applicant } = await supabase.from("Applicant_List").select();
-
-    for (let index = 0; index < applicant.length; index++) {
-      if (
-        applicant[index].Email === email.Email &&
-        applicant[index].Hotel === Hotel
-      ) {
-        setdisable(false);
-      }
-    }
-  }
-
   function apply1(hotel) {
-    checker(hotel);
+    // checker(hotel);
     setShowModal(true);
   }
+
+  const applychecker = async (postinfo) => {
+    const { data: applicant } = await supabase.from("Applicant_List").select();
+    for (let index = 0; index < applicant.length; index++) {
+      if (
+        applicant[index].Hotel === postinfo.hotel &&
+        applicant[index].Email === await email.Email
+      ) {
+        setdisable1(true);
+      } else {
+        setdisable1(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -437,6 +438,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">
                       TO APPLY
                     </h1>
+
                     {currentitems
                       .filter((val) => {
                         if (search === "") {
@@ -473,6 +475,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           Pqualification={setQualification}
                           Pjobtype={setJobType}
                           setInfo={setInfo}
+                          email={email}
+                          applychecker={applychecker}
+                         
                         />
                       ))}
                   </div>
@@ -492,23 +497,28 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         Position={positions}
                         Hotel={hotel}
                         Data={email}
-                        checker={checker}
+                        // checker={checker}
+                        // setdisable={setdisable}
                       />
                     )}
 
                     {positions ? (
                       <div className="flex items-start flex-col p-2 ">
-                        <button
-                          //  disabled={disable}
-                          onClick={() => apply1(hotel)}
-                          className={`${
-                            applicant
-                              ? "md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                              : "hidden"
-                          }`}
-                        >
-                          APPLY
-                        </button>
+                        {applicant && (
+                          <button
+                            disabled={disable}
+                            onClick={() => apply1(hotel)}
+                            className={`
+                          ${
+                            !disable
+                              ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                              : " bg-gray-400 "
+                          } md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 font-medium `}
+                          >
+                            APPLY
+                          </button>
+                        )}
+
                         <div className="grid grid-cols-1  md:grid-cols-3 gap-2 md:gap-3 ">
                           <button
                             onClick={() => setEdit(!edit)}

@@ -16,18 +16,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
 
   const [request1, setRequest] = useState();
 
-  const NotifyError2 = () => {
-    toast.warning("Please fill up the blanks", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
+  const NotifyError2 = () => {};
 
   const Requesterror = () => {
     toast.warning("Please fill up the blanks", {
@@ -79,7 +68,30 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
         personnels === "Number of Personnel" ||
         positions === "Select Position"
       ) {
-        NotifyError2();
+        toast.warning(
+          `${
+            ((!locations ||
+            !hotel ||
+            !date ||
+            !info) && "Fill up the blanks") ||
+            (!locations && "Location is required") ||
+            (!hotel && "Hotel is required") ||
+            (!date && "Date is required") ||
+            (!info && "Additional information is required") ||
+            (personnels === "Number of Personnel") ||
+            (positions === "Select Position")
+          }`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
         return;
       }
       const { data, error } = await supabase.from("Request").insert([
@@ -99,7 +111,6 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       setInfo("");
       Notify();
     } catch (error) {}
-   
   };
 
   if (!isVisible5) return null;
@@ -201,6 +212,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       </div>
       <ToastContainer
         position="top-center"
+        autoClose= {3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

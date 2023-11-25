@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useEffect } from "react";
+import supabase from "./supabaseClient";
 function PostConfig({
   postInfo,
   Pposition,
@@ -16,7 +17,8 @@ function PostConfig({
   Pqualification,
   Pjobtype,
   setInfo,
-  handleJob
+  email,
+  applychecker,
 }) {
   function HandleClick() {
     Pposition(postInfo.position);
@@ -33,9 +35,10 @@ function PostConfig({
     Pqualification(postInfo.qualification);
     Pjobtype(postInfo.jobtype);
     setInfo(postInfo);
-   
+
+    
+    if(email)applychecker(postInfo);
   }
-  
 
   return (
     <>

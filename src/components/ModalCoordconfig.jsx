@@ -23,7 +23,7 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
     const { data: file } = await supabase.storage
       .from("Files")
       .list(coordInfo.Email);
-    setFileView(file);
+    setFileView(await file);
   };
 
   if (!isOpen) return null;
@@ -55,7 +55,7 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
           {fileview && (
             <div>
               {fileview.map((view) => (
-                <Filecoord key={view.id} view={view} Email={coordInfo.Email} />
+                <Filecoord key={view.id} view={view} Email={coordInfo} />
               ))}
             </div>
           )}

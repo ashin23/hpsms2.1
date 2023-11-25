@@ -65,7 +65,7 @@ const EmployeeCoord = ({ email1 }) => {
     setItemOffset(newOffset);
   };
 
-  console.log(currentitems);
+ 
   return (
     <div className=" ">
       <div className="h-screen overflow-y-hidden">

@@ -26,11 +26,10 @@ function App() {
   const navigate = () => nav("/");
   const [userauth, setuserauth] = useState();
 
-  const [admin, setadmin] = useState(false);
-  const [hr, sethr] = useState(false);
+ 
 
-  // useEffect(() => {
-  // }, [userauth]);
+  useEffect(() => {
+  }, [userauth]);
   return (
     <>
       <div className="App ">

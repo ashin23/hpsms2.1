@@ -16,14 +16,18 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
   const handle2ndReject = () => setShowReject(false);
 
   useEffect(() => {
-    Handlefetchfile();
+   Handlefetchfile()
   }, [Info]);
+
+  // const getter = async () => {
+  //   Handlefetchfile(await Info.Email);
+  // };
 
   const Handlefetchfile = async () => {
     const { data: file } = await supabase.storage
       .from("Files")
-      .list(Info.Email);
-    setFile(file);
+      .list(Info.Email + "/");
+    setFile(await file);
   };
 
   const handleAccept = () => {
@@ -97,7 +101,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
           {file1 && (
             <div className="">
               {file1.map((file1) => (
-                <Fileviewer key={file1.id} file1={file1} Email={Info.Email} />
+                <Fileviewer key={file1.id} file1={file1} Email={Info} />
               ))}
             </div>
           )}

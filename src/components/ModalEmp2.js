@@ -21,7 +21,7 @@ function ModalEmp2({ visible, Close, Info }) {
     const { data: file } = await supabase.storage
       .from("Files")
       .list(Info.Email);
-    setFile(file);
+    setFile(await file);
   };
 
   const HandleArchive = async () => {
@@ -118,7 +118,7 @@ justify-center items-center z-50 top-50 flex overflow-auto "
           {file1 && (
             <div className="">
               {file1.map((file1) => (
-                <Fileviewer key={file1.id} file1={file1} Email={Info.Email} />
+                <Fileviewer key={file1.id} file1={file1} Email={Info} />
               ))}
             </div>
           )}

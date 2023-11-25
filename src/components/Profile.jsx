@@ -54,24 +54,14 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
   const [tin_No, setTin_No] = useState("");
 
   const [file1, setFile] = useState();
-  const nav = useNavigate()
+  const nav = useNavigate();
 
-  useEffect(() => {
+  useEffect(() => {}, [applicant]);
 
-    // if(email2 !== undefined){
-    //   getter();
-    // }else{
-    //   nav("/")
-    // }
-    
-    Handlefetchfile();
-  }, [applicant]);
-
- 
   useEffect(() => {
     AOS.init({ duration: 300, easing: "linear" });
-  }, []);
-
+    getter();
+  }, [isProfile]);
 
   const Notify = () => {
     toast.success("Updated Successfully", {
@@ -125,12 +115,16 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     setPhil_Health_No(email2.Phil_Health_No);
     setPag_Ibig_No(email2.Pag_Ibig_No);
     setTin_No(email2.Tin_Number);
+   Handlefetchfile(await email2.Email)
   };
 
-  const Handlefetchfile = async () => {
-    const { data: file } = await supabase.storage.from("Files").list(email);
+  const Handlefetchfile = async (email2) => {
+    const { data: file } = await supabase.storage
+      .from("Files")
+      .list(email2 + "/");
     setFile(file);
   };
+  
   function edit() {
     document.getElementById("name1").disabled = false;
     document.getElementById("age1").disabled = false;
@@ -233,8 +227,9 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     justify-center items-center  flex "
     >
       <div
-      data-aos="zoom-in"
-      className="overflow-y-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
+        data-aos="zoom-in"
+        className="overflow-y-scroll bg-white h-[70%]  w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl "
+      >
         <div className="sticky top-0 bg-white w-full h-[13%] p-5">
           <div className="flex justify-end   ">
             <button
@@ -273,7 +268,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           {file1 && (
             <div className="">
               {file1.map((file1) => (
-                <Fileviewer key={file1.id} file1={file1} Email={email} />
+                <Fileviewer key={file1.id} file1={file1} Email={email2} />
               ))}
             </div>
           )}

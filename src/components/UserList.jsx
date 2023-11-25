@@ -34,8 +34,28 @@ const UserList = () => {
           event: "*",
           schema: "public",
           table: "UserList",
+        },
+        (payload) => {
+          FetchUserList();
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
           table: "Employee_List",
-          table: "NewUser"
+        },
+        (payload) => {
+          FetchUserList();
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "NewUser",
         },
         (payload) => {
           FetchUserList();
@@ -47,7 +67,7 @@ const UserList = () => {
   const FetchUserList = async () => {
     const { data: request } = await supabase.from("UserList").select();
     const { data: requestEmp } = await supabase.from("Employee_List").select();
-    const {data: newUser} = await supabase.from("NewUser").select()
+    const { data: newUser } = await supabase.from("NewUser").select();
     setUserList(request.concat(requestEmp, newUser));
   };
 

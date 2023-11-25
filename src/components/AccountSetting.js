@@ -61,59 +61,6 @@ const AccountSetting = ({
     setCode(code.toString());
   }
 
-  const NotifyCodeSend = () => {
-    toast.success("Send Code", {
-      position: "top-center",
-     
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const Notifysucces = () => {
-    toast.success("Successfully Updated", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      close();
-    }, [2000]);
-  };
-
-  const NotifyError = () => {
-    toast.error("Incorrect Code", {
-      position: "top-center",
-     
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const ErrorMessenge = () => {
-    toast.error("Password do not match", {
-      position: "top-center",
-      
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
   const HandleSendCode = () => {
     // emailjs.send(
@@ -126,7 +73,16 @@ const AccountSetting = ({
     //   "-qtQXoQ1iYx4JDljO"
     // );
     console.log(otpCode);
-    NotifyCodeSend();
+    toast.success("Send Code", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   async function saveChanges() {
@@ -134,28 +90,57 @@ const AccountSetting = ({
       if (pass === pass1 && verCode === otpCode) {
         const { data: NewUserupdate } = await supabase
           .from("NewUser")
-          .update({ Password: pass1 , Email: email})
+          .update({ Password: pass1, Email: email })
           .eq("Email", email)
           .single();
-
         const { data: UserListupdate } = await supabase
           .from("UserList")
-          .update({ Password: pass1 , Email: email })
+          .update({ Password: pass1, Email: email })
           .eq("Email", email)
           .single();
 
         const { data: emp } = await supabase
           .from("Employee_List")
-          .update({ Password: pass1 , Email: email })
+          .update({ Password: pass1, Email: email })
           .eq("Email", email)
           .single();
         setVerCode("");
-        Notifysucces();
+        toast.success("Successfully Updated", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          close();
+        }, [3000]);
       } else if (pass !== pass1) {
-        ErrorMessenge();
+        toast.error("Password do not match", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return;
       } else {
-        NotifyError();
+        toast.error("Incorrect Code", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return;
       }
     } catch (error) {}
@@ -276,7 +261,7 @@ const AccountSetting = ({
             ></input>
             <button
               onClick={() => HandleSendCode()}
-              className="md:ml-10 px-3 py-2 md:w-[50%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
+              className="md:ml-14 px-3 py-2 md:w-[50%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
             >
               Send Code
             </button>
@@ -313,6 +298,7 @@ const AccountSetting = ({
       />
       <ToastContainer
         position="top-center"
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -16,98 +16,116 @@ const PostJob = ({ isPost, isPostClose }) => {
   const [hotel, setHotel] = useState("");
   const [dob, setDob] = useState("");
   const [jobDescrip, setJobDescrip] = useState("");
-  const [career, setCareer] = useState("Carrer Level");
+  const [career, setCareer] = useState("Career Level");
   const [experience, setExperience] = useState("Employee Experience");
   const [specializations, setSpecializations] = useState("");
   const [qualification, setQualification] = useState("");
   const [jobtype, setJobType] = useState("Job Type");
 
-  const Postjobnotifyerror = () => {
-    toast.warning("Please fill up all the blanks", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
   function close() {
     isPostClose();
   }
 
-  const Notify = () => {
-    toast.success("Posted Successfully!", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      close();
-    },[2000])
-    
-  };
+ 
 
   const handleStoreData = async () => {
-    if (
-      positions === "Select Position" ||
-      !location ||
-      !age ||
-      !height ||
-      !salary ||
-      !hotel ||
-      !dob ||
-      !jobDescrip ||
-      career === "Carrer Level" ||
-      experience === "Employee Experience" ||
-      !specializations ||
-      !qualification ||
-      jobtype === "Job Type"
-    ) {
-      Postjobnotifyerror();
+    try {
+      if (
+        positions === "Select Position" ||
+        !location ||
+        !age ||
+        !height ||
+        !salary ||
+        !hotel ||
+        !jobDescrip ||
+        career === "Career Level" ||
+        experience === "Employee Experience" ||
+        !specializations ||
+        !qualification ||
+        jobtype === "Job Type"
+      ) {
+        toast.warning(
+          `${
+            ((!location ||
+              !age ||
+              !height ||
+              !salary ||
+              !hotel ||
+              !jobDescrip ||
+              !specializations ||
+              !qualification) &&
+              "Please fill up all the blanks") ||
+            (!location && "Location is required") ||
+            (!age && "Age is Required") ||
+            (!height && "Height requirements is required") ||
+            (!salary && "Salary is required") ||
+            (!hotel && "Hotel is required") ||
+            (!jobDescrip && "Job description is required") ||
+            (!specializations && "Job specializations is required") ||
+            (positions === "Select Position" && "Select Position") ||
+            (career === "Career Level" && "Select Career Level") ||
+            (experience === "Employee Experience" &&
+              "Select Employee Experience") ||
+            (jobtype === "Job Type" && "Select Job Type")
+          }`,
+          {
+            autoClose: 3000,
+            position: "top-center",
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
 
-      return;
-    } else {
-      const { data, error } = await supabase.from("PostJob").insert([
-        {
-          position: positions,
-          location: location,
-          age: age,
-          height: height,
-          salary: salary,
-          hotel: hotel,
-          dob: dob,
-          jobdescrip: jobDescrip,
-          carrier: career,
-          experience: experience,
-          specializations: specializations,
-          qualifications: qualification,
-          jobtype: jobtype,
-        },
-      ]);
-
-    setPositions("Select Position");
-    setLocation("");
-    setAge("")
-    setHeight("")
-    setSalary("")
-    setHotel("")
-    setDob("")
-    setJobDescrip("")
-    setCareer("Carrer Level")
-    setExperience("Employee Experience")
-    setSpecializations("")
-    setQualification("")
-    setJobType("Job Type")
-    Notify();
-    return;
-    }
+        return;
+      } else {
+        const { data, error } = await supabase.from("PostJob").insert([
+          {
+            position: positions,
+            location: location,
+            age: age,
+            height: height,
+            salary: salary,
+            hotel: hotel,
+            jobdescrip: jobDescrip,
+            carrier: career,
+            experience: experience,
+            specializations: specializations,
+            qualifications: qualification,
+            jobtype: jobtype,
+          },
+        ]);
+        setPositions("Select Position");
+        setLocation("");
+        setAge("");
+        setHeight("");
+        setSalary("");
+        setHotel("");
+        setJobDescrip("");
+        setCareer("Career Level");
+        setExperience("Employee Experience");
+        setSpecializations("");
+        setQualification("");
+        setJobType("Job Type");
+        toast.success("Posted Successfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          close();
+        }, [3000]);
+        return;
+      }
+    } catch (error) {}
   };
 
   if (!isPost) return null;
@@ -180,15 +198,7 @@ const PostJob = ({ isPost, isPostClose }) => {
               placeholder="Hotel"
               type="text"
             ></input>
-            <label className="justify-center flex font-semibold">
-              Date
-            </label>
-            <input
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="date"
-            ></input>
+
             <label className="justify-center flex font-semibold">
               Job Description
             </label>
@@ -281,6 +291,7 @@ const PostJob = ({ isPost, isPostClose }) => {
         </div>
       </div>
       <ToastContainer
+        autoClose={3000}
         position="top-center"
         hideProgressBar={false}
         newestOnTop={false}

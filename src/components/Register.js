@@ -27,10 +27,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [age, setAge] = useState("");
   const [city_Address, setCity_Address] = useState("");
   const [religion, setReligion] = useState("");
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState("Select Here");
   const [provincial_Address, setProvincial_Address] = useState("");
   const [date_of_Birth, setDate_of_Birth] = useState("");
-  const [civil_Status, setCivil_Status] = useState("");
+  const [civil_Status, setCivil_Status] = useState("Select Here");
   const [name_of_Mother, setName_of_Mother] = useState("");
   const [occupation_Mother, setOccupation_Mother] = useState("");
   const [name_of_Father, setName_of_Father] = useState("");
@@ -60,22 +60,9 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const [pag_Ibig_No, setPag_Ibig_No] = useState("");
   const [tin_No, setTin_No] = useState("");
   const [terms1, setTerms1] = useState("");
-  const [files, setFiles] = useState("");
+  const [files, setFiles] = useState([]);
 
-  const Notify = () => {
-    toast.success("Account create succesfully!", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      close();
-    }, [1000]);
-  };
+  const Notify = () => {};
 
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
@@ -86,82 +73,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
     isRegisterClose();
   }
 
-  const VeriCode = () => {
-    toast.success("Code sent succesfully", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-  const NotifyError = () => {
-    toast.error("Incorrect Code", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyError1 = () => {
-    toast.error("Incorrect Password", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyError2 = () => {
-    toast.warning("Email is required", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyCheckbox = () => {
-    toast.warning("Please check terms and conditions", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyFillblanks = () => {
-    toast.warning("Please fill up the blanks", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
+  //code generator
   useEffect(() => {
     codeGenerator();
   }, []);
@@ -172,7 +84,16 @@ const Register = ({ isRegister, isRegisterClose }) => {
   }
   const HandleSendCode = () => {
     if (!email) {
-      NotifyError2();
+      toast.warning("Email is required", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     // emailjs.send(
@@ -184,7 +105,16 @@ const Register = ({ isRegister, isRegisterClose }) => {
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
-    // VeriCode();
+    toast.success("Code sent succesfully", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     console.log(otpCode);
   };
 
@@ -198,10 +128,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
         !age ||
         !city_Address ||
         !religion ||
-        !sex ||
         !provincial_Address ||
         !date_of_Birth ||
-        !civil_Status ||
         !name_of_Mother ||
         !occupation_Mother ||
         !name_of_Father ||
@@ -230,9 +158,68 @@ const Register = ({ isRegister, isRegisterClose }) => {
         !sSS_Number ||
         !phil_Health_No ||
         !pag_Ibig_No ||
-        !tin_No
+        !tin_No ||
+        !files ||
+        civil_Status === "Select Here" ||
+        sex === "Select Here"
       ) {
-        NotifyFillblanks();
+        toast.warning(
+          `${
+            ((!email ||
+              !password ||
+              !name ||
+              !mobile_No ||
+              !age ||
+              !city_Address ||
+              !religion ||
+              !provincial_Address ||
+              !date_of_Birth ||
+              !name_of_Mother ||
+              !occupation_Mother ||
+              !name_of_Father ||
+              !occupation_Father ||
+              !notify_Emergency ||
+              !relationship ||
+              !emegency_Address ||
+              !contact_Number ||
+              !college ||
+              !college_Graduated ||
+              !course ||
+              !college_Graduated ||
+              !special_Course ||
+              !vocational ||
+              !vocational_Graduated ||
+              !highSchool ||
+              !highSchool_Graduated ||
+              !elementary ||
+              !elementary_Graduated ||
+              !inclusive_Dates ||
+              !company_History ||
+              !position_History ||
+              !name_References ||
+              !company_References ||
+              !position_References ||
+              !sSS_Number ||
+              !phil_Health_No ||
+              !pag_Ibig_No ||
+              !tin_No) &&
+              "Please fill up the blanks") ||
+            (sex === "Select Here" && "Select Sex") ||
+            (!date_of_Birth && "Date of birth is required") ||
+            (!civil_Status === "Select Here" && "Select civil status")||
+            (!files  && "Photo is required")
+          }`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
         return;
       } else {
         if (password2 === password && verCode === otpCode && terms1) {
@@ -278,16 +265,17 @@ const Register = ({ isRegister, isRegisterClose }) => {
               Phil_Health_No: phil_Health_No,
               Pag_Ibig_No: pag_Ibig_No,
               Tin_Number: tin_No,
-              uuid: uuidv4()
+              uuid: uuidv4(),
             },
           ]);
           const { data1, error1 } = await supabase.storage
-            .from("Files")
-            .upload(email + "/" + uuidv4(), files);
+          .from("Files")
+          .upload(email + "/" + uuidv4(), files, { contentType: "image/jpg , image/png" });
 
           setEmail("");
           setPassword("");
           setName("");
+          setFiles("");
           setMobile_No("");
           setAge("");
           setCity_Address("");
@@ -325,20 +313,61 @@ const Register = ({ isRegister, isRegisterClose }) => {
           setPag_Ibig_No("");
           setPhil_Health_No("");
           setTin_No("");
-          Notify();
+
+          toast.success("Account create succesfully!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setTimeout(() => {
+            close();
+          }, [3000]);
         } else if (password !== password2) {
-          NotifyError1();
+          toast.error("Incorrect Password", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
           return;
         } else if (!terms1) {
-          NotifyCheckbox();
+          toast.warning("Please check terms and conditions", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
           return;
         } else {
-          NotifyError();
+          toast.error("Incorrect Code", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       }
     } catch (error) {}
   };
 
+  
   if (!isRegister) return null;
   return (
     <div
@@ -848,17 +877,17 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <label className="flex font-bold ">Upload Image</label>
           <label
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            for="multiple_files"
+            // for="multiple_files"
           >
             Upload Image
           </label>
           <input
-            value={files}
+            // value={files}
             className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
-            id="multiple_files"
+            // id="multiple_files"
             type="file"
-            onChange={(e) => setFiles(e.target.value)}
-            // accept="image/png, image/jpeg"
+            onChange={(e) => setFiles(e.target.files[0])}
+            accept="image/png, image/jpeg"
           ></input>
           <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
             <div>
@@ -918,6 +947,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
         <Termsandcondition isOpen={showTerms} isClose={() => setTerms(false)} />
         <ToastContainer
           position="top-center"
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

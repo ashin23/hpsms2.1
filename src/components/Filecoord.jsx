@@ -9,7 +9,7 @@ function Filecoord({view,Email}) {
           width: "10%",
           height: "10%",
         }}
-        src={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${Email}/${view.name}`}
+        src={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${Email.Email}/${view.name}`}
       />
     </div>
   );

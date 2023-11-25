@@ -78,43 +78,32 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     const { error } = await supabase
       .from("Applicant_List")
       .delete()
-      .eq("id", info.id);
-
-    
-  };
-  const Notify = () => {
-    toast.success("Success", {
-      position: "top-center mt-20",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      isReject();
-    }, [2000]);
-  };
-
-  const NotifyError2 = () => {
-    toast.warning("Please fill the blanks", {
-      position: "top-center mt-20",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+      .eq("id", info.uuid);
   };
 
   const InfoEmail = async () => {
-    // if (!date || !location) {
-    //   NotifyError2();
-    //   return;
-    // } else {
+    if (!date || !location || !time) {
+      toast.warning(
+        `${
+          (!date || !time|| !location && "Please fill up the blanks") ||
+          (!date && "Please fill the date") ||
+          (!location && "Please select location")||
+          (!time && "Please select time")
+        }`,
+        {
+          position: "top-center mt-20",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+      return;
+    }
+    // else {
     //   // emailjs.send(
     //   //   "service_yj6ye3j",
     //   //   "template_v7ln2cg",
@@ -130,7 +119,19 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     //   // );
 
      HandleTransfer();
-      Notify();
+    toast.success("Success", {
+      autoClose: 3000,
+      position: "top-center mt-20",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      isReject();
+    }, [3000]);
     // }
   };
 
@@ -220,7 +221,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
           ></textarea>
 
           <ToastContainer
-           
+            autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

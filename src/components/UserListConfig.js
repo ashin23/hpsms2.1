@@ -10,29 +10,6 @@ const UserListConfig = ({ e, notify }) => {
   const [view, setView] = useState(false);
   const [password, setPassword] = useState(e.Password);
 
-  const Notifysucces = () => {
-    toast.success("Successfully Updated", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-  const Notifydelete = () => {
-    toast.success("Successfully Deleted", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
   async function HandleUpdate() {
     if (e.Password === password) {
     } else {
@@ -54,7 +31,16 @@ const UserListConfig = ({ e, notify }) => {
         .select();
       setView(false);
       setPassword(password);
-      Notifysucces();
+      toast.success("Successfully Updated", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   }
 
@@ -72,7 +58,16 @@ const UserListConfig = ({ e, notify }) => {
       .from("NewUser")
       .delete()
       .eq("id", e.id);
-      Notifydelete()
+    toast.success("Successfully Deleted", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
   return (
@@ -118,6 +113,7 @@ const UserListConfig = ({ e, notify }) => {
       </div>
       <ToastContainer
         position="top-center"
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -19,14 +19,15 @@ function ModalEmp({ visible, Close, Info }) {
     const { data: file } = await supabase.storage
       .from("Files")
       .list(Info.Email);
-    setFile(file);
+    setFile(await file);
   };
 
   const HandleDelete = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
-      // id:Info.id,
-      uuid: uuidv4(),
+      //  id:Info.id,
+      uuid: Info.uuid,
       Email: Info.Email,
+      Password: Info.Password,
       Name: Info.Name,
       Mobile_No: Info.Mobile_No,
       Age: Info.Age,
@@ -65,10 +66,14 @@ function ModalEmp({ visible, Close, Info }) {
       Pag_Ibig_No: Info.Pag_Ibig_No,
       Tin_Number: Info.Tin_Number,
       Position: Info.Position,
-      userlvl: "Employee",
+      userlvl: "applicant",
       status: "Undeploy",
-      Notification: "false",
+      Notifications: "false",
     });
+    const { error } = await supabase
+      .from("Queuing_List")
+      .delete()
+      .eq("id", Info.id);
   };
 
   const HandleAccept = async () => {
@@ -190,7 +195,7 @@ function ModalEmp({ visible, Close, Info }) {
           {file1 && (
             <div className="">
               {file1.map((file1) => (
-                <Fileviewer key={file1.id} file1={file1} Email={Info.Email} />
+                <Fileviewer key={file1.id} file1={file1} Email={Info} />
               ))}
             </div>
           )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "./images/hotelproimage.png";
 import { Link } from "react-router-dom";
 import PostJob from "./PostJob";
@@ -16,6 +16,7 @@ import { RiProfileLine } from "react-icons/ri";
 import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
+import Notifications from "./Notifications";
 
 const Navbar = ({
   setEmailSend,
@@ -25,8 +26,6 @@ const Navbar = ({
   setemailcoord,
   setaccettingemp,
   setuserauth,
-  // HandleCheckerUser,
-  // checker
 }) => {
   const navigate = useNavigate();
   const [showModalPostJob, setShowPostJob] = useState(false);
@@ -35,6 +34,7 @@ const Navbar = ({
   const [showModalSignin, setModalSignin] = useState(false);
   const [showModalUpload, setModalUpload] = useState(false);
   const [showmodalProfile, setModalProfile] = useState(false);
+  const [modalnotifications, setmodalnotifications] = useState(false);
 
   const [menu, setMenu] = useState(false);
 
@@ -213,7 +213,7 @@ const Navbar = ({
                 .single();
               await setEmail(getterCoordinator);
               setemailcoord(getterCoordinator);
-
+              setuserauth("Coordinator");
               const { data: userlist } = await supabase
                 .from("UserList")
                 .update({ token: generatedToken })
@@ -436,6 +436,8 @@ const Navbar = ({
   }
 
   const [isMobile, setIsMobile] = useState(false);
+
+  var pokenginangemail;
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -443,6 +445,31 @@ const Navbar = ({
       }
     };
     window.addEventListener("resize", handleResize);
+    fetchNotif();
+    const Applicant_List = supabase
+      .channel("custom-all-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Applicant_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Queuing_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Archive_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .subscribe();
   }, [email]);
 
   if (
@@ -451,10 +478,30 @@ const Navbar = ({
     showModalPostJob ||
     showModalRequest ||
     showModalUpload ||
-    showmodalProfile
+    showmodalProfile ||
+    modalnotifications
   )
     document.body.style.overflow = "hidden";
   else document.body.style.overflow = "unset";
+
+  const [data, setdata] = useState([]);
+
+  const fetchNotif = async () => {
+    var array = data;
+    const { data: notifapp } = await supabase.from("Applicant_List").select();
+    const { data: archive } = await supabase.from("Archive_List").select();
+    const { data: que } = await supabase.from("Queuing_List").select();
+    var supadata = notifapp.concat(archive, que);
+
+    if (email.Email) {
+      for (let index = 0; index < supadata.length; index++) {
+        if (email.Email === supadata[index].Email) {
+          array = array.concat(...data, supadata[index]);
+          setdata(array);
+        }
+      }
+    }
+  };
 
   return (
     <div className="h-2 ">
@@ -679,6 +726,18 @@ const Navbar = ({
             <RiProfileLine className="mt-1 text-[20px] text-[#162388]" />
             <label className="md:flex hidden text-[#162388]">Profile</label>
           </button>
+          <button
+            onClick={() => setmodalnotifications(true)}
+            className={`${
+              applicant
+                ? "flex hover:bg-sky-400  hover:text-white p-[0.5%]  rounded-lg h-fit"
+                : "hidden"
+            }`}
+          >
+            {" "}
+            <IoMdNotifications className="mt-1 text-[20px] text-[#162388]" />
+            <label className="md:flex hidden text-[#162388]">Status</label>
+          </button>
         </div>
         <div className="    rounded-md items-center flex">
           <button
@@ -699,14 +758,19 @@ const Navbar = ({
         </div>
       </div>
 
-      
-        <Profile
-          isProfile={showmodalProfile}
-          isProfileclose={() => setModalProfile(false)}
-          email2={email}
-          applicant={applicant}
-        />
-      
+      <Notifications
+        isOpen={modalnotifications}
+        isClose={() => setmodalnotifications(false)}
+        email={email}
+        data={data}
+      />
+
+      <Profile
+        isProfile={showmodalProfile}
+        isProfileclose={() => setModalProfile(false)}
+        email2={email}
+        applicant={applicant}
+      />
 
       <PostJob
         isPost={showModalPostJob}

@@ -162,7 +162,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   else document.documentElement.style.overflowY = "unset";
 
   function apply1(hotel) {
-    // checker(hotel);
     setShowModal(true);
   }
 
@@ -507,7 +506,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         {applicant && (
                           <button
                             disabled={disable}
-                            onClick={() => apply1(hotel)}
+                            onClick={() => apply1()}
                             className={`
                           ${
                             !disable

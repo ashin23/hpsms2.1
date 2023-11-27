@@ -107,7 +107,7 @@ function ModalDeploy({
       .select()
       .eq("userlvl", coord);
     setUserList(userList);
-  };
+ };
 
   function close() {
     isCloseDeploy();

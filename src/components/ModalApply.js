@@ -16,7 +16,6 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
   }, []);
 
   const handleSubmit = async () => {
-    // setdisable(true);
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
       // id: Data.id,
       uuid: Data.uuid,
@@ -64,25 +63,32 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
       status: "applicant",
       Notifications: "false",
       Hotel: Hotel,
+      action: "Pending",
     });
-    // setdisable(false);
-    Notify();
-  };
 
-  const Notify = () => {
     toast.success("Submitted succesfully!", {
-      position: "top-center mt-20",
+      position: "top-right",
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
-
+      theme: "light",
+    });
+    toast.info("Please check your email for interview", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
       theme: "light",
     });
     setTimeout(() => {
       onClose();
-    }, [1000]);
+    }, [3000]);
   };
 
   if (!isVisible) return null;
@@ -119,6 +125,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
       </div>
       <ToastContainer
         position="top-center"
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -73,12 +73,14 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       Notifications: "false",
       date: date,
       Time: time,
+      Hotel: info.Hotel,
+      action:"Interview"
     });
 
     const { error } = await supabase
       .from("Applicant_List")
       .delete()
-      .eq("id", info.uuid);
+      .eq("uuid", info.uuid);
   };
 
   const InfoEmail = async () => {
@@ -118,10 +120,10 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     //   //   "-qtQXoQ1iYx4JDljO"
     //   // );
 
-     HandleTransfer();
+    //  HandleTransfer();
     toast.success("Success", {
       autoClose: 3000,
-      position: "top-center mt-20",
+      position: "top-right",
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -132,6 +134,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     setTimeout(() => {
       isReject();
     }, [3000]);
+ 
     // }
   };
 

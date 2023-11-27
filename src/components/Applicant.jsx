@@ -10,8 +10,7 @@ const Applicant = () => {
   const [applicants, setApplicants] = useState([]);
   const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
-  const [token, setToken] = useState("")
-  const nav = useNavigate();
+  
 
   useEffect(() => {
     handleApplicantsPost();
@@ -70,9 +69,9 @@ const Applicant = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * perpage) % applicants.length;
-
     setItemOffset(newOffset);
   };
+
 
   return (
     <div className="">

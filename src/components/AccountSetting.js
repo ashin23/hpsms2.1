@@ -159,7 +159,7 @@ const AccountSetting = ({
     justify-center items-center top-50 flex  w-screen h-screen"
       >
         <div
-          data-aos="zoom-in"
+         data-aos="zoom-in"
           className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl"
         >
           <label
@@ -168,7 +168,7 @@ const AccountSetting = ({
           >
             Account Settings
           </label>
-          <div className="flex grid-cols-2 gap-5">
+          <div   className="flex grid-cols-2 gap-5">
             <button
               onClick={() => handleEdit()}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium 

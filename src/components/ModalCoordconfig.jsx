@@ -22,7 +22,7 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo }) => {
   const Handlefile = async () => {
     const { data: file } = await supabase.storage
       .from("Files")
-      .list(coordInfo.Email);
+      .list(coordInfo.Email + "/");
     setFileView(await file);
   };
 

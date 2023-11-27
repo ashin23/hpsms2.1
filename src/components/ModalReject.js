@@ -5,7 +5,9 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
   const Reject = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
       // id:infoo.id,
+      uuid: infoo.uuid,
       Email: infoo.Email,
+      Password: infoo.Password,
       Name: infoo.Name,
       Mobile_No: infoo.Mobile_No,
       Age: infoo.Age,
@@ -46,12 +48,15 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
       Position: infoo.Position,
       userlvl: "Employee",
       status: "Undeploy",
-      Notification: "false",
+      Notifications: "false",
+      
+      Hotel: infoo.Hotel,
+      action:"Rejected"
     });
     const { error } = await supabase
       .from("Applicant_List")
       .delete()
-      .eq("id", infoo.id);
+      .eq("uuid", infoo.uuid);
   };
   if (!isOpen42) return null;
   return (
@@ -61,7 +66,7 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
     >
       <div className="bg-white p-5 rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
         <h1 className="font-bold">Are you sure you want to reject?</h1>
-        
+
         <div
           className="flex
            w-[100%]  justify-center pb-2 gap-2 pt-5"

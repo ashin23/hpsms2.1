@@ -58,23 +58,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
 
   useEffect(() => {}, [applicant]);
 
-  useEffect(() => {
-    AOS.init({ duration: 300, easing: "linear" });
-    getter();
-  }, [isProfile]);
-
-  const Notify = () => {
-    toast.success("Updated Successfully", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
   const getter = async () => {
     setEmail1(email2.Email);
@@ -115,8 +98,29 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     setPhil_Health_No(email2.Phil_Health_No);
     setPag_Ibig_No(email2.Pag_Ibig_No);
     setTin_No(email2.Tin_Number);
-   Handlefetchfile(await email2.Email)
+     Handlefetchfile(await email2.Email)
   };
+
+  useEffect(() => {
+    AOS.init({ duration: 300, easing: "linear" });
+    if(email2)getter();
+   
+  }, [email2]);
+
+  const Notify = () => {
+    toast.success("Updated Successfully", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  
 
   const Handlefetchfile = async (email2) => {
     const { data: file } = await supabase.storage
@@ -124,7 +128,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
       .list(email2 + "/");
     setFile(file);
   };
-  
+
   function edit() {
     document.getElementById("name1").disabled = false;
     document.getElementById("age1").disabled = false;

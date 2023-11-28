@@ -96,7 +96,7 @@ const UserListConfig = ({ e, notify }) => {
           </button>
         </div>
         <div className="text-md w-[100%] ">{e.userlvl}</div>
-        <div className="w-[10%] md:h-10  flex gap-2 -mt-2 ">
+        <div className="md:w-[10%] md:h-10  flex ml-20 gap-2 md:-mt-2 ">
           <button
             onClick={() => Handledelete()}
             className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "

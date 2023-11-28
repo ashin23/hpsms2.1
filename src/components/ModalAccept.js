@@ -120,7 +120,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     //   //   "-qtQXoQ1iYx4JDljO"
     //   // );
 
-    //  HandleTransfer();
+    HandleTransfer();
     toast.success("Success", {
       autoClose: 3000,
       position: "top-right",

@@ -169,7 +169,7 @@ const Employee = ({ email }) => {
           </div>
 
           {currentitems && (
-            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
+            <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

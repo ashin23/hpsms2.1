@@ -69,6 +69,8 @@ function ModalEmp({ visible, Close, Info }) {
       userlvl: "applicant",
       status: "Undeploy",
       Notifications: "false",
+      Hotel: Info.Hotel,
+      action: "Rejected"
     });
     const { error } = await supabase
       .from("Queuing_List")
@@ -128,7 +130,7 @@ function ModalEmp({ visible, Close, Info }) {
     const { error } = await supabase
       .from("Queuing_List")
       .delete()
-      .eq("id", Info.id);
+      .eq("id", Info.uuid);
     const { data } = await supabase
       .from("NewUser")
       .delete()

@@ -148,7 +148,7 @@ const Quelist = ({ email1 }) => {
             <div className="text-md p-3 mr-20">Email</div>
           </div>
           {currentitems && (
-            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
+            <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
               {" "}
               {currentitems
                 .filter((val) => {

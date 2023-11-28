@@ -92,7 +92,7 @@ const RequestList = () => {
             <div className="text-md md:flex hidden p-3">Action</div>
           </div>
           {currentitems && (
-            <div className="h-[300px] overflow-y-auto overflow-x-hidden">
+            <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
               {currentitems
                 .filter((val) => {
                   try {

@@ -1,7 +1,7 @@
 import supabase from "./supabaseClient";
 import React, { useEffect, useState } from "react";
 import ModalEmp2 from "./ModalEmp2";
-
+import { Tooltip } from "react-tooltip";
 const EmployeeConfig = ({
   empData,
   handleChange,
@@ -25,7 +25,7 @@ const EmployeeConfig = ({
       .eq("id", empData.id);
   };
 
-  if(showmodal)document.documentElement.style.overflowY = "hidden";
+  if (showmodal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
 
   return (
@@ -35,7 +35,7 @@ const EmployeeConfig = ({
         className="flex bg-slate-200 w-[100%] mt-2"
         onClick={() => updateNotif()}
       >
-        <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] h-10 bg-slate-100 md:gap-5">
+        <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] h-16 md:h-10 bg-slate-100 md:gap-5">
           <div className=" md:grid md:mr-[80%] md:grid-cols-2 ">
             <input
               type="checkbox"
@@ -47,6 +47,8 @@ const EmployeeConfig = ({
           </div>
           <div className="text-md  md:ml-[20%]">{empData.Position}</div>
           <div
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="View Profile"
             onClick={handleshowApplicant}
             className={`${
               empData.Notifications === "false" &&
@@ -56,7 +58,7 @@ const EmployeeConfig = ({
             {empData.Email}
           </div>
         </div>
-
+        <Tooltip id="my-tooltip" place="bottom" />
         <ModalEmp2
           Info={empData}
           visible={showmodal}

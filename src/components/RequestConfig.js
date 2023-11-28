@@ -13,7 +13,7 @@ const RequestConfig = ({ e }) => {
       <div
         className={`${
           e.Notifications === "false" && "border-2 border-red-500"
-        } p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-rows-4 lg:h-10  md:grid-cols-7  w-[100%] bg-slate-100  `}
+        } p-3 hover:translate-x-2  hover:p-4 duration-500 mt-1 rounded-md grid grid-rows-4  lg:h-10  md:grid-cols-7  w-[100%] bg-slate-100  `}
       >
         <div className="text-md md:flex hidden ">{e.Email}</div>
         <div className="text-md ">{e.Position}</div>

@@ -401,6 +401,7 @@ const Navbar = ({
     for (let index = 0; index < notifq.length; index++) {
       if (notifq[index].Notifications === "true") {
         setNotifque(true);
+      
       }
       if (notifq[index].Notifications === "false") {
         setNotifque(false);
@@ -408,7 +409,7 @@ const Navbar = ({
       }
     }
   }
-
+  
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
@@ -437,7 +438,7 @@ const Navbar = ({
 
   const [isMobile, setIsMobile] = useState(false);
 
-  var pokenginangemail;
+  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -446,30 +447,30 @@ const Navbar = ({
     };
     window.addEventListener("resize", handleResize);
     fetchNotif();
-    const Applicant_List = supabase
-      .channel("custom-all-channel")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "Applicant_List" },
-        (payload) => {
-          fetchNotif();
-        }
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "Queuing_List" },
-        (payload) => {
-          fetchNotif();
-        }
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "Archive_List" },
-        (payload) => {
-          fetchNotif();
-        }
-      )
-      .subscribe();
+    // const Applicant_List = supabase
+    //   .channel("custom-all-channel")
+    //   .on(
+    //     "postgres_changes",
+    //     { event: "*", schema: "public", table: "Applicant_List" },
+    //     (payload) => {
+    //       fetchNotif();
+    //     }
+    //   )
+    //   .on(
+    //     "postgres_changes",
+    //     { event: "*", schema: "public", table: "Queuing_List" },
+    //     (payload) => {
+    //       fetchNotif();
+    //     }
+    //   )
+    //   .on(
+    //     "postgres_changes",
+    //     { event: "*", schema: "public", table: "Archive_List" },
+    //     (payload) => {
+    //       fetchNotif();
+    //     }
+    //   )
+    //   .subscribe();
   }, [email]);
 
   if (
@@ -502,6 +503,7 @@ const Navbar = ({
       }
     }
   };
+ 
 
   return (
     <div className="h-2 ">
@@ -526,6 +528,8 @@ const Navbar = ({
             <label className="md:flex hidden text-[#162388]">Dashboard</label>
           </Link>
 
+
+          
           <div
             onClick={() => setMenu(!menu)}
             className={`${
@@ -534,10 +538,10 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            {notifapplicant !== true && (
+              {notifapplicant !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-            )}
-            {notifque !== true && (
+            )} 
+             {notifque !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
             {notifemp !== true && (
@@ -548,7 +552,7 @@ const Navbar = ({
             )}
             {notifreq !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-            )}
+            )} 
             <PiBooks className="mt-1 text-[20px] text-[#162388]" />
             <label className="md:flex hidden text-[#162388]">Module</label>
             {menu && (

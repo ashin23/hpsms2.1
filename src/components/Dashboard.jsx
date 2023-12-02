@@ -72,7 +72,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
         }
       )
       .subscribe();
-      
   }, [email]);
   //GETTER NG POST
   const handleGetPost = async () => {
@@ -173,8 +172,11 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
         applicant[index].Hotel === postinfo.hotel &&
         applicant[index].Email === email.Email
       ) {
-        setdisable1(true);
-      } else {
+        setdisable1(true);  
+      } else if (
+        applicant[index].Hotel !== postinfo.hotel &&
+        applicant[index].Email !== email.Email
+      ) {
         setdisable1(false);
       }
     }
@@ -416,7 +418,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                     <div className="-mr-5">
                       <ReactPaginate
                         previousLabel={
-                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 md:mr-4">
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 mr-4">
                             <BsChevronCompactLeft />
                           </span>
                         }
@@ -477,7 +479,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           setInfo={setInfo}
                           email={email}
                           applychecker={applychecker}
-                         
                         />
                       ))}
                   </div>

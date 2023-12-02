@@ -106,21 +106,21 @@ const Employee = ({ email }) => {
     <div className=" ">
       <div className="h-screen overflow-y-hidden">
         <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-2 -mt-5 md:-mt-0 gap-5">
             <input
-              className="-mt-8 md:-mt-0 top-96 w-[100%]   md:w-[100%] z-50 mb-10 h-[50%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="  top-96 w-[100%]   md:w-[100%] z-50 mb-10 h-[50%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Search name"
               type="search"
               onChange={(e) => setSearch1(e.target.value)}
             ></input>
             <button
               onClick={() => setShowModalDeploy(true)}
-              className="-mt-16 md:-mt-0 md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="  md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               {" "}
               Deploy
             </button>
-            <div className="text-black gap-2 -mt-7 md:-mt-0">
+            <div className="text-black gap-2  ">
               <select
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setempstatus(e.target.value)}

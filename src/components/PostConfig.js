@@ -27,7 +27,7 @@ function PostConfig({
     Pheight(postInfo.height);
     Psalary(postInfo.salary);
     Photel(postInfo.hotel);
-    Pdob(postInfo.dob);
+    Pdob(postInfo.created_at);
     PjobDescrip(postInfo.jobdescrip);
     Pcareer(postInfo.carrier);
     Pexperience(postInfo.experience);

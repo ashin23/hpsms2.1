@@ -14,7 +14,7 @@ const PostJob = ({ isPost, isPostClose }) => {
   const [height, setHeight] = useState("");
   const [salary, setSalary] = useState("");
   const [hotel, setHotel] = useState("");
-  const [dob, setDob] = useState("");
+  const currentDate = new Date().toDateString();
   const [jobDescrip, setJobDescrip] = useState("");
   const [career, setCareer] = useState("Career Level");
   const [experience, setExperience] = useState("Employee Experience");
@@ -87,6 +87,7 @@ const PostJob = ({ isPost, isPostClose }) => {
             position: positions,
             location: location,
             age: age,
+            created_at: currentDate,
             height: height,
             salary: salary,
             hotel: hotel,

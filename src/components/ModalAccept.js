@@ -195,7 +195,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
               min={disablePastDate()}
             ></input>
             <input
-              className="ml-3 pl-5 pr-3 py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="md:ml-3 pl-5 pr-3 mt-2  py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               type="time"
               onChange={(e) => setTime(e.target.value)}
             ></input>

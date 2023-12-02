@@ -38,7 +38,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState(true);
 
-  const [disable, setdisable1] = useState();
+  const [disable, setdisable1] = useState(false);
 
   const about = useRef(null);
   const apply = useRef(null);
@@ -72,7 +72,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
         }
       )
       .subscribe();
-  }, []);
+      
+  }, [email]);
   //GETTER NG POST
   const handleGetPost = async () => {
     const { data, error } = await supabase.from("PostJob").select();
@@ -170,7 +171,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     for (let index = 0; index < applicant.length; index++) {
       if (
         applicant[index].Hotel === postinfo.hotel &&
-        applicant[index].Email === await email.Email
+        applicant[index].Email === email.Email
       ) {
         setdisable1(true);
       } else {
@@ -506,7 +507,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         {applicant && (
                           <button
                             disabled={disable}
-                            onClick={() => apply1()}
+                            onClick={apply1}
                             className={`
                           ${
                             !disable

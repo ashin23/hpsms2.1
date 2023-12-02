@@ -20,9 +20,9 @@ const Employee = ({ email }) => {
 
   const [selectednames, setselectednames] = useState("");
 
-  if(showModalDeploy) document.body.style.overflow = 'hidden';
-  else   document.body.style.overflow = 'unset';
-  
+  if (showModalDeploy) document.body.style.overflow = "hidden";
+  else document.body.style.overflow = "unset";
+
   useEffect(() => {
     FetchEmployee();
     const EmployeeList = supabase
@@ -42,26 +42,31 @@ const Employee = ({ email }) => {
       const { data: emp } = await supabase.from("Employee_List").select();
       setEmployee(emp);
     } else {
-      if (empStatus !== "Employee Status" && empPosition === "Select Position") {
+      if (
+        empStatus !== "Employee Status" &&
+        empPosition === "Select Position"
+      ) {
         const { data: empS } = await supabase
           .from("Employee_List")
           .select()
           .eq("status", empStatus);
         setEmployee(empS);
-      } else if (empPosition !== "Select Position" && empStatus === "Employee Status") {
+      } else if (
+        empPosition !== "Select Position" &&
+        empStatus === "Employee Status"
+      ) {
         const { data: empP } = await supabase
           .from("Employee_List")
           .select()
           .eq("Position", empPosition);
         setEmployee(empP);
-      }  else {
+      } else {
         const { data: empstats } = await supabase
           .from("Employee_List")
           .select()
           .match({ status: empStatus, Position: empPosition });
         setEmployee(empstats);
       }
-     
     }
   };
 
@@ -193,7 +198,6 @@ const Employee = ({ email }) => {
                     empData={empData}
                     handleChange={HandleChange}
                     selectedData={selected}
-                    setselectednames={selectednames}
                   />
                 ))}
             </div>

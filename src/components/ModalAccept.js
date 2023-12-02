@@ -87,9 +87,9 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     if (!date || !location || !time) {
       toast.warning(
         `${
-          (!date || !time|| !location && "Please fill up the blanks") ||
+          (!date && !time && !location && "Please fill up the blanks") ||
           (!date && "Please fill the date") ||
-          (!location && "Please select location")||
+          (!location && "Location is required")||
           (!time && "Please select time")
         }`,
         {
@@ -105,7 +105,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       );
       return;
     }
-    // else {
+     else {
     //   // emailjs.send(
     //   //   "service_yj6ye3j",
     //   //   "template_v7ln2cg",
@@ -135,7 +135,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       isReject();
     }, [3000]);
  
-    // }
+    }
   };
 
   //*To prevent user inputting past dates

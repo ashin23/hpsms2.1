@@ -27,7 +27,9 @@ function ModalEmp2({ visible, Close, Info }) {
   const HandleArchive = async () => {
     const { data: employee } = await supabase.from("Archive_List").insert({
       // id:Info.id,
+      uuid: Info.uuid,
       Email: Info.Email,
+      Password: Info.Password,
       Name: Info.Name,
       Mobile_No: Info.Mobile_No,
       Age: Info.Age,
@@ -68,12 +70,12 @@ function ModalEmp2({ visible, Close, Info }) {
       Position: Info.Position,
       userlvl: "Employee",
       status: "Undeploy",
-      Notification: "false",
+      Notifications: "false",
     });
     const { error } = await supabase
       .from("Employee_List")
       .delete()
-      .eq("id", Info.id);
+      .eq("uuid", Info.uuid);
   };
 
   if (!visible) return null;

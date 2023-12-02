@@ -130,7 +130,7 @@ function ModalEmp({ visible, Close, Info }) {
     const { error } = await supabase
       .from("Queuing_List")
       .delete()
-      .eq("id", Info.uuid);
+      .eq("uuid", Info.uuid);
     const { data } = await supabase
       .from("NewUser")
       .delete()

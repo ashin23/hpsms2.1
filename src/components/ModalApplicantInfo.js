@@ -19,9 +19,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
    Handlefetchfile()
   }, [Info]);
 
-  // const getter = async () => {
-  //   Handlefetchfile(await Info.Email);
-  // };
+  
 
   const Handlefetchfile = async () => {
     const { data: file } = await supabase.storage

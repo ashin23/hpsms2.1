@@ -8,7 +8,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   const [email, setEmail] = useState("");
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState("Select Position");
 
   const [password2, setPassword2] = useState("");
   const [password, setPassword] = useState("");
@@ -16,83 +16,15 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   const [view1, setView1] = useState(false);
 
   const [otpCode, setCode] = useState("");
-  const [codeStatus, setCodeStatus] = useState(true);
   const [verCode, setVerCode] = useState();
 
   const [isCode, setIsCode] = useState(false);
-
-  const Notify = () => {
-    toast.success("Account create succesfully!", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      isClose1();
-    }, [2000]);
-  };
 
   function close() {
     setIsCode(false);
     isClose1();
   }
 
-  const NotifyCodeSend = () => {
-    toast.success("Send Code", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyError = () => {
-    toast.error("Incorrect Code", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyError1 = () => {
-    toast.error("Incorrect Password", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const NotifyError2 = () => {
-    toast.warning("Please fill up the blanks", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
   useEffect(() => {
     codeGenerator();
   }, []);
@@ -100,12 +32,20 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   function codeGenerator() {
     let code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
     setCode(code.toString());
-   
   }
 
   const HandleSendCode = () => {
     if (!email) {
-      NotifyError2();
+      toast.warning("Please fill up the blanks", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     // emailjs.send(
@@ -117,16 +57,71 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
     //   },
     //   "R_XlHjwitXGKhI2NS"
     // );
-    console.log(otpCode)
-    NotifyCodeSend();
+    console.log(otpCode);
+    toast.success("Send Code", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const HandleCreate = async () => {
-    if (!email || position ==="Select Position" || !password) {
-      NotifyError2();
+    if (!email || position === "Select Position" || !password || !password2) {
+      toast.warning(
+        `${
+          (!email &&
+            position === "Select Position" &&
+            !password &&
+            !password2 &&
+            "Fill up the blanks") ||
+          (!email && "Email is required") ||
+          (position === "Select Position" && "Select Position")
+        }`,
+        {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
       return;
     } else {
-      if (password2 === password && verCode === otpCode) {
+      if (
+        password2 === password &&
+        verCode === otpCode &&
+        position === "Employee"
+      ) {
+        const { data, error } = await supabase.from("Employee_List").insert([
+          {
+            Email: email,
+            Password: password,
+            userlvl: "Employee"
+          },
+        ]);
+        toast.success("Account create succesfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          isClose1();
+        }, [3000]);
+        return;
+      } else if (password2 === password && verCode === otpCode) {
         const { data, error } = await supabase.from("UserList").insert([
           {
             Email: email,
@@ -134,22 +129,43 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             userlvl: position,
           },
         ]);
-        Notify();
-        if (position === "Employee") {
-          const { data, error } = await supabase.from("EmployeeList").insert([
-            {
-              Email: email,
-              Password: password,
-            },
-          ]);
-
-          return;
-        }
+        toast.success("Account create succesfully!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          isClose1();
+        }, [3000]);
+        return;
       } else if (password !== password2) {
-        NotifyError1();
+        toast.error("Incorrect Password", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return;
       } else {
-        NotifyError();
+        toast.error("Incorrect Code", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     }
   };
@@ -263,7 +279,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
 
         <ToastContainer
           position="top-center"
-          autoClose={2000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

@@ -221,6 +221,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
     e.preventDefault();
     isRegisterClose();
   }
+  function openterms(e) {
+    e.preventDefault()
+    setTerms(true)
+  }
   if (!isRegister) return null;
   return (
     <div
@@ -273,6 +277,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 placeholder="Email"
                 required
                 type="text"
+                // pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
               ></input>
             </div>
             {/* Verification Code */}
@@ -832,7 +837,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <input name="terms1" required type="checkbox" />
               <button
                 className="border-b-2 border-blue-400"
-                onClick={() => setTerms(true)}
+                onClick={openterms}
               >
                 Terms and Condition
               </button>

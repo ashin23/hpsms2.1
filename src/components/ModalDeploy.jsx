@@ -8,7 +8,6 @@ function ModalDeploy({
   isCloseDeploy,
   Deploy,
   DataSelected,
-  selectednames,
 }) {
   const [name, setname] = useState([]);
   const [userlist, setUserList] = useState([]);
@@ -24,6 +23,7 @@ function ModalDeploy({
     userList();
   }, []);
 
+  
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
   }, []);
@@ -84,7 +84,7 @@ function ModalDeploy({
               Data: name,
             },
           ]);
-        for (let index = 0; index < selectednames.length; index++) {
+        for (let index = 0; index < name.length; index++) {
           const { data: employee } = await supabase
             .from("Employee_List")
             .update({
@@ -123,7 +123,7 @@ function ModalDeploy({
       >
         <div
           data-aos="zoom-in"
-          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[60%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl"
+          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
         >
           <label
             className=" flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
@@ -145,10 +145,10 @@ function ModalDeploy({
               Cancel
             </button>
           </div>
-          <div className="grid grid-cols-1">
+          <div className="grid grid-cols-1 md:-mt-14">
             <label className="font-semibold text-lg">Selected Employees</label>
             {name.length > 0 ? (
-              <ul className="grid grid-cols-1 ">
+              <ul className="grid grid-cols-1 md:-mt-10">
                 <li className="  h-[50%] bg-slate-400 ml-2">{`\n${name}`}</li>
               </ul>
             ) : (
@@ -156,7 +156,7 @@ function ModalDeploy({
             )}
           </div>
 
-          <div>
+          <div className="md:-mt-10">
             <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
             <input
               value={datadisplay}

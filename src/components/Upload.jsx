@@ -19,10 +19,34 @@ const Upload = ({ isUpload, isCloseUpload, email }) => {
     setEmail1(email.Email);
   };
 
-  const Notify = () => {
+  async function HandleSubmit() {
+    if (!sSS_Number || !phil_Health_No || !tin_No || !pag_Ibig_No) {
+      toast.error("Fill all the blanks", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    const { data: updatemp } = await supabase
+      .from("Employee_List")
+      .update({
+        Notifications: "false",
+        SSS_Number: sSS_Number,
+        Phil_Health_No: phil_Health_No,
+        Tin_Number: tin_No,
+        Pag_Ibig_No: pag_Ibig_No,
+      })
+      .eq("Email", await email.Email)
+      .single();
     toast.success("Updated Successfully", {
       position: "top-center",
-      autoClose: 2000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -32,39 +56,7 @@ const Upload = ({ isUpload, isCloseUpload, email }) => {
     });
     setTimeout(() => {
       isCloseUpload();
-    }, [2000]);
-  };
-
-  const NotifyError1 = () => {
-    toast.error("Fill all the blanks", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  async function HandleSubmit() {
-    if (!sSS_Number || !phil_Health_No || !tin_No || !pag_Ibig_No) {
-      NotifyError1();
-      return;
-    }
-    const { data: updatemp } = await supabase
-      .from("Employee_List")
-      .update({
-        // Notifications: "false",
-        SSS_Number: sSS_Number,
-        Phil_Health_No: phil_Health_No,
-        Tin_Number: tin_No,
-        Pag_Ibig_No: pag_Ibig_No,
-      })
-      .eq("Email", email1)
-      .single();
-    Notify();
+    }, [3000]);
   }
 
   if (!isUpload) return null;

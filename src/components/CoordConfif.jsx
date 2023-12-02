@@ -4,7 +4,6 @@ import supabase from "./supabaseClient";
 import { useEffect } from "react";
 import Displaycoordinator from "./Displaycoordinator";
 const CoordConfif = ({ CoordEmp }) => {
-  const [emp, setemp] = useState("");
   const [showmodalcoord, setShowModalcoord] = useState(false);
   const [holder, setholder] = useState([]);
   
@@ -29,6 +28,7 @@ const CoordConfif = ({ CoordEmp }) => {
       </div>
       <ModalCoordconfig
         coordInfo={holder}
+        CoordEmp={CoordEmp}
         isOpen={showmodalcoord}
         isClose={() => setShowModalcoord(false)}
       />

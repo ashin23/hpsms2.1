@@ -104,7 +104,8 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           {
             Email: email,
             Password: password,
-            userlvl: "Employee"
+            userlvl: "Employee",
+            Notifications: "false"
           },
         ]);
         toast.success("Account create succesfully!", {

@@ -115,16 +115,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
 
   const slides = [logo1, logo3, logo4];
 
-  // useEffect(() => {
-  //   startslider();
-  // }, []);
-
-  // const startslider = () => {
-  //   setInterval(() => {
-  //     nextSlide();
-  //   }, 4000);
-  // };
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
@@ -161,7 +151,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   if (showModal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
 
-  function apply1(hotel) {
+  function apply1() {
     setShowModal(true);
   }
 
@@ -170,13 +160,14 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     for (let index = 0; index < applicant.length; index++) {
       if (
         applicant[index].Hotel === postinfo.hotel &&
-        applicant[index].Email === email.Email
+        applicant[index].Email === (await email.Email)
       ) {
-        setdisable1(true);  
-      } else if (
-        applicant[index].Hotel !== postinfo.hotel &&
-        applicant[index].Email !== email.Email
-      ) {
+        setdisable1(true);
+        // } else if (
+        //   applicant[index].Hotel !== postinfo.hotel &&
+        //   applicant[index].Email !== email.Email
+        // )
+      } else {
         setdisable1(false);
       }
     }

@@ -53,7 +53,6 @@ const UserListConfig = ({ e, notify }) => {
       .from("Employee_List")
       .delete()
       .eq("id", e.id);
-
     const { data: newuser } = await supabase
       .from("NewUser")
       .delete()

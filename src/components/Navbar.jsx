@@ -60,7 +60,9 @@ const Navbar = ({
       document.getElementById("signIn").hidden = true;
     } else {
       // setModalSignin(true);
+     
       document.getElementById("signOut").hidden = true;
+      
     }
   }, []);
   //Notifications realtime
@@ -128,8 +130,15 @@ const Navbar = ({
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
           return;
-        } else {
-          document.getElementById("signOut").hidden = true;
+        } 
+        // else if (data[index].token !== window.localStorage.getItem("token")) {
+        //   document.getElementById("signIn").hidden = true;
+        //   return;
+        // } 
+        else {
+          // document.getElementById("signIn").hidden = true;
+          document.getElementById("signOut").hidden = false;
+          return
         }
       }
     }
@@ -401,7 +410,6 @@ const Navbar = ({
     for (let index = 0; index < notifq.length; index++) {
       if (notifq[index].Notifications === "true") {
         setNotifque(true);
-      
       }
       if (notifq[index].Notifications === "false") {
         setNotifque(false);
@@ -409,7 +417,7 @@ const Navbar = ({
       }
     }
   }
-  
+
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
@@ -438,7 +446,6 @@ const Navbar = ({
 
   const [isMobile, setIsMobile] = useState(false);
 
-  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -503,7 +510,6 @@ const Navbar = ({
       }
     }
   };
- 
 
   return (
     <div className="h-2 ">
@@ -528,8 +534,6 @@ const Navbar = ({
             <label className="md:flex hidden text-[#162388]">Dashboard</label>
           </Link>
 
-
-          
           <div
             onClick={() => setMenu(!menu)}
             className={`${
@@ -538,10 +542,10 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-              {notifapplicant !== true && (
+            {notifapplicant !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-            )} 
-             {notifque !== true && (
+            )}
+            {notifque !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
             {notifemp !== true && (
@@ -552,7 +556,7 @@ const Navbar = ({
             )}
             {notifreq !== true && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
-            )} 
+            )}
             <PiBooks className="mt-1 text-[20px] text-[#162388]" />
             <label className="md:flex hidden text-[#162388]">Module</label>
             {menu && (

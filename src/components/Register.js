@@ -69,6 +69,23 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
   const HandleCreate = async (e) => {
     e.preventDefault();
+
+    const { data: newA } = await supabase.from("NewUser").select();
+    for (let index = 0; index < newA.length; index++) {
+      if (newA[index].Email === formdata.email) {
+        toast.error("Email already exist", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
+      }
+    }
     if (formdata.password !== formdata.password2) {
       toast.error("Incorrect Password", {
         position: "top-center",
@@ -222,8 +239,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
     isRegisterClose();
   }
   function openterms(e) {
-    e.preventDefault()
-    setTerms(true)
+    e.preventDefault();
+    setTerms(true);
   }
   if (!isRegister) return null;
   return (
@@ -787,6 +804,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             type="file"
             onChange={(e) => setFiles(e.target.files[0])}
             accept="image/png, image/jpeg"
+            required
           ></input>
           <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
             <div>

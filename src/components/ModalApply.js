@@ -9,13 +9,14 @@ import { v4 as uuidv4 } from "uuid";
 
 const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
   const currentDate = new Date().toDateString();
-  const [disable, setdisable] = useState(true);
+  const [disable, setdisable] = useState(false);
   useEffect(() => {
     AOS.init({ duration: 100, easing: "linear" });
     if (Data);
   }, []);
 
   const handleSubmit = async () => {
+    setdisable(true);
     const { data: profile12 } = await supabase.from("Applicant_List").insert({
       // id: Data.id,
       uuid: Data.uuid,
@@ -87,6 +88,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
       theme: "light",
     });
     setTimeout(() => {
+      setdisable(false);
       onClose();
     }, [3000]);
   };
@@ -109,9 +111,13 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
         </div>
         <div className="grid grid-cols-2 mt-10 md:w-[70%] lg:ml-10 gap-5 sm:ml-10 md:ml-14">
           <button
-            // disabled={disable}
+            disabled={disable}
             onClick={() => handleSubmit()}
-            className="bg-blue-700   hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300 text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2"
+            className={`${
+              !disable
+                ? "bg-blue-700   hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300 "
+                : "bg-gray-500"
+            }text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2`}
           >
             Submit
           </button>

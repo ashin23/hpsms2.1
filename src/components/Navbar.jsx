@@ -60,9 +60,7 @@ const Navbar = ({
       document.getElementById("signIn").hidden = true;
     } else {
       // setModalSignin(true);
-     
       document.getElementById("signOut").hidden = true;
-      
     }
   }, []);
   //Notifications realtime
@@ -113,6 +111,20 @@ const Navbar = ({
       .subscribe();
   }, []);
 
+  async function tokenchecker() {
+    const { data: applist } = await supabase.from("NewUser").select();
+    const { data: user } = await supabase.from("UserList").select();
+    const { data: emp } = await supabase.from("Employee_List").select();
+    var data = applist.concat(user, emp);
+    if (applist && user && emp) {
+      for (let index = 0; index < data.length; index++) {
+        if (data[index].token !== window.localStorage.getItem("token")) {
+          document.getElementById("signIn").hidden = true;
+        }
+      }
+    }
+  }
+
   async function HandleCheckerUser() {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
@@ -130,15 +142,15 @@ const Navbar = ({
           document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
           return;
-        } 
+        }
         // else if (data[index].token !== window.localStorage.getItem("token")) {
         //   document.getElementById("signIn").hidden = true;
         //   return;
-        // } 
+        // }
         else {
           // document.getElementById("signIn").hidden = true;
           document.getElementById("signOut").hidden = false;
-          return
+          return;
         }
       }
     }

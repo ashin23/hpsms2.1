@@ -159,18 +159,20 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     const { data: applicant } = await supabase.from("Applicant_List").select();
     for (let index = 0; index < applicant.length; index++) {
       if (
-        applicant[index].Hotel === postinfo.hotel &&
-        applicant[index].Email === (await email.Email)
-      ) {
+        applicant[index].Hotel ===  postinfo.hotel &&
+        applicant[index].Email ===  await email.Email
+        // remove await
+      )
+      {
         setdisable1(true);
-        // } else if (
-        //   applicant[index].Hotel !== postinfo.hotel &&
-        //   applicant[index].Email !== email.Email
-        // )
-      } else {
+        return
+      } 
+      else 
+      {
         setdisable1(false);
       }
     }
+    
   };
 
   return (

@@ -31,8 +31,8 @@ const Displaycoordinator = ({
       {empcoord && (
         <div 
         onClick={() => click()}
-        data-tooltip-id="my-tooltip"
-        data-tooltip-content="View Profile"
+        // data-tooltip-id="my-tooltip"
+        // data-tooltip-content="View Profile"
         className="p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 mb-2 rounded-md w-[100%] h-10 grid grid-rows-2 md:grid-cols-2 md:w-[100%] bg-slate-100 ">
           {" "}
           {empcoord.Name}

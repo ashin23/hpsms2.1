@@ -18,12 +18,7 @@ const EmployeeConfig = ({
     setShowModal(true);
   };
 
-  const updateNotif = async () => {
-    const { data: update } = await supabase
-      .from("Employee_List")
-      .update({ Notifications: "true" })
-      .eq("id", empData.id);
-  };
+ 
 
   if (showmodal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
@@ -33,7 +28,7 @@ const EmployeeConfig = ({
       {" "}
       <div
         className="flex bg-slate-200 w-[100%] mt-2"
-        onClick={() => updateNotif()}
+       
       >
         <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] h-16 md:h-10 bg-slate-100 md:gap-5">
           <div className=" md:grid md:mr-[80%] md:grid-cols-2 ">
@@ -52,7 +47,7 @@ const EmployeeConfig = ({
             onClick={handleshowApplicant}
             className={`${
               empData.Notifications === "false" &&
-              "border-2 border-red-500 h-10 p-6 "
+              "border-2 border-red-500 md:h-10 h-6 md:p-6 p-1"
             } md:p-3 md:hover:translate-x-2  md:hover:p-4 duration-500   md:mt-1 md:rounded-md`}
           >
             {empData.Email}

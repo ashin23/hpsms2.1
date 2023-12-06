@@ -70,20 +70,44 @@ const Register = ({ isRegister, isRegisterClose }) => {
   const HandleCreate = async (e) => {
     e.preventDefault();
 
-    const { data: newA } = await supabase.from("NewUser").select();
-    for (let index = 0; index < newA.length; index++) {
-      if (newA[index].Email === formdata.email) {
-        toast.error("Email already exist", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        return;
+    const { data: applist } = await supabase.from("NewUser").select();
+    const { data: user } = await supabase.from("UserList").select();
+    const { data: emp } = await supabase.from("Employee_List").select();
+    var data = applist.concat(user, emp);
+    if (applist && user && emp) {
+      for (let index = 0; index < data.length; index++) {
+        if (
+          data[index].Email === formdata.email &&
+          data[index].userlvl === "Restricted"
+        ) {
+          toast.error("Email is deactivated", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          return;
+        }
+        if (
+          data[index].Email === formdata.email &&
+          data[index].userlvl !== "Restricted"
+        ) {
+          toast.error("Email already exist", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          return;
+        }
       }
     }
     if (formdata.password !== formdata.password2) {

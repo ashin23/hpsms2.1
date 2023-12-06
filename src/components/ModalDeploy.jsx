@@ -3,18 +3,13 @@ import supabase from "./supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer, toast } from "react-toastify";
-function ModalDeploy({
-  isOpenDeploy,
-  isCloseDeploy,
-  Deploy,
-  DataSelected,
-}) {
+function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
   const [name, setname] = useState([]);
   const [userlist, setUserList] = useState([]);
   const [datadisplay, setdatadisplay] = useState();
   const [email, setEmail] = useState();
   const [coord, setcoord] = useState("Coordinator");
-  const currentdate = new Date().toDateString()
+  const currentdate = new Date().toDateString();
   useEffect(() => {
     setname(DataSelected);
   }, [DataSelected, Deploy]);
@@ -23,7 +18,6 @@ function ModalDeploy({
     userList();
   }, []);
 
-  
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
   }, []);
@@ -31,7 +25,7 @@ function ModalDeploy({
   const Notify = () => {
     toast.success("Sent Succesfully!", {
       position: "top-center",
-      
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -47,7 +41,7 @@ function ModalDeploy({
   const NotifyNodataselected = () => {
     toast.warning("No data selected", {
       position: "top-center",
-     
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -59,7 +53,7 @@ function ModalDeploy({
   const Notifycoord = () => {
     toast.warning("Select Coordinator", {
       position: "top-center",
-      
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -70,10 +64,10 @@ function ModalDeploy({
   };
 
   const HandleSendCoordinator = async () => {
-    if(!datadisplay){
-      Notifycoord()
-      return
-    }else{
+    if (!datadisplay) {
+      Notifycoord();
+      return;
+    } else {
       if (name.length > 0) {
         const { data: coordinator } = await supabase
           .from("EmployeeListCoordinator")
@@ -92,13 +86,12 @@ function ModalDeploy({
             })
             .eq("Name", name);
         }
-        setdatadisplay("")
+        setdatadisplay("");
         Notify();
-      }else if( name.length <= 0){
-        NotifyNodataselected()
+      } else if (name.length <= 0) {
+        NotifyNodataselected();
       }
     }
-    
   };
 
   const userList = async () => {
@@ -107,7 +100,7 @@ function ModalDeploy({
       .select()
       .eq("userlvl", coord);
     setUserList(userList);
- };
+  };
 
   function close() {
     isCloseDeploy();
@@ -145,15 +138,15 @@ function ModalDeploy({
               Cancel
             </button>
           </div>
-          <div className="grid grid-cols-1 md:-mt-14">
+
+          <div className="grid grid-cols-1 md:-mt-14 overflow-y-auto overflow-x-hidden">
             <label className="font-semibold text-lg">Selected Employees</label>
-            {name.length > 0 ? (
-              <ul className="grid grid-cols-1 md:-mt-10">
-                <li className="  h-[50%] bg-slate-400 ml-2">{`\n${name}`}</li>
-              </ul>
-            ) : (
-              "No Data Selected"
-            )}
+            {name.map((data, index) => (
+              <div key={index} className="bg-gray-200">
+                {data}
+                {console.log(data)}
+              </div>
+            ))}
           </div>
 
           <div className="md:-mt-10">
@@ -202,7 +195,6 @@ function ModalDeploy({
         </div>
         <ToastContainer
           position="top-center"
-         
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

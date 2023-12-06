@@ -10,12 +10,15 @@ import { useNavigate } from "react-router-dom";
 const Quelist = ({ email1 }) => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
+  const [status, setstatus] = useState("false");
+  const [app, setapp] = useState([]);
 
   const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
   const nav = useNavigate();
   useEffect(() => {
     queList();
+    que();
     const ApplicantsList = supabase
       .channel("table-db-changes")
       .on(
@@ -23,24 +26,19 @@ const Quelist = ({ email1 }) => {
         { event: "*", schema: "public", table: "Queuing_List" },
         (payload) => {
           queList();
+          que();
         }
       )
       .subscribe();
-      // fetchuser()
   }, [date, applicantPosition]);
 
-
-  // async function fetchuser() {
-  //   const { data: user } = await supabase.from("UserList").select()
-  //   for (let index = 0; index < user.length; index++) {
-  //     if(user[index].token === window.localStorage.getItem("token")){
-
-  //     }else {
-  //       nav("/")
-  //     }
-  //   }
-  // };
-  
+  const que = async () => {
+    const { data: app } = await supabase
+      .from("Queuing_List")
+      .select()
+      .eq("Notifications", status);
+    setapp(app);
+  };
 
   const queList = async () => {
     if (date === "" && applicantPosition === "Select Position") {
@@ -89,25 +87,45 @@ const Quelist = ({ email1 }) => {
   return (
     <div className="">
       <div className="h-screen overflow-y-hidden">
-        <div className="sticky top-5 flex justify-center py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-5">
-            <input
-              className="-mt-6 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%] lg:h-10 md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Search name"
-              type="search"
-              onChange={(e) => setSearch1(e.target.value)}
-            ></input>
-            <div className="flex -mt-14 md:-mt-0">
-              <label className="md:ml-2  text-xl font-semibold">Date</label>
+        <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
+          {/* Filter */}
+          <div className="grid grid-cols-2 md:-mb-2 -mt-10 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
+            <div className="bg-white flex flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">Total Queuing</label>
+              <label className="font-bold text-lg md:text-4xl">
+                {applicants.length}
+              </label>
+            </div>
+            <div className="bg-white flex flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">New Applicants</label>
+              <label className="font-bold text-lg md:text-4xl">{app.length}</label>
+            </div>
+            <div>
+              <label className=" md:ml-2  text-xl font-semibold text-white">
+                Search Name
+              </label>
+              <input
+                className="-mt-6 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Search name"
+                type="search"
+                onChange={(e) => setSearch1(e.target.value)}
+              ></input>
+            </div>
+
+            <div className="">
+              <label className="md:ml-2  text-xl text-white font-semibold">Date</label>
               <input
                 onChange={(e) => setDate(e.target.value)}
-                className="pl-4 ml-2 pr-3 py-2 h-[50%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="-mt-6 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 type="date"
               ></input>
             </div>
-            <div className="text-black gap-2 -mt-10 md:-mt-0">
+            <div className="text-black gap-2 md:-mt-12 -mt-11">
+            <label className=" md:ml-2  text-xl font-semibold text-white">
+                Search Position
+              </label>
               <select
-                className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setApplicantPosition(e.target.value)}
               >
                 {position.map((position) => (
@@ -117,10 +135,10 @@ const Quelist = ({ email1 }) => {
             </div>
           </div>
         </div>
-        <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="md:mt-10 -mb-5 mt-4 z-50 font-bold flex flex-col md:mb-6 text-[25px] items-center">
           Queuing List
         </h1>
-        <div>
+        <div className="w-full md:-mt-7  justify-center flex items-center">
           <ReactPaginate
             previousLabel={
               <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
@@ -155,7 +173,7 @@ const Quelist = ({ email1 }) => {
                   try {
                     if (search1 === "") {
                       return val;
-                    }  else if (
+                    } else if (
                       val.Name.toLowerCase().includes(search1.toLowerCase())
                     ) {
                       return val;

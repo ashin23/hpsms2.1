@@ -16,48 +16,6 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
 
   const [request1, setRequest] = useState();
 
-  const NotifyError2 = () => {};
-
-  const Requesterror = () => {
-    toast.warning("Please fill up the blanks", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const Requesterror1 = () => {
-    toast.warning("Please fill up the blanks", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const Notify = () => {
-    toast.success("Request sent successfully!", {
-      position: "top-center",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      onClose5();
-    }, [2000]);
-  };
   const HandleRequst = async () => {
     try {
       if (
@@ -109,7 +67,19 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       setDate("");
       setHotel("");
       setInfo("");
-      Notify();
+      toast.success("Request sent successfully!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        onClose5();
+      }, [3000]);
     } catch (error) {}
   };
 

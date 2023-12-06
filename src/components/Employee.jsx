@@ -14,6 +14,8 @@ const Employee = ({ email }) => {
   const [showModalDeploy, setShowModalDeploy] = useState(false);
 
   const [selected, setSelected] = useState([]);
+  const [notif, setnotif] = useState("false");
+  const [emp1, setemp1] = useState([]);
 
   const [empPosition, setEmpPosition] = useState("Select Position");
   const [empStatus, setempstatus] = useState("Employee Status");
@@ -25,6 +27,7 @@ const Employee = ({ email }) => {
 
   useEffect(() => {
     FetchEmployee();
+    emp();
     const EmployeeList = supabase
       .channel("table-db-changes")
       .on(
@@ -32,10 +35,19 @@ const Employee = ({ email }) => {
         { event: "*", schema: "public", table: "Employee_List" },
         (payload) => {
           FetchEmployee();
+          emp();
         }
       )
       .subscribe();
   }, [empStatus, empPosition]);
+
+  const emp = async () => {
+    const { data: emp } = await supabase
+      .from("Employee_List")
+      .select()
+      .eq("Notifications", notif);
+    setemp1(emp);
+  };
 
   const FetchEmployee = async () => {
     if (empStatus === "Employee Status" && empPosition === "Select Position") {
@@ -72,7 +84,6 @@ const Employee = ({ email }) => {
 
   function HandleChange(event) {
     const { value, checked } = event.target;
-
     if (checked) {
       setSelected((pre) => [...pre, value]);
       setselectednames((pre) => [...pre, value]);
@@ -105,24 +116,45 @@ const Employee = ({ email }) => {
   return (
     <div className=" ">
       <div className="h-screen overflow-y-hidden">
-        <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
-          <div className="grid grid-cols-2 md:grid-cols-2 -mt-5 md:-mt-0 gap-5">
-            <input
-              className="  top-96 w-[100%]   md:w-[100%] z-50 mb-10 h-[50%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Search name"
-              type="search"
-              onChange={(e) => setSearch1(e.target.value)}
-            ></input>
+        <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
+          <div className="grid grid-cols-2 md:-mb-2 -mt-14 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
+            <div className="bg-white flex flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">Total Employee</label>
+              <label className="font-bold text-lg md:text-4xl">{employee.length}</label>
+            </div>
+            <div className="bg-white flex  flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">New Employee</label>
+              <label className="font-bold text-lg md:text-4xl">{emp1.length}</label>
+            </div>
+            <div>
+              <label className=" md:ml-2  text-xl font-semibold text-white">
+                Search Name
+              </label>
+              <input
+              className="-mt-10 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Search name"
+                type="search"
+                onChange={(e) => setSearch1(e.target.value)}
+              ></input>
+            </div>
+            <div >
+            
             <button
               onClick={() => setShowModalDeploy(true)}
-              className="  md:h-12 w-[100%] h-10 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="-mb-5 md:-mb-0 w-[100%]  md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               {" "}
               Deploy
             </button>
-            <div className="text-black gap-2  ">
+            </div>
+
+            
+            <div className="text-black gap-2 md:-mt-12 -mt-11">
+            <label className=" md:ml-2  text-xl font-semibold text-white">
+                Employee Status
+              </label>
               <select
-                className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setempstatus(e.target.value)}
               >
                 {EmployeeStatus.map((status) => (
@@ -130,9 +162,12 @@ const Employee = ({ email }) => {
                 ))}
               </select>
             </div>
-            <div className="text-black gap-2">
+            <div className="text-black gap-2 md:-mt-12 -mt-11">
+            <label className=" md:ml-2  text-xl font-semibold text-white">
+                Position
+              </label>
               <select
-                className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 onChange={(e) => setEmpPosition(e.target.value)}
               >
                 {position.map((position) => (
@@ -142,10 +177,10 @@ const Employee = ({ email }) => {
             </div>
           </div>
         </div>
-        <h1 className="mt-10 z-50 font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="md:mt-10 -mb-5 mt-4 z-50 font-bold flex flex-col md:mb-6 text-[25px] items-center">
           Employee List
         </h1>
-        <div>
+        <div className="w-full md:-mt-10 justify-center flex items-center">
           <ReactPaginate
             previousLabel={
               <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">

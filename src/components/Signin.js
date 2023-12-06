@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
@@ -18,7 +18,7 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
   const NotifyError2 = () => {
     toast.warning("Invalid Credentials", {
       position: "top-center",
-     
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -30,7 +30,7 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
   const NotifyError1 = () => {
     toast.error("Please Fill up the blanks", {
       position: "top-center",
-      
+
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
@@ -55,9 +55,29 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     var data = await applist.concat(user, emp);
     if (data) {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].Email === email && data[index].Password === pass) {
+        if (
+          data[index].Email === email &&
+          data[index].Password === pass &&
+          data[index].userlvl !== "Restricted"
+        ) {
           await checker(true, data[index].userlvl, data[index].Email);
           isSignClose();
+          return;
+        }
+        if (
+          data[index].Email === email &&
+          data[index].Password === pass &&
+          data[index].userlvl === "Restricted"
+        ) {
+          toast.error("This account has been deactivated", {
+            position: "top-center",
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
           return;
         }
       }
@@ -72,14 +92,14 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
     justify-center items-center top-50 flex "
     >
       <div>
-        
-        <div 
-        data-aos="zoom-in"
-        className=" justify-center items-center bg-white p-10 gap-3 rounded-md shadow-2xl">
-        <div className="flex justify-end" onClick={isSignClose}>
-          {" "}
-          <GiCancel className="text-[150%] hover:bg-red-400 -mt-6 -mr-4"/>
-        </div>
+        <div
+          data-aos="zoom-in"
+          className=" justify-center items-center bg-white p-10 gap-3 rounded-md shadow-2xl"
+        >
+          <div className="flex justify-end" onClick={isSignClose}>
+            {" "}
+            <GiCancel className="text-[150%] hover:bg-red-400 -mt-6 -mr-4" />
+          </div>
           <CgProfile className="ml-[40%] text-5xl" />
           <div className="grid grid-cols-1">
             <label className="items-center font-semibold text-[30px] place-content-center justify-center flex">

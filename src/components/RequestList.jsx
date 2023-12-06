@@ -11,19 +11,32 @@ const RequestList = () => {
   const [search1, setSearch1] = useState("");
   const [request, setRequest] = useState([]);
 
+  const [status, setstatus] = useState("false");
+  const [req, setreq] = useState([]);
+
   useEffect(() => {
     FetchRequest();
-      supabase
+    requ();
+    supabase
       .channel("custom-insert-channel")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "Request" },
         (payload) => {
           FetchRequest();
+          requ();
         }
       )
       .subscribe();
   }, []);
+
+  const requ = async () => {
+    const { data: reqe1 } = await supabase
+      .from("Request")
+      .select()
+      .eq("Notifications", status);
+    setreq(reqe1);
+  };
 
   const FetchRequest = async () => {
     const { data: request } = await supabase.from("Request").select();
@@ -50,18 +63,33 @@ const RequestList = () => {
   return (
     <div className="">
       <div className="h-screen overflow-y-hidden">
-        <div className="sticky top-5 flex justify-center  py-28 pb-0 bg-gradient-to-t from-white via-blue-400 to-blue-500">
-          <input
-            className="top-96 w-[90%] md:w-[40%] z-50 mb-10 h-[30%] lg:h-10 md:h-10  pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Search name"
-            type="search"
-            onChange={(e) => setSearch1(e.target.value)}
-          ></input>
+        <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
+          <div className="grid grid-cols-2 md:-mb-2 -mt-10 -mb-14 gap-2 p-2 md:-mt-10 md:gap-5">
+            <div className="bg-white flex flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">Total Applicants</label>
+              <label className="font-bold text-lg md:text-4xl">{request.length}</label>
+            </div>
+            <div className="bg-white flex flex-col w-full text-center rounded-md">
+              <label className="font-bold text-lg md:text-xl">New Applicants</label>
+              <label className="font-bold text-lg md:text-4xl">{req.length}</label>
+            </div>
+            <div className="">
+              <label className=" md:ml-2  text-xl font-semibold text-white">
+                Search Name
+              </label>
+              <input
+                className="-mt-6 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                placeholder="Search name"
+                type="search"
+                onChange={(e) => setSearch1(e.target.value)}
+              ></input>
+            </div>
+          </div>
         </div>
-        <h1 className="mt-10 font-bold flex flex-col mb-6 text-[25px] items-center">
+        <h1 className="md:mt-10 -mb-5 mt-4 z-50 font-bold flex flex-col md:mb-6 text-[25px] items-center">
           Request List
         </h1>
-        <div>
+        <div className="w-full md:-mt-7  justify-center flex items-center"> 
           <ReactPaginate
             previousLabel={
               <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">

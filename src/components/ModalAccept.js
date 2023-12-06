@@ -74,7 +74,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       date: date,
       Time: time,
       Hotel: info.Hotel,
-      action:"Interview"
+      action:"Interview, Please check your email"
     });
 
     const { error } = await supabase

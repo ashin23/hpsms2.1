@@ -78,6 +78,18 @@ function ModalEmp2({ visible, Close, Info }) {
       .eq("uuid", Info.uuid);
   };
 
+  const updateNotif = async () => {
+    const { data: update } = await supabase
+      .from("Employee_List")
+      .update({ Notifications: "true" })
+      .eq("uuid", Info.uuid);
+  };
+
+  function close (){
+    updateNotif()
+    Close()
+  }
+
   if (!visible) return null;
   return (
     <div
@@ -92,7 +104,7 @@ justify-center items-center z-50 top-50 flex overflow-auto "
         <div className="sticky top-0 bg-white w-full h-[13%] p-5">
           <div className="flex justify-end   ">
             <button
-              onClick={Close}
+              onClick={close}
               className="-mr-7 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
             >
               Close

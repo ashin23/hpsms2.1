@@ -38,11 +38,11 @@ const Navbar = ({
 
   const [menu, setMenu] = useState(false);
 
-  const [notifapplicant, setNotif] = useState("");
-  const [notifque, setNotifque] = useState("");
-  const [notifemp, setNotifemp] = useState("");
-  const [notifarch, setNotifarch] = useState("");
-  const [notifreq, setNotifreq] = useState("");
+  const [notifapplicant, setNotif] = useState(false);
+  const [notifque, setNotifque] = useState(false);
+  const [notifemp, setNotifemp] = useState(false);
+  const [notifarch, setNotifarch] = useState(false);
+  const [notifreq, setNotifreq] = useState(false);
 
   const [emp, setEmp] = useState(false);
   const [applicant, setApplicant] = useState(false);
@@ -60,8 +60,55 @@ const Navbar = ({
       document.getElementById("signIn").hidden = true;
     } else {
       // setModalSignin(true);
+
       document.getElementById("signOut").hidden = true;
     }
+
+    const channels = supabase
+      .channel("custom-delete-channel")
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "Employee_List" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "NewUser" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "UserList" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "Employee_List" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "NewUser" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "UserList" },
+        (payload) => {
+          HandleCheckerUser();
+        }
+      )
+      .subscribe();
   }, []);
   //Notifications realtime
   useEffect(() => {
@@ -93,7 +140,6 @@ const Navbar = ({
           getnotifemp();
         }
       )
-
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "Archive_List" },
@@ -111,20 +157,6 @@ const Navbar = ({
       .subscribe();
   }, []);
 
-  async function tokenchecker() {
-    const { data: applist } = await supabase.from("NewUser").select();
-    const { data: user } = await supabase.from("UserList").select();
-    const { data: emp } = await supabase.from("Employee_List").select();
-    var data = applist.concat(user, emp);
-    if (applist && user && emp) {
-      for (let index = 0; index < data.length; index++) {
-        if (data[index].token !== window.localStorage.getItem("token")) {
-          document.getElementById("signIn").hidden = true;
-        }
-      }
-    }
-  }
-
   async function HandleCheckerUser() {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
@@ -132,7 +164,7 @@ const Navbar = ({
     var data = applist.concat(user, emp);
     if (applist && user && emp) {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].token === window.localStorage.getItem("token")) {
+        if (data[index].token === window.localStorage.getItem("token") && data[index].userlvl !== "Restricted") {
           checker(
             true,
             data[index].userlvl,
@@ -143,17 +175,12 @@ const Navbar = ({
           document.getElementById("signOut").hidden = false;
           return;
         }
-        // else if (data[index].token !== window.localStorage.getItem("token")) {
-        //   document.getElementById("signIn").hidden = true;
-        //   return;
-        // }
-        else {
-          // document.getElementById("signIn").hidden = true;
-          document.getElementById("signOut").hidden = false;
-          return;
-        }
       }
     }
+    document.getElementById("signOut").hidden = false;
+    window.localStorage.clear();
+    window.location.reload();
+    return;
   }
 
   function handleSignOut() {
@@ -394,66 +421,61 @@ const Navbar = ({
   async function getnotifreq() {
     const { data: notifreq } = await supabase.from("Request").select();
     for (let index = 0; index < notifreq.length; index++) {
-      if (notifreq[index].Notifications === "true") {
-        setNotifreq(true);
-      }
       if (notifreq[index].Notifications === "false") {
-        setNotifreq(false);
+        setNotifreq(true);
         return;
       }
     }
+    setNotifreq(false);
+    return;
   }
 
   async function getnotifapplicant() {
     const { data: notif } = await supabase.from("Applicant_List").select();
     for (let index = 0; index < notif.length; index++) {
-      if (notif[index].Notifications === "true") {
-        setNotif(true);
-      }
       if (notif[index].Notifications === "false") {
-        setNotif(false);
+        setNotif(true);
         return;
       }
     }
+    setNotif(false);
+    return;
   }
 
   async function getnotifque() {
     const { data: notifq } = await supabase.from("Queuing_List").select();
     for (let index = 0; index < notifq.length; index++) {
-      if (notifq[index].Notifications === "true") {
-        setNotifque(true);
-      }
       if (notifq[index].Notifications === "false") {
-        setNotifque(false);
+        setNotifque(true);
         return;
       }
     }
+    setNotifque(false);
+    return;
   }
 
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
-      if (notifemp[index].Notifications === "true") {
-        setNotifemp(true);
-      }
       if (notifemp[index].Notifications === "false") {
-        setNotifemp(false);
+        setNotifemp(true);
         return;
       }
     }
+    setNotifemp(false);
+    return;
   }
 
   async function getnotiarch() {
     const { data: notifarch } = await supabase.from("Archive_List").select();
     for (let index = 0; index < notifarch.length; index++) {
-      if (notifarch[index].Notifications === "true") {
-        setNotifarch(true);
-      }
       if (notifarch[index].Notifications === "false") {
-        setNotifarch(false);
+        setNotifarch(true);
         return;
       }
     }
+    setNotifarch(false);
+    return;
   }
 
   const [isMobile, setIsMobile] = useState(false);
@@ -554,19 +576,19 @@ const Navbar = ({
                 : "hidden"
             }`}
           >
-            {notifapplicant !== true && (
+            {notifapplicant && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
-            {notifque !== true && (
+            {notifque && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
-            {notifemp !== true && (
+            {notifemp && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
-            {notifarch !== true && (
+            {notifarch && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
-            {notifreq !== true && (
+            {notifreq && (
               <IoMdNotifications className="absolute text-red-500 text-[20px] -mt-3.5 -ml-3" />
             )}
             <PiBooks className="mt-1 text-[20px] text-[#162388]" />
@@ -588,7 +610,7 @@ const Navbar = ({
                     }`}
                     to="/Applicant"
                   >
-                    {notifapplicant !== true && (
+                    {notifapplicant && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}
                     Applicants Lists
@@ -603,7 +625,7 @@ const Navbar = ({
                     }`}
                     to="/Quelist"
                   >
-                    {notifque !== true && (
+                    {notifque && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}{" "}
                     Queuing List
@@ -618,7 +640,7 @@ const Navbar = ({
                         : "hidden"
                     }`}
                   >
-                    {notifemp !== true && (
+                    {notifemp && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}
                     Employee List
@@ -633,7 +655,7 @@ const Navbar = ({
                         : "hidden"
                     }`}
                   >
-                    {notifarch !== true && (
+                    {notifarch && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}{" "}
                     Archive
@@ -648,7 +670,7 @@ const Navbar = ({
                         : "hidden"
                     }`}
                   >
-                    {notifreq !== true && (
+                    {notifreq && (
                       <IoMdNotifications className=" text-red-500 text-[20px] " />
                     )}{" "}
                     Request List

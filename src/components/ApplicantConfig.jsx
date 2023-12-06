@@ -21,7 +21,6 @@ function ApplicantConfig({ e }) {
         <div
         data-tooltip-id="my-tooltip"
         data-tooltip-content="View Profile"
-        
           className={`${
             e.Notifications === "false" && "border-2 border-red-500 h-10"
           }p-1 md:p-3 md:hover:translate-x-2  md:hover:duration-500 md:mt-1 mb-2 rounded-md w-[100%]  md:h-10  grid grid-rows-3 md:grid-cols-3 md:w-[100%] bg-slate-100  `}
@@ -29,7 +28,7 @@ function ApplicantConfig({ e }) {
         >
           <div className="text-md ">{e.Name}</div>
           <div className="text-md ">{e.Position}</div>
-          <div className="text-md ml-3 ">{e.Email}</div>
+          <div className="text-md md:ml-3 ">{e.Email}</div>
         </div>
         <Tooltip id="my-tooltip" place="bottom" />
         <ModalApplicantInfo

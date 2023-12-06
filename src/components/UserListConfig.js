@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const UserListConfig = ({ e, notify }) => {
   const [view, setView] = useState(false);
-  const [password, setPassword] = useState(e.Password);
+  const [password, setPassword] = useState("");
 
   async function HandleUpdate() {
     if (e.Password === password) {
@@ -18,7 +18,6 @@ const UserListConfig = ({ e, notify }) => {
         .update({ Password: password })
         .eq("id", e.id)
         .select();
-
       const { data: emp } = await supabase
         .from("Employee_List")
         .update({ Password: password })
@@ -44,20 +43,23 @@ const UserListConfig = ({ e, notify }) => {
     }
   }
 
-  async function Handledelete() {
+
+
+  async function Handlerestricted() {
+    var oldrole = e.userlvl;
     const { data: user } = await supabase
       .from("UserList")
-      .delete()
+      .update({ userlvl: "Restricted", oldRole: oldrole })
       .eq("id", e.id);
     const { data: emp } = await supabase
       .from("Employee_List")
-      .delete()
+      .update({ userlvl: "Restricted", oldRole: oldrole })
       .eq("id", e.id);
     const { data: newuser } = await supabase
       .from("NewUser")
-      .delete()
+      .update({ userlvl: "Restricted", oldRole: oldrole })
       .eq("id", e.id);
-    toast.success("Successfully Deleted", {
+    toast.success("Successfully Restricted", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -69,6 +71,30 @@ const UserListConfig = ({ e, notify }) => {
     });
   }
 
+  async function Handleunrestricted() {
+    const { data: user } = await supabase
+      .from("UserList")
+      .update({ userlvl: e.oldRole })
+      .eq("id", e.id);
+    const { data: emp } = await supabase
+      .from("Employee_List")
+      .update({ userlvl: e.oldRole })
+      .eq("id", e.id);
+    const { data: newuser } = await supabase
+      .from("NewUser")
+      .update({ userlvl: e.oldRole })
+      .eq("id", e.id);
+    toast.success("Successfully Unrestricted", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
   return (
     <div className="flex bg-slate-200  mt-2 w-[100%] rounded-md">
       <div className="p-3  md:hover:translate-x-2   md:hover:p-4 md:duration-500 mt-1 lg:h-10 rounded-md grid grid-rows-3 md:flex w-[100%] ">
@@ -96,12 +122,22 @@ const UserListConfig = ({ e, notify }) => {
         </div>
         <div className="text-md w-[100%] ">{e.userlvl}</div>
         <div className="md:w-[10%] md:h-10  flex ml-20 gap-2 md:-mt-2 ">
-          <button
-            onClick={() => Handledelete()}
-            className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
-          >
-            delete
-          </button>
+          {e.userlvl === "Restricted" ? (
+            <button
+              onClick={() => Handleunrestricted()}
+              className="-ml-20 focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-8 py-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900  "
+            >
+              Unrestricted
+            </button>
+          ) : (
+            <button
+              onClick={() => Handlerestricted()}
+              className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
+            >
+              Restricted
+            </button>
+          )}
+
           <button
             onClick={() => HandleUpdate()}
             className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 "

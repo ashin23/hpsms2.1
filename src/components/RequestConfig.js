@@ -26,7 +26,7 @@ const RequestConfig = ({ e }) => {
             <button
               onClick={() => updateNotif()}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium 
-            rounded-lg text-sm md:p-2  p-2 w-[80px] md:w-[100px]   dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none 
+            rounded-lg text-sm md:p-2  p-2 w-[80px] md:w-[100px] md:-mt-1  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none 
             dark:focus:ring-blue-800 "
             >
               Complete

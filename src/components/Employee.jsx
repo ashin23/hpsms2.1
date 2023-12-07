@@ -148,7 +148,7 @@ const Employee = ({ email }) => {
            
             </div> */}
 
-            <div className="text-black gap-2 md:-mt-0 -mt-11">
+            <div className="text-black gap-2  ">
               <label className=" md:ml-2  text-xl font-semibold text-white">
                 Employee Status
               </label>

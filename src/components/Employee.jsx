@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import EmployeeConfig from "./EmployeeConfig";
 import supabase from "./supabaseClient";
 import { useEffect } from "react";
-import ModalDeploy from "./ModalDeploy";
+
 import EmployeeStatus from "./EmployeeStatus.json";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
@@ -11,7 +11,6 @@ import position from "./position.json";
 const Employee = ({ email }) => {
   const [search1, setSearch1] = useState("");
   const [employee, setEmployee] = useState([]);
-  const [showModalDeploy, setShowModalDeploy] = useState(false);
 
   const [selected, setSelected] = useState([]);
   const [notif, setnotif] = useState("false");
@@ -22,8 +21,8 @@ const Employee = ({ email }) => {
 
   const [selectednames, setselectednames] = useState("");
 
-  if (showModalDeploy) document.body.style.overflow = "hidden";
-  else document.body.style.overflow = "unset";
+  // if (showModalDeploy) document.body.style.overflow = "hidden";
+  // else document.body.style.overflow = "unset";
 
   useEffect(() => {
     FetchEmployee();
@@ -82,29 +81,28 @@ const Employee = ({ email }) => {
     }
   };
 
-  function HandleChange(event) {
-    const { value, checked } = event.target;
-    if (checked) {
-      setSelected((pre) => [...pre, value]);
-      setselectednames((pre) => [...pre, value]);
-    } else {
-      setSelected((pre) => {
-        return [...pre.filter((test) => test !== value)];
-      });
-      setselectednames((pre) => {
-        return [...pre.filter((test) => test !== value)];
-      });
-    }
-  }
+  // function HandleChange(event) {
+  //   const { value, checked } = event.target;
+  //   if (checked) {
+  //     setSelected((pre) => [...pre, value]);
+  //     setselectednames((pre) => [...pre, value]);
+  //   } else {
+  //     setSelected((pre) => {
+  //       return [...pre.filter((test) => test !== value)];
+  //     });
+  //     setselectednames((pre) => {
+  //       return [...pre.filter((test) => test !== value)];
+  //     });
+  //   }
+  // }
 
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
   const perpage = 5;
-
+  const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    const endoffsett = itemsOffset + perpage;
-    setcurrentitems(employee.slice(itemsOffset, endoffsett));
+    
     setpagecount(Math.ceil(employee.length / perpage));
   }, [itemsOffset, perpage, employee]);
 
@@ -119,38 +117,39 @@ const Employee = ({ email }) => {
         <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
           <div className="grid grid-cols-2 md:-mb-2 -mt-14 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">Total Employee</label>
-              <label className="font-bold text-lg md:text-4xl">{employee.length}</label>
+              <label className="font-bold text-lg md:text-xl">
+                Total Employee
+              </label>
+              <label className="font-bold text-lg md:text-4xl">
+                {employee.length}
+              </label>
             </div>
             <div className="bg-white flex  flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">New Employee</label>
-              <label className="font-bold text-lg md:text-4xl">{emp1.length}</label>
+              <label className="font-bold text-lg md:text-xl">
+                New Employee
+              </label>
+              <label className="font-bold text-lg md:text-4xl">
+                {emp1.length}
+              </label>
             </div>
             <div>
               <label className=" md:ml-2  text-xl font-semibold text-white">
                 Search Name
               </label>
               <input
-              className="-mt-10 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="-mt-10 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Search name"
                 type="search"
                 onChange={(e) => setSearch1(e.target.value)}
               ></input>
             </div>
-            <div >
+            {/* <div >
             
-            <button
-              onClick={() => setShowModalDeploy(true)}
-            className="-mb-5 md:-mb-0 w-[100%]  md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              {" "}
-              Deploy
-            </button>
-            </div>
+           
+            </div> */}
 
-            
-            <div className="text-black gap-2 md:-mt-12 -mt-11">
-            <label className=" md:ml-2  text-xl font-semibold text-white">
+            <div className="text-black gap-2 md:-mt-0 -mt-11">
+              <label className=" md:ml-2  text-xl font-semibold text-white">
                 Employee Status
               </label>
               <select
@@ -163,7 +162,7 @@ const Employee = ({ email }) => {
               </select>
             </div>
             <div className="text-black gap-2 md:-mt-12 -mt-11">
-            <label className=" md:ml-2  text-xl font-semibold text-white">
+              <label className=" md:ml-2  text-xl font-semibold text-white">
                 Position
               </label>
               <select
@@ -208,9 +207,9 @@ const Employee = ({ email }) => {
             <div className="text-md p-3 md:ml-[20%]">Email</div>
           </div>
 
-          {currentitems && (
+          {employee && (
             <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
-              {currentitems
+              {employee
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -227,11 +226,12 @@ const Employee = ({ email }) => {
                   } catch (error) {}
                 })
                 .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .slice(itemsOffset, endoffsett)
                 .map((empData) => (
                   <EmployeeConfig
                     key={empData.id}
                     empData={empData}
-                    handleChange={HandleChange}
+                    // handleChange={HandleChange}
                     selectedData={selected}
                   />
                 ))}
@@ -239,13 +239,6 @@ const Employee = ({ email }) => {
           )}
         </div>
       </div>
-      <ModalDeploy
-        isOpenDeploy={showModalDeploy}
-        isCloseDeploy={() => setShowModalDeploy(false)}
-        Deploy={employee}
-        DataSelected={selected}
-        selectednames={selectednames}
-      />
     </div>
   );
 };

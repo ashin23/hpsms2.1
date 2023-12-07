@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ModalApplicantInfo from "./ModalApplicantInfo";
 import supabase from "./supabaseClient";
+import { ToastContainer } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Tooltip } from 'react-tooltip'
@@ -36,6 +37,7 @@ function ApplicantConfig({ e }) {
           CloseJobInfo={setShowJobApplicant}
           Info={e}
         />
+        <ToastContainer />
       </div>
     </>
   );

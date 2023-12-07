@@ -3,12 +3,13 @@ import emailjs from "emailjs-com";
 import { useState } from "react";
 import moment from "moment/moment";
 import supabase from "./supabaseClient";
-import { ToastContainer, toast } from "react-toastify";
+
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 emailjs.init("-qtQXoQ1iYx4JDljO");
 
-const ModalAccept = ({ isAccepted, isReject, info }) => {
+const ModalAccept = ({ info, showAccept, setShowAccept }) => {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [location, setLocation] = useState();
@@ -22,9 +23,45 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
 
   var date1 = moment(date).format("LLL");
   const currentDate = new Date().toDateString();
+  var time1 = moment(time).format("h:mm:ss a");
 
-  const HandleTransfer = async () => {
-    const { info: Quelist } = await supabase.from("Queuing_List").insert({
+  const InfoEmail = async () => {
+    if (!date || !location || !time || !email1) {
+      toast.warning(
+        `${
+          (!date && !time && !location && "Please fill up the blanks") ||
+          (!date && "Please fill the date") ||
+          (!location && "Location is required") ||
+          (!time && "Please select time")
+        }`,
+        {
+          position: "top-center mt-20",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+      return;
+    }
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_v7ln2cg",
+    //   {
+    //     from_name: info.Name,
+    //     message: message1,
+    //     emailsend: email1,
+    //     location: location,
+    //     date: date1,
+    //     time: time1,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
+
+    await supabase.from("Queuing_List").insert({
       // id: info.id,
       uuid: info.uuid,
       created_at: currentDate,
@@ -74,68 +111,21 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
       date: date,
       Time: time,
       Hotel: info.Hotel,
-      action:"Interview, Please check your email"
+      action: "Interview, Please check your email",
     });
+    setTimeout(() => {
+      delete1();
+    }, [1500]);
+    toast.success("Moved to queuing list", {
+      autoClose: 1500,
+    });
+  };
 
-    const { error } = await supabase
+  const delete1 = async () => {
+    const { data: que } = await supabase
       .from("Applicant_List")
       .delete()
       .eq("uuid", info.uuid);
-  };
-
-  const InfoEmail = async () => {
-    if (!date || !location || !time) {
-      toast.warning(
-        `${
-          (!date && !time && !location && "Please fill up the blanks") ||
-          (!date && "Please fill the date") ||
-          (!location && "Location is required")||
-          (!time && "Please select time")
-        }`,
-        {
-          position: "top-center mt-20",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-      return;
-    }
-     else {
-    //   // emailjs.send(
-    //   //   "service_yj6ye3j",
-    //   //   "template_v7ln2cg",
-    //   //   {
-    //   //     from_name: info.FullName,
-    //   //     message: message1,
-    //   //     email1: email1,
-    //   //     location: location,
-    //   //     date: date,
-    //   //     time: time
-    //   //   },
-    //   //   "-qtQXoQ1iYx4JDljO"
-    //   // );
-
-    HandleTransfer();
-    toast.success("Success", {
-      autoClose: 3000,
-      position: "top-right",
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      isReject();
-    }, [3000]);
- 
-    }
   };
 
   //*To prevent user inputting past dates
@@ -146,7 +136,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
     const yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   };
-  if (!isAccepted) return null;
+  if (!showAccept) return null;
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
@@ -168,7 +158,7 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
             Send to Email
           </button>
           <button
-            onClick={isReject}
+            onClick={() => setShowAccept(false)}
             className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           >
             Cancel
@@ -222,18 +212,6 @@ const ModalAccept = ({ isAccepted, isReject, info }) => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Additional Message"
           ></textarea>
-
-          <ToastContainer
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover={false}
-            theme="light"
-          />
         </div>
       </div>
     </div>

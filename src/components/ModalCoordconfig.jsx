@@ -5,9 +5,15 @@ import { useState } from "react";
 import Filecoord from "./Filecoord";
 import AOS from "aos";
 import "aos/dist/aos.css";
-const ModalCoordconfig = ({ isOpen, isClose, coordInfo, CoordEmp }) => {
+const ModalCoordconfig = ({
+  isOpen,
+  isClose,
+  coordInfo,
+  CoordEmp,
+  coordinator,
+}) => {
   const [fileview, setFileView] = useState();
-
+  
   useEffect(() => {
     Handlefile();
   }, [coordInfo, CoordEmp]);
@@ -26,68 +32,36 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo, CoordEmp }) => {
     setFileView(await file);
   };
 
-  // const HandleArchive = async () => {
-  //   const { data: employee } = await supabase.from("Archive_List").insert({
-  //     // id:coordInfo.id,
-  //     uuid: coordInfo.uuid,
-  //     Email: coordInfo.Email,
-  //     Password: coordInfo.Password,
-  //     Name: coordInfo.Name,
-  //     Mobile_No: coordInfo.Mobile_No,
-  //     Age: coordInfo.Age,
-  //     City_Address: coordInfo.City_Address,
-  //     Religion: coordInfo.Religion,
-  //     Sex: coordInfo.Sex,
-  //     Provincial_Address: coordInfo.Provincial_Address,
-  //     Date_of_Birth: coordInfo.Date_of_Birth,
-  //     CivilStatus: coordInfo.CivilStatus,
-  //     Name_of_Mother: coordInfo.Name_of_Mother,
-  //     Occupation_Mother: coordInfo.Occupation_Mother,
-  //     Name_of_Father: coordInfo.Name_of_Father,
-  //     Occupation_Father: coordInfo.Occupation_Father,
-  //     Notify_Emergency: coordInfo.Notify_Emergency,
-  //     Relationship: coordInfo.Relationship,
-  //     Emergency_Address: coordInfo.Emergency_Address,
-  //     Contact_Number: coordInfo.Contact_Number,
-  //     College: coordInfo.College,
-  //     College_Graduated: coordInfo.College_Graduated,
-  //     Course: coordInfo.Course,
-  //     Special_Course: coordInfo.Special_Course,
-  //     Vocational: coordInfo.Vocational,
-  //     Vocational_Graduated: coordInfo.Vocational_Graduated,
-  //     HighSchool: coordInfo.HighSchool,
-  //     HighSchool_Graduated: coordInfo.HighSchool_Graduated,
-  //     Elementary: coordInfo.Elementary,
-  //     Elementary_Graduated: coordInfo.Elementary_Graduated,
-  //     Inclusive_Dates: coordInfo.Inclusive_Dates,
-  //     Company_History: coordInfo.Company_History,
-  //     Position_History: coordInfo.Position_History,
-  //     Name_References: coordInfo.Name_References,
-  //     Company_References: coordInfo.Company_References,
-  //     Position_References: coordInfo.Position_References,
-  //     SSS_Number: coordInfo.SSS_Number,
-  //     Phil_Health_No: coordInfo.Phil_Health_No,
-  //     Pag_Ibig_No: coordInfo.Pag_Ibig_No,
-  //     Tin_Number: coordInfo.Tin_Number,
-  //     Position: coordInfo.Position,
-  //     userlvl: "Employee",
-  //     status: "Undeploy",
-  //     Notifications: "false",
-  //   });
-  //   const { error } = await supabase
-  //     .from("EmployeeListCoordinator")
-  //     .delete()
-  //     .eq("Data", CoordEmp[0]);
-  // };
-  // console.log(CoordEmp)
+  const HandleArchive = async () => {
+
+    const updatedData = [...CoordEmp];
+    for (let index = 0; index < CoordEmp.length; index++) {
+      if (CoordEmp[index].uuid === coordInfo.uuid) {
+        // Create a copy of the original array
+
+        updatedData[index] = { ...updatedData[index], status: "Undeploy" }; // Update the status at the specified index
+      }
+    }
+
+    const { data: empcoord } = await supabase
+      .from("EmployeeListCoordinator")
+      .update({
+        Data: updatedData,
+      })
+      .eq("Email", window.localStorage.getItem("email"))
+      .single();
+
+    console.log(coordinator.id);
+  };
 
   if (!isOpen) return null;
   return (
     <div className=" fixed z-50 inset-0 bg-black bg-opacity-25 backdrop-blur-sm justify-center items-center top-50 flex overflow-auto ">
-      <div 
-      data-aos="zoom-in"
-      className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 pb-2 md:pb-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden">
-         <div className="sticky top-0 bg-white w-full h-[13%] p-5">
+      <div
+        data-aos="zoom-in"
+        className=" bg-white h-[70%] w-[80%] rounded-3xl px-4 pb-2 md:pb-6 md:px-14 shadow-2xl  overflow-scroll overflow-x-hidden"
+      >
+        <div className="sticky top-0 bg-white w-full h-[13%] p-5">
           <div className="flex justify-end   ">
             <button
               onClick={handleclose}
@@ -95,7 +69,6 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo, CoordEmp }) => {
             >
               Close
             </button>
-           
           </div>
         </div>
         <label
@@ -105,12 +78,12 @@ const ModalCoordconfig = ({ isOpen, isClose, coordInfo, CoordEmp }) => {
         >
           Employee Information
         </label>
-         {/* <button
-            onClick={() => HandleArchive()}
-            className="text-white   bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          >
-            Archive
-          </button> */}
+        <button
+          onClick={() => HandleArchive()}
+          className="text-white   bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        >
+          Archive
+        </button>
         <div>
           Photo
           {fileview && (

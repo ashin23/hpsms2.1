@@ -442,6 +442,8 @@ const Navbar = ({
     return;
   }
 
+  
+
   async function getnotifque() {
     const { data: notifq } = await supabase.from("Queuing_List").select();
     for (let index = 0; index < notifq.length; index++) {

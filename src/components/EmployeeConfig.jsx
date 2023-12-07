@@ -31,13 +31,8 @@ const EmployeeConfig = ({
        
       >
         <div className="grid  grid-rows-3 md:grid-cols-3 w-[100%] h-16 md:h-10 bg-slate-100 md:gap-5">
-          <div className=" md:grid md:mr-[80%] md:grid-cols-2 ">
-            <input
-              type="checkbox"
-              onChange={handleChange}
-              value={empData.Name}
-              className="md:mt-2"
-            />
+          <div className=" ">
+            
             <div className="">{empData.Name}</div>
           </div>
           <div className="text-md  md:ml-[20%]">{empData.Position}</div>
@@ -47,7 +42,7 @@ const EmployeeConfig = ({
             onClick={handleshowApplicant}
             className={`${
               empData.Notifications === "false" &&
-              "border-2 border-red-500 md:h-10 h-6 md:p-6 p-1"
+              "border-2 border-red-500 md:h-2 h-6 md:p-4 p-1"
             } md:p-3 md:hover:translate-x-2  md:hover:p-4 duration-500   md:mt-1 md:rounded-md`}
           >
             {empData.Email}

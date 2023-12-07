@@ -3,32 +3,36 @@ import ModalCoordconfig from "./ModalCoordconfig";
 import supabase from "./supabaseClient";
 import { useEffect } from "react";
 import Displaycoordinator from "./Displaycoordinator";
-const CoordConfif = ({ CoordEmp }) => {
+const CoordConfif = ({ CoordEmp ,coordinator}) => {
   const [showmodalcoord, setShowModalcoord] = useState(false);
   const [holder, setholder] = useState([]);
   
- if(showmodalcoord)document.documentElement.style.overflowY = "hidden";
- else document.documentElement.style.overflowY = "unset";
+  if (showmodalcoord) document.documentElement.style.overflowY = "hidden";
+  else document.documentElement.style.overflowY = "unset";
   return (
-    <div className="flex bg-[#EEEEEE]  mt-2 ">
+    <div className="flex   mt-2 ">
       <div className="p-3 rounded-md  w-[100%] ">
-        {CoordEmp && (
-          <div>
-            {CoordEmp.map((e) => (
-              <Displaycoordinator
-                setShowModalcoord={setShowModalcoord}
-                showmodalcoord={showmodalcoord}
-                setholder={setholder}
-                key={e.id}
-                e={e}
-              />
+        {CoordEmp  ? (
+          <div className="overflow-y-auto md:h-[300px] overflow-x-hidden">
+            {CoordEmp.map((e,index) => (
+              <>
+                <Displaycoordinator
+                  setShowModalcoord={setShowModalcoord}
+                  showmodalcoord={showmodalcoord}
+                  setholder={setholder}
+                  key={index}
+                  e={e}
+                />
+               {console.log(CoordEmp)}
+              </>
             ))}
           </div>
-        )}
+        ): "No Data"}
       </div>
       <ModalCoordconfig
         coordInfo={holder}
         CoordEmp={CoordEmp}
+        coordinator={coordinator}
         isOpen={showmodalcoord}
         isClose={() => setShowModalcoord(false)}
       />

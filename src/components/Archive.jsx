@@ -8,7 +8,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 const Archive = () => {
   const [search1, setSearch1] = useState("");
-  const [archive1, setArchive] = useState([]);
+  const [archive12, setArchive] = useState([]);
 
   const [notif, setnotif] = useState("false");
   const [arch, setarch] = useState([]);
@@ -47,14 +47,15 @@ const Archive = () => {
   const [itemsOffset, setItemOffset] = useState(0);
   const perpage = 5;
 
+
+  const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    const endoffsett = itemsOffset + perpage;
-    setcurrentitems(archive1.slice(itemsOffset, endoffsett));
-    setpagecount(Math.ceil(archive1.length / perpage));
-  }, [itemsOffset, perpage, archive1]);
+    setcurrentitems(archive12);
+    setpagecount(Math.ceil(archive12.length / perpage));
+  }, [itemsOffset, perpage, archive12]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * perpage) % archive1.length;
+    const newOffset = (event.selected * perpage) % archive12.length;
     setItemOffset(newOffset);
   };
   return (
@@ -63,11 +64,11 @@ const Archive = () => {
         <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
           <div className="grid grid-cols-2 md:-mb-2 -mt-10 -mb-14 gap-2 p-2 md:-mt-10 md:gap-5">
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">Total Employee</label>
-              <label className="font-bold text-lg md:text-4xl">{archive1.length}</label>
+              <label className="font-bold text-lg md:text-xl">Total Archive</label>
+              <label className="font-bold text-lg md:text-4xl">{archive12.length}</label>
             </div>
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">New Employee</label>
+              <label className="font-bold text-lg md:text-xl">New Archive</label>
               <label className="font-bold text-lg md:text-4xl">{arch.length}</label>
             </div>
             <div>
@@ -113,9 +114,9 @@ const Archive = () => {
             <div className="text-md p-3">Position</div>
             <div className="text-md p-3">Email</div>
           </div>
-          {currentitems && (
+          {archive12 && (
             <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
-              {currentitems
+              {archive12
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -132,6 +133,7 @@ const Archive = () => {
                   } catch (error) {}
                 })
                 .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .slice(itemsOffset, endoffsett)
                 .map((e) => (
                   <ArchiveConfig key={e.id} e={e} />
                 ))}

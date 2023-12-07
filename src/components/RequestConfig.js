@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import supabase from "./supabaseClient";
+import ModalDeploy from "./ModalDeploy";
+
 const RequestConfig = ({ e }) => {
+  const [showModalDeploy, setShowModalDeploy] = useState(false);
   const updateNotif = async () => {
     const { data: update } = await supabase
       .from("Request")
@@ -22,7 +25,7 @@ const RequestConfig = ({ e }) => {
         <div className="text-md md:flex hidden">{e.Hotel}</div>
         <div className="text-md md:flex hidden">{e.Location}</div>
         <div className="md:items-center ">
-          <div className ="-mt-2">
+          <div className="-mt-2 grid grid-cols-2 gap-2 md:-ml-5">
             <button
               onClick={() => updateNotif()}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium 
@@ -31,9 +34,24 @@ const RequestConfig = ({ e }) => {
             >
               Complete
             </button>
+            <button
+              onClick={() => setShowModalDeploy(true)}
+              className=" w-[100%]  md:-mt-1 md:ml-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2  dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            >
+              {" "}
+              Deploy
+            </button>
           </div>
         </div>
       </div>
+      <ModalDeploy
+        isOpenDeploy={showModalDeploy}
+        isCloseDeploy={() => setShowModalDeploy(false)}
+        Position={e.Position}
+        // Deploy={employee}
+        // DataSelected={selected}
+        // selectednames={selectednames}
+      />
     </div>
   );
 };

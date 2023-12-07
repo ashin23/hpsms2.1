@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import ModalCreateAcc from "./ModalCreateAcc";
+
 import { useEffect } from "react";
 import emailjs from "emailjs-com";
 import supabase from "./supabaseClient";
@@ -21,7 +21,7 @@ const AccountSetting = ({
   applicant,
   accsettingemp,
 }) => {
-  const [showModalCreateAcc, setShowCreateAcc] = useState(false);
+  
   const [email, setEmail1] = useState("");
   const [pass, setPass] = useState("");
   const [pass1, setPass1] = useState("");
@@ -63,16 +63,16 @@ const AccountSetting = ({
 
 
   const HandleSendCode = () => {
-    // emailjs.send(
-    //   "service_yj6ye3j",
-    //   "template_aek4udy",
-    //   {
-    //     email2: email,
-    //     code: otpCode,
-    //   },
-    //   "-qtQXoQ1iYx4JDljO"
-    // );
-    console.log(otpCode);
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_aek4udy",
+      {
+        email2: email,
+        code: otpCode,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
+    
     toast.success("Send Code", {
       position: "top-center",
       autoClose: 3000,
@@ -267,20 +267,7 @@ const AccountSetting = ({
             </button>
           </div>
           <div className=" flex w-[100%]   justify-center items-center h-fit mt-2">
-            <button
-              onClick={() => setShowCreateAcc(true)}
-              className={`${
-                hr === "HR"
-                  ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-                  : `${
-                      admin
-                        ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-                        : "hidden"
-                    }`
-              }`}
-            >
-              Create Account
-            </button>
+         
             <button
               onClick={() => close()}
               className=" w-fit p-2 text-sm text-red-700 hover:text-white border border-r-700 hover:bg-red-800 focus:ring-4
@@ -292,10 +279,7 @@ const AccountSetting = ({
           </div>
         </div>
       </div>
-      <ModalCreateAcc
-        isOpen1={showModalCreateAcc}
-        isClose1={() => setShowCreateAcc(false)}
-      />
+     
       <ToastContainer
         position="top-center"
         autoClose={3000}

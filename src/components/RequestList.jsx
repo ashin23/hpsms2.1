@@ -46,11 +46,12 @@ const RequestList = () => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 7;
+  const perpage = 5;
 
+
+  const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    const endoffsett = itemsOffset + perpage;
-    setcurrentitems(request.slice(itemsOffset, endoffsett));
+    setcurrentitems(request);
     setpagecount(Math.ceil(request.length / perpage));
   }, [itemsOffset, perpage, request]);
 
@@ -66,11 +67,11 @@ const RequestList = () => {
         <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
           <div className="grid grid-cols-2 md:-mb-2 -mt-10 -mb-14 gap-2 p-2 md:-mt-10 md:gap-5">
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">Total Applicants</label>
+              <label className="font-bold text-lg md:text-xl">Total Request</label>
               <label className="font-bold text-lg md:text-4xl">{request.length}</label>
             </div>
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">New Applicants</label>
+              <label className="font-bold text-lg md:text-xl">New Request</label>
               <label className="font-bold text-lg md:text-4xl">{req.length}</label>
             </div>
             <div className="">
@@ -119,9 +120,9 @@ const RequestList = () => {
             <div className="text-md md:flex hidden p-3">Location</div>
             <div className="text-md md:flex hidden p-3">Action</div>
           </div>
-          {currentitems && (
+          {request && (
             <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
-              {currentitems
+              {request
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -131,7 +132,7 @@ const RequestList = () => {
                     ) {
                       return val;
                     } else if (
-                      val.FullName.toLowerCase().includes(search1.toLowerCase())
+                      val.Email.toLowerCase().includes(search1.toLowerCase())
                     ) {
                       return val;
                     } else if (
@@ -144,6 +145,7 @@ const RequestList = () => {
                   } catch (error) {}
                 })
                 .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .slice(itemsOffset, endoffsett)
                 .map((e) => (
                   <RequestConfig key={e.id} e={e} />
                 ))}

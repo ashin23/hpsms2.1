@@ -3,8 +3,9 @@ import Fileviewer from "./Fileviewer";
 import supabase from "./supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
-function ModalEmp({ visible, Close, Info }) {
+function ModalEmp({ showJobApplicant, setShowJobApplicant, Info }) {
   const [file1, setFile] = useState();
 
   useEffect(() => {
@@ -23,6 +24,69 @@ function ModalEmp({ visible, Close, Info }) {
   };
 
   const HandleDelete = async () => {
+    const { data: arch } = await supabase.from("Archive_List").select();
+    for (let index = 0; index < arch.length; index++) {
+      if (arch[index].uuid === Info.uuid) {
+        const { data: arch } = await supabase
+          .from("Archive_List")
+          .update({
+            uuid: Info.uuid,
+            Email: Info.Email,
+            Password: Info.Password,
+            Name: Info.Name,
+            Mobile_No: Info.Mobile_No,
+            Age: Info.Age,
+            City_Address: Info.City_Address,
+            Religion: Info.Religion,
+            Sex: Info.Sex,
+            Provincial_Address: Info.Provincial_Address,
+            Date_of_Birth: Info.Date_of_Birth,
+            CivilStatus: Info.CivilStatus,
+            Name_of_Mother: Info.Name_of_Mother,
+            Occupation_Mother: Info.Occupation_Mother,
+            Name_of_Father: Info.Name_of_Father,
+            Occupation_Father: Info.Occupation_Father,
+            Notify_Emergency: Info.Notify_Emergency,
+            Relationship: Info.Relationship,
+            Emergency_Address: Info.Emergency_Address,
+            Contact_Number: Info.Contact_Number,
+            College: Info.College,
+            College_Graduated: Info.College_Graduated,
+            Course: Info.Course,
+            Special_Course: Info.Special_Course,
+            Vocational: Info.Vocational,
+            Vocational_Graduated: Info.Vocational_Graduated,
+            HighSchool: Info.HighSchool,
+            HighSchool_Graduated: Info.HighSchool_Graduated,
+            Elementary: Info.Elementary,
+            Elementary_Graduated: Info.Elementary_Graduated,
+            Inclusive_Dates: Info.Inclusive_Dates,
+            Company_History: Info.Company_History,
+            Position_History: Info.Position_History,
+            Name_References: Info.Name_References,
+            Company_References: Info.Company_References,
+            Position_References: Info.Position_References,
+            SSS_Number: Info.SSS_Number,
+            Phil_Health_No: Info.Phil_Health_No,
+            Pag_Ibig_No: Info.Pag_Ibig_No,
+            Tin_Number: Info.Tin_Number,
+            Position: Info.Position,
+            userlvl: "applicant",
+            status: "Undeploy",
+            Notifications: "false",
+            Hotel: Info.Hotel,
+            action: "Rejected",
+          })
+          .eq("uuid", Info.uuid);
+        setTimeout(() => {
+          delete1();
+        }, [1500]);
+        toast.success("Moved to Archive", {
+          autoClose: 1500,
+        });
+        return;
+      }
+    }
     const { data: employee } = await supabase.from("Archive_List").insert({
       //  id:Info.id,
       uuid: Info.uuid,
@@ -70,8 +134,17 @@ function ModalEmp({ visible, Close, Info }) {
       status: "Undeploy",
       Notifications: "false",
       Hotel: Info.Hotel,
-      action: "Rejected"
+      action: "Rejected",
     });
+    setTimeout(() => {
+      delete1();
+    }, [1500]);
+    toast.success("Moved to Archive", {
+      autoClose: 1500,
+    });
+  };
+
+  const delete1 = async () => {
     const { error } = await supabase
       .from("Queuing_List")
       .delete()
@@ -79,6 +152,68 @@ function ModalEmp({ visible, Close, Info }) {
   };
 
   const HandleAccept = async () => {
+    const { data: emp } = await supabase.from("Employee_List").select();
+    for (let index = 0; index < emp.length; index++) {
+      if (emp[index].uuid === Info.uuid) {
+        const { data: employee } = await supabase
+          .from("Employee_List")
+          .insert({
+            // id:Info.id,
+            uuid: Info.uuid,
+            Email: Info.Email,
+            Password: Info.Password,
+            Name: Info.Name,
+            Mobile_No: Info.Mobile_No,
+            Age: Info.Age,
+            City_Address: Info.City_Address,
+            Religion: Info.Religion,
+            Sex: Info.Sex,
+            Provincial_Address: Info.Provincial_Address,
+            Date_of_Birth: Info.Date_of_Birth,
+            CivilStatus: Info.CivilStatus,
+            Name_of_Mother: Info.Name_of_Mother,
+            Occupation_Mother: Info.Occupation_Mother,
+            Name_of_Father: Info.Name_of_Father,
+            Occupation_Father: Info.Occupation_Father,
+            Notify_Emergency: Info.Notify_Emergency,
+            Relationship: Info.Relationship,
+            Emergency_Address: Info.Emergency_Address,
+            Contact_Number: Info.Contact_Number,
+            College: Info.College,
+            College_Graduated: Info.College_Graduated,
+            Course: Info.Course,
+            Special_Course: Info.Special_Course,
+            Vocational: Info.Vocational,
+            Vocational_Graduated: Info.Vocational_Graduated,
+            HighSchool: Info.HighSchool,
+            HighSchool_Graduated: Info.HighSchool_Graduated,
+            Elementary: Info.Elementary,
+            Elementary_Graduated: Info.Elementary_Graduated,
+            Inclusive_Dates: Info.Inclusive_Dates,
+            Company_History: Info.Company_History,
+            Position_History: Info.Position_History,
+            Name_References: Info.Name_References,
+            Company_References: Info.Company_References,
+            Position_References: Info.Position_References,
+            SSS_Number: Info.SSS_Number,
+            Phil_Health_No: Info.Phil_Health_No,
+            Pag_Ibig_No: Info.Pag_Ibig_No,
+            Tin_Number: Info.Tin_Number,
+            Position: Info.Position,
+            userlvl: "Employee",
+            status: "Undeploy",
+            Notifications: "false",
+          })
+          .eq("uuid", Info.uuid);
+          setTimeout(() => {
+            delete2();
+          }, [1500]);
+          toast.success("Moved to Employee List", {
+            autoClose: 1500,
+          });
+          return;
+        }
+    }
     const { data: employee } = await supabase.from("Employee_List").insert({
       // id:Info.id,
       uuid: Info.uuid,
@@ -127,6 +262,15 @@ function ModalEmp({ visible, Close, Info }) {
       Notifications: "false",
     });
 
+    setTimeout(() => {
+      delete2();
+    }, [1500]);
+    toast.success("Moved to Employee List", {
+      autoClose: 1500,
+    });
+  };
+
+  const delete2 = async () => {
     const { error } = await supabase
       .from("Queuing_List")
       .delete()
@@ -139,7 +283,7 @@ function ModalEmp({ visible, Close, Info }) {
 
   const close = () => {
     updateNotif();
-    Close(!visible);
+    setShowJobApplicant(!showJobApplicant);
   };
 
   const updateNotif = async () => {
@@ -149,7 +293,7 @@ function ModalEmp({ visible, Close, Info }) {
       .eq("id", Info.id);
   };
 
-  if (!visible) return null;
+  if (!showJobApplicant) return null;
   return (
     <div
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm

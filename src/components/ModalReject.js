@@ -1,11 +1,11 @@
 import React from "react";
 import supabase from "./supabaseClient";
-
-const ModalReject = ({ isOpen42, isReject42, infoo }) => {
+import { toast } from "react-toastify";
+const ModalReject = ({ infoo, showReject, setShowReject }) => {
   const Reject = async () => {
     const { data: user } = await supabase.from("Archive_List").select();
     for (let index = 0; index < user.length; index++) {
-      if (user[index].Email === infoo.Email) {
+      if (user[index].uuid === infoo.uuid) {
         const { data: arch } = await supabase
           .from("Archive_List")
           .update({
@@ -57,10 +57,17 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
             Hotel: infoo.Hotel,
             action: "Rejected",
           })
-          .eq("Email", infoo.Email);
+          .eq("uuid", infoo.uuid);
+        setTimeout(() => {
+          delete1();
+        }, [1500]);
+        toast.success("Moved to archived", {
+          autoClose: 1500,
+        });
+        return;
       }
     }
-    const { data: employee } = await supabase.from("Archive_List").insert({
+    await supabase.from("Archive_List").insert({
       // id:infoo.id,
       uuid: infoo.uuid,
       Email: infoo.Email,
@@ -109,12 +116,22 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
       Hotel: infoo.Hotel,
       action: "Rejected",
     });
+    setTimeout(() => {
+      delete1();
+    }, [1500]);
+    toast.success("Moved to archived", {
+      autoClose: 1500,
+    });
+  };
+
+  const delete1 = async () => {
     const { error } = await supabase
       .from("Applicant_List")
       .delete()
       .eq("uuid", infoo.uuid);
   };
-  if (!isOpen42) return null;
+
+  if (!showReject) return null;
   return (
     <div
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
@@ -129,7 +146,7 @@ const ModalReject = ({ isOpen42, isReject42, infoo }) => {
         >
           <button
             className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            onClick={isReject42}
+            onClick={() => setShowReject(false)}
           >
             Cancel
           </button>

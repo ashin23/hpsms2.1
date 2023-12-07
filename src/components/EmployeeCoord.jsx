@@ -9,9 +9,10 @@ import ReactPaginate from "react-paginate";
 const EmployeeCoord = ({ email1 }) => {
   const [coordinator, setCoordinator] = useState([]);
 
- 
+  const [coordid,setcoordid] =useState()
   const [search, setSearch1] = useState("");
 
+  
   const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
 
@@ -29,6 +30,7 @@ const EmployeeCoord = ({ email1 }) => {
       .subscribe();
   }, [date]);
 
+  console.log(email1)
   const fetchCoordinator = async () => {
     var email2 = window.localStorage.getItem("email", email2);
     if (date === "") {
@@ -37,6 +39,7 @@ const EmployeeCoord = ({ email1 }) => {
         .select()
         .eq("Email", email2);
       setCoordinator(coordinatordata);
+      setcoordid(coordinatordata.id)
     } else {
       if (date !== "") {
         const { data: app1 } = await supabase
@@ -64,7 +67,7 @@ const EmployeeCoord = ({ email1 }) => {
 
     setItemOffset(newOffset);
   };
-
+  console.log(coordid)
  
   return (
     <div className=" ">
@@ -135,7 +138,8 @@ const EmployeeCoord = ({ email1 }) => {
                 })
                 .sort((a, b) => (b.id > a.id ? 1 : -1))
                 .map((e) => (
-                  <CoordConfif key={e.id} CoordEmp={e.Data} />
+                  <CoordConfif key={e.id} CoordEmp={e.Data} coordinator={coordinator}/>
+                  
                 ))}
             </div>
           )}

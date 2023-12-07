@@ -72,9 +72,11 @@ const Quelist = ({ email1 }) => {
   const [itemsOffset, setItemOffset] = useState(0);
   const perpage = 5;
 
+
+  const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    const endoffsett = itemsOffset + perpage;
-    setcurrentitems(applicants.slice(itemsOffset, endoffsett));
+   
+    setcurrentitems(applicants);
     setpagecount(Math.ceil(applicants.length / perpage));
   }, [itemsOffset, perpage, applicants]);
 
@@ -89,7 +91,7 @@ const Quelist = ({ email1 }) => {
       <div className="h-screen overflow-y-hidden">
         <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
           {/* Filter */}
-          <div className="grid grid-cols-2 md:-mb-2 -mt-10 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
+          <div className="grid grid-cols-2 md:-mb-2 -mt-14 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
             <div className="bg-white flex flex-col w-full text-center rounded-md">
               <label className="font-bold text-lg md:text-xl">Total Queuing</label>
               <label className="font-bold text-lg md:text-4xl">
@@ -97,7 +99,7 @@ const Quelist = ({ email1 }) => {
               </label>
             </div>
             <div className="bg-white flex flex-col w-full text-center rounded-md">
-              <label className="font-bold text-lg md:text-xl">New Applicants</label>
+              <label className="font-bold text-lg md:text-xl">New Queuing</label>
               <label className="font-bold text-lg md:text-4xl">{app.length}</label>
             </div>
             <div>
@@ -165,10 +167,10 @@ const Quelist = ({ email1 }) => {
             <div className="text-md p-3 ">Position</div>
             <div className="text-md p-3 mr-20">Email</div>
           </div>
-          {currentitems && (
+          {applicants && (
             <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
               {" "}
-              {currentitems
+              {applicants
                 .filter((val) => {
                   try {
                     if (search1 === "") {
@@ -181,6 +183,7 @@ const Quelist = ({ email1 }) => {
                   } catch (error) {}
                 })
                 .sort((a, b) => (b.id > a.id ? 1 : -1))
+                .slice(itemsOffset, endoffsett)
                 .map((e) => (
                   <QuelingConfig key={e.id} e={e} />
                 ))}

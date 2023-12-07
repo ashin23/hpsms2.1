@@ -3,93 +3,97 @@ import supabase from "./supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer, toast } from "react-toastify";
-function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
-  const [name, setname] = useState([]);
+import Deploy from "./Deploy";
+function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
+  const [employee, setemployee] = useState([]);
   const [userlist, setUserList] = useState([]);
   const [datadisplay, setdatadisplay] = useState();
   const [email, setEmail] = useState();
   const [coord, setcoord] = useState("Coordinator");
+
   const currentdate = new Date().toDateString();
-  useEffect(() => {
-    setname(DataSelected);
-  }, [DataSelected, Deploy]);
 
   useEffect(() => {
     userList();
+    empDeploy();
+    const channels = supabase
+      .channel("custom-all-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Employee_List" },
+        (payload) => {
+          empDeploy();
+        }
+      )
+      .subscribe();
   }, []);
 
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
   }, []);
 
-  const Notify = () => {
-    toast.success("Sent Succesfully!", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    setTimeout(() => {
-      isCloseDeploy();
-    }, [1000]);
-  };
-
-  const NotifyNodataselected = () => {
-    toast.warning("No data selected", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-  const Notifycoord = () => {
-    toast.warning("Select Coordinator", {
-      position: "top-center",
-
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+  const empDeploy = async () => {
+    const { data: emp12 } = await supabase
+      .from("Employee_List")
+      .select()
+      .match({ Position: Position, status: "Undeploy" })
+      .eq("Position", Position);
+    setemployee(emp12);
   };
 
   const HandleSendCoordinator = async () => {
     if (!datadisplay) {
-      Notifycoord();
+      toast.warning("Select Coordinator", {
+        position: "top-center",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     } else {
-      if (name.length > 0) {
+      if (employee.length > 0) {
         const { data: coordinator } = await supabase
           .from("EmployeeListCoordinator")
           .insert([
             {
               created_at: currentdate,
               Email: datadisplay,
-              Data: name,
+              Data: employee,
             },
           ]);
-        for (let index = 0; index < name.length; index++) {
-          const { data: employee } = await supabase
+
+        for (let index = 0; index < employee.length; index++) {
+          const { data: emparray } = await supabase
             .from("Employee_List")
-            .update({
-              status: "Deploy",
-            })
-            .eq("Name", name);
+            .update({ status: "Deploy" })
+            .eq("uuid", employee[index].uuid);
         }
         setdatadisplay("");
-        Notify();
-      } else if (name.length <= 0) {
-        NotifyNodataselected();
+        toast.success("Sent Succesfully!", {
+          position: "top-center",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          isCloseDeploy();
+        }, [3000]);
+      } else if (employee.length <= 0) {
+        toast.warning("No data selected", {
+          position: "top-center",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     }
   };
@@ -105,6 +109,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
   function close() {
     isCloseDeploy();
     setdatadisplay("");
+    empDeploy()
   }
 
   if (!isOpenDeploy) return null;
@@ -124,7 +129,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
           >
             Selected Employees
           </label>
-          <div className="flex grid-cols-2 gap-5">
+          <div className="flex grid-cols-2 md:-mb-14 md:mt-2">
             <button
               onClick={() => HandleSendCoordinator()}
               className="  focus:outline-none md:h-[40%] h-[50%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
@@ -132,22 +137,26 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Deploy, DataSelected }) {
               Send
             </button>
             <button
-              onClick={() => close()}
+              onClick={close}
               className=" focus:outline-none md:h-[40%] h-[50%] text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
             >
               Cancel
             </button>
           </div>
-
-          <div className="grid grid-cols-1 md:-mt-14 overflow-y-auto overflow-x-hidden">
-            <label className="font-semibold text-lg">Selected Employees</label>
-            {name.map((data, index) => (
-              <div key={index} className="bg-gray-200">
-                {data}
-                {console.log(data)}
-              </div>
-            ))}
-          </div>
+          {employee && (
+            <div className=" overflow-y-auto overflow-x-hidden md:h-[50%]">
+              {employee.map((pos, index) => (
+                <Deploy
+                  key={index}
+                  pos={pos}
+                  setemployee={setemployee}
+                  employee={employee}
+                 
+                />
+              ))}
+            </div>
+          )}
+         
 
           <div className="md:-mt-10">
             <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>

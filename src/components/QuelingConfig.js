@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import ModalEmp from "./ModalEmp";
 import supabase from "./supabaseClient";
+import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 function QuelingConfig({ e }) {
   const [showJobApplicant, setShowJobApplicant] = useState(false);
-  const handleClose = () => setShowJobApplicant(false);
+ 
 
 
   if(showJobApplicant)document.documentElement.style.overflowY = "hidden";
@@ -25,7 +26,8 @@ function QuelingConfig({ e }) {
           <div className="text-md  ">{e.Email}</div>
         </div>
         <Tooltip id="my-tooltip" place="bottom" />
-        <ModalEmp Info={e} visible={showJobApplicant} Close={handleClose} />
+        <ModalEmp Info={e} showJobApplicant={showJobApplicant} setShowJobApplicant={setShowJobApplicant} />
+        <ToastContainer/>
       </div>
     </>
   );

@@ -12,28 +12,15 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
 
   const [file1, setFile] = useState();
 
-  const handleReject = () => setShowAccept(false);
-  const handle2ndReject = () => setShowReject(false);
-
   useEffect(() => {
-   Handlefetchfile()
+    Handlefetchfile();
   }, [Info]);
-
-  
 
   const Handlefetchfile = async () => {
     const { data: file } = await supabase.storage
       .from("Files")
       .list(Info.Email + "/");
     setFile(await file);
-  };
-
-  const handleAccept = () => {
-    setShowAccept(true);
-  };
-
-  const handleReject1 = () => {
-    setShowReject(true);
   };
 
   const updateNotif = async () => {
@@ -83,12 +70,12 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
         <div className="grid grid-cols-1 w-[50%] md:grid-cols-2 md:w-[30%]">
           <button
             className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            onClick={handleAccept}
+            onClick={() => setShowAccept(true)}
           >
             ACCEPT
           </button>
           <button
-            onClick={handleReject1}
+            onClick={() => setShowReject(true)}
             className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
           >
             REJECT
@@ -297,14 +284,14 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info }) => {
         </div>
       </div>
       <ModalAccept
-        isAccepted={showAccept}
-        isReject={handleReject}
+        showAccept={showAccept}
+        setShowAccept={setShowAccept}
         info={Info}
       />
       <ModalReject
-        isOpen42={showReject}
-        isReject42={handle2ndReject}
         infoo={Info}
+        showReject={showReject}
+        setShowReject={setShowReject}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import position from "./position.json";
+import pos1 from "./position.json";
 import NumberOfPersonnel from "./NumberofPersonnel.json";
 import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,7 +12,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
   // const [description, setDescription] = useState("");
   const [info, setInfo] = useState("");
   const [positions, setPositions] = useState("Select Position");
-  const [personnels, setPersonnels] = useState("Number of Personnel");
+  const [personnels, setPersonnels] = useState("");
 
   const [request1, setRequest] = useState();
 
@@ -23,21 +23,24 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
         !hotel ||
         !date ||
         !info ||
-        personnels === "Number of Personnel" ||
+        // personnels === "Number of Personnel" ||
         positions === "Select Position"
       ) {
         toast.warning(
           `${
             ((!locations ||
-            !hotel ||
-            !date ||
-            !info) && "Fill up the blanks") ||
+              !hotel ||
+              !date ||
+              // personnels === "Number of Personnel" ||
+              positions === "Select Position" ||
+              !info) &&
+              "Fill up the blanks") ||
             (!locations && "Location is required") ||
             (!hotel && "Hotel is required") ||
             (!date && "Date is required") ||
             (!info && "Additional information is required") ||
-            (personnels === "Number of Personnel") ||
-            (positions === "Select Position")
+            // (personnels === "Number of Personnel") ||
+            positions === "Select Position"
           }`,
           {
             position: "top-center",
@@ -61,6 +64,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
           Position: positions,
           AddInfo: info,
           Hotel: hotel,
+          Notifications: "false"
         },
       ]);
       setLocations("");
@@ -134,32 +138,22 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
           <label className="justify-center flex font-semibold">
             Number of Personel
           </label>
-          <div className="">
-            <select
-              value={personnels}
-              onClick={(e) => setPersonnels(e.target.value)}
-              className=" pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 "
-            >
-              {NumberOfPersonnel.map((NumberOfPersonnels) => (
-                <option key={NumberOfPersonnels.id}>
-                  {" "}
-                  {NumberOfPersonnels.personnels}
-                </option>
-              ))}
-            </select>
-          </div>
+          <input
+            value={personnels}
+            onChange={(e) => setPersonnels(e.target.value)}
+            className=" pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+            placeholder="Number of Personnels"
+            type="number"
+          ></input>
           <label className="justify-center flex font-semibold">Position</label>
-          <div className="">
-            <select
-              value={positions}
-              onClick={(e) => setPositions(e.target.value)}
-              className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 "
-            >
-              {position.map((positions) => (
-                <option key={positions.id}> {positions.position}</option>
-              ))}
-            </select>
-          </div>
+          <select
+                className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                onChange={(e) => setPositions(e.target.value)}
+              >
+                {pos1.map((position) => (
+                  <option key={position.id}> {position.position}</option>
+                ))}
+              </select>
         </div>
 
         <div>
@@ -182,7 +176,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       </div>
       <ToastContainer
         position="top-center"
-        autoClose= {3000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

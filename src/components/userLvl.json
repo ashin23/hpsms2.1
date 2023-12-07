@@ -1,7 +1,6 @@
 [
-    {"id": 0, "position": "Select Position" },
-    {"id": 1, "position": "HR" },
-    {"id": 2, "position": "Employee" },
-    {"id": 3, "position": "Coordinator" },
-    {"id": 4, "position": "Employee" }
+  { "id": 0, "position": "Select Position" },
+  { "id": 1, "position": "HR" },
+  { "id": 2, "position": "Employee" },
+  { "id": 3, "position": "Coordinator" }
 ]

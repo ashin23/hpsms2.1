@@ -48,15 +48,15 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       });
       return;
     }
-    // emailjs.send(
-    //   "service_n50nfk8",
-    //   "template_5jyo2vi",
-    //   {
-    //     email2: email,
-    //     code: otpCode,
-    //   },
-    //   "R_XlHjwitXGKhI2NS"
-    // );
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_aek4udy",
+      {
+        email2: email,
+        code: otpCode,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
     console.log(otpCode);
     toast.success("Send Code", {
       position: "top-center",
@@ -128,6 +128,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             Email: email,
             Password: password,
             userlvl: position,
+            Notifications: "false"
           },
         ]);
         toast.success("Account create succesfully!", {
@@ -174,7 +175,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   if (!isOpen1) return null;
   return (
     <div
-      className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
+      className=" z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex w-screen h-screen"
     >
       <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[65%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[35%] w-[100%] rounded-3xl shadow-2xl">

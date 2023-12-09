@@ -3,21 +3,28 @@ import ModalApply from "./ModalApply";
 import supabase from "./supabaseClient";
 import PostConfig from "./PostConfig";
 import logo1 from "./images/waiter1.jpg";
-import logo2 from "./images/hotelproimage.png";
+
 import logo3 from "./images/hotel.jpg";
 import logo4 from "./images/leadership.png";
-import hotelstaff from "./images/hotel-staff.jpg";
-import hotelstaff1 from "./images/hotel-staff1.jpg";
-import hotelstaff2 from "./images/hotel-staff2.jpg";
-import hotelstaff3 from "./images/hotel-staff4.jpg";
-import hotelstaff5 from "./images/hotel-staff5.jpg";
-import hotelstaff6 from "./images/hotel-staff6.jpg";
+
+import banner from "./images/banner.jpg";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ReactPaginate from "react-paginate";
 import Marco from "./images/Marco_Polo_Hotels_Logo.jpg";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { CiLocationOn } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
+import { GoClock } from "react-icons/go";
+import { MdOutlineWorkOutline } from "react-icons/md";
+import { BsBuilding } from "react-icons/bs";
+import Logoviewer from "./Logoviewer";
+import Coverviewer from "./Coverviewer";
+import { FaBriefcase, FaBuilding, FaClock, FaSearch } from "react-icons/fa";
+import { FaLocationDot, FaCalendarDay, FaPesoSign } from "react-icons/fa6";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -36,8 +43,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [qualification, setQualification] = useState();
   const [jobtype, setJobType] = useState();
   const [search, setSearch] = useState("");
+  const [search2, setSearch2] = useState("");
   const [edit, setEdit] = useState(true);
-
+  const [jobtitle, setjobtitle] = useState("");
   const [disable, setdisable1] = useState(false);
 
   const about = useRef(null);
@@ -99,6 +107,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
         specializations: specializations,
         qualifications: qualification,
         jobtype: jobtype,
+        jobtitle: jobtitle,
       })
       .eq("id", info.id)
       .single();
@@ -159,295 +168,84 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     const { data: applicant } = await supabase.from("Applicant_List").select();
     for (let index = 0; index < applicant.length; index++) {
       if (
-        applicant[index].Hotel ===  postinfo.hotel &&
-        applicant[index].Email ===  await email.Email
+        applicant[index].Hotel === postinfo.hotel &&
+        applicant[index].Email === (await email.Email)
         // remove await
-      )
-      {
+      ) {
         setdisable1(true);
-        return
-      } 
-      else 
-      {
+        return;
+      } else {
         setdisable1(false);
       }
     }
-    
   };
+  const [file1, setFile] = useState();
+  const [file12, setFile21] = useState();
+  const [hide, sethide] = useState(false);
+  const [desktop, setdesktop] = useState(false);
 
+  function mobile() {
+    if (window.innerWidth < 700) {
+      sethide(!hide);
+      return;
+    } else {
+      setdesktop(true);
+    }
+  }
+  function widthchecker() {
+    if (window.innerWidth > 700 && !hide) {
+      return true;
+    } else if (window.innerWidth < 700 && hide) {
+      return true;
+    }
+    return false;
+  }
+  useEffect(() => {
+    mobile();
+    widthchecker();
+    sethide(false);
+  }, [window.innerWidth]);
   return (
     <>
-      <div className="grid grid-row-2  ">
-        <div className="">
-          <div className="">
-            {/* {NAUULOL YUNG ANIMATION PAG MAY HEIGHT  } */}
-            {/* {DASHBOARD MAY SCROLL SA IBABA} */}
-            <div className=" w-fit md:w-[100%] overflow-x-hidden bg-slate-100 p-5 md:p-10">
-              {/* <label className="text-[200%] md:flex hidden ml-[25%] md:ml-[70%] font-bold">
-              Our Partners
-            </label> */}
+      <div className="  h-screen  ">
+        <div className="  md:h-[100%] sticky top-0 w-full  overflow-x-hidden    overflow-y-auto   bg-slate-100 p-0 md:p-10">
+          <div className=" flex justify-center  pt-[120px]  w-full relative p-2 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500 ">
+            {/* <img src={banner} className="w-full h-full object-cover  "/> */}
+            <FaSearch className="mt-2  -ml-[83%] md:-ml-[77%] text-2xl absolute text-slate-400" />
+            <input
+              className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Enter Position"
+              type="search"
+              onChange={(e) => setSearch(e.target.value)}
+            ></input>
 
-              <div className="md:justify-center md:flex md:gap-5 grid-cols-2 justify-between mt-[30%] md:mt-[5%] grid">
-                <button
-                  className="md:h-[100%] w-[100px]  flex md:grid  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 mr-2 mb-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  onClick={() => handleabout()}
-                >
-                  About Us
-                </button>
-                <button
-                  className="md:h-[100%]  w-[100px]  flex md:grid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  onClick={() => handleapply()}
-                >
-                  Apply
-                </button>
-              </div>
-              <div className="grid grid-cols-1 mt-[5%] md:mb-2 md:mt-[2%] gap-3">
-                {/* Image slider */}
-                <div className="max-w-[1500px]  md:w-[100%]  h-[900%] md:h-[760px] w-[100%] md:m-auto  relative ">
-                  <img
-                    src={slides[currentIndex]}
-                    className="h-full w-full absolute object-cover  rounded-2xl bg-center bg-cover duration-500 "
-                  ></img>
-                  {/* Left Arrow */}
-                  <div className="absolute group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                    <BsChevronCompactLeft onClick={prevSlide} size={30} />
-                  </div>
-                  {/* Right Arrow */}
-                  <div className="absolute group-hover:block  top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                    <BsChevronCompactRight onClick={nextSlide} size={30} />
-                  </div>
-                  <div className="flex  top-4 justify-center py-2">
-                    {slides.map((slide, slideIndex) => (
-                      <div
-                        key={slideIndex}
-                        onClick={() => goToSlide(slideIndex)}
-                        className="text-2xl  cursor-pointer"
-                      >
-                        <RxDotFilled />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="mb-2">
-                <label className="md:ml-[45%]  text-4xl font-semibold text-blue-700 ">
-                  Our Partners
-                </label>
-              </div>
-
-              <div className="grid md:flex grid-rows-1  md:h-[30%] md:w-[10%] mt-[95%] md:-mt-0  md:gap-5 gap-2">
-                <img data-aos="fade-right" src={hotelstaff} className="" />
-                <img data-aos="fade-right" src={hotelstaff1} className="" />
-                <img data-aos="fade-right" src={hotelstaff2} className="" />
-                <img
-                  data-aos="fade-right"
-                  src={hotelstaff3}
-                  className="w-[100%]"
-                />
-                <img data-aos="fade-right" src={hotelstaff} className="" />
-                <img data-aos="fade-left" src={hotelstaff5} className="" />
-                <img data-aos="fade-left" src={hotelstaff6} className="" />
-                <img data-aos="fade-left" src={hotelstaff2} className="" />
-                <img
-                  data-aos="fade-left"
-                  src={hotelstaff1}
-                  className="w-[100%]"
-                />
-              </div>
-              {/* About us */}
-              <div ref={about}>
-                <div className="grid grid-cols-1 md:grid-cols-2 justify-center  gap-y-5  md:mt-[3%] ">
-                  <div className="text-black">
-                    <img
-                      data-aos="fade-right"
-                      src={logo1}
-                      className="
-               md:ml-[10%]
-               h-[100%] w-[100%] rounded-md md:h-[90%] md:w-[70%] "
-                    ></img>
-                  </div>
-                  <div className=" md:text-left">
-                    <p
-                      data-aos="fade-left"
-                      className="text-blue-700 text-[50px] font-semibold mb-[2%]"
-                    >
-                      About Hotel Pro Services
-                    </p>
-                    <p data-aos="fade-left" className="mr-[10%] text-justify  ">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quam, ex, quia, nemo quo voluptatibus totam aliquam eum
-                      accusamus quisquam unde repudiandae culpa dignissimos
-                      doloremque incidunt deleniti eaque fugit magnam
-                      accusantium suscipit natus? Voluptatibus aliquid,
-                      doloremque natus recusandae enim eaque commodi officia
-                      soluta cum qui rerum, voluptate repellat est nam illo eius
-                      obcaecati nobis perferendis placeat? Incidunt quam sunt
-                      similique temporibus dicta, at mollitia molestiae. Commodi
-                      et quisquam ratione nemo at dolores quod maxime
-                      repudiandae, mollitia in! Nesciunt eveniet minima eos
-                      molestias, sed ipsam porro non culpa reiciendis
-                      consequatur unde blanditiis, modi omnis natus laborum
-                      soluta nobis alias adipisci odio accusantium.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1  md:grid-cols-3 text-[50px] font-semibold mt-[5%] text-blue-700 ml-[5%]">
-                  <div>
-                    <h1 data-aos="fade-right">300M</h1>
-                    <p data-aos="fade-right" className="text-[20px]">
-                      Unique monthly visitors
-                    </p>
-                  </div>
-                  <div>
-                    <h1 data-aos="fade-up">250M</h1>
-                    <p data-aos="fade-up" className="text-[20px]">
-                      Resumes On Hotel Pro Services
-                    </p>
-                  </div>
-                  <div>
-                    <h1 data-aos="fade-left">800M+</h1>
-                    <p data-aos="fade-left" className="text-[20px]">
-                      Total ratings and reviews
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 mt-[10%]">
-                  <div>
-                    <h1
-                      data-aos="fade-right"
-                      className="text-blue-700 text-[50px] font-semibold md:text-left md:ml-[10%]"
-                    >
-                      Our People
-                    </h1>
-                    <p
-                      data-aos="fade-right"
-                      className="text-justify md:ml-[10%] mt-[5%]"
-                    >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Corporis, iusto. Enim rem debitis amet impedit odio, alias
-                      quidem veniam dignissimos, dolorem itaque officiis
-                      voluptatum consequatur! Iste tempore nemo corrupti vitae,
-                      exercitationem architecto at cumque officia eum enim.
-                      Consequatur molestiae quam ullam sunt aspernatur autem
-                      iusto dignissimos veritatis neque ad odit rem est
-                      provident impedit doloremque soluta animi iure error,
-                      voluptatem qui tempore fugiat amet eos laudantium! Magnam
-                      aspernatur eveniet at incidunt quas! Ducimus consectetur
-                      minima voluptas minus et exercitationem, harum nobis!
-                      Dicta soluta adipisci minus labore vel maiores! Sed
-                      laboriosam distinctio, id odio dolorem corrupti sapiente
-                      possimus modi minus quam.
-                    </p>
-                  </div>
-
-                  <div className="text-black">
-                    <img
-                      data-aos="fade-left"
-                      src={logo3}
-                      className="h-[100%] w-[100%] md:h-[90%] md:w-[70%] rounded-md md:ml-[21%] md:mt-10 mt-5"
-                    ></img>
-                  </div>
-
-                  <div className="text-black mb-[5%]">
-                    <img
-                      data-aos="fade-left"
-                      src={logo4}
-                      className="md:h-[90%] md:w-[70%] rounded-md md:ml-20 mt-10"
-                    ></img>
-                  </div>
-
-                  <div className="md:ml-20 md:mr-20 md:mb-[5%] mb-[5%]">
-                    <h1
-                      data-aos="fade-right"
-                      className="text-[50px] font-semibold text-blue-700 mb-10 text-left mt-[5%]"
-                    >
-                      Our Leadership
-                    </h1>
-                    <p data-aos="fade-right" className="text-justify">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Optio ex quibusdam vero vel amet. Doloribus ex alias
-                      inventore tenetur, ipsam dignissimos quam eveniet vel
-                      magni hic veniam, fugit, commodi omnis iure blanditiis
-                      error minus veritatis maiores! Laudantium debitis
-                      explicabo quas doloremque facere, illo, repellendus porro
-                      ex voluptate similique error consequuntur nihil cumque aut
-                      suscipit molestias in pariatur ipsam praesentium sunt
-                      laborum? Officiis aperiam eos hic non suscipit accusamus,
-                      animi iste ad facere labore. Sint maxime ipsam ducimus
-                      animi totam. Perferendis eligendi dolor at ipsam. Ullam
-                      accusantium blanditiis aut distinctio laudantium, placeat
-                      numquam at dignissimos quas tenetur eos fugit officia
-                      molestiae.
-                    </p>
-                    <button
-                      ref={apply}
-                      data-aos="fade-up"
-                      className="
-              h-[12%] w-[30%] ml-[35%] mb-[10%] mt-[3%]
-              rounded-xl text-blue-100 font-bold bg-blue-700 md:h-[12%] md:w-[20%]  md:p-[2%] md:mr-[90%] md:mt-[3%]"
-                    >
-                      Meet Our Team
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Search */}
-              <div className=" flex justify-center  pt-[120px] bg-gradient-to-t from-slate-100 via-blue-400 to-blue-500">
-                <input
-                  className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                  placeholder="Search Here..."
-                  type="search"
-                  onChange={(e) => setSearch(e.target.value)}
-                ></input>
-              </div>
-              {/* right side */}
-
-              <div className="shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)] grid md:grid-cols-2 grid-cols-1 rounded-md ">
+            <input
+              className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-e-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Enter City"
+              type="search"
+              onChange={(e) => setSearch2(e.target.value)}
+            ></input>
+            <FaLocationDot className="mt-2 ml-8 text-2xl absolute text-slate-400" />
+          </div>
+          {/* right side */}
+          <div className="md:flex  grid grid-cols-1  shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]">
+            {/* Map */}
+            {!hide && (
+              <div className="md:w-[60%] ">
                 {currentitems && (
-                  <div className="md:ml-20  md:pl-20 pl-10 justify-center    rounded-[60px] rounded-e-none ">
-                    <div className="-mr-5">
-                      <ReactPaginate
-                        previousLabel={
-                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 mr-4">
-                            <BsChevronCompactLeft />
-                          </span>
-                        }
-                        nextLabel={
-                          <span className="mt-2 w-10 h-10 flex items-center justify-center md:mr-4 rounded-md -ml-10 md:ml-0 bg-gray-200">
-                            <BsChevronCompactRight />
-                          </span>
-                        }
-                        breakLabel={<span className="mr-4 mt-4">...</span>}
-                        pageRangeDisplayed={3}
-                        pageCount={pagecount}
-                        onPageChange={handlePageClick}
-                        renderOnZeroPageCount={null}
-                        containerClassName="flex mt-2   "
-                        pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-5 mr-5 md:w-10 h-10 flex items-center justify-center roundend-md  md:mr-4 "
-                      />
-                    </div>
-
-                    <h1 className="font-bold ml-[10px] md:text-lg  mt-10 ">
+                  <div className=" md:pl-14 pl-10 justify-center rounded-md rounded-e-none  md:w-[100%] ">
+                    <h1 className="font-bold ml-[10px] md:text-lg text-[#162388] mt-10 ">
                       TO APPLY
                     </h1>
-
                     {currentitems
                       .filter((val) => {
-                        if (search === "") {
-                          return val;
-                        } else if (
+                        if (
                           val.position
                             .toLowerCase()
-                            .includes(search.toLowerCase())
-                        ) {
-                          return val;
-                        } else if (
+                            .includes(search.toLowerCase()) &&
                           val.location
                             .toLowerCase()
-                            .includes(search.toLowerCase())
+                            .includes(search2.toLowerCase())
                         ) {
                           return val;
                         }
@@ -470,50 +268,93 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           Pqualification={setQualification}
                           Pjobtype={setJobType}
                           setInfo={setInfo}
+                          setjobtitle={setjobtitle}
                           email={email}
                           applychecker={applychecker}
+                          setFile1={setFile}
+                          setFile21={setFile21}
+                          mobile={mobile}
                         />
                       ))}
+                    <div className="-mr-5">
+                      <ReactPaginate
+                        previousLabel={
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md -ml-10 md:ml-0  bg-gray-200 mr-4">
+                            <BsChevronCompactLeft />
+                          </span>
+                        }
+                        nextLabel={
+                          <span className="mt-2 w-10 h-10 flex items-center justify-center md:mr-4 rounded-md -ml-10 md:ml-0 bg-gray-200">
+                            <BsChevronCompactRight />
+                          </span>
+                        }
+                        breakLabel={<span className="mr-4 mt-4">...</span>}
+                        pageRangeDisplayed={3}
+                        pageCount={pagecount}
+                        onPageChange={handlePageClick}
+                        renderOnZeroPageCount={null}
+                        containerClassName="flex mt-2   "
+                        pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-5 mr-5 md:w-10 h-10 flex items-center justify-center roundend-md  md:mr-4 "
+                      />
+                    </div>
                   </div>
+                )}{" "}
+              </div>
+            )}
+
+           
+            {widthchecker()  && (
+              <div
+              ref={Job}
+              className=" md:ml-10  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
+            >
+              <button
+                className="md:hidden visible text-left text-3xl text-blue-500  "
+                onClick={() => mobile()}
+              >
+                <IoMdArrowRoundBack />
+              </button>
+              {file12 && (
+                <div className="flex mt-5 w-full justify-center  ">
+                  {file12.map((file1) => (
+                    <Coverviewer
+                      key={file1.id}
+                      file1={file1}
+                      Email={info.coveruuid}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {file1 && (
+                <div className="flex mt-5">
+                  {file1.map((file1) => (
+                    <Logoviewer
+                      key={file1.id}
+                      file1={file1}
+                      Email={info.hoteluuid}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className=" ">
+                {email !== "" && (
+                  <ModalApply
+                    isVisible={showModal}
+                    onClose={() => setShowModal(false)}
+                    Position={positions}
+                    Hotel={hotel}
+                    Data={email}
+                    // checker={checker}
+                    // setdisable={setdisable}
+                  />
                 )}
 
-                {/* left side */}
-
-                <div
-                  ref={Job}
-                  className="  right-0 rounded-[60px] rounded-s   mb-24 p-1 mr-32 justify-center pl-2 text-center items-center"
-                >
-                  <div className=" ">
-                    {email !== "" && (
-                      <ModalApply
-                        isVisible={showModal}
-                        onClose={() => setShowModal(false)}
-                        Position={positions}
-                        Hotel={hotel}
-                        Data={email}
-                        // checker={checker}
-                        // setdisable={setdisable}
-                      />
-                    )}
-
-                    {positions ? (
-                      <div className="flex items-start flex-col p-2 ">
-                        {applicant && (
-                          <button
-                            disabled={disable}
-                            onClick={apply1}
-                            className={`
-                          ${
-                            !disable
-                              ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                              : " bg-gray-400 "
-                          } md:ml-[30%] xl:w-[50%] md:w-[60%] w-[100%] focus:outline-none text-white rounded-lg text-sm px-20 py-2.5 mr-2 mb-2 font-medium `}
-                          >
-                            APPLY
-                          </button>
-                        )}
-
-                        <div className="grid grid-cols-1  md:grid-cols-3 gap-2 md:gap-3 ">
+                {positions ? (
+                  <>
+                    {jobtitle ? (
+                      <div className="flex items-start flex-col p-2 mt-3 ">
+                        <div className="grid  grid-cols-3 gap-2 md:gap-3  ">
                           <button
                             onClick={() => setEdit(!edit)}
                             className={`${
@@ -556,10 +397,30 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           >
                             Delete
                           </button>
+                          <div className="mb-3">
+                            {edit ? (
+                              <label className="text-3xl font-semibold text-[#162388]">
+                                {jobtitle}
+                              </label>
+                            ) : (
+                              <div className="flex">
+                                Job Title:{" "}
+                                <input
+                                  type="text"
+                                  value={jobtitle}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setjobtitle(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
                         </div>
                         <div className="mb-3">
                           {edit ? (
-                            <label>Position:{positions}</label>
+                            <label className="flex text-lg font-normal">
+                              <FaBriefcase className="text-xl mt-1 mr-3 text-slate-400" />
+                              {positions}
+                            </label>
                           ) : (
                             <div className="flex">
                               Position:{" "}
@@ -574,7 +435,10 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         </div>
                         <div className="mb-3">
                           {edit ? (
-                            <label>Location: {location}</label>
+                            <label className="flex text-lg font-normal ">
+                              <FaLocationDot className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {location}
+                            </label>
                           ) : (
                             <div className="">
                               Location:{" "}
@@ -587,9 +451,13 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             </div>
                           )}
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-3 flex">
                           {edit ? (
-                            <label>Salary: {salary}</label>
+                            <label className="flex text-lg font-normal ml-1">
+                              {" "}
+                              <FaPesoSign className="text-xl mt-1 mr-2 text-slate-400" />{" "}
+                              {salary} per day
+                            </label>
                           ) : (
                             <div className="">
                               Salary:{" "}
@@ -604,7 +472,29 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         </div>
                         <div className="mb-3">
                           {edit ? (
-                            <label>Hotel: {hotel}</label>
+                            <label className="flex text-lg font-normal">
+                              <FaClock className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {jobtype}
+                            </label>
+                          ) : (
+                            <div className="">
+                              Job Type:
+                              <input
+                                type="text"
+                                value={jobtype}
+                                className="bg-blue-200"
+                                onChange={(e) => setJobType(e.target.value)}
+                              ></input>
+                            </div>
+                          )}
+                        </div>
+                        <div className="mb-3">
+                          {edit ? (
+                            <label className="flex text-lg font-normal">
+                              {" "}
+                              <FaBuilding className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {hotel}
+                            </label>
                           ) : (
                             <div className="">
                               Hotel:{" "}
@@ -617,7 +507,22 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             </div>
                           )}
                         </div>
-                        <div className="mb-3">
+                        {applicant && (
+                          <button
+                            disabled={disable}
+                            onClick={apply1}
+                            className={`
+                        ${
+                          !disable
+                            ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            : " bg-gray-400 "
+                        }    focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
+                          >
+                            APPLY
+                          </button>
+                        )}
+
+                        <div className="mb-3 mt-10">
                           {edit ? (
                             <label>Age: {age}</label>
                           ) : (
@@ -665,7 +570,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                         <div className="font-bold">Job Description</div>
                         <div className="mb-3">
                           {edit ? (
-                            <label> {jobDescrip}</label>
+                            <ul>
+                              <li>{jobDescrip}</li>
+                            </ul>
                           ) : (
                             <div className="">
                               <input
@@ -738,32 +645,20 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                               </div>
                             )}
                           </div>
-                          <div className="pt-5 font-bold">Job Type</div>
-                          <div className="mb-3">
-                            {edit ? (
-                              <label> {jobtype}</label>
-                            ) : (
-                              <div className="">
-                                <input
-                                  type="text"
-                                  value={jobtype}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setJobType(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
-                          </div>
                         </div>
                       </div>
                     ) : (
-                      <div className="pt-[30%] font-bold items-center">
-                        JOB INFORMATION
-                      </div>
+                      "Loading"
                     )}
+                  </>
+                ) : (
+                  <div className="pt-[30%] text-4xl font-bold items-center">
+                    JOB INFORMATION
                   </div>
-                </div>
+                )}
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>

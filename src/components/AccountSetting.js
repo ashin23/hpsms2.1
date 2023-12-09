@@ -160,6 +160,7 @@ const AccountSetting = ({
       >
         <div
          data-aos="zoom-in"
+         data-aos-duration="200"
           className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%] lg:h-[74%] h-[80%] md:w-[30%] w-[100%] rounded-3xl shadow-2xl"
         >
           <label

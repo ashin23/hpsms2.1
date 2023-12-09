@@ -74,7 +74,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
     const { data: user } = await supabase.from("UserList").select();
     const { data: emp } = await supabase.from("Employee_List").select();
     var data = applist.concat(user, emp);
-    if (applist && user && emp) {
+    if (data) {
       for (let index = 0; index < data.length; index++) {
         if (
           data[index].Email === formdata.email &&
@@ -815,12 +815,6 @@ const Register = ({ isRegister, isRegisterClose }) => {
             </div>
           </div>
           <label className="flex font-bold ">Upload Image</label>
-          <label
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            // for="multiple_files"
-          >
-            Upload Image
-          </label>
           <input
             // value={files}
             className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"

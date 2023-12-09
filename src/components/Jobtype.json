@@ -2,7 +2,6 @@
     {"id": 0, "Jobtype": "Job Type" },
     {"id": 1, "Jobtype": "Full time" },
     {"id": 2, "Jobtype": "Part-time" },
-    {"id": 3, "Jobtype": "Temporary" },
-    {"id": 4, "Jobtype": "Contract"},
-    {"id": 5, "Jobtype": "Intership"}
+    {"id": 3, "Jobtype": "Temporary" }
+    
 ]

@@ -65,55 +65,68 @@ const Upload = ({ isUpload, isCloseUpload, email }) => {
       className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center flex  "
     >
-      <div className="bg-white h-[50%] w-[100%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
-        <label
-          className="flex md:text-[30px] h-fit text-xl
+      <div className="bg-white h-[50%] w-[100%] md:h-[40%] lg:w-[30%] lg:h-[50%] md:w-[25%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
+        <div className="sticky top-6 w-[40%]  items-center   bg-white">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-56 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
-        >
-          Upload
-        </label>
-        <button
-          onClick={() => HandleSubmit()}
-          className="text-white ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
-        <button
-          onClick={isCloseUpload}
-          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        >
-          Cancel
-        </button>
-        <div className=" grid grid-cols-1 md:grid-cols-2 gap-3  p-5 rounded ">
-          <label className="flex font-bold">SSS No:</label>
-          <input
-            className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="SSS Number"
-            onChange={(e) => setSSS_Number(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Phil Health No:</label>
-          <input
-            className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Phil Heatlh Number"
-            onChange={(e) => setPhil_Health_No(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Pag-IBIG No:</label>
-          <input
-            className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Pag-IBIG Number"
-            onChange={(e) => setPag_Ibig_No(e.target.value)}
-            type="text"
-          ></input>
-          <label className="flex font-bold">Tin No:</label>
-          <input
-            className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Tin Number"
-            onChange={(e) => setTin_No(e.target.value)}
-            type="text"
-          ></input>
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
+          >
+            Upload
+          </label>
+          <div className="md:-mt-5 mt-3 flex px-5 text-lg">
+            <button
+              onClick={() => HandleSubmit()}
+              className="text-white bg-green-700 whitespace-nowrap  hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            >
+              Submit
+            </button>
+            <button
+              onClick={isCloseUpload}
+              className="text-white bg-gray-700 whitespace-nowrap  hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div className=" grid grid-cols-1  gap-3  p-5 rounded  ">
+          <div>
+            <label className="flex font-bold">SSS No:</label>
+            <input
+              className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="SSS Number"
+              onChange={(e) => setSSS_Number(e.target.value)}
+              type="number"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Phil Health No:</label>
+            <input
+              className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Phil Heatlh Number"
+              onChange={(e) => setPhil_Health_No(e.target.value)}
+              type="number"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Pag-IBIG No:</label>
+            <input
+              className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Pag-IBIG Number"
+              onChange={(e) => setPag_Ibig_No(e.target.value)}
+              type="number"
+            ></input>
+          </div>
+          <div>
+            <label className="flex font-bold">Tin No:</label>
+            <input
+              className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Tin Number"
+              onChange={(e) => setTin_No(e.target.value)}
+              type="number"
+            ></input>
+          </div>
         </div>
       </div>
       <ToastContainer />

@@ -209,23 +209,28 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     <>
       <div className="  h-screen  ">
         <div className="  md:h-[100%] sticky top-0 w-full  overflow-x-hidden    overflow-y-auto   bg-slate-100 p-0 md:p-10">
-          <div className=" flex justify-center  pt-[120px]  w-full relative p-2 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500 ">
+          {/* Search  */}
+          {/* bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] */}
+          <div className=" flex justify-center  pt-[130px]  w-full relative p-2  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] ">
             {/* <img src={banner} className="w-full h-full object-cover  "/> */}
-            <FaSearch className="mt-2  -ml-[83%] md:-ml-[77%] text-2xl absolute text-slate-400" />
+            <p  className="absolute md:-mt-[80px] font-bold md:text-3xl text-sm   -mt-[30px] text-white  ">Your Dream Job Awaits: Apply Now & Thrive!</p>
+            
+            <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[56%] text-2xl absolute text-slate-400" />
             <input
-              className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Enter Position"
+              className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              placeholder="Enter Position , key words or job title"
               type="search"
               onChange={(e) => setSearch(e.target.value)}
             ></input>
 
             <input
-              className="top-96 w-[90%] md:w-[40%]  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-e-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0  mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-e-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Enter City"
               type="search"
               onChange={(e) => setSearch2(e.target.value)}
             ></input>
-            <FaLocationDot className="mt-2 ml-8 text-2xl absolute text-slate-400" />
+            <FaLocationDot className="md:mt-2 mt-4 ml-8 text-2xl absolute text-slate-400" />
+           
           </div>
           {/* right side */}
           <div className="md:flex  grid grid-cols-1  shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]">
@@ -302,362 +307,366 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               </div>
             )}
 
-           
-            {widthchecker()  && (
+            {/* Sticky */}
+            {widthchecker() && (
               <div
-              ref={Job}
-              className=" md:ml-10  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
-            >
-              <button
-                className="md:hidden visible text-left text-3xl text-blue-500  "
-                onClick={() => mobile()}
+                ref={Job}
+                className=" md:ml-10  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
               >
-                <IoMdArrowRoundBack />
-              </button>
-              {file12 && (
-                <div className="flex mt-5 w-full justify-center  ">
-                  {file12.map((file1) => (
-                    <Coverviewer
-                      key={file1.id}
-                      file1={file1}
-                      Email={info.coveruuid}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {file1 && (
-                <div className="flex mt-5">
-                  {file1.map((file1) => (
-                    <Logoviewer
-                      key={file1.id}
-                      file1={file1}
-                      Email={info.hoteluuid}
-                    />
-                  ))}
-                </div>
-              )}
-              <div className=" ">
-                {email !== "" && (
-                  <ModalApply
-                    isVisible={showModal}
-                    onClose={() => setShowModal(false)}
-                    Position={positions}
-                    Hotel={hotel}
-                    Data={email}
-                    // checker={checker}
-                    // setdisable={setdisable}
-                  />
+                <button
+                  className="md:hidden visible text-left text-3xl text-blue-500  "
+                  onClick={() => mobile()}
+                >
+                  <IoMdArrowRoundBack />
+                </button>
+                {file12 && (
+                  <div className="flex mt-5 w-full justify-center  ">
+                    {file12.map((file1) => (
+                      <Coverviewer
+                        key={file1.id}
+                        file1={file1}
+                        Email={info.coveruuid}
+                      />
+                    ))}
+                  </div>
                 )}
 
-                {positions ? (
-                  <>
-                    {jobtitle ? (
-                      <div className="flex items-start flex-col p-2 mt-3 ">
-                        <div className="grid  grid-cols-3 gap-2 md:gap-3  ">
-                          <button
-                            onClick={() => setEdit(!edit)}
-                            className={`${
-                              Hrdashboard === "HR"
-                                ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
-                                : `${
-                                    admindashboard
-                                      ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                      : "hidden"
-                                  }`
-                            }`}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleUpdate()}
-                            className={`${
-                              Hrdashboard === "HR"
-                                ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 "
-                                : `${
-                                    admindashboard
-                                      ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                                      : "hidden"
-                                  }`
-                            }`}
-                          >
-                            Update
-                          </button>
-                          <button
-                            onClick={() => handleDelete()}
-                            className={`${
-                              Hrdashboard === "HR"
-                                ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                : `${
-                                    admindashboard
-                                      ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                      : "hidden"
-                                  }`
-                            }`}
-                          >
-                            Delete
-                          </button>
+                {file1 && (
+                  <div className="flex mt-5">
+                    {file1.map((file1) => (
+                      <Logoviewer
+                        key={file1.id}
+                        file1={file1}
+                        Email={info.hoteluuid}
+                      />
+                    ))}
+                  </div>
+                )}
+                <div className=" ">
+                  {email !== "" && (
+                    <ModalApply
+                      isVisible={showModal}
+                      onClose={() => setShowModal(false)}
+                      Position={positions}
+                      Hotel={hotel}
+                      Data={email}
+                      // checker={checker}
+                      // setdisable={setdisable}
+                    />
+                  )}
+
+                  {positions ? (
+                    <>
+                      {jobtitle ? (
+                        <div className="flex items-start flex-col p-2 mt-3 ">
+                          <div className="grid  grid-cols-3 gap-2 md:gap-3  ">
+                            <button
+                              onClick={() => setEdit(!edit)}
+                              className={`${
+                                Hrdashboard === "HR"
+                                  ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+                                  : `${
+                                      admindashboard
+                                        ? "text-white w-[100%] md:w-[100%] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        : "hidden"
+                                    }`
+                              }`}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleUpdate()}
+                              className={`${
+                                Hrdashboard === "HR"
+                                  ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 "
+                                  : `${
+                                      admindashboard
+                                        ? "focus:outline-none md:w-[100%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                        : "hidden"
+                                    }`
+                              }`}
+                            >
+                              Update
+                            </button>
+                            <button
+                              onClick={() => handleDelete()}
+                              className={`${
+                                Hrdashboard === "HR"
+                                  ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                  : `${
+                                      admindashboard
+                                        ? "focus:outline-none text-white md:w-[100%] bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-10 md:px-10 py-3 md:py-3 mr-2 mb-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        : "hidden"
+                                    }`
+                              }`}
+                            >
+                              Delete
+                            </button>
+                            <div className="mb-3">
+                              {edit ? (
+                                <label className="text-3xl font-semibold text-[#162388]">
+                                  {jobtitle}
+                                </label>
+                              ) : (
+                                <div className="flex">
+                                  Job Title:{" "}
+                                  <input
+                                    type="text"
+                                    value={jobtitle}
+                                    className="bg-blue-200"
+                                    onChange={(e) =>
+                                      setjobtitle(e.target.value)
+                                    }
+                                  ></input>
+                                </div>
+                              )}
+                            </div>
+                          </div>
                           <div className="mb-3">
                             {edit ? (
-                              <label className="text-3xl font-semibold text-[#162388]">
-                                {jobtitle}
+                              <label className="flex text-lg font-normal">
+                                <FaBriefcase className="text-xl mt-1 mr-3 text-slate-400" />
+                                {positions}
                               </label>
                             ) : (
                               <div className="flex">
-                                Job Title:{" "}
+                                Position:{" "}
                                 <input
                                   type="text"
-                                  value={jobtitle}
+                                  value={positions}
                                   className="bg-blue-200"
-                                  onChange={(e) => setjobtitle(e.target.value)}
+                                  onChange={(e) => setPositions(e.target.value)}
                                 ></input>
                               </div>
                             )}
                           </div>
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label className="flex text-lg font-normal">
-                              <FaBriefcase className="text-xl mt-1 mr-3 text-slate-400" />
-                              {positions}
-                            </label>
-                          ) : (
-                            <div className="flex">
-                              Position:{" "}
-                              <input
-                                type="text"
-                                value={positions}
-                                className="bg-blue-200"
-                                onChange={(e) => setPositions(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label className="flex text-lg font-normal ">
-                              <FaLocationDot className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                              {location}
-                            </label>
-                          ) : (
-                            <div className="">
-                              Location:{" "}
-                              <input
-                                type="text"
-                                value={location}
-                                className="bg-blue-200"
-                                onChange={(e) => setLocation(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3 flex">
-                          {edit ? (
-                            <label className="flex text-lg font-normal ml-1">
-                              {" "}
-                              <FaPesoSign className="text-xl mt-1 mr-2 text-slate-400" />{" "}
-                              {salary} per day
-                            </label>
-                          ) : (
-                            <div className="">
-                              Salary:{" "}
-                              <input
-                                type="text"
-                                value={salary}
-                                className="bg-blue-200"
-                                onChange={(e) => setSalarys(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label className="flex text-lg font-normal">
-                              <FaClock className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                              {jobtype}
-                            </label>
-                          ) : (
-                            <div className="">
-                              Job Type:
-                              <input
-                                type="text"
-                                value={jobtype}
-                                className="bg-blue-200"
-                                onChange={(e) => setJobType(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label className="flex text-lg font-normal">
-                              {" "}
-                              <FaBuilding className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                              {hotel}
-                            </label>
-                          ) : (
-                            <div className="">
-                              Hotel:{" "}
-                              <input
-                                type="text"
-                                value={hotel}
-                                className="bg-blue-200"
-                                onChange={(e) => setHotel(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        {applicant && (
-                          <button
-                            disabled={disable}
-                            onClick={apply1}
-                            className={`
+                          <div className="mb-3">
+                            {edit ? (
+                              <label className="flex text-lg font-normal ">
+                                <FaLocationDot className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                                {location}
+                              </label>
+                            ) : (
+                              <div className="">
+                                Location:{" "}
+                                <input
+                                  type="text"
+                                  value={location}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setLocation(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mb-3 flex">
+                            {edit ? (
+                              <label className="flex text-lg font-normal ml-1">
+                                {" "}
+                                <FaPesoSign className="text-xl mt-1 mr-2 text-slate-400" />{" "}
+                                {salary} per day
+                              </label>
+                            ) : (
+                              <div className="">
+                                Salary:{" "}
+                                <input
+                                  type="text"
+                                  value={salary}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setSalarys(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mb-3">
+                            {edit ? (
+                              <label className="flex text-lg font-normal">
+                                <FaClock className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                                {jobtype}
+                              </label>
+                            ) : (
+                              <div className="">
+                                Job Type:
+                                <input
+                                  type="text"
+                                  value={jobtype}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setJobType(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mb-3">
+                            {edit ? (
+                              <label className="flex text-lg font-normal">
+                                {" "}
+                                <FaBuilding className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                                {hotel}
+                              </label>
+                            ) : (
+                              <div className="">
+                                Hotel:{" "}
+                                <input
+                                  type="text"
+                                  value={hotel}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setHotel(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
+                          {applicant && (
+                            <button
+                              disabled={disable}
+                              onClick={apply1}
+                              className={`
                         ${
                           !disable
                             ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                             : " bg-gray-400 "
                         }    focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
-                          >
-                            APPLY
-                          </button>
-                        )}
+                            >
+                              APPLY
+                            </button>
+                          )}
 
-                        <div className="mb-3 mt-10">
-                          {edit ? (
-                            <label>Age: {age}</label>
-                          ) : (
-                            <div className="">
-                              Age:{" "}
-                              <input
-                                type="text"
-                                value={age}
-                                className="bg-blue-200"
-                                onChange={(e) => setAge(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label>Height: {height}</label>
-                          ) : (
-                            <div className="">
-                              Height:{" "}
-                              <input
-                                type="text"
-                                value={height}
-                                className="bg-blue-200"
-                                onChange={(e) => height(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <label>Date Posted: {dob}</label>
-                          ) : (
-                            <div className="">
-                              Date Posted:{" "}
-                              <input
-                                type="text"
-                                value={dob}
-                                className="bg-blue-200"
-                                onChange={(e) => setDob(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="font-bold">Job Description</div>
-                        <div className="mb-3">
-                          {edit ? (
-                            <ul>
-                              <li>{jobDescrip}</li>
-                            </ul>
-                          ) : (
-                            <div className="">
-                              <input
-                                type="text"
-                                value={jobDescrip}
-                                className="bg-blue-200"
-                                onChange={(e) => setJobDescrip(e.target.value)}
-                              ></input>
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex items-start flex-col">
-                          <div className="pt-5 font-bold mb-3">
-                            Additional Information
-                          </div>
-                          <div className="font-bold">Carrer Level</div>
-                          <div className="mb-3">
+                          <div className="mb-3 mt-10">
                             {edit ? (
-                              <label>Carrer: {career}</label>
+                              <label>Age: {age}</label>
                             ) : (
                               <div className="">
-                                Carrer:{" "}
+                                Age:{" "}
                                 <input
                                   type="text"
-                                  value={career}
+                                  value={age}
                                   className="bg-blue-200"
-                                  onChange={(e) => setCareer(e.target.value)}
+                                  onChange={(e) => setAge(e.target.value)}
                                 ></input>
                               </div>
                             )}
                           </div>
-
-                          <div className="pt-5 font-bold">
-                            Years of Experience
+                          <div className="mb-3">
+                            {edit ? (
+                              <label>Height: {height}</label>
+                            ) : (
+                              <div className="">
+                                Height:{" "}
+                                <input
+                                  type="text"
+                                  value={height}
+                                  className="bg-blue-200"
+                                  onChange={(e) => height(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
                           </div>
                           <div className="mb-3">
                             {edit ? (
-                              <label>{experience}</label>
+                              <label>Date Posted: {dob}</label>
                             ) : (
                               <div className="">
-                                {" "}
+                                Date Posted:{" "}
                                 <input
                                   type="text"
-                                  value={experience}
+                                  value={dob}
+                                  className="bg-blue-200"
+                                  onChange={(e) => setDob(e.target.value)}
+                                ></input>
+                              </div>
+                            )}
+                          </div>
+                          <div className="font-bold">Job Description</div>
+                          <div className="mb-3">
+                            {edit ? (
+                              <ul>
+                                <li>{jobDescrip}</li>
+                              </ul>
+                            ) : (
+                              <div className="">
+                                <input
+                                  type="text"
+                                  value={jobDescrip}
                                   className="bg-blue-200"
                                   onChange={(e) =>
-                                    setExperience(e.target.value)
+                                    setJobDescrip(e.target.value)
                                   }
                                 ></input>
                               </div>
                             )}
                           </div>
+                          <div className="flex items-start flex-col">
+                            <div className="pt-5 font-bold mb-3">
+                              Additional Information
+                            </div>
+                            <div className="font-bold">Carrer Level</div>
+                            <div className="mb-3">
+                              {edit ? (
+                                <label>Carrer: {career}</label>
+                              ) : (
+                                <div className="">
+                                  Carrer:{" "}
+                                  <input
+                                    type="text"
+                                    value={career}
+                                    className="bg-blue-200"
+                                    onChange={(e) => setCareer(e.target.value)}
+                                  ></input>
+                                </div>
+                              )}
+                            </div>
 
-                          <div className="pt-5 font-bold">
-                            Job Specializations
-                          </div>
-                          <div className="mb-3">
-                            {edit ? (
-                              <label>{specializations}</label>
-                            ) : (
-                              <div className="">
-                                <input
-                                  type="text"
-                                  value={specializations}
-                                  className="bg-blue-200"
-                                  onChange={(e) =>
-                                    setSpecializations(e.target.value)
-                                  }
-                                ></input>
-                              </div>
-                            )}
+                            <div className="pt-5 font-bold">
+                              Years of Experience
+                            </div>
+                            <div className="mb-3">
+                              {edit ? (
+                                <label>{experience}</label>
+                              ) : (
+                                <div className="">
+                                  {" "}
+                                  <input
+                                    type="text"
+                                    value={experience}
+                                    className="bg-blue-200"
+                                    onChange={(e) =>
+                                      setExperience(e.target.value)
+                                    }
+                                  ></input>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="pt-5 font-bold">
+                              Job Specializations
+                            </div>
+                            <div className="mb-3">
+                              {edit ? (
+                                <label>{specializations}</label>
+                              ) : (
+                                <div className="">
+                                  <input
+                                    type="text"
+                                    value={specializations}
+                                    className="bg-blue-200"
+                                    onChange={(e) =>
+                                      setSpecializations(e.target.value)
+                                    }
+                                  ></input>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ) : (
-                      "Loading"
-                    )}
-                  </>
-                ) : (
-                  <div className="pt-[30%] text-4xl font-bold items-center">
-                    JOB INFORMATION
-                  </div>
-                )}
+                      ) : (
+                        "Loading"
+                      )}
+                    </>
+                  ) : (
+                    <div className="pt-[30%] text-3xl text-[#162388] font-bold items-center">
+                      JOB INFORMATION
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
             )}
           </div>
         </div>

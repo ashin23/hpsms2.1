@@ -161,12 +161,33 @@ const PostJob = ({ isPost, isPostClose }) => {
     justify-center items-center top-50 flex  "
     >
       <div className="bg-white h-[75%] w-[100%] lg:h-[60%] lg:w-[50%] md:h-[57%] md:w-[45%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto ">
-        <label className="flex pl-9 pr-56 py-3 ml-2 my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl">
-          Post a Job
-        </label>
-        <div className="m-5 grid-cols-2 grid">
+        {/* LABEL */}
+        <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
+          <label className=" py-3 pl-3 pr-10  md:pr-56 ml-2  my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl">
+            Post a Job
+          </label>{" "}
+          <div className="md:ml-[25%]  lg:ml-[10%] w-fit  md:flex px-5 text-lg ">
+            <button
+              className=" text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onClick={() => handleStoreData()}
+            >
+              Post A job
+            </button>
+            <button
+              onClick={() => isPostClose()}
+              className=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+          {/* UPLOAD PHOTO */}
+        <div className="m-5 grid-cols-1 md:grid-cols-2 md:mt-8 grid">
           <div>
-            <label className="flex font-bold ">Upload Logo</label>
+            <label className="flex font-bold ">
+              Upload Logo{" "}
+              <label className="font-semibold ml-1">(Recommended)</label>
+            </label>
             <input
               // value={files}
               className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
@@ -178,7 +199,10 @@ const PostJob = ({ isPost, isPostClose }) => {
             ></input>
           </div>
           <div>
-            <label className="flex font-bold ">Upload Cover Photo</label>
+            <label className="flex font-bold ">
+              Upload Cover Photo{" "}
+              <label className="font-semibold ml-1">(Recommended)</label>
+            </label>
             <input
               // value={files}
               className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-white focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
@@ -239,7 +263,7 @@ const PostJob = ({ isPost, isPostClose }) => {
                 onChange={(e) => setAge(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Age"
-                type="text"
+                type="number"
               ></input>
             </div>
             <div>
@@ -249,7 +273,7 @@ const PostJob = ({ isPost, isPostClose }) => {
                 onChange={(e) => setHeight(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Height"
-                type="text"
+                type="number"
               ></input>
             </div>
             <div>
@@ -259,7 +283,7 @@ const PostJob = ({ isPost, isPostClose }) => {
                 onChange={(e) => setSalary(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Salary per day"
-                type="text"
+                type="number"
               ></input>
             </div>
             <div>
@@ -355,21 +379,7 @@ const PostJob = ({ isPost, isPostClose }) => {
               ></textarea>
             </div>
           </div>
-          <div className="flex  justify-between gap-2 mt-6   ">
-            <button
-              className=" w-[100%] p-1 hover:bg-sky-400 border border-black text-black hover:text-white  hover:-translate-y-1 rounded-lg"
-              onClick={() => handleStoreData()}
-            >
-              Post A job
-            </button>
-
-            <button
-              onClick={() => isPostClose()}
-              className=" w-[100%]   hover:bg-sky-400 border border-black text-black hover:text-white  hover:-translate-y-1 rounded-lg"
-            >
-              Cancel
-            </button>
-          </div>
+          <div className="flex  justify-between gap-2 mt-6   "></div>
         </div>
       </div>
       <ToastContainer

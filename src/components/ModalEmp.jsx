@@ -76,6 +76,7 @@ function ModalEmp({ showJobApplicant, setShowJobApplicant, Info }) {
             Notifications: "false",
             Hotel: Info.Hotel,
             action: "Rejected",
+            oldtable: "Que"
           })
           .eq("uuid", Info.uuid);
         setTimeout(() => {
@@ -135,6 +136,7 @@ function ModalEmp({ showJobApplicant, setShowJobApplicant, Info }) {
       Notifications: "false",
       Hotel: Info.Hotel,
       action: "Rejected",
+      oldtable: "Que"
     });
     setTimeout(() => {
       delete1();

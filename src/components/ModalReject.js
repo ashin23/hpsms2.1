@@ -53,9 +53,9 @@ const ModalReject = ({ infoo, showReject, setShowReject }) => {
             userlvl: "Employee",
             status: "Undeploy",
             Notifications: "false",
-
             Hotel: infoo.Hotel,
             action: "Rejected",
+            oldtable: "applicanttable"
           })
           .eq("uuid", infoo.uuid);
         setTimeout(() => {
@@ -115,6 +115,7 @@ const ModalReject = ({ infoo, showReject, setShowReject }) => {
       Notifications: "false",
       Hotel: infoo.Hotel,
       action: "Rejected",
+      oldtable: "applicanttable"
     });
     setTimeout(() => {
       delete1();

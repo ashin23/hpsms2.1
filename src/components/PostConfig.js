@@ -74,7 +74,7 @@ function PostConfig({
   return (
     <>
       <button
-        className="hover:bg-[#78C1F3]  focus:outline-none focus:border-blue-500 shadow-lg focus:shadow-none focus:ring  rounded-xl  border-2 bg-[#FBF8FF] md:p-3 md:my-4 p-2 my-5 w-[90%] -ml-5  h-auto"
+        className="hover:bg-[#78C1F3]  focus:outline-none focus:border-[#020024] shadow-lg focus:shadow-none focus:ring  rounded-xl  border-2 bg-[#FBF8FF] md:p-3 md:my-4 p-2 my-5 w-[90%] -ml-5  h-auto"
         onClick={() => HandleClick()}
       >
         <div className="flex w-fit ">

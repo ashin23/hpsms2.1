@@ -17,6 +17,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
 import Notifications from "./Notifications";
+import { ToastContainer } from "react-toastify";
 
 const Navbar = ({
   setEmailSend,
@@ -117,6 +118,7 @@ const Navbar = ({
     getnotifemp();
     getnotiarch();
     getnotifreq();
+    fetchNotif();
     const Applicant_List = supabase
       .channel("custom-all-channel")
       .on(
@@ -124,6 +126,7 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Applicant_List" },
         (payload) => {
           getnotifapplicant();
+       
         }
       )
       .on(
@@ -131,6 +134,7 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Queuing_List" },
         (payload) => {
           getnotifque();
+      
         }
       )
       .on(
@@ -145,6 +149,7 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Archive_List" },
         (payload) => {
           getnotiarch();
+      
         }
       )
       .on(
@@ -489,31 +494,8 @@ const Navbar = ({
       }
     };
     window.addEventListener("resize", handleResize);
-    fetchNotif();
-    // const Applicant_List = supabase
-    //   .channel("custom-all-channel")
-    //   .on(
-    //     "postgres_changes",
-    //     { event: "*", schema: "public", table: "Applicant_List" },
-    //     (payload) => {
-    //       fetchNotif();
-    //     }
-    //   )
-    //   .on(
-    //     "postgres_changes",
-    //     { event: "*", schema: "public", table: "Queuing_List" },
-    //     (payload) => {
-    //       fetchNotif();
-    //     }
-    //   )
-    //   .on(
-    //     "postgres_changes",
-    //     { event: "*", schema: "public", table: "Archive_List" },
-    //     (payload) => {
-    //       fetchNotif();
-    //     }
-    //   )
-    //   .subscribe();
+   
+    
   }, [email]);
 
   if (
@@ -849,6 +831,18 @@ const Navbar = ({
         isUpload={showModalUpload}
         isCloseUpload={() => setModalUpload(false)}
         email={email}
+      />
+      <ToastContainer
+        autoClose={3000}
+        position="top-center"
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
       />
     </div>
   );

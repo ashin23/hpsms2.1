@@ -24,7 +24,7 @@ import Coverviewer from "./Coverviewer";
 import { FaBriefcase, FaBuilding, FaClock, FaSearch } from "react-icons/fa";
 import { FaLocationDot, FaCalendarDay, FaPesoSign } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
-
+import { ToastContainer } from "react-toastify";
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -48,24 +48,13 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [jobtitle, setjobtitle] = useState("");
   const [disable, setdisable1] = useState(false);
 
-  const about = useRef(null);
-  const apply = useRef(null);
+ 
   const Job = useRef(null);
 
   //AOS
   useEffect(() => {
     AOS.init({ duration: 1000, easing: "linear" });
   }, []);
-  // { behavior: "smooth" }
-  const handleabout = () => {
-    about.current?.scrollIntoView();
-  };
-  const handleapply = () => {
-    apply.current?.scrollIntoView();
-  };
-  const handleJob = () => {
-    Job.current?.scrollIntoView();
-  };
 
   //POSTED JOB
   useEffect(() => {
@@ -122,22 +111,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       .eq("id", info.id);
   };
 
-  const slides = [logo1, logo3, logo4];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prevSlide = () => {
-    setCurrentIndex(currentIndex === slides.length - 1 ? 0 : currentIndex + 1);
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex(currentIndex === 0 ? slides.length - 1 : currentIndex - 1);
-  };
-
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
-  };
-
   const [postJobInfo, setPostJobInfo] = useState([]);
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -145,9 +118,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [itemsOffset, setItemOffset] = useState(0);
   const perpage = 5;
 
+  const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    const endoffsett = itemsOffset + perpage;
-    setcurrentitems(postJobInfo.slice(itemsOffset, endoffsett));
+    setcurrentitems(postJobInfo);
     setpagecount(Math.ceil(postJobInfo.length / perpage));
   }, [itemsOffset, perpage, postJobInfo]);
 
@@ -210,11 +183,12 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       <div className="  h-screen  ">
         <div className="  md:h-[100%] sticky top-0 w-full  overflow-x-hidden    overflow-y-auto   bg-slate-100 p-0 md:p-10">
           {/* Search  */}
-          {/* bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] */}
+
           <div className=" flex justify-center  pt-[130px]  w-full relative p-2  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] ">
-            {/* <img src={banner} className="w-full h-full object-cover  "/> */}
-            <p  className="absolute md:-mt-[80px] font-bold md:text-3xl text-sm   -mt-[30px] text-white  ">Your Dream Job Awaits: Apply Now & Thrive!</p>
-            
+            <p className="absolute md:-mt-[80px] font-bold md:text-3xl text-sm   -mt-[30px] text-white  ">
+              Your Dream Job Awaits: Apply Now & Thrive!
+            </p>
+
             <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[56%] text-2xl absolute text-slate-400" />
             <input
               className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -230,7 +204,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               onChange={(e) => setSearch2(e.target.value)}
             ></input>
             <FaLocationDot className="md:mt-2 mt-4 ml-8 text-2xl absolute text-slate-400" />
-           
           </div>
           {/* right side */}
           <div className="md:flex  grid grid-cols-1  shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]">
@@ -255,6 +228,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           return val;
                         }
                       })
+                      .slice(itemsOffset, endoffsett)
                       .map((e) => (
                         <PostConfig
                           key={e.id}
@@ -577,9 +551,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           <div className="font-bold">Job Description</div>
                           <div className="mb-3">
                             {edit ? (
-                              <ul>
-                                <li>{jobDescrip}</li>
-                              </ul>
+                              <p>{jobDescrip}</p>
                             ) : (
                               <div className="">
                                 <input
@@ -670,6 +642,18 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             )}
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="light"
+        />
       </div>
     </>
   );

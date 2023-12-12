@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import supabase from "./supabaseClient";
 import ApplicantConfig from "./ApplicantConfig";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { ToastContainer } from "react-toastify";
 import ReactPaginate from "react-paginate";
 import position from "./position.json";
-import { useNavigate } from "react-router-dom";
-import { TbListSearch } from "react-icons/tb";
-import { GrNext } from "react-icons/gr";
+
 const Applicant = () => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
@@ -67,7 +65,7 @@ const Applicant = () => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 5;
+  const perpage = 10;
 
   const endoffsett = itemsOffset + perpage;
   useEffect(() => {
@@ -170,79 +168,10 @@ const Applicant = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
 
 export default Applicant;
-{
-  /* <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
-          {/* Filter */
-}
-{
-  /* <div className="grid grid-cols-2 md:-mb-2 -mt-14 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
-            
-             
-            </div>
 
-            <div className="">
-              <label className=" md:ml-2  text-xl font-semibold text-white">
-                Date
-              </label>
-             
-            </div>
-            <div className="text-black gap-2 md:-mt-12 -mt-11">
-            <label className=" md:ml-2  text-xl font-semibold text-white">
-                Search Position
-              </label>
-              <select
-                className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                onChange={(e) => setApplicantPosition(e.target.value)}
-              >
-                {position.map((position) => (
-                  <option key={position.id}> {position.position}</option>
-                ))}
-              </select>
-            </div>
-          </div> */
-}
-{
-  /* </div> */
-}
-
-{
-  /* <div className=" p-3  w-[100%] z-10  justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] rounded-md ">
-          {/* <div className="grid grid-cols-3   w-[100%]  bg-slate-300 ">
-            <div className="text-md p-3">Name</div>
-            <div className="text-md p-3">Position</div>
-            <div className="text-md p-3 ">Email</div>
-          </div>
-          {applicants && (
-            <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
-              {" "}
-              {applicants
-                .filter((val) => {
-                  try {
-                    if (search1 === "") {
-                      return val;
-                    } else if (
-                      val.Name.toLowerCase().includes(search1.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  } catch (error) {}
-                })
-                .sort((a, b) => (b.id > a.id ? 1 : -1))
-                .slice(itemsOffset, endoffsett)
-                .map((e) => (
-                  <ApplicantConfig key={e.id} e={e} />
-                ))}
-            </div>
-          )} */
-}
-{
-  /* </div> */
-}
-
-{
-}

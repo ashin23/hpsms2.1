@@ -13,7 +13,7 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
     
       }
     
-      // console.log(updatedData)
+   
       
     }
    

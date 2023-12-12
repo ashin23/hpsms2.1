@@ -5,28 +5,19 @@ import supabase from "./supabaseClient";
 import Fileviewer from "./Fileviewer";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { ToastContainer } from "react-toastify";
 import { IoIosInformationCircle } from "react-icons/io";
 import { RiParentFill } from "react-icons/ri";
 import { MdContactPhone } from "react-icons/md";
 import { IoSchool } from "react-icons/io5";
-
-const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
+import { FaBriefcase } from "react-icons/fa";
+import { VscReferences } from "react-icons/vsc";
+import { AiOutlineFileSearch } from "react-icons/ai";
+const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponent }) => {
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
 
-  const [file1, setFile] = useState();
-
-  useEffect(() => {
-    Handlefetchfile();
-  }, [Info]);
-
-  const Handlefetchfile = async () => {
-    const { data: file } = await supabase.storage
-      .from("Files")
-      .list(Info.Email + "/");
-    setFile(await file);
-  };
+ 
 
   const updateNotif = async () => {
     const { data: update } = await supabase
@@ -46,14 +37,14 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
   if (!isOpen) return null;
   return (
     <div
-      className=" fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
-  justify-center items-center z-50 top-50 flex overflow-auto "
+      className="z-50  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
+  justify-center items-center  top-50 flex overflow-auto "
     >
       <div
         data-aos="zoom-in"
-        className=" bg-white h-[70%] w-[70%] rounded-lg  shadow-2xl  "
+        className=" bg-white h-[79%] w-[90%] md:h-[70%] md:w-[70%] rounded-lg  shadow-2xl  "
       >
-        <div className="flex justify-end p-1">
+        <div className="flex justify-end mt-[10px] md:mt-0 p-1">
           <button
             onClick={close}
             className="text-sm font-medium p-2  px-4 text-gray-900 focus:outline-none bg-gray-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -61,24 +52,25 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
             Close
           </button>
         </div>
-        <div className="grid p-3  h-[90%]">
+        <div className="grid p-3 h-[100%] md:h-[90%]">
           {/* MAIN INFORMATION */}
-          <div className="flex w-[100%] h-fit">
+          <div className="md:flex  grid-cols-1   w-[100%] h-fit">
             <img
               src={srcIMG}
-              className="h-[200px] w-[200px] shadow-md shadow-black rounded-full "
+              
+              className="md:h-[200px] md:w-[200px] w-[100px] h-[100px] md:ml-0 ml-[100px] -mt-8 md:-mt-0  shadow-md shadow-black rounded-full "
             ></img>
-            <div className="grid w-[100%] h-fit ">
-              <div className="flex w-[100%] h-fit gap-y-2">
+            <div className="grid  w-[100%] h-fit ">
+              <div className="grid md:flex w-[100%] h-fit gap-y-2">
                 <label
-                  className=" p-4  flex  text-slate-100 md:text-[30px] text-xl w-[70%]
+                  className="p-2 md:p-4  flex whitespace-nowrap  text-slate-100 md:text-[30px] text-lg md:w-[70%]
               text-start font-semibold rounded-2xl bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] "
                 >
                   Applicant Information
                 </label>
                 <div className="gap-1 flex">
                   <button
-                    className="text-white text-sm font-medium bg-green-700 rounded-lg p-4
+                    className="text-white text-sm font-medium bg-green-700 rounded-lg md:p-4 p-2
                 focus:outline-none hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     onClick={() => setShowAccept(true)}
                   >
@@ -86,7 +78,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
                   </button>
                   <button
                     onClick={() => setShowReject(true)}
-                    className="text-white text-sm font-medium bg-red-700 rounded-lg p-4
+                    className="text-white text-sm font-medium bg-red-700 rounded-lg md:p-4 p-2
                 focus:outline-none hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                   >
                     REJECT
@@ -116,12 +108,12 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
             </div>
           </div>
           {/* OTHER INFORMATION TABLE */}
-          <div className="h-[100%] overflow-y-auto overflow-x-hidden mt-2">
+          <div className="h-[75%] md:h-[100%]  overflow-y-auto overflow-x-hidden mt-2">
             <h1 className="font-semibold text-lg mt-7 flex gap-1 items-center">
               <IoIosInformationCircle className="h-fit w-fit text-[20px] text-blue-600" />{" "}
               OTHER INFORMATION:
             </h1>
-            <div className="grid grid-cols-3 font-semibold ">
+            <div className="grid grid-cols-1 md:grid-cols-3 font-semibold ">
               <div className="flex mr-1  ">
                 Provincial Address:{" "}
                 <p className="font-thin pl-1">{Info.Provincial_Address}</p>
@@ -147,7 +139,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
               <RiParentFill className="h-fit w-fit text-[20px] text-blue-600" />{" "}
               PARENT INFORMATION:
             </h1>
-            <div className="grid grid-cols-2 font-semibold">
+            <div className="grid grid-cols-1 md:grid-cols-2 font-semibold">
               <div className="flex mr-1  ">
                 Name of Mother:{" "}
                 <p className="font-thin pl-1">{Info.Name_of_Mother}</p>
@@ -173,7 +165,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
               <MdContactPhone className="h-fit w-fit text-[20px] text-blue-600" />{" "}
               EMERGENCY INFORMATION:
             </h1>
-            <div className="grid grid-cols-2 font-semibold">
+            <div className="grid grid-cols-1 md:grid-cols-2 font-semibold">
               <div className="flex mr-1  ">
                 Person to Notify Incase of Emergency:{" "}
                 <p className="font-thin pl-1">{Info.Notify_Emergency}</p>
@@ -199,7 +191,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
               <IoSchool className="h-fit w-fit text-[20px] text-blue-600" />{" "}
               EDUCATIONAL BACKGROUND:
             </h1>
-            <div className="grid grid-cols-2 font-semibold gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 font-semibold gap-2">
               <div className="flex mr-1  font-semibold">
                 College: <p className="font-thin pl-1">{Info.College}</p>
               </div>
@@ -237,12 +229,67 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
               </div>
             </div>
 
+            <h1 className="font-semibold text-lg mt-7 flex gap-1 items-center">
+              <FaBriefcase className="h-fit w-fit text-[20px] text-blue-600" />{" "}
+              EMPLOYMENT HISTORY:<em>(from recent to backwards)</em>
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 font-semibold gap-2">
+              <div className="flex mr-1  font-semibold">
+                Inclusive Dates:{" "}
+                <p className="font-thin pl-1">{Info.Inclusive_Dates}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Company/Employer:{" "}
+                <p className="font-thin pl-1"> {Info.Company_History}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Position:{" "}
+                <p className="font-thin pl-1"> {Info.Position_History}</p>
+              </div>
+            </div>
+
+            <h1 className="font-semibold text-lg mt-7 flex gap-1 items-center">
+              <VscReferences className="h-fit w-fit text-[20px] text-blue-600" />{" "}
+              CHARACTER REFERENCES:
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 font-semibold gap-2">
+              <div className="flex mr-1  font-semibold">
+                Names: <p className="font-thin pl-1">{Info.Name_References}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Company/Employer:{" "}
+                <p className="font-thin pl-1"> {Info.Company_References}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Position:{" "}
+                <p className="font-thin pl-1"> {Info.Position_References}</p>
+              </div>
+            </div>
+            <h1 className="font-semibold text-lg mt-7 flex gap-1 items-center">
+              <AiOutlineFileSearch className="h-fit w-fit text-[20px] text-blue-600" />{" "}
+              REQUIREMENTS:
+            </h1>
+            <div className="grid grid-cols-1 font-semibold gap-2">
+              <div className="flex mr-1  font-semibold">
+                SSS No: <p className="font-thin pl-1">{Info.SSS_Number}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Phil Health No: <p className="font-thin pl-1">{Info.Phil_Health_No}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Pag Ibig No: <p className="font-thin pl-1">{Info.Pag_Ibig_No}</p>
+              </div>
+              <div className="flex mr-1  font-semibold">
+                Tin No: <p className="font-thin pl-1">{Info.Tin_Number}</p>
+              </div>
+            </div>
           </div>
         </div>
-
+         
         <div className=""></div>
       </div>
       <ModalAccept
+        srcIMG={srcIMG}
         showAccept={showAccept}
         setShowAccept={setShowAccept}
         info={Info}
@@ -258,102 +305,4 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG }) => {
 
 export default ModalApplicantInfo;
 
-{
-  /* <div className="mt-10 text-[110%] grid-cols-1  grid md:grid-cols-4 gap-4 gap-y-9 mb-3 p-2 ">
 
-
-
-
-
-
-
-
-</div>
-<div className="mt-10 text-[110%] grid-cols-1  grid md:grid-cols-2 gap-4 gap-y-9 mb-3 p-2 ">
-
-
-
-<
-</div>
-<label
-className="flex md:text-[30px] h-fit text-xl
-pl-5 pr-36 py-3 my-4 mb-2
-md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
->
-EMPLOYMENT HISTORY
-</label>
-<label className="flex ml-10 text-[15px] ">
-(from recent to backwards)
-</label>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
-<div>
-  <label className="flex font-semibold justify-center md:ml-[30%]">
-    Inclusive Dates
-  </label>
-  <div className="flex mr-1 ml-[30%]  font-thin">
-    {Info.Inclusive_Dates}
-  </div>
-</div>
-<div>
-  <label className="flex font-semibold justify-center md:ml-[30%]">
-    Company/Employer
-  </label>
-  <div className="flex mr-1 ml-[30%] font-thin">
-    {Info.Company_History}
-  </div>
-</div>
-<div>
-  <label className="flex font-semibold justify-center md:ml-[30%]">
-    Position
-  </label>
-  <div className="flex mr-1 ml-[30%] font-thin">
-    {Info.Position_History}
-  </div>
-</div>
-</div>
-<label
-className="flex md:text-[30px] h-fit text-xl
-pl-5 pr-36 py-3 my-4 mb-2
-md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
->
-CHARACTER REFERENCES
-</label>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2 mt-5">
-<div>
-  <label className="flex font-semibold justify-center md:ml-[30%]">
-    Names
-  </label>
-  <div className="flex font-semibold justify-center md:ml-[30%]">
-    {Info.Name_References}
-  </div>
-</div>
-<div>
-  <label className="flex font-semibold justify-center md:ml-[30%]">
-    Company/Employer
-  </label>
-  <div className="flex font-semibold justify-center md:ml-[30%]">
-    {Info.Company_References}
-  </div>
-</div>
-<div>
-  <label className="flex font-semibold ml-[30%]">Position</label>
-  <div className="flex font-semibold justify-center md:ml-[30%]">
-    {Info.Position_References}
-  </div>
-</div>
-</div>
-<div className="grid grid-cols-1 mt-10 gap-2">
-<label className="flex font-semibold ml-[30%] text-[18px]">
-  SSS No: {Info.SSS_Number}
-</label>
-<label className="flex font-semibold ml-[30%] text-[18px]">
-  Phil Health No: {Info.Phil_Health_No}
-</label>
-<label className="flex font-semibold ml-[30%] text-[18px]">
-  Pag Ibig No: {Info.Pag_Ibig_No}
-</label>
-<label className="flex font-semibold ml-[30%] text-[18px]">
-  Tin No: {Info.Tin_Number}
-</label>
-</div> */
-}

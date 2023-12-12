@@ -31,7 +31,7 @@ const Notifications = ({ isOpen, isClose, email, data }) => {
         flex 
         md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:-ml-10  md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:-ml-10  md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold   bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             Notifications
           </label>
@@ -42,7 +42,7 @@ const Notifications = ({ isOpen, isClose, email, data }) => {
                 <label>Status</label>
               </div>
               {data.map((data) => (
-                <div className="grid grid-cols-2">
+                <div className="grid grid-cols-2 overflow-y-auto h-[100%]">
                   <div className="">{data.Hotel}</div>
                   <div>{data.action}</div>
                 </div>

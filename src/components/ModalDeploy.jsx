@@ -109,7 +109,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
   function close() {
     isCloseDeploy();
     setdatadisplay("");
-    empDeploy()
+    empDeploy();
   }
 
   if (!isOpenDeploy) return null;
@@ -123,42 +123,43 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           data-aos="zoom-in"
           className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
         >
-          <label
-            className=" flex p-3 px-3 text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
-            bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl -mb-24"
-          >
-            Selected Employees
-          </label>
-          <div className="flex grid-cols-2 md:-mb-14 md:mt-2">
-            <button
-              onClick={() => HandleSendCoordinator()}
-              className="  focus:outline-none md:h-[40%] h-[50%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+          <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
+            <label
+              className=" flex p-3 px-3  text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
+              bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl -mb-24"
             >
-              Send
-            </button>
-            <button
-              onClick={close}
-              className=" focus:outline-none md:h-[40%] h-[50%] text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 "
-            >
-              Cancel
-            </button>
+              Selected Employees
+            </label>
+            <div className="flex grid-cols-2 md:ml-2 md:-mb-14 md:mt-2">
+              <button
+                onClick={() => HandleSendCoordinator()}
+                className="  focus:outline-none md:h-[40%] h-[50%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+              >
+                Send
+              </button>
+              <button
+                onClick={close}
+                className=" focus:outline-none md:h-[40%] h-[50%] text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900 "
+              >
+                Cancel
+              </button>
+            </div>
           </div>
+
           {employee && (
-            <div className=" overflow-y-auto overflow-x-hidden md:h-[50%]">
+            <div className=" overflow-y-auto overflow-x-hidden bg-black md:h-[100%]">
               {employee.map((pos, index) => (
                 <Deploy
                   key={index}
                   pos={pos}
                   setemployee={setemployee}
                   employee={employee}
-                 
                 />
               ))}
             </div>
           )}
-         
 
-          <div className="md:-mt-10">
+          <div className="md-mt-10">
             <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
             <input
               value={datadisplay}

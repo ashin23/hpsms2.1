@@ -26,6 +26,8 @@ const PostJob = ({ isPost, isPostClose }) => {
   const [hotelid, setHotelid] = useState("");
   const [files1, setFiles1] = useState([]);
 
+  const [disable, setdisable] = useState(false);
+
   function close() {
     isPostClose();
   }
@@ -91,6 +93,7 @@ const PostJob = ({ isPost, isPostClose }) => {
 
         return;
       } else {
+        setdisable(true);
         const { data, error } = await supabase.from("PostJob").insert([
           {
             position: positions,
@@ -146,9 +149,9 @@ const PostJob = ({ isPost, isPostClose }) => {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          close();
-        }, [3000]);
+        setdisable(false);
+        close();
+
         return;
       }
     } catch (error) {}
@@ -168,7 +171,11 @@ const PostJob = ({ isPost, isPostClose }) => {
           </label>{" "}
           <div className="md:ml-[25%]  lg:ml-[10%] w-fit  md:flex px-5 text-lg ">
             <button
-              className=" text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className={`${
+                !disable
+                  ? "  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  : "bg-gray-500"
+              } text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2`}
               onClick={() => handleStoreData()}
             >
               Post A job
@@ -181,7 +188,7 @@ const PostJob = ({ isPost, isPostClose }) => {
             </button>
           </div>
         </div>
-          {/* UPLOAD PHOTO */}
+        {/* UPLOAD PHOTO */}
         <div className="m-5 grid-cols-1 md:grid-cols-2 md:mt-8 grid">
           <div>
             <label className="flex font-bold ">
@@ -273,7 +280,7 @@ const PostJob = ({ isPost, isPostClose }) => {
                 onChange={(e) => setHeight(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Height"
-                type="number"
+                type="text"
               ></input>
             </div>
             <div>
@@ -382,18 +389,6 @@ const PostJob = ({ isPost, isPostClose }) => {
           <div className="flex  justify-between gap-2 mt-6   "></div>
         </div>
       </div>
-      <ToastContainer
-        autoClose={3000}
-        position="top-center"
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
     </div>
   );
 };

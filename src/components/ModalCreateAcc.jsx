@@ -105,7 +105,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             Email: email,
             Password: password,
             userlvl: "Employee",
-            Notifications: "false"
+            Notifications: "false",
           },
         ]);
         toast.success("Account create succesfully!", {
@@ -128,7 +128,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             Email: email,
             Password: password,
             userlvl: position,
-            Notifications: "false"
+            Notifications: "false",
           },
         ]);
         toast.success("Account create succesfully!", {
@@ -178,14 +178,26 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       className=" z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex w-screen h-screen"
     >
-      <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[65%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[35%] w-[100%] rounded-3xl shadow-2xl">
-        <label
-          className="flex h-fit text-xl
-          pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 md:text-[30px] text-[20px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
-        >
-          Create Account
-        </label>
+      <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[65%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[40%] w-[100%] rounded-3xl shadow-2xl">
+        <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
+          <label className="whitespace-nowrap py-3 pl-3 pr-10  md:pr-56 ml-2  my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl">
+            Create Account
+          </label>{" "}
+          <div className=" w-fit  md:flex px-5 text-lg ">
+            <button
+              className=" text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onClick={() => HandleCreate()}
+            >
+              Create
+            </button>
+            <button
+              onClick={() => close()}
+              className=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
         <div className="grid grid-cols-1   gap-5  ">
           <div>
             <label className="flex font-bold">Email</label>
@@ -219,9 +231,9 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
                 placeholder="Password"
                 type={view ? "text" : "password"}
               ></input>
-              <button onClick={() => setView(!view)}>
+              <button className="-ml-10" onClick={() => setView(!view)}>
                 {view ? (
-                  <AiFillEyeInvisible className="text-[20px]" />
+                  <AiFillEyeInvisible className="text-[20px] " />
                 ) : (
                   <AiFillEye className="text-[20px]" />
                 )}
@@ -229,15 +241,16 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             </div>
           </div>
 
+         
+          <div className="text-md   gap-2">
           <label className="flex font-bold">Confirm Password</label>
-          <div className="text-md flex   gap-2">
             <input
               onChange={(e) => setPassword2(e.target.value)}
               className="pl-3 pr-3 py-2 w-[100%] md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Confirm Password"
               type={view1 ? "text" : "password"}
             ></input>
-            <button onClick={() => setView1(!view1)}>
+            <button className="-ml-10" onClick={() => setView1(!view1)}>
               {view1 ? (
                 <AiFillEyeInvisible className="text-[20px]" />
               ) : (
@@ -262,20 +275,6 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             className="px-3 py-2 w-[80px] text-[10px] bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-blue-500"
           >
             Send Code
-          </button>
-        </div>
-        <div className="flex w-[100%] justify-center mt-3">
-          <button
-            onClick={() => HandleCreate()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-          >
-            Create
-          </button>
-          <button
-            className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            onClick={() => close()}
-          >
-            Cancel
           </button>
         </div>
 

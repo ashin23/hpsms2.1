@@ -34,7 +34,7 @@ function App() {
     <>
       <div className="App ">
         {/* h-fit pinalitan */}
-        <header className=" z-40 fixed w-screen top-0 h-fit">
+        <header className=" z-40  fixed w-screen top-0 h-fit">
           <Navbar
             // HandleCheckerUser={HandleCheckerUser}
             // checker={checker}
@@ -98,7 +98,7 @@ function App() {
         </main>
 
         {/* absolute remove footer */}
-        <footer className=" fixed w-full bottom-0 h-fit">
+        <footer className="  fixed w-full bottom-0 h-fit">
           <Footer />
         </footer>
       </div>

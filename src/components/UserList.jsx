@@ -5,8 +5,10 @@ import UserListConfig from "./UserListConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ModalCreateAcc from "./ModalCreateAcc";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+
 import ReactPaginate from "react-paginate";
+import { IoPersonAdd } from "react-icons/io5";
+
 const UserList = () => {
   const [search1, setSearch1] = useState("");
   const [userList, setUserList] = useState([]);
@@ -130,11 +132,13 @@ const UserList = () => {
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
   const [itemsOffset, setItemOffset] = useState(0);
-  const perpage = 5;
+  const perpage = 7;
 
   const endoffsett = itemsOffset + perpage;
+  
   useEffect(() => {
     setcurrentitems(userList);
+   
     setpagecount(Math.ceil(userList.length / perpage));
   }, [itemsOffset, perpage, userList]);
 
@@ -143,137 +147,108 @@ const UserList = () => {
 
     setItemOffset(newOffset);
   };
-  if(showModalCreateAcc)document.body.style.overflow = "hidden";
+  if (showModalCreateAcc) document.body.style.overflow = "hidden";
   else document.body.style.overflow = "unset";
   return (
-    <div className="">
-      <div className="h-screen overflow-y-hidden">
-        <div className="sticky top-5 flex justify-center  pt-32 item-center h-[45%]  overflow-y-auto md:overflow-y-hidden pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
-          {/* Filter */}
-          <div className="grid grid-cols-2 md:-mb-5  -mt-10 -mb-5 gap-2 p-2 md:-mt-14 md:gap-5">
-            <div className="bg-white flex flex-col w-full text-center rounded-md  ">
-              <label className="font-bold text-lg md:text-xl">
-                Total Applicants
-              </label>
-              <label className="font-bold text-lg md:text-4xl">
-                {usertotalapp.length}
-              </label>
-            </div>
-            <div className="bg-white flex flex-col w-full text-center rounded-md  ">
-              <label className="font-bold text-lg md:text-xl">
-                Total Employee
-              </label>
-              <label className="font-bold text-lg md:text-4xl">
-                {usertotalemp.length}
-              </label>
-            </div>
-
-            <div className="bg-white flex flex-col w-full text-center rounded-md  ">
-              <label className="font-bold text-lg md:text-xl">
-                Total Coordinators
-              </label>
-              <label className="font-bold text-lg md:text-4xl">
-                {usertotalcoord.length}
-              </label>
-            </div>
-            <div className="bg-white flex flex-col w-full text-center rounded-md  ">
-              <label className="font-bold text-lg md:text-xl">
-                Total Applicants
-              </label>
-              <label className="font-bold text-lg md:text-4xl">
-                {usertotalhr.length}
-              </label>
-            </div>
-            <div className="bg-white flex flex-col w-full text-center rounded-md  ">
-              <label className="font-bold text-lg md:text-xl">
-                Total Restricted Account
-              </label>
-              <label className="font-bold text-lg md:text-4xl">
-                {usertotalrestricted.length}
-              </label>
-            </div>
-
-            <div>
-              <label className=" md:ml-2  text-xl font-semibold text-white">
-                Search name
-              </label>
-              <input
-                className="-mt-6 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                placeholder="Search name"
-                type="search"
-                onChange={(e) => setSearch1(e.target.value)}
-              ></input>
-            </div>
-          </div>
-        </div>
-        <h1 className=" -mb-5 mt-4 z-50 font-bold flex flex-col md:mb-6 text-[25px] items-center">
+    <div className="fixed inset-0 h-screen w-screen flex flex-col bg-black items-center justify-center place-content-center ">
+      <div className="h-[100%] bg-white w-[100%] flex flex-col  ">
+        <h1 className="mt-20 font-semibold flex justify-center   text-3xl bg-[#040463] text-white p-5 w-full">
           User List
         </h1>
-        <div className="w-full   md:-mt-7 justify-between flex items-center">
-          <ReactPaginate
-            previousLabel={
-              <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
-                <BsChevronCompactLeft />
-              </span>
-            }
-            nextLabel={
-              <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
-                <BsChevronCompactRight />
-              </span>
-            }
-            pageCount={pagecount}
-            onPageChange={handlePageClick}
-            renderOnZeroPageCount={null}
-            pageRangeDisplayed={5}
-            containerClassName="flex mt-2   "
-            pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
-          />
-          <button
-            onClick={() => setShowCreateAcc(true)}
-            className=" -mb-2 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-          >
-            Create Account
-          </button>
-        </div>
-        <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none ">
-          <div className="grid grid-cols-4 w-[100%] bg-slate-300">
-            <label className="text-md p-3 w-[92%]">Email</label>
-            <label className="text-md p-3 w-[92%]">Password</label>
-            <label className="text-md p-3 w-[100%]">Position</label>
-            <label className="text-md p-3 w-[10%] ">Action</label>
-          </div>
-          {userList && (
-            <div className="md:h-[40%] h-[10rem] overflow-y-auto overflow-x-hidden">
-              {userList
-                .filter((val) => {
-                  try {
-                    if (search1 === "") {
-                      return val;
-                    } else if (
-                      val.Email.toLowerCase().includes(search1.toLowerCase())
-                    ) {
-                      return val;
-                    } else if (
-                      val.Position.toLowerCase().includes(search1.toLowerCase())
-                    ) {
-                      return val;
-                    }
-                  } catch (error) {}
-                })
-                .sort((a, b) => (b.id > a.id ? 1 : -1))
-                .slice(itemsOffset, endoffsett)
-                .map((e) => (
-                  <UserListConfig key={e.id} e={e} notify={NotifyCode} />
-                ))}
+
+        {/* table */}
+        <div className=" p-3 w-[100%] h-[69%] ">
+          <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
+            <div className="md:flex grid justify-between w-full">
+              <div className="flex  gap-2 font-normal text-xs  md:text-base p-3 w-full md:justify-start justify-center">
+                <label className="">
+                  Total Applicants(<em> {usertotalapp.length} </em>)
+                </label>
+
+                <label className="">
+                  Total Employee(<em> {usertotalemp.length} </em>)
+                </label>
+                <label className="">
+                  Total Coordinators(<em> {usertotalcoord.length} </em>)
+                </label>
+                <label className="">
+                  Total HR(<em> {usertotalhr.length} </em>)
+                </label>
+                <label className="">
+                  Total Restricted Accounts(
+                  <em> {usertotalrestricted.length} </em>)
+                </label>
+              </div>
+              <div className="flex items-center  h-[100%] w-[100%] mr-1 gap-2 mb-5">
+                <input
+                  className=" h-[30px] w-[90%]  pl-1 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  placeholder="Search name"
+                  type="search"
+                  onChange={(e) => setSearch1(e.target.value)}
+                />
+                <button
+                  className="whitespace-nowrap flex bg-[#040463] p-1 rounded-md text-white"
+                  onClick={() => setShowCreateAcc(true)}
+                >
+                  {" "}
+                  <IoPersonAdd className="mt-1" />
+                  Create Account
+                </button>
+              </div>
             </div>
-          )}
+
+            <div className="bg-white w-[100%] h-[100%]">
+              {userList && (
+                <div className="md:h-[100%] h-[70%] overflow-y-auto overflow-x-hidden p-1">
+                  <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
+                    <label className="justify-start flex">NAME</label>
+                    <label className="justify-center flex">POSITION</label>
+                    
+                    <label className="justify-center flex">ACTION</label>
+                  </div>
+                  {userList
+                    .filter((val) => {
+                      try {
+                        if (search1 === "") {
+                          return val;
+                        } else if (
+                          val.Name.toLowerCase().includes(search1.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      } catch (error) {}
+                    })
+                    .sort((a, b) => (b.id > a.id ? 1 : -1))
+                    .slice(itemsOffset, endoffsett)
+                    .map((e) => (
+                      <UserListConfig key={e.id} e={e} />
+                    ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-end -mt-3 md:mt-2">
+            <ReactPaginate
+              previousLabel="Prev"
+              nextLabel="Next"
+              breakLabel=""
+              pageCount={pagecount}
+              onPageChange={handlePageClick}
+              renderOnZeroPageCount={null}
+              pageRangeDisplayed={3}
+              containerClassName="flex items-center text-white gap-2"
+              previousClassName="bg-[#040463] p-1 rounded-md text-white "
+              nextClassName="bg-[#040463] p-1 rounded-md text-white"
+              pageClassName="bg-[#040463] p-1 rounded-md text-white px-2"
+            />
+          </div>
         </div>
       </div>
-      <ToastContainer />
       <ModalCreateAcc
         isOpen1={showModalCreateAcc}
-        isClose1={() => setShowCreateAcc(false)}
+        isClose1={setShowCreateAcc}
       />
+      <ToastContainer />
     </div>
   );
 };

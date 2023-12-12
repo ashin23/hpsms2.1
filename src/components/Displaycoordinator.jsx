@@ -22,7 +22,7 @@ const Displaycoordinator = ({
         >
           {" "}
           <div data-tooltip-id="my-tooltip" data-tooltip-content="View Profile">
-            {e.Name}
+            {e.Email}
           </div>
           <div>{e.Position}</div>
           <Tooltip id="my-tooltip" place="bottom" />

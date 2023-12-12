@@ -17,6 +17,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
   const [view, setView] = useState(false);
   const [view1, setView1] = useState(false);
+  const [disable, setdisable] = useState(false);
 
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
@@ -45,15 +46,15 @@ const Register = ({ isRegister, isRegisterClose }) => {
       });
       return;
     }
-    emailjs.send(
-      "service_yj6ye3j",
-      "template_aek4udy",
-      {
-        email2: formdata.email,
-        code: otpCode,
-      },
-      "-qtQXoQ1iYx4JDljO"
-    );
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_aek4udy",
+    //   {
+    //     email2: formdata.email,
+    //     code: otpCode,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
     toast.success("Code sent succesfully", {
       position: "top-center",
       autoClose: 3000,
@@ -73,7 +74,8 @@ const Register = ({ isRegister, isRegisterClose }) => {
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
     const { data: emp } = await supabase.from("Employee_List").select();
-    var data = applist.concat(user, emp);
+    const {data: arch} = await supabase.from("Archive_List").select()
+    var data = applist.concat(user, emp, arch);
     if (data) {
       for (let index = 0; index < data.length; index++) {
         if (
@@ -138,6 +140,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
       formdata.password2 === formdata.password &&
       formdata.verCode === otpCode
     ) {
+      setdisable(true);
       const { data, error } = await supabase.from("NewUser").insert([
         {
           Email: formdata.email,
@@ -199,12 +202,10 @@ const Register = ({ isRegister, isRegisterClose }) => {
         progress: undefined,
         theme: "light",
       });
-      setTimeout(() => {
-        isRegisterClose();
-      }, [3000]);
+      setdisable(false);
+      isRegisterClose();
     }
   };
-
   const [formdata, setformdata] = useState({
     email: "",
     name: "",
@@ -280,7 +281,11 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <div className="md:flex md:justify-between  grid grid-cols-1  ">
             <button
               type="submit"
-              className="text-white md:ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className={`${
+                !disable
+                  ? "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  : "bg-gray-500"
+              } text-white md:ml-4   font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600`}
             >
               Submit
             </button>
@@ -336,7 +341,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                   ></input>
                   <button
                     onClick={HandleSendCode}
-                    className="md:ml-2 ml-2 md:px-5 md:py-2 md:w-[20%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
+                    className="ml-2   md:px-5 md:py-2 md:w-[20%] text-sm tracking-widest bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-black"
                   >
                     Send Code
                   </button>
@@ -358,7 +363,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                   placeholder="Password"
                   type={view ? "text" : "password"}
                 ></input>
-                <div className=" ml-1" onClick={() => setView(!view)}>
+                <div className=" -ml-10" onClick={() => setView(!view)}>
                   {view ? (
                     <AiFillEyeInvisible className="text-[20px]" />
                   ) : (
@@ -380,7 +385,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                   placeholder="Confirm Password"
                   type={view1 ? "text" : "password"}
                 ></input>
-                <div className="ml-1" onClick={() => setView1(!view1)}>
+                <div className="-ml-10" onClick={() => setView1(!view1)}>
                   {view1 ? (
                     <AiFillEyeInvisible className="text-[20px]" />
                   ) : (
@@ -441,7 +446,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 placeholder="Mobile Number"
                 onChange={handleChange}
                 required
-                type="text"
+                type="number"
               ></input>
             </div>
             <div>
@@ -474,7 +479,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 placeholder="Age"
                 onChange={handleChange}
                 required
-                type="text"
+                type="number"
               ></input>
             </div>
             <div>

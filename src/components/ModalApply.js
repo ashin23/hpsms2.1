@@ -87,10 +87,9 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      setdisable(false);
-      onClose();
-    }, [3000]);
+
+    setdisable(false);
+    onClose();
   };
 
   if (!isVisible) return null;
@@ -123,24 +122,16 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
           </button>
           <button
             onClick={onClose}
-            className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+            className={`${
+              !disable
+                ? "bg-gray-700   hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 focus:ring-gray-300 "
+                : "bg-gray-500"
+            }text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2`}
           >
             Cancel
           </button>
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
     </div>
   );
 };

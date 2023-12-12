@@ -9,10 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 emailjs.init("-qtQXoQ1iYx4JDljO");
 
-const ModalAccept = ({ info, showAccept, setShowAccept }) => {
+const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(
+    "3203 Robinsons Equitable Tower, ADB Ave Cor. Poveda St., Ortigas Center, Pasig City., Pasig, Philippines"
+  );
 
   const [email1, setEmail] = useState(info.Email);
 
@@ -47,19 +49,19 @@ const ModalAccept = ({ info, showAccept, setShowAccept }) => {
       );
       return;
     }
-    emailjs.send(
-      "service_yj6ye3j",
-      "template_v7ln2cg",
-      {
-        from_name: info.Name,
-        message: message1,
-        emailsend: email1,
-        location: location,
-        date: date1,
-        time: time1,
-      },
-      "-qtQXoQ1iYx4JDljO"
-    );
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_v7ln2cg",
+    //   {
+    //     from_name: info.Name,
+    //     message: message1,
+    //     emailsend: email1,
+    //     location: location,
+    //     date: date1,
+    //     time: time,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
 
     await supabase.from("Queuing_List").insert({
       // id: info.id,
@@ -114,7 +116,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept }) => {
       action: "Interview, Please check your email",
     });
     setTimeout(() => {
-      delete1();
+      // delete1();
     }, [1500]);
     toast.success("Moved to queuing list", {
       autoClose: 1500,
@@ -139,79 +141,128 @@ const ModalAccept = ({ info, showAccept, setShowAccept }) => {
   if (!showAccept) return null;
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
+      className="fixed inset-0 z-50 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
       <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[50%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
-        <label
-          className="flex md:text-[30px] h-fit text-xl
+        <div className="h-fit   bg-white top-0 w-[100%]">
+          <label
+            className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
-        >
-          Select Schedule of Interview
-        </label>
-        <div className="grid grid-cols-1 w-[50%] md:grid-cols-2 md:w-[30%]">
-          <button
-            onClick={() => InfoEmail()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          md:pl-9 md:pr-56 md:py-3  md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold whitespace-nowrap bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
           >
-            Send to Email
-          </button>
-          <button
-            onClick={() => setShowAccept(false)}
-            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-          >
-            Cancel
-          </button>
+            Select Schedule of Interview
+          </label>
         </div>
 
-        <div className=" grid grid-cols-1 justify-center gap-3">
-          {/* email  */}
-          <label className="flex font-bold text-[25px]">Email</label>
-          <input
-            type="text"
-            value={email1}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-          {/* date  */}
-          <label className="flex font-semibold text-[20px]">
-            Select Date and Time
-          </label>
-          <div className="">
-            <input
-              className="pl-5 pr-3 py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="date"
-              onChange={(e) => setDate(e.target.value)}
-              min={disablePastDate()}
-            ></input>
-            <input
-              className="md:ml-3 pl-5 pr-3 mt-2  py-2 md:w-[30%] lg:w-[35%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              type="time"
-              onChange={(e) => setTime(e.target.value)}
-            ></input>
+        <div className=" grid grid-cols-1 md:grid-cols-2 justify-center gap-3  mt-8 ">
+          <div>
+            <div className=" items-center ml-10  w-full">
+              <img
+                src={srcIMG}
+                className=" w-[200px]   -mt-8 md:mt-0 shadow-md shadow-black rounded-full"
+              ></img>
+            </div>
+            <div className=" ml-2 gap-2 font-base">
+              <div className="flex  ">
+                Full Name: <p className="font-thin pl-1 pr-1">{info.Name} </p>(
+                <em className="flex font-base">{info.Sex}</em>)
+              </div>
+              <div className="flex ">
+                Email: <p className="font-thin pl-1 ">{info.Email}</p>
+              </div>
+              <div className="flex ">
+                Age: <p className="font-thin pl-1">{info.Age}</p>
+              </div>
+              <div className="flex ">
+                Mobile Number:{" "}
+                <p className="font-thin pl-1">{info.Mobile_No}</p>
+              </div>
+              <div className="flex ">
+                City Address:{" "}
+                <p className="font-thin pl-1">{info.City_Address}</p>
+              </div>
+            </div>
           </div>
-          {/* location  */}
-          <label className="flex font-bold text-[20px]">
-            Interview Address
-          </label>
-          <input
-            className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            onChange={(e) => setLocation(e.target.value)}
-          ></input>
-          {/* company  */}
-          <input
-            type="text"
-            value={company1}
-            onChange={(e) => setCompany(e.target.value)}
-          ></input>
-          {/* message  */}
-          <textarea
-            rows={10}
-            type="text"
-            value={message1}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Additional Message"
-          ></textarea>
+
+          <div className="">
+            {/* email  */}
+            <div>
+              <label className="flex font-semibold text-xl">Email</label>
+              <input
+                className="w-[100%]"
+                type="text"
+                value={email1}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </div>
+
+            {/* date  */}
+            <div className="mt-4">
+              {" "}
+              <label className="flex font-semibold text-xl">
+                Select Date and Time
+              </label>
+              <div className="flex mt-2">
+                <input
+                  className=" px-8  py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  type="date"
+                  onChange={(e) => setDate(e.target.value)}
+                  min={disablePastDate()}
+                ></input>
+                <input
+                  className="ml-3 px-8  py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  type="time"
+                  onChange={(e) => setTime(e.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            {/* location  */}
+            <div className="mt-4">
+              <label className="flex font-semibold text-xl">
+                Interview Address
+              </label>
+              <input
+                value={location}
+                className="pl-2 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                onChange={(e) => setLocation(e.target.value)}
+              ></input>
+            </div>
+
+            {/* company  */}
+            <div className="mt-4">
+              <input
+                type="text"
+                value={company1}
+                onChange={(e) => setCompany(e.target.value)}
+              ></input>
+            </div>
+
+            {/* message  */}
+            <textarea
+              className="mt-4 w-full order-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              rows={10}
+              type="text"
+              value={message1}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Additional Message"
+            ></textarea>
+            <div className="flex justify-end w-full mt-1 ">
+              <button
+                onClick={() => InfoEmail()}
+                className=" focus:outline-none whitespace-nowrap text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >
+                Send to Email
+              </button>
+              <button
+                onClick={() => setShowAccept(false)}
+                className=" focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

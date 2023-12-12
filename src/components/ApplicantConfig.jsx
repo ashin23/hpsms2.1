@@ -38,7 +38,7 @@ function ApplicantConfig({ e }) {
     let hash = 0;
     let i;
 
-    for (i = 0; i < string.length; i += 1) {
+    for (i = 0; i < string?.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
 
@@ -58,7 +58,7 @@ function ApplicantConfig({ e }) {
       <div
         style={{ background: stringToColor(name) }}
         className={`flex text-white items-center justify-center md:h-[40px] h-[30px] md:w-[40px] w-[30px] rounded-full font-thin`}
-      >{`${name.split(" ")[0][0]}`}</div>
+      >{`${name?.split(" ")[0][0]}`}</div>
     );
   }
 
@@ -69,7 +69,7 @@ function ApplicantConfig({ e }) {
         data-tooltip-content="View Profile"
         className={`${
           e.Notifications === "false" && "border-2 border-red-500 "
-        } md:text-base text-[10px] h-fit grid grid-cols-3 justify-center items-center mb-1 bg-slate-200 p-1 hover:p-2 rounded-md hover:duration-300 font-thin cursor-pointer`}
+        }  md:text-base text-[10px] h-fit grid grid-cols-3 justify-center items-center mb-1 bg-slate-200 p-1 hover:p-2 rounded-md hover:duration-300 font-thin cursor-pointer`}
         onClick={() => setShowJobApplicant(true)}
       >
         <div className="text-md flex items-center gap-1 ">
@@ -96,6 +96,7 @@ function ApplicantConfig({ e }) {
       <ModalApplicantInfo
         isOpen={showJobApplicant}
         CloseJobInfo={setShowJobApplicant}
+        
         Info={e}
         srcIMG={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${e.Email}/${img}`}
       />

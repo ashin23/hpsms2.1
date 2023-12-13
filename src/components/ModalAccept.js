@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 emailjs.init("-qtQXoQ1iYx4JDljO");
 
-const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
+const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [location, setLocation] = useState(
@@ -23,10 +23,12 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
   const [company1, setCompany] = useState("Hotel Pro Services INC.");
   const [message1, setMessage] = useState("");
 
-  var date1 = moment(date).format("LLL");
+  var date1 = moment(date).format("yyyy-M-D");
   const currentDate = new Date().toDateString();
-  var time1 = moment(time).format("h:mm:ss a");
+  var time1 = moment(new Date(`2000-01-01T${time}`)).format("LT");
+  const [disable, setdisable] = useState(false);
 
+  
   const InfoEmail = async () => {
     if (!date || !location || !time || !email1) {
       toast.warning(
@@ -58,15 +60,15 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
     //     emailsend: email1,
     //     location: location,
     //     date: date1,
-    //     time: time,
+    //     time: time1,
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
-
+    setdisable(true);
     await supabase.from("Queuing_List").insert({
       // id: info.id,
       uuid: info.uuid,
-      created_at: currentDate,
+      created_at: date1,
       Email: info.Email,
       Password: info.Password,
       Name: info.Name,
@@ -115,12 +117,11 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
       Hotel: info.Hotel,
       action: "Interview, Please check your email",
     });
-    setTimeout(() => {
-      // delete1();
-    }, [1500]);
     toast.success("Moved to queuing list", {
       autoClose: 1500,
     });
+    setdisable(false);
+    delete1();
   };
 
   const delete1 = async () => {
@@ -128,6 +129,8 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
       .from("Applicant_List")
       .delete()
       .eq("uuid", info.uuid);
+    setShowAccept();
+    close();
   };
 
   //*To prevent user inputting past dates
@@ -251,13 +254,17 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG }) => {
             <div className="flex justify-end w-full mt-1 ">
               <button
                 onClick={() => InfoEmail()}
-                className=" focus:outline-none whitespace-nowrap text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                className={`${
+                  !disable
+                    ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    : "bg-gray-500"
+                } focus:outline-none whitespace-nowrap text-white  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 `}
               >
                 Send to Email
               </button>
               <button
                 onClick={() => setShowAccept(false)}
-                className=" focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                className="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
               >
                 Cancel
               </button>

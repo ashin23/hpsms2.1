@@ -1,7 +1,7 @@
 import React from "react";
 import supabase from "./supabaseClient";
 import { toast } from "react-toastify";
-const ModalReject = ({ infoo, showReject, setShowReject }) => {
+const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
   const Reject = async () => {
     const { data: user } = await supabase.from("Archive_List").select();
     for (let index = 0; index < user.length; index++) {
@@ -55,7 +55,7 @@ const ModalReject = ({ infoo, showReject, setShowReject }) => {
             Notifications: "false",
             Hotel: infoo.Hotel,
             action: "Rejected",
-            oldtable: "applicanttable"
+            oldtable: "applicanttable",
           })
           .eq("uuid", infoo.uuid);
         setTimeout(() => {
@@ -115,14 +115,12 @@ const ModalReject = ({ infoo, showReject, setShowReject }) => {
       Notifications: "false",
       Hotel: infoo.Hotel,
       action: "Rejected",
-      oldtable: "applicanttable"
+      oldtable: "applicanttable",
     });
-    setTimeout(() => {
-      delete1();
-    }, [1500]);
     toast.success("Moved to archived", {
       autoClose: 1500,
     });
+    delete1();
   };
 
   const delete1 = async () => {
@@ -130,6 +128,7 @@ const ModalReject = ({ infoo, showReject, setShowReject }) => {
       .from("Applicant_List")
       .delete()
       .eq("uuid", infoo.uuid);
+    close();
   };
 
   if (!showReject) return null;

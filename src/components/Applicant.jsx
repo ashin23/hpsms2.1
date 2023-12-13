@@ -78,7 +78,6 @@ const Applicant = () => {
     setItemOffset(newOffset);
   };
 
-
   return (
     <div className="fixed inset-0 h-screen w-screen flex flex-col bg-black items-center justify-center place-content-center ">
       <div className="h-[100%] bg-white w-[100%] flex flex-col  ">
@@ -90,7 +89,7 @@ const Applicant = () => {
         <div className=" p-3 w-[100%] h-[69%] ">
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
-              <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
+              <div className="flex  gap-2 font-medium text-base p-3 w-full md:justify-start justify-center">
                 <label className="">
                   Total Applicants(<em> {applicants.length} </em>)
                 </label>
@@ -122,36 +121,43 @@ const Applicant = () => {
               </div>
             </div>
 
-            <div className="bg-white w-[100%] h-[100%]">
+            <div className="bg-white w-[100%] h-[75%] md:h-[100%]">
               {applicants && (
                 <div className="h-[100%] overflow-auto overflow-x-hidden p-1">
-                  <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
-                    <label className="justify-start flex">NAME</label>
-                    <label className="justify-center flex">POSITION</label>
-                    <label className="justify-center flex">EMAIL</label>
+                  <div className="grid grid-rows-1 md:grid-cols-4 gap-2 p-1 ">
+                    {applicants
+                      .filter((val) => {
+                        try {
+                          if (search1 === "") {
+                            return val;
+                          } else if (
+                            val.Name.toLowerCase().includes(
+                              search1.toLowerCase()
+                            )
+                          ) {
+                            return val;
+                          } else if(val.Hotel.toLowerCase().includes(search1.toLowerCase())){
+                            return val
+                          } else if (val.Position.toLowerCase().includes(search1.toLowerCase())){
+                            return val
+                          }
+                        } catch (error) {}
+                      })
+                      .sort((a, b) => (b.id > a.id ? 1 : -1))
+                      .slice(itemsOffset, endoffsett)
+                      .map((e) => (
+                        <>
+                          <div className="">
+                            <ApplicantConfig key={e.id} e={e} />
+                          </div>
+                        </>
+                      ))}
                   </div>
-                  {applicants
-                    .filter((val) => {
-                      try {
-                        if (search1 === "") {
-                          return val;
-                        } else if (
-                          val.Name.toLowerCase().includes(search1.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      } catch (error) {}
-                    })
-                    .sort((a, b) => (b.id > a.id ? 1 : -1))
-                    .slice(itemsOffset, endoffsett)
-                    .map((e) => (
-                      <ApplicantConfig key={e.id} e={e}  />
-                    ))}
                 </div>
               )}
             </div>
           </div>
-          <div className="flex justify-end mt-2">
+          <div className="flex justify-end -mt-3 md:mt-2">
             <ReactPaginate
               previousLabel="Prev"
               nextLabel="Next"
@@ -168,10 +174,8 @@ const Applicant = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
 
 export default Applicant;
-

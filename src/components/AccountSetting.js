@@ -61,16 +61,16 @@ const AccountSetting = ({
   }
 
   const HandleSendCode = () => {
-    emailjs.send(
-      "service_yj6ye3j",
-      "template_aek4udy",
-      {
-        email2: email,
-        code: otpCode,
-      },
-      "-qtQXoQ1iYx4JDljO"
-    );
-
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_aek4udy",
+    //   {
+    //     email2: email,
+    //     code: otpCode,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
+    console.log(otpCode)
     toast.success("Send Code", {
       position: "top-center",
       autoClose: 3000,
@@ -113,9 +113,7 @@ const AccountSetting = ({
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          close();
-        }, [3000]);
+        close();
       } else if (pass !== pass1) {
         toast.error("Password do not match", {
           position: "top-center",
@@ -286,18 +284,7 @@ const AccountSetting = ({
         </div>
       </div>
 
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
+      
     </>
   );
 };

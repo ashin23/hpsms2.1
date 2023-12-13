@@ -120,8 +120,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     });
   };
 
-  
-
   const Handlefetchfile = async (email2) => {
     const { data: file } = await supabase.storage
       .from("Files")

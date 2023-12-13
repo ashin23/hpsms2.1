@@ -11,7 +11,7 @@ import { IoSchool } from "react-icons/io5";
 import { FaBriefcase } from "react-icons/fa";
 import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
-function ModalEmp3({ visible, Close, Info ,srcIMG}) {
+function ModalEmp3({ visible, Close, Info, srcIMG }) {
   useEffect(() => {
     AOS.init({ duration: 200, easing: "linear" });
   }, []);
@@ -27,189 +27,9 @@ function ModalEmp3({ visible, Close, Info ,srcIMG}) {
       .eq("id", Info.id);
   };
 
+ 
 
-  async function restored() {
-    if (Info.oldtable === "applicanttable") {
-      const { data: app1 } = await supabase.from("Applicant_List").insert({
-        uuid: Info.uuid,
-        Email: Info.Email,
-        Password: Info.Password,
-        Name: Info.Name,
-        Mobile_No: Info.Mobile_No,
-        Age: Info.Age,
-        City_Address: Info.City_Address,
-        Religion: Info.Religion,
-        Sex: Info.Sex,
-        Provincial_Address: Info.Provincial_Address,
-        Date_of_Birth: Info.Date_of_Birth,
-        CivilStatus: Info.CivilStatus,
-        Name_of_Mother: Info.Name_of_Mother,
-        Occupation_Mother: Info.Occupation_Mother,
-        Name_of_Father: Info.Name_of_Father,
-        Occupation_Father: Info.Occupation_Father,
-        Notify_Emergency: Info.Notify_Emergency,
-        Relationship: Info.Relationship,
-        Emergency_Address: Info.Emergency_Address,
-        Contact_Number: Info.Contact_Number,
-        College: Info.College,
-        College_Graduated: Info.College_Graduated,
-        Course: Info.Course,
-        Special_Course: Info.Special_Course,
-        Vocational: Info.Vocational,
-        Vocational_Graduated: Info.Vocational_Graduated,
-        HighSchool: Info.HighSchool,
-        HighSchool_Graduated: Info.HighSchool_Graduated,
-        Elementary: Info.Elementary,
-        Elementary_Graduated: Info.Elementary_Graduated,
-        Inclusive_Dates: Info.Inclusive_Dates,
-        Company_History: Info.Company_History,
-        Position_History: Info.Position_History,
-        Name_References: Info.Name_References,
-        Company_References: Info.Company_References,
-        Position_References: Info.Position_References,
-        SSS_Number: Info.SSS_Number,
-        Phil_Health_No: Info.Phil_Health_No,
-        Pag_Ibig_No: Info.Pag_Ibig_No,
-        Tin_Number: Info.Tin_Number,
-        Position: Info.Position,
-        userlvl: "applicant",
-        status: "Undeploy",
-        Notifications: "false",
-        Hotel: Info.Hotel,
-        action: "Pending",
-      });
-      setTimeout(() => {
-        delete1();
-      }, [1500]);
-      toast.success("Restored", {
-        autoClose: 1500,
-      });
-      return;
-    }
-
-    if (Info.oldtable === "Que") {
-      const { data: que } = await supabase.from("Queuing_List").insert({
-        uuid: Info.uuid,
-        Email: Info.Email,
-        Password: Info.Password,
-        Name: Info.Name,
-        Mobile_No: Info.Mobile_No,
-        Age: Info.Age,
-        City_Address: Info.City_Address,
-        Religion: Info.Religion,
-        Sex: Info.Sex,
-        Provincial_Address: Info.Provincial_Address,
-        Date_of_Birth: Info.Date_of_Birth,
-        CivilStatus: Info.CivilStatus,
-        Name_of_Mother: Info.Name_of_Mother,
-        Occupation_Mother: Info.Occupation_Mother,
-        Name_of_Father: Info.Name_of_Father,
-        Occupation_Father: Info.Occupation_Father,
-        Notify_Emergency: Info.Notify_Emergency,
-        Relationship: Info.Relationship,
-        Emergency_Address: Info.Emergency_Address,
-        Contact_Number: Info.Contact_Number,
-        College: Info.College,
-        College_Graduated: Info.College_Graduated,
-        Course: Info.Course,
-        Special_Course: Info.Special_Course,
-        Vocational: Info.Vocational,
-        Vocational_Graduated: Info.Vocational_Graduated,
-        HighSchool: Info.HighSchool,
-        HighSchool_Graduated: Info.HighSchool_Graduated,
-        Elementary: Info.Elementary,
-        Elementary_Graduated: Info.Elementary_Graduated,
-        Inclusive_Dates: Info.Inclusive_Dates,
-        Company_History: Info.Company_History,
-        Position_History: Info.Position_History,
-        Name_References: Info.Name_References,
-        Company_References: Info.Company_References,
-        Position_References: Info.Position_References,
-        SSS_Number: Info.SSS_Number,
-        Phil_Health_No: Info.Phil_Health_No,
-        Pag_Ibig_No: Info.Pag_Ibig_No,
-        Tin_Number: Info.Tin_Number,
-        Position: Info.Position,
-        userlvl: "applicant",
-        status: "Undeploy",
-        Notifications: "false",
-        Hotel: Info.Hotel,
-        action: "Interview, Please check your email",
-      });
-      setTimeout(() => {
-        delete1();
-      }, [1500]);
-      toast.success("Restored", {
-        autoClose: 1500,
-      });
-      return;
-    }
-
-    if (Info.oldtable === "Emptable") {
-      const { data: emp } = await supabase.from("Employee_List").insert({
-        uuid: Info.uuid,
-        Email: Info.Email,
-        Password: Info.Password,
-        Name: Info.Name,
-        Mobile_No: Info.Mobile_No,
-        Age: Info.Age,
-        City_Address: Info.City_Address,
-        Religion: Info.Religion,
-        Sex: Info.Sex,
-        Provincial_Address: Info.Provincial_Address,
-        Date_of_Birth: Info.Date_of_Birth,
-        CivilStatus: Info.CivilStatus,
-        Name_of_Mother: Info.Name_of_Mother,
-        Occupation_Mother: Info.Occupation_Mother,
-        Name_of_Father: Info.Name_of_Father,
-        Occupation_Father: Info.Occupation_Father,
-        Notify_Emergency: Info.Notify_Emergency,
-        Relationship: Info.Relationship,
-        Emergency_Address: Info.Emergency_Address,
-        Contact_Number: Info.Contact_Number,
-        College: Info.College,
-        College_Graduated: Info.College_Graduated,
-        Course: Info.Course,
-        Special_Course: Info.Special_Course,
-        Vocational: Info.Vocational,
-        Vocational_Graduated: Info.Vocational_Graduated,
-        HighSchool: Info.HighSchool,
-        HighSchool_Graduated: Info.HighSchool_Graduated,
-        Elementary: Info.Elementary,
-        Elementary_Graduated: Info.Elementary_Graduated,
-        Inclusive_Dates: Info.Inclusive_Dates,
-        Company_History: Info.Company_History,
-        Position_History: Info.Position_History,
-        Name_References: Info.Name_References,
-        Company_References: Info.Company_References,
-        Position_References: Info.Position_References,
-        SSS_Number: Info.SSS_Number,
-        Phil_Health_No: Info.Phil_Health_No,
-        Pag_Ibig_No: Info.Pag_Ibig_No,
-        Tin_Number: Info.Tin_Number,
-        Position: Info.Position,
-        userlvl: "Employee",
-        status: "Undeploy",
-        Notifications: "false",
-        Hotel: Info.Hotel,
-      });
-      setTimeout(() => {
-        delete1();
-      }, [1500]);
-      toast.success("Restored", {
-        autoClose: 1500,
-      });
-      return;
-    }
-  }
-
-  const delete1 = async () => {
-    const { data: arch } = await supabase
-      .from("Archive_List")
-      .delete()
-      .eq("uuid", Info.uuid);
-  };
-
+  
   if (!visible) return null;
   return (
     <div
@@ -244,14 +64,7 @@ justify-center items-center  top-50 flex overflow-auto "
                   Applicant Information
                 </label>
                 <div className="gap-1 flex">
-                  <button
-                    className="text-white text-sm font-medium bg-green-700 rounded-lg md:p-4 p-2
-              focus:outline-none hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                    onClick={() => restored()}
-                  >
-                    RESTORE
-                  </button>
-                  
+                 
                 </div>
               </div>
               <div className="mt-1 ml-2 gap-2 font-base">
@@ -459,7 +272,6 @@ justify-center items-center  top-50 flex overflow-auto "
 
         <div className=""></div>
       </div>
-      
     </div>
   );
 }

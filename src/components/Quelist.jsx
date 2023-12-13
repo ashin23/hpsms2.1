@@ -7,14 +7,16 @@ import ReactPaginate from "react-paginate";
 import ModalAccept from "./ModalAccept";
 import QuelingConfig from "./QuelingConfig";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 const Quelist = ({ email1 }) => {
   const [search1, setSearch1] = useState("");
   const [applicants, setApplicants] = useState([]);
   const [status, setstatus] = useState("false");
   const [app, setapp] = useState([]);
 
-  const [date, setDate] = useState("");
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
+
+  const currentDate = moment(new Date()).format("yyyy-M-D");
 
   useEffect(() => {
     queList();
@@ -30,7 +32,7 @@ const Quelist = ({ email1 }) => {
         }
       )
       .subscribe();
-  }, [date, applicantPosition]);
+  }, [applicantPosition, currentDate]);
 
   const que = async () => {
     const { data: app } = await supabase
@@ -41,29 +43,32 @@ const Quelist = ({ email1 }) => {
   };
 
   const queList = async () => {
-    if (date === "" && applicantPosition === "Select Position") {
-      const { data: Quelist } = await supabase.from("Queuing_List").select();
-      setApplicants(Quelist);
-    } else {
-      if (date !== "" && applicantPosition === "Select Position") {
-        const { data: app1 } = await supabase
+    const { data: que } = await supabase.from("Queuing_List").select();
+    for (let index = 0; index < que.length; index++) {
+      if (
+        que[index].created_at === currentDate &&
+        applicantPosition === "Select Position"
+      ) {
+        const { data: que1 } = await supabase
           .from("Queuing_List")
           .select()
-          .eq("created_at", date);
-        setApplicants(app1);
-      } else if (applicantPosition !== "Select Position" && date === "") {
-        const { data: app2 } = await supabase
-          .from("Queuing_List")
-          .select()
-          .eq("Position", applicantPosition);
-        setApplicants(app2);
-      } else {
-        const { data: app3 } = await supabase
-          .from("Queuing_List")
-          .select()
-          .match({ created_at: date, Position: applicantPosition });
-        setApplicants(app3);
+          .eq("created_at", currentDate);
+        setApplicants(que1);
       }
+      // if ( que[index].created_at  < currentDate) {
+      //   const { data: que3 } = await supabase
+      //     .from("Queuing_List")
+      //     .delete()
+      //     .eq("created_at", currentDate);
+      //   setApplicants(que3);
+      // }
+    }
+    if (applicantPosition !== "Select Position") {
+      const { data: que2 } = await supabase
+        .from("Queuing_List")
+        .select()
+        .eq("Position", applicantPosition);
+      setApplicants(que2);
     }
   };
 
@@ -72,10 +77,8 @@ const Quelist = ({ email1 }) => {
   const [itemsOffset, setItemOffset] = useState(0);
   const perpage = 10;
 
-
   const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-   
     setcurrentitems(applicants);
     setpagecount(Math.ceil(applicants.length / perpage));
   }, [itemsOffset, perpage, applicants]);
@@ -99,7 +102,7 @@ const Quelist = ({ email1 }) => {
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
                 <label className="">
-                  Total Queuing:(<em> {applicants.length} </em>)
+                  Total Queuing:(<em> {applicants?.length} </em>)
                 </label>
 
                 <label className="">
@@ -113,7 +116,7 @@ const Quelist = ({ email1 }) => {
                   type="search"
                   onChange={(e) => setSearch1(e.target.value)}
                 />
-                
+
                 <select
                   className=" h-[30px] w-[40%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   onChange={(e) => setApplicantPosition(e.target.value)}
@@ -125,31 +128,34 @@ const Quelist = ({ email1 }) => {
               </div>
             </div>
 
-            <div className="bg-white w-[100%] h-[100%]">
+            <div className="bg-white w-[100%] h-[75%] md:h-[100%]">
               {applicants && (
                 <div className="h-[100%] overflow-auto overflow-x-hidden p-1">
-                  <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
-                    <label className="justify-start flex">NAME</label>
-                    <label className="justify-center flex">POSITION</label>
-                    <label className="justify-center flex">EMAIL</label>
+                  <div className="grid grid-rows-1 md:grid-cols-4 gap-2 p-1 ">
+                    {applicants
+                      .filter((val) => {
+                        try {
+                          if (search1 === "") {
+                            return val;
+                          } else if (
+                            val.Name.toLowerCase().includes(
+                              search1.toLowerCase()
+                            )
+                          ) {
+                            return val;
+                          }
+                        } catch (error) {}
+                      })
+                      .sort((a, b) => (b.id > a.id ? 1 : -1))
+                      .slice(itemsOffset, endoffsett)
+                      .map((e) => (
+                        <>
+                          <div>
+                            <QuelingConfig key={e.id} e={e} />
+                          </div>
+                        </>
+                      ))}
                   </div>
-                  {applicants
-                    .filter((val) => {
-                      try {
-                        if (search1 === "") {
-                          return val;
-                        } else if (
-                          val.Name.toLowerCase().includes(search1.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      } catch (error) {}
-                    })
-                    .sort((a, b) => (b.id > a.id ? 1 : -1))
-                    .slice(itemsOffset, endoffsett)
-                    .map((e) => (
-                      <QuelingConfig key={e.id} e={e}  />
-                    ))}
                 </div>
               )}
             </div>
@@ -171,7 +177,6 @@ const Quelist = ({ email1 }) => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

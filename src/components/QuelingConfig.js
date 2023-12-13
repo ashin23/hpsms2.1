@@ -5,6 +5,11 @@ import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { CgProfile } from "react-icons/cg";
+import { IoBriefcaseSharp } from "react-icons/io5";
+import { FaBuilding } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { MdNotificationsActive } from "react-icons/md";
 function QuelingConfig({ e }) {
   const [showJobApplicant, setShowJobApplicant] = useState(false);
   const [img, setImg] = useState();
@@ -71,28 +76,37 @@ function QuelingConfig({ e }) {
         data-tooltip-content="View Profile"
         className={`${
           e.Notifications === "false" && "border-2 border-red-500 "
-        }  md:text-base text-[10px] h-fit grid grid-cols-3 justify-center items-center mb-1 bg-slate-200 p-1 hover:p-2 rounded-md hover:duration-300 font-thin cursor-pointer`}
+        }  md:text-base text-[10px] h-fit   mb-1 bg-slate-200  p-1  rounded-md  font-normal cursor-pointer`}
         onClick={() => setShowJobApplicant(true)}
       >
-        <div className="text-md flex items-center gap-1 ">
+        <MdNotificationsActive className={`${e.Notifications === "false" ? "text-red-500  " : "hidden"}`}/>
+        <div className="grid grid-rows-1">
+        <div className="text-lg justify-center  flex  items-center   gap-1 ">
           {broken ? (
             <img
               onError={() => isBroken(true)}
-              className="md:h-[40px] h-[30px] md:w-[40px] w-[30px] rounded-full shadow-md"
+              className="md:h-[50px] h-[30px] md:w-[50px] w-[30px] rounded-full shadow-md"
               src={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${e.Email}/${img}`}
             ></img>
           ) : (
             <>{avatarComponent(e.Name)}</>
           )}
 
-          {e.Name}
+         
         </div>
-        <div className="text-md cursor-pointer flex justify-center">
-          {e.Position}
+        <div className="text-lg cursor-pointer flex justify-center items-center">
+        <CgProfile className=""/> {e.Name}
         </div>
-        <div className="text-md md:ml-3 text-blue-600 hover:underline cursor-pointer  justify-center flex truncate">
-          {e.Email}
+        <div className="text-lg cursor-pointer flex justify-center items-center">
+        <IoBriefcaseSharp/>  {e.Position}
         </div>
+        <div className="text-lg  items-center md:ml-3 text-blue-600 hover:underline cursor-pointer  justify-center flex truncate">
+        <MdEmail className="text-black"/> {e.Email}
+        </div>
+        <div className="text-lg cursor-pointer flex justify-center items-center">
+         <FaBuilding/> {e.Hotel}
+        </div>
+      </div>
       </div>
         <Tooltip id="my-tooltip" place="bottom" />
         <ModalEmp

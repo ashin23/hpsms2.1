@@ -20,35 +20,7 @@ const UserListConfig = ({ e, notify }) => {
   useEffect(() => {
     AOS.init({ duration: 100, easing: "linear" });
   }, []);
-  async function HandleUpdate() {
-    const { data, error } = await supabase
-      .from("UserList")
-      .update({ Password: password })
-      .eq("id", e.id)
-      .select();
-    const { data: emp } = await supabase
-      .from("Employee_List")
-      .update({ Password: password })
-      .eq("id", e.id)
-      .select();
-    const { data: newuser } = await supabase
-      .from("NewUser")
-      .update({ Password: password })
-      .eq("id", e.id)
-      .select();
-    setView(false);
-    setPassword(password);
-    toast.success("Successfully Updated", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  }
+
 
   async function Handlerestricted() {
     var oldrole = e.userlvl;
@@ -125,6 +97,32 @@ const UserListConfig = ({ e, notify }) => {
     });
   }
 
+  async function Handledelete() {
+   
+    const { data: user } = await supabase
+      .from("UserList")
+      .delete()
+      .eq("id", e.id);
+    const { data: emp } = await supabase
+      .from("Employee_List")
+      .delete()
+      .eq("id", e.id);
+    const { data: newuser } = await supabase
+      .from("NewUser")
+      .delete()
+      .eq("id", e.id);
+    toast.success("Successfully Deleted", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+
   const getAvatar = async (email1) => {
     const { data: avatar } = await supabase.storage.from("Files").list(email1, {
       limit: 1,
@@ -166,6 +164,7 @@ const UserListConfig = ({ e, notify }) => {
     );
   }
 
+  
   return (
     <>
       {" "}
@@ -174,7 +173,7 @@ const UserListConfig = ({ e, notify }) => {
         data-tooltip-content="View Profile"
         className={`${
           e.Notifications === "false" && "border-2 border-red-500 "
-        }  md:text-base text-[10px] h-fit grid grid-cols-3 justify-center items-center mb-1 bg-slate-200 p-1 hover:p-2 rounded-md hover:duration-300 font-thin cursor-pointer`}
+        }  md:text-base text-[10px] h-fit grid grid-cols-3 justify-center items-center mb-1 bg-slate-200 p-1  rounded-md  font-thin cursor-pointer`}
       >
         <div className="text-md flex items-center gap-1 ">
           {broken ? (
@@ -192,34 +191,35 @@ const UserListConfig = ({ e, notify }) => {
         <div className="text-md cursor-pointer flex justify-center">
           {e.userlvl}
         </div>
-        <div className="md:w-[20%] grid-rows-3 w-[10%] ml-12 md:ml-[30%]  grid md:h-10  md:flex  gap-2 md:-mt-2 ">
+        <div className=" grid-rows-3 w-[10%] ml-12 md:ml-[40%]  grid md:h-10  md:flex  gap-2 md:-mt-2 ">
           {e.userlvl === "Restricted" ? (
             <button
               onClick={() => Handleunrestricted()}
-              className="-ml-20 focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg md:text-sm   text-xs md:px-8 px-1 py-1 md:py-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900  "
+              className="-ml-20 focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg md:text-sm   text-xs md:px-3 px-1 py-1 md:py-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900  "
             >
               Unrestricted
             </button>
           ) : (
             <button
               onClick={() => Handlerestricted()}
-              className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg md:text-sm  text-xs md:px-8 px-1 py-1 md:y-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
+              className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg md:text-sm  text-xs md:px-3 px-1 py-1 md:y-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
             >
               Restricted
             </button>
           )}
 
-          <button
-            onClick={() => HandleUpdate()}
-            className="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg md:text-sm md:px-8 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 "
-          >
-            Update
-          </button>
+         
           <button
             onClick={() => Handleremovenotif()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-8 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 "
+            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 "
           >
             Complete
+          </button>
+          <button
+            onClick={() => Handledelete()}
+            className="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900 "
+          >
+            Delete
           </button>
         </div>{" "}
       

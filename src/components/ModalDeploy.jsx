@@ -121,7 +121,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
       >
         <div
           data-aos="zoom-in"
-          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
+          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] lg:w-[40%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
         >
           <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
             <label
@@ -147,7 +147,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           </div>
 
           {employee && (
-            <div className=" overflow-y-auto overflow-x-hidden bg-black md:h-[100%]">
+            <div className=" overflow-y-auto overflow-x-hidden  md:h-[100%]">
               {employee.map((pos, index) => (
                 <Deploy
                   key={index}

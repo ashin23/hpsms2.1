@@ -45,40 +45,35 @@ const Employee = ({ email }) => {
   };
 
   const FetchEmployee = async () => {
-    if (
-      empStatus === "Employee Status" &&
-      empPosition === "Select Position" 
-      
-    ) {
+    if (empStatus === "Employee Status" && empPosition === "Select Position") {
       const { data: emp } = await supabase.from("Employee_List").select();
       setEmployee(emp);
-    } 
-    else {
+    } else {
       if (
-        empStatus !== "Employee Status" && empPosition === "Select Position" ) {
+        empStatus !== "Employee Status" &&
+        empPosition === "Select Position"
+      ) {
         const { data: empS } = await supabase
           .from("Employee_List")
           .select()
           .eq("status", empStatus);
         setEmployee(empS);
-      } 
-      else if (
-        empPosition !== "Select Position" && empStatus === "Employee Status" ) {
+      } else if (
+        empPosition !== "Select Position" &&
+        empStatus === "Employee Status"
+      ) {
         const { data: empP } = await supabase
           .from("Employee_List")
           .select()
           .eq("Position", empPosition);
         setEmployee(empP);
-      } 
-      
-      else {
+      } else {
         const { data: empstats } = await supabase
           .from("Employee_List")
           .select()
           .match({
             status: empStatus,
             Position: empPosition,
-           
           });
         setEmployee(empstats);
       }
@@ -126,11 +121,7 @@ const Employee = ({ email }) => {
                   type="search"
                   onChange={(e) => setSearch1(e.target.value)}
                 />
-                {/* <input
-                  onChange={(e) => setDate(e.target.value)}
-                  className=" h-[30px] w-[40%]  pl-1 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-                  type="date"
-                /> */}
+
                 <select
                   className=" h-[30px] w-[40%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   onChange={(e) => setEmpPosition(e.target.value)}
@@ -150,31 +141,34 @@ const Employee = ({ email }) => {
               </div>
             </div>
 
-            <div className="bg-white w-[100%] h-[100%]">
+            <div className="bg-white w-[100%] h-[75%] md:h-[100%]">
               {employee && (
                 <div className="h-[100%] overflow-auto overflow-x-hidden p-1">
-                  <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
-                    <label className="justify-start flex">NAME</label>
-                    <label className="justify-center flex">POSITION</label>
-                    <label className="justify-center flex">EMAIL</label>
+                  <div className="grid grid-rows-1 md:grid-cols-4 gap-2 p-1">
+                    {employee
+                      .filter((val) => {
+                        try {
+                          if (search1 === "") {
+                            return val;
+                          } else if (
+                            val.Name.toLowerCase().includes(
+                              search1.toLowerCase()
+                            )
+                          ) {
+                            return val;
+                          }
+                        } catch (error) {}
+                      })
+                      .sort((a, b) => (b.id > a.id ? 1 : -1))
+                      .slice(itemsOffset, endoffsett)
+                      .map((e) => (
+                        <>
+                          <div className="">
+                            <EmployeeConfig key={e.id} e={e} />
+                          </div>
+                        </>
+                      ))}
                   </div>
-                  {employee
-                    .filter((val) => {
-                      try {
-                        if (search1 === "") {
-                          return val;
-                        } else if (
-                          val.Name.toLowerCase().includes(search1.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      } catch (error) {}
-                    })
-                    .sort((a, b) => (b.id > a.id ? 1 : -1))
-                    .slice(itemsOffset, endoffsett)
-                    .map((e) => (
-                      <EmployeeConfig key={e.id} e={e} />
-                    ))}
                 </div>
               )}
             </div>

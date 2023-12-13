@@ -529,6 +529,8 @@ const Navbar = ({
     }
   };
 
+  console.log(notifapplicant)
+
   return (
     <div className="h-2  ">
       <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">

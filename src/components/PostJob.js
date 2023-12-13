@@ -154,7 +154,9 @@ const PostJob = ({ isPost, isPostClose }) => {
 
         return;
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("error" + error)
+    }
   };
 
   if (!isPost) return null;
@@ -270,7 +272,7 @@ const PostJob = ({ isPost, isPostClose }) => {
                 onChange={(e) => setAge(e.target.value)}
                 className="pl-4 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Age"
-                type="number"
+                type="text"
               ></input>
             </div>
             <div>

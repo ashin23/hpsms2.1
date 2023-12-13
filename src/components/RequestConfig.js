@@ -69,7 +69,7 @@ const RequestConfig = ({ e }) => {
       data-tooltip-content="View Profile"
       className={`${
         e.Notifications === "false" && "border-2 border-red-500 "
-      }  md:text-base text-[10px] h-fit grid grid-cols-3 md:grid-cols-7 justify-center items-center mb-1 bg-slate-200 p-1 hover:p-2 rounded-md hover:duration-300 font-thin cursor-pointer`}
+      }  md:text-base text-[10px] h-fit grid grid-cols-3 md:grid-cols-7 justify-center items-center mb-1 bg-slate-200 p-1 rounded-md font-thin cursor-pointer`}
     >
       <div className="text-md flex items-center gap-1 text-blue-600">
         {broken ? (
@@ -99,13 +99,13 @@ const RequestConfig = ({ e }) => {
       </div>
       <div className="text-md  cursor-pointer flex justify-center gap-2 ml-14 md:ml-0">
         <button
-          className="text-white bg-green-700 whitespace-nowrap  hover:bg-green-800 focus:ring-4 focus:ring-green-300 md:font-medium  rounded-lg text-base px-1 md:px-5 md:py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+          className="text-white bg-green-700 whitespace-nowrap  hover:bg-green-800 focus:ring-4 focus:ring-green-300 md:font-medium  rounded-lg text-base px-1 md:px-3 md:py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
           onClick={updateNotif}
         >
           COMPLETE
         </button>
         <button
-          className="text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 md:font-medium rounded-lg text-base px-1 md:px-5 md:py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 md:font-medium rounded-lg text-base px-1 md:px-3 md:py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           onClick={() => setShowModalDeploy(true)}
         >
           DEPLOY

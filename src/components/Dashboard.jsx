@@ -48,7 +48,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [jobtitle, setjobtitle] = useState("");
   const [disable, setdisable1] = useState(false);
 
- 
   const Job = useRef(null);
 
   //AOS
@@ -192,7 +191,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[56%] text-2xl absolute text-slate-400" />
             <input
               className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Enter Position , key words or job title"
+              placeholder="Enter Position or key words "
               type="search"
               onChange={(e) => setSearch(e.target.value)}
             ></input>
@@ -219,6 +218,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       .filter((val) => {
                         if (
                           val.position
+
                             .toLowerCase()
                             .includes(search.toLowerCase()) &&
                           val.location
@@ -285,7 +285,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             {widthchecker() && (
               <div
                 ref={Job}
-                className=" md:ml-10  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
+                className=" md:ml-10 overflow-x-hidden  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
               >
                 <button
                   className="md:hidden visible text-left text-3xl text-blue-500  "

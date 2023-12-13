@@ -293,11 +293,13 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponen
         showAccept={showAccept}
         setShowAccept={setShowAccept}
         info={Info}
+        close={close}
       />
       <ModalReject
         infoo={Info}
         showReject={showReject}
         setShowReject={setShowReject}
+        close={close}
       />
     </div>
   );

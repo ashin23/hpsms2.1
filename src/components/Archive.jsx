@@ -105,10 +105,12 @@ const Archive = () => {
             <div className="bg-white w-[100%] h-[100%]">
               {archive12 && (
                 <div className="h-[100%] overflow-auto overflow-x-hidden p-1">
-                  <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
+                  <div className=" grid grid-cols-4 bg-slate-200 p-2 mb-1 rounded-md font-bold">
                     <label className="justify-start flex">NAME</label>
                     <label className="justify-center flex">POSITION</label>
                     <label className="justify-center flex">EMAIL</label>
+                    <label className="justify-center flex">ACTION</label>
+                    
                     
                   </div>
                   {archive12

@@ -10,6 +10,13 @@ import Gender from "./Gender.json";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Termsandcondition from "./Termsandcondition";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
+
+lineSpinner.register();
+
+// Default values shown
+
 const Register = ({ isRegister, isRegisterClose }) => {
   const [showTerms, setTerms] = useState(false);
   const [otpCode, setCode] = useState("");
@@ -70,11 +77,11 @@ const Register = ({ isRegister, isRegisterClose }) => {
 
   const HandleCreate = async (e) => {
     e.preventDefault();
-
+    setdisable(true);
     const { data: applist } = await supabase.from("NewUser").select();
     const { data: user } = await supabase.from("UserList").select();
     const { data: emp } = await supabase.from("Employee_List").select();
-    const {data: arch} = await supabase.from("Archive_List").select()
+    const { data: arch } = await supabase.from("Archive_List").select();
     var data = applist.concat(user, emp, arch);
     if (data) {
       for (let index = 0; index < data.length; index++) {
@@ -92,6 +99,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             progress: undefined,
             theme: "light",
           });
+          setdisable(false);
           return;
         }
         if (
@@ -108,6 +116,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
             progress: undefined,
             theme: "light",
           });
+          setdisable(false);
           return;
         }
       }
@@ -135,12 +144,12 @@ const Register = ({ isRegister, isRegisterClose }) => {
         progress: undefined,
         theme: "light",
       });
+      setdisable(false);
       return;
     } else if (
       formdata.password2 === formdata.password &&
       formdata.verCode === otpCode
     ) {
-      setdisable(true);
       const { data, error } = await supabase.from("NewUser").insert([
         {
           Email: formdata.email,
@@ -280,6 +289,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
         <div className="sticky top-0 bg-white  w-full h-[40%] md:h-[13%] p-5">
           <div className="md:flex md:justify-between  grid grid-cols-1  ">
             <button
+              disabled={disable}
               type="submit"
               className={`${
                 !disable
@@ -287,12 +297,22 @@ const Register = ({ isRegister, isRegisterClose }) => {
                   : "bg-gray-500"
               } text-white md:ml-4   font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600`}
             >
-              Submit
+              {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Submit"
+              )}
             </button>
             <label className="md:-ml-7 font-semibold text-xl">
               Type N.A. if the data is not available.
             </label>
             <button
+              disabled={disable}
               onClick={close}
               className="md:-mr-7  focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >

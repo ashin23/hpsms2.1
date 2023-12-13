@@ -18,7 +18,7 @@ import { PiBooks } from "react-icons/pi";
 import { FaUpload } from "react-icons/fa";
 import Notifications from "./Notifications";
 import { ToastContainer } from "react-toastify";
-
+import moment from "moment";
 const Navbar = ({
   setEmailSend,
   applicant1,
@@ -126,7 +126,6 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Applicant_List" },
         (payload) => {
           getnotifapplicant();
-       
         }
       )
       .on(
@@ -134,7 +133,6 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Queuing_List" },
         (payload) => {
           getnotifque();
-      
         }
       )
       .on(
@@ -149,7 +147,6 @@ const Navbar = ({
         { event: "*", schema: "public", table: "Archive_List" },
         (payload) => {
           getnotiarch();
-      
         }
       )
       .on(
@@ -169,7 +166,10 @@ const Navbar = ({
     var data = applist.concat(user, emp);
     if (applist && user && emp) {
       for (let index = 0; index < data.length; index++) {
-        if (data[index].token === window.localStorage.getItem("token") && data[index].userlvl !== "Restricted") {
+        if (
+          data[index].token === window.localStorage.getItem("token") &&
+          data[index].userlvl !== "Restricted"
+        ) {
           checker(
             true,
             data[index].userlvl,
@@ -447,14 +447,14 @@ const Navbar = ({
     return;
   }
 
-  
-
   async function getnotifque() {
     const { data: notifq } = await supabase.from("Queuing_List").select();
     for (let index = 0; index < notifq.length; index++) {
-      if (notifq[index].Notifications === "false") {
-        setNotifque(true);
-        return;
+      if (moment(notifq[index].created_at).isBefore(new Date())) {
+        if (notifq[index].Notifications === "false") {
+          setNotifque(true);
+          return;
+        }
       }
     }
     setNotifque(false);
@@ -494,8 +494,6 @@ const Navbar = ({
       }
     };
     window.addEventListener("resize", handleResize);
-   
-    
   }, [email]);
 
   if (
@@ -529,19 +527,16 @@ const Navbar = ({
     }
   };
 
-  console.log(notifapplicant)
 
   return (
     <div className="h-2  ">
       <div className="flex   gap-5 bg-white text-white font-bold w-screen h-[83px] py-2 md:text-sm text-lg  ">
-      
         <div className=" md:w-[200px] w-[130px] flex gap-1 items-center md:font-bold  text-sm ">
-        <img src={logo} alt="/" className="h-[60px] w-fit  ml-3 "></img>
+          <img src={logo} alt="/" className="h-[60px] w-fit  ml-3 "></img>
           <p className=" text-2xl  md:text-5xl ml-5  text-[#162388] md:flex hidden">
             HPSMS
           </p>
         </div>
-        
 
         <div className=" w-[90%]  justify-end flex p-4 md:text-lg text-sm  rounded-lg text-white font-semibold gap-4 items-center">
           <Link

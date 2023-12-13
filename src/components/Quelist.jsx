@@ -13,7 +13,6 @@ const Quelist = ({ email1 }) => {
   const [applicants, setApplicants] = useState([]);
   const [status, setstatus] = useState("false");
   const [app, setapp] = useState([]);
-
   const [applicantPosition, setApplicantPosition] = useState("Select Position");
 
   const currentDate = moment(new Date()).format("yyyy-M-D");
@@ -38,7 +37,7 @@ const Quelist = ({ email1 }) => {
     const { data: app } = await supabase
       .from("Queuing_List")
       .select()
-      .eq("Notifications", status);
+      .match({ Notifications: status, created_at: moment().from("yyyy-M-D") });
     setapp(app);
   };
 
@@ -55,13 +54,17 @@ const Quelist = ({ email1 }) => {
           .eq("created_at", currentDate);
         setApplicants(que1);
       }
-      // if ( que[index].created_at  < currentDate) {
-      //   const { data: que3 } = await supabase
-      //     .from("Queuing_List")
-      //     .delete()
-      //     .eq("created_at", currentDate);
-      //   setApplicants(que3);
-      // }
+      if (
+        moment(que[index].created_at).isBefore(new Date()) &&
+        que[index].created_at !== currentDate
+      ) {
+        console.log("true");
+        const { data: que3 } = await supabase
+          .from("Queuing_List")
+          .delete()
+          .eq("id", que[index].id);
+        setApplicants(que3);
+      }
     }
     if (applicantPosition !== "Select Position") {
       const { data: que2 } = await supabase
@@ -70,6 +73,21 @@ const Quelist = ({ email1 }) => {
         .eq("Position", applicantPosition);
       setApplicants(que2);
     }
+  };
+
+  const datespecific = async (e) => {
+    if (e.target.value === "") {
+      const { data: que3 } = await supabase
+        .from("Queuing_List")
+        .select()
+        .eq("created_at", currentDate);
+     return setApplicants(que3);
+    }
+    const { data: que3 } = await supabase
+      .from("Queuing_List")
+      .select()
+      .eq("created_at", e.target.value);
+    setApplicants(que3);
   };
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -101,13 +119,17 @@ const Quelist = ({ email1 }) => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Queuing:(<em> {applicants?.length} </em>)
-                </label>
+                {que && (
+                  <>
+                    <label className="">
+                      Total Queuing:(<em> {applicants?.length} </em>)
+                    </label>
 
-                <label className="">
-                  New Que:(<em> {app.length} </em>)
-                </label>
+                    <label className="">
+                      New Que:(<em> {app?.length < 0 ? app?.length : "0"} </em>)
+                    </label>
+                  </>
+                )}
               </div>
               <div className="flex items-center h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input
@@ -116,7 +138,11 @@ const Quelist = ({ email1 }) => {
                   type="search"
                   onChange={(e) => setSearch1(e.target.value)}
                 />
-
+                <input
+                  onChange={(e) => datespecific(e)}
+                  className=" h-[30px] w-[40%]  pl-1 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  type="date"
+                />
                 <select
                   className=" h-[30px] w-[40%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   onChange={(e) => setApplicantPosition(e.target.value)}

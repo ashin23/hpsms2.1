@@ -1,19 +1,14 @@
 {
   "files": {
-    "main.css": "/hpsms2.1/static/css/main.9ad053c7.css",
-    "main.js": "/hpsms2.1/static/js/main.4719d584.js",
-    "static/media/hotel.jpg": "/hpsms2.1/static/media/hotel.1fc733e12ed7a72fc4c2.jpg",
-    "static/media/leadership.png": "/hpsms2.1/static/media/leadership.34d8e91725bfc767a15f.png",
-    "static/media/waiter1.jpg": "/hpsms2.1/static/media/waiter1.1595a75547ab13be3b46.jpg",
-    "static/media/Marco_Polo_Hotels_Logo.jpg": "/hpsms2.1/static/media/Marco_Polo_Hotels_Logo.708269fc9026101daec1.jpg",
-    "static/media/banner.jpg": "/hpsms2.1/static/media/banner.b037a7a72d94d01b8683.jpg",
+    "main.css": "/hpsms2.1/static/css/main.5404978e.css",
+    "main.js": "/hpsms2.1/static/js/main.320c2c2f.js",
     "static/media/hotelproimage.png": "/hpsms2.1/static/media/hotelproimage.5c95ab314063505ef5fe.png",
     "index.html": "/hpsms2.1/index.html",
-    "main.9ad053c7.css.map": "/hpsms2.1/static/css/main.9ad053c7.css.map",
-    "main.4719d584.js.map": "/hpsms2.1/static/js/main.4719d584.js.map"
+    "main.5404978e.css.map": "/hpsms2.1/static/css/main.5404978e.css.map",
+    "main.320c2c2f.js.map": "/hpsms2.1/static/js/main.320c2c2f.js.map"
   },
   "entrypoints": [
-    "static/css/main.9ad053c7.css",
-    "static/js/main.4719d584.js"
+    "static/css/main.5404978e.css",
+    "static/js/main.320c2c2f.js"
   ]
 }

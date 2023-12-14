@@ -110,6 +110,7 @@ const EmployeeCoord = ({ email1 }) => {
                       } else if (
                         val.Email.toLowerCase().includes(search.toLowerCase())
                       ) {
+                  
                         return val;
                       }
                     } catch (error) {}

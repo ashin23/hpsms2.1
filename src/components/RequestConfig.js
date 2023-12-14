@@ -3,6 +3,7 @@ import supabase from "./supabaseClient";
 import ModalDeploy from "./ModalDeploy";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ToastContainer } from "react-toastify";
 const RequestConfig = ({ e }) => {
   const [showModalDeploy, setShowModalDeploy] = useState(false);
   const updateNotif = async () => {
@@ -117,6 +118,9 @@ const RequestConfig = ({ e }) => {
         isCloseDeploy={() => setShowModalDeploy(false)}
         Position={e.Position}
       />
+      <ToastContainer
+          
+        />
     </div>
   );
 };

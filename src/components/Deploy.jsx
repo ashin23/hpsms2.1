@@ -10,11 +10,7 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
         const updatedData = [...employee]; // Create a copy of the original array
         updatedData[index] = { ...updatedData[index], status: "Deploy" }; // Update the status at the specified index
         setemployee(updatedData); // Update the state with the modified array
-    
       }
-    
-   
-      
     }
    
   };
@@ -24,8 +20,6 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
     // Update the state with the new array
     setemployee(updatedArray);
   };
-
-
 
   return (
     <>

@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import supabase from "./supabaseClient";
 import Logoviewer from "./Logoviewer";
 import { GoClock } from "react-icons/go";
-import { FaBriefcase,FaBuilding, } from "react-icons/fa";
-import { FaLocationDot ,FaCalendarDay,FaPesoSign} from "react-icons/fa6";
-
+import { FaBriefcase, FaBuilding } from "react-icons/fa";
+import { FaLocationDot, FaCalendarDay, FaPesoSign } from "react-icons/fa6";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 function PostConfig({
   postInfo,
   Pposition,
@@ -27,7 +28,7 @@ function PostConfig({
   setjobtitle,
   setFile1,
   setFile21,
-  mobile
+  mobile,
 }) {
   const [file1, setFile] = useState();
   const [file12, setFile12] = useState();
@@ -47,23 +48,25 @@ function PostConfig({
     Pjobtype(postInfo.jobtype);
     setjobtitle(postInfo.jobtitle);
     setInfo(postInfo);
-    setFile1(file1)
-    setFile21(file12)
-    mobile()
+    setFile1(file1);
+    setFile21(file12);
+    mobile();
     if (email) applychecker(postInfo);
   }
+  // fether images
   useEffect(() => {
     Handlefetchfile();
     Handlefetchfile1();
+    
   }, []);
-
+  // cover photo
   const Handlefetchfile1 = async () => {
     const { data: cover } = await supabase.storage
       .from("Cover")
       .list(postInfo.hoteluuid + "/");
     setFile12(await cover);
   };
-
+  // logo
   const Handlefetchfile = async () => {
     const { data: file } = await supabase.storage
       .from("Logo")
@@ -79,7 +82,15 @@ function PostConfig({
       >
         <div className="flex w-fit ">
           <div className="text-left ml-3 ">
-          {file1 && (
+            {!file1 ? (
+              <l-line-spinner
+                size="20"
+                stroke="3"
+                speed="1"
+                color="black"
+              ></l-line-spinner>
+            ) : (
+              <>
                 <div className="flex">
                   {file1.map((file1) => (
                     <Logoviewer
@@ -89,9 +100,10 @@ function PostConfig({
                     />
                   ))}
                 </div>
-              )}
+              </>
+            )}
+
             <h1 className="font-medium text-[#162388] text-2xl flex items-center gap-2 mb-5">
-              
               {postInfo.jobtitle}{" "}
               <label
                 className={`${
@@ -103,11 +115,27 @@ function PostConfig({
                 {postInfo.jobtype}
               </label>
             </h1>
-            <p className="font-normal flex "><FaBriefcase className="text-xl mr-1 text-slate-400" />{postInfo.position}</p>
-            <p className="font-normal flex"><FaBuilding className="text-xl  mr-1 text-slate-400" />{postInfo.hotel}</p>
-            <p className="font-normal flex"> <FaLocationDot className="text-xl mr-1 text-slate-400" /> {postInfo.location}</p>
-            <p className="font-normal  flex"><FaPesoSign className="text-xl mr-1 text-slate-400"/> {postInfo.salary} per day</p>
-            <p className="font-normal flex"><FaCalendarDay className="text-lg mr-1 text-slate-400" /> {postInfo.created_at}</p>
+            <p className="font-normal flex ">
+              <FaBriefcase className="text-xl mr-1 text-slate-400" />
+              {postInfo.position}
+            </p>
+            <p className="font-normal flex">
+              <FaBuilding className="text-xl  mr-1 text-slate-400" />
+              {postInfo.hotel}
+            </p>
+            <p className="font-normal flex">
+              {" "}
+              <FaLocationDot className="text-xl mr-1 text-slate-400" />{" "}
+              {postInfo.location}
+            </p>
+            <p className="font-normal  flex">
+              <FaPesoSign className="text-xl mr-1 text-slate-400" />{" "}
+              {postInfo.salary} per day
+            </p>
+            <p className="font-normal flex">
+              <FaCalendarDay className="text-lg mr-1 text-slate-400" />{" "}
+              {postInfo.created_at}
+            </p>
           </div>
         </div>
       </button>

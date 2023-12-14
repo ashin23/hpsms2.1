@@ -6,7 +6,8 @@ import CivilStatus from "./CivilStatus.json";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fileviewer from "./Fileviewer";
-
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -58,7 +59,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
 
   useEffect(() => {}, [applicant]);
 
-
   const getter = async () => {
     setEmail1(email2.Email);
     setName(email2.Name);
@@ -98,13 +98,12 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     setPhil_Health_No(email2.Phil_Health_No);
     setPag_Ibig_No(email2.Pag_Ibig_No);
     setTin_No(email2.Tin_Number);
-     Handlefetchfile(await email2.Email)
+    Handlefetchfile(await email2.Email);
   };
 
   useEffect(() => {
     AOS.init({ duration: 300, easing: "linear" });
-    if(email2)getter();
-   
+    if (email2) getter();
   }, [email2]);
 
   const Notify = () => {
@@ -173,7 +172,10 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
     setAllow(false);
   }
 
+  const [disable, setdisable] = useState(false);
+
   async function save() {
+    setdisable(true);
     const { data: NewUserupdate } = await supabase
       .from("NewUser")
       .update({
@@ -220,6 +222,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
 
     Notify();
     setAllow(false);
+    setdisable(false);
   }
 
   if (!isProfile) return null;
@@ -235,6 +238,7 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         <div className="sticky top-0 bg-white w-full h-[13%] p-5">
           <div className="flex justify-end   ">
             <button
+              disabled={disable}
               onClick={close}
               className="-mr-7 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
@@ -253,16 +257,31 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
         </label>
         <div className="flex grid-cols-2 md:gap-15 ">
           <button
+            disabled={disable}
             onClick={() => edit()}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="bg-blue-700  text-white  font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           >
             Edit
           </button>
           <button
+            disabled={disable}
             onClick={() => save()}
-            className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            className={`${
+              !disable
+                ? "focus:outline-none  bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                : "bg-gray-300"
+            } text-white font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 `}
           >
-            Save
+            {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Save"
+              )}
           </button>
         </div>
         <div className="">
@@ -788,18 +807,6 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
           ></input>
         </div>
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
     </div>
   );
 };

@@ -6,7 +6,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
   const currentDate = new Date().toDateString();
   const [disable, setdisable] = useState(false);
@@ -118,9 +119,19 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
                 : "bg-gray-500"
             }text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2`}
           >
-            Submit
+            {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Submit"
+              )}
           </button>
           <button
+            disabled={disable}
             onClick={onClose}
             className={`${
               !disable

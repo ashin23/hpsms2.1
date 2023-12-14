@@ -58,7 +58,7 @@ const Quelist = ({ email1 }) => {
         moment(que[index].created_at).isBefore(new Date()) &&
         que[index].created_at !== currentDate
       ) {
-        console.log("true");
+       
         const { data: que3 } = await supabase
           .from("Queuing_List")
           .delete()

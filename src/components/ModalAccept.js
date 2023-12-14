@@ -7,7 +7,8 @@ import supabase from "./supabaseClient";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
-emailjs.init("-qtQXoQ1iYx4JDljO");
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 
 const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
   const [date, setDate] = useState();
@@ -30,6 +31,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
 
   
   const InfoEmail = async () => {
+    setdisable(true);
     if (!date || !location || !time || !email1) {
       toast.warning(
         `${
@@ -49,6 +51,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
           theme: "light",
         }
       );
+      setdisable(false);
       return;
     }
     // emailjs.send(
@@ -64,7 +67,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
-    setdisable(true);
+    
     await supabase.from("Queuing_List").insert({
       // id: info.id,
       uuid: info.uuid,
@@ -253,6 +256,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
             ></textarea>
             <div className="flex justify-end w-full mt-1 ">
               <button
+              disabled={disable}
                 onClick={() => InfoEmail()}
                 className={`${
                   !disable
@@ -260,9 +264,19 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
                     : "bg-gray-500"
                 } focus:outline-none whitespace-nowrap text-white  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 `}
               >
-                Send to Email
+                {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Send to Email"
+              )}
               </button>
               <button
+              disabled={disable}
                 onClick={() => setShowAccept(false)}
                 className="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
               >

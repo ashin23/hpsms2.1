@@ -13,11 +13,15 @@ import { IoSchool } from "react-icons/io5";
 import { FaBriefcase } from "react-icons/fa";
 import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
-const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponent }) => {
+const ModalApplicantInfo = ({
+  isOpen,
+  CloseJobInfo,
+  Info,
+  srcIMG,
+  avatarComponent,
+}) => {
   const [showAccept, setShowAccept] = useState(false);
   const [showReject, setShowReject] = useState(false);
-
- 
 
   const updateNotif = async () => {
     const { data: update } = await supabase
@@ -57,7 +61,6 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponen
           <div className="md:flex  grid-cols-1   w-[100%] h-fit">
             <img
               src={srcIMG}
-              
               className="md:h-[200px] md:w-[200px] w-[100px] h-[100px] md:ml-0 ml-[100px] -mt-8 md:-mt-0  shadow-md shadow-black rounded-full "
             ></img>
             <div className="grid  w-[100%] h-fit ">
@@ -274,10 +277,12 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponen
                 SSS No: <p className="font-thin pl-1">{Info.SSS_Number}</p>
               </div>
               <div className="flex mr-1  font-semibold">
-                Phil Health No: <p className="font-thin pl-1">{Info.Phil_Health_No}</p>
+                Phil Health No:{" "}
+                <p className="font-thin pl-1">{Info.Phil_Health_No}</p>
               </div>
               <div className="flex mr-1  font-semibold">
-                Pag Ibig No: <p className="font-thin pl-1">{Info.Pag_Ibig_No}</p>
+                Pag Ibig No:{" "}
+                <p className="font-thin pl-1">{Info.Pag_Ibig_No}</p>
               </div>
               <div className="flex mr-1  font-semibold">
                 Tin No: <p className="font-thin pl-1">{Info.Tin_Number}</p>
@@ -285,7 +290,7 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponen
             </div>
           </div>
         </div>
-         
+
         <div className=""></div>
       </div>
       <ModalAccept
@@ -306,5 +311,3 @@ const ModalApplicantInfo = ({ isOpen, CloseJobInfo, Info, srcIMG, avatarComponen
 };
 
 export default ModalApplicantInfo;
-
-

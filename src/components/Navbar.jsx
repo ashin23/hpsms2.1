@@ -118,7 +118,7 @@ const Navbar = ({
     getnotifemp();
     getnotiarch();
     getnotifreq();
-    fetchNotif();
+    
     const Applicant_List = supabase
       .channel("custom-all-channel")
       .on(
@@ -488,6 +488,7 @@ const Navbar = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    fetchNotif();
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setIsMobile(true);
@@ -526,6 +527,7 @@ const Navbar = ({
       }
     }
   };
+  
 
 
   return (

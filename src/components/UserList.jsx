@@ -212,7 +212,7 @@ const UserList = () => {
                         if (search1 === "") {
                           return val;
                         } else if (
-                          val.Name.toLowerCase().includes(search1.toLowerCase())
+                          val.Email.toLowerCase().includes(search1.toLowerCase())
                         ) {
                           return val;
                         }

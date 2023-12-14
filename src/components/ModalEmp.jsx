@@ -12,6 +12,8 @@ import { IoSchool } from "react-icons/io5";
 import { FaBriefcase } from "react-icons/fa";
 import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 function ModalEmp({
   showJobApplicant,
   setShowJobApplicant,
@@ -36,7 +38,10 @@ function ModalEmp({
     setFile(await file);
   };
 
+  const [disable, setdisable] = useState(false);
+
   const HandleDelete = async () => {
+    setdisable(true);
     const { data: arch } = await supabase.from("Archive_List").select();
     for (let index = 0; index < arch.length; index++) {
       if (arch[index].uuid === Info.uuid) {
@@ -96,6 +101,7 @@ function ModalEmp({
           autoClose: 1500,
         });
         delete1();
+        setdisable(false);
         return;
       }
     }
@@ -154,6 +160,7 @@ function ModalEmp({
     toast.success("Moved to Archive", {
       autoClose: 1500,
     });
+    setdisable(false);
     delete1();
   };
 
@@ -166,6 +173,7 @@ function ModalEmp({
   };
 
   const HandleAccept = async () => {
+    setdisable(true);
     const { data: emp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < emp.length; index++) {
       if (emp[index].uuid === Info.uuid) {
@@ -219,12 +227,12 @@ function ModalEmp({
             Notifications: "false",
           })
           .eq("uuid", Info.uuid);
-        setTimeout(() => {
-          delete2();
-        }, [1500]);
+
         toast.success("Moved to Employee List", {
           autoClose: 1500,
         });
+        setdisable(false);
+        delete2();
         return;
       }
     }
@@ -279,6 +287,7 @@ function ModalEmp({
     toast.success("Moved to Employee List", {
       autoClose: 1500,
     });
+    setdisable(false);
     delete2();
   };
 
@@ -318,6 +327,7 @@ function ModalEmp({
       >
         <div className="flex justify-end mt-[10px] md:mt-0 p-1">
           <button
+            disabled={disable}
             onClick={close}
             className="text-sm font-medium p-2  px-4 text-gray-900 focus:outline-none bg-gray-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
@@ -341,18 +351,45 @@ function ModalEmp({
                 </label>
                 <div className="gap-1 flex">
                   <button
-                    className="text-white text-sm font-medium bg-green-700 rounded-lg md:p-4 p-2
-                focus:outline-none hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    disabled={disable}
+                    className={`${
+                      !disable
+                        ? " bg-green-700 focus:outline-none hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        : "bg-gray-300"
+                    } text-white text-sm font-medium rounded-lg md:p-4 p-2`}
                     onClick={() => HandleAccept()}
                   >
-                    ACCEPT
+                    {disable ? (
+                      <l-line-spinner
+                        size="20"
+                        stroke="3"
+                        speed="1"
+                        color="black"
+                      ></l-line-spinner>
+                    ) : (
+                      "ACCEPT"
+                    )}
                   </button>
                   <button
+                    disabled={disable}
                     onClick={() => HandleDelete()}
-                    className="text-white text-sm font-medium bg-red-700 rounded-lg md:p-4 p-2
-                focus:outline-none hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    className={`${
+                      !disable
+                        ? "focus:outline-none hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        : "bg-gray-300"
+                    }
+                    text-white text-sm font-medium bg-red-700 rounded-lg md:p-4 p-2`}
                   >
-                    REJECT
+                    {disable ? (
+                      <l-line-spinner
+                        size="20"
+                        stroke="3"
+                        speed="1"
+                        color="black"
+                      ></l-line-spinner>
+                    ) : (
+                      "REJECT"
+                    )}
                   </button>
                 </div>
               </div>

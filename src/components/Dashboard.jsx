@@ -2,29 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import ModalApply from "./ModalApply";
 import supabase from "./supabaseClient";
 import PostConfig from "./PostConfig";
-import logo1 from "./images/waiter1.jpg";
-
-import logo3 from "./images/hotel.jpg";
-import logo4 from "./images/leadership.png";
-
-import banner from "./images/banner.jpg";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ReactPaginate from "react-paginate";
-import Marco from "./images/Marco_Polo_Hotels_Logo.jpg";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { CiLocationOn } from "react-icons/ci";
-import { RxDotFilled } from "react-icons/rx";
-import { GoClock } from "react-icons/go";
-import { MdOutlineWorkOutline } from "react-icons/md";
-import { BsBuilding } from "react-icons/bs";
 import Logoviewer from "./Logoviewer";
 import Coverviewer from "./Coverviewer";
 import { FaBriefcase, FaBuilding, FaClock, FaSearch } from "react-icons/fa";
 import { FaLocationDot, FaCalendarDay, FaPesoSign } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -191,7 +181,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[56%] text-2xl absolute text-slate-400" />
             <input
               className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              placeholder="Enter Position or key words "
+              placeholder="Enter Position ,keywords or job title  "
               type="search"
               onChange={(e) => setSearch(e.target.value)}
             ></input>
@@ -218,7 +208,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       .filter((val) => {
                         if (
                           val.position
-
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) &&
+                          val.location
+                            .toLowerCase()
+                            .includes(search2.toLowerCase())
+                        ) {
+                          return val;
+                        } else if (
+                          val.jobtitle
                             .toLowerCase()
                             .includes(search.toLowerCase()) &&
                           val.location
@@ -324,8 +322,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       Position={positions}
                       Hotel={hotel}
                       Data={email}
-                      // checker={checker}
-                      // setdisable={setdisable}
                     />
                   )}
 
@@ -397,40 +393,16 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             </div>
                           </div>
                           <div className="mb-3">
-                            {edit ? (
-                              <label className="flex text-lg font-normal">
-                                <FaBriefcase className="text-xl mt-1 mr-3 text-slate-400" />
-                                {positions}
-                              </label>
-                            ) : (
-                              <div className="flex">
-                                Position:{" "}
-                                <input
-                                  type="text"
-                                  value={positions}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setPositions(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
+                            <label className="flex text-lg font-normal">
+                              <FaBriefcase className="text-xl mt-1 mr-3 text-slate-400" />
+                              {positions}
+                            </label>
                           </div>
                           <div className="mb-3">
-                            {edit ? (
-                              <label className="flex text-lg font-normal ">
-                                <FaLocationDot className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                                {location}
-                              </label>
-                            ) : (
-                              <div className="">
-                                Location:{" "}
-                                <input
-                                  type="text"
-                                  value={location}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setLocation(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
+                            <label className="flex text-lg font-normal ">
+                              <FaLocationDot className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {location}
+                            </label>
                           </div>
                           <div className="mb-3 flex">
                             {edit ? (
@@ -452,41 +424,17 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             )}
                           </div>
                           <div className="mb-3">
-                            {edit ? (
-                              <label className="flex text-lg font-normal">
-                                <FaClock className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                                {jobtype}
-                              </label>
-                            ) : (
-                              <div className="">
-                                Job Type:
-                                <input
-                                  type="text"
-                                  value={jobtype}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setJobType(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
+                            <label className="flex text-lg font-normal ">
+                              <FaClock className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {jobtype}
+                            </label>
                           </div>
                           <div className="mb-3">
-                            {edit ? (
-                              <label className="flex text-lg font-normal">
-                                {" "}
-                                <FaBuilding className="text-xl mt-1 mr-3 text-slate-400" />{" "}
-                                {hotel}
-                              </label>
-                            ) : (
-                              <div className="">
-                                Hotel:{" "}
-                                <input
-                                  type="text"
-                                  value={hotel}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setHotel(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
+                            <label className="flex text-lg font-normal">
+                              {" "}
+                              <FaBuilding className="text-xl mt-1 mr-3 text-slate-400" />{" "}
+                              {hotel}
+                            </label>
                           </div>
                           {applicant && (
                             <button
@@ -499,6 +447,16 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             : " bg-gray-400 "
                         }    focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
                             >
+                              {/* {disable ? (
+                                <l-line-spinner
+                                  size="20"
+                                  stroke="3"
+                                  speed="1"
+                                  color="black"
+                                ></l-line-spinner>
+                              ) : (
+                                "APPLY"
+                              )} */}
                               APPLY
                             </button>
                           )}
@@ -534,19 +492,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             )}
                           </div>
                           <div className="mb-3">
-                            {edit ? (
-                              <label>Date Posted: {dob}</label>
-                            ) : (
-                              <div className="">
-                                Date Posted:{" "}
-                                <input
-                                  type="text"
-                                  value={dob}
-                                  className="bg-blue-200"
-                                  onChange={(e) => setDob(e.target.value)}
-                                ></input>
-                              </div>
-                            )}
+                            <label>Date Posted: {dob}</label>
                           </div>
                           <div className="font-bold">Job Description</div>
                           <div className="mb-3">

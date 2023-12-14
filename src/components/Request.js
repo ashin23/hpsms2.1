@@ -4,6 +4,8 @@ import NumberOfPersonnel from "./NumberofPersonnel.json";
 import supabase from "./supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 
 const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const [locations, setLocations] = useState("");
@@ -15,15 +17,16 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const [personnels, setPersonnels] = useState("");
 
   const [request1, setRequest] = useState();
-
+  const [disable, setdisable] = useState(false);
   const HandleRequst = async () => {
     try {
+      setdisable(true);
       if (
         !locations ||
         !hotel ||
         !date ||
         !info ||
-        // personnels === "Number of Personnel" ||
+        !personnels ||
         positions === "Select Position"
       ) {
         toast.warning(
@@ -31,7 +34,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             ((!locations ||
               !hotel ||
               !date ||
-              // personnels === "Number of Personnel" ||
+              !personnels ||
               positions === "Select Position" ||
               !info) &&
               "Fill up the blanks") ||
@@ -39,7 +42,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             (!hotel && "Hotel is required") ||
             (!date && "Date is required") ||
             (!info && "Additional information is required") ||
-            // (personnels === "Number of Personnel") ||
+            (!personnels && "Number of Personnel is required") ||
             positions === "Select Position"
           }`,
           {
@@ -53,6 +56,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
             theme: "light",
           }
         );
+        setdisable(false);
         return;
       }
       const { data, error } = await supabase.from("Request").insert([
@@ -81,9 +85,8 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
         progress: undefined,
         theme: "light",
       });
-      setTimeout(() => {
-        onClose5();
-      }, [3000]);
+      setdisable(false);
+      onClose5();
     } catch (error) {}
   };
 
@@ -93,24 +96,39 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <div className="bg-white h-[75%] w-[100%] md:h-[50%]  lg:p-5 md:w-[30%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto">
+      <div className="bg-white h-[75%] w-[100%] md:h-[50%]  lg:p-5 md:w-[40%] md:rounded-md  rounded-md shadow-2xl shadow-gray-500 overflow-auto">
         <div className="sticky top-4 md:w-[50%] mt-5 md:-mt-1 items-center   bg-white">
           <label className="flex pl-9 pr-56 py-3  my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl">
             Request
           </label>
           <div className=" mt-5 md:mt-3 md:flex md:-ml-5 px-5 text-lg">
             <button
+              disabled={disable}
               onClick={() => HandleRequst()}
-              className=" text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className={`${
+                !disable
+                  ? " bg-blue-700 hover:bg-blue-800 focus:ring-4 text-white focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  : "bg-gray-300"
+              }text-white  whitespace-nowrap   font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2`}
             >
-              Request
+              {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "REQUEST"
+              )}
             </button>
 
             <button
+              disabled={disable}
               onClick={onClose5}
               className="text-white bg-gray-700 whitespace-nowrap  hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
             >
-              Cancel
+              CANCEL
             </button>
           </div>
         </div>

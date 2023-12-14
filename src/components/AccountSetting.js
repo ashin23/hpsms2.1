@@ -38,13 +38,13 @@ const AccountSetting = ({
   }, []);
 
   useEffect(() => {
-    getter();
+    if(email2)getter();
     codeGenerator();
   }, [hr, admin, emp, coordinator, applicant]);
 
   const getter = async () => {
-    setEmail1(email2.Email);
-    setPass(email2.Password);
+     setEmail1( email2.Email);
+    setPass( email2.Password);
   };
 
   function handleEdit() {

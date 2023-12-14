@@ -37,7 +37,9 @@ const PostJob = ({ isPost, isPostClose }) => {
   }, [isPost]);
 
   const handleStoreData = async () => {
+    
     try {
+      setdisable(true);
       if (
         positions === "Select Position" ||
         !location ||
@@ -90,10 +92,10 @@ const PostJob = ({ isPost, isPostClose }) => {
             theme: "light",
           }
         );
-
+        setdisable(false);
         return;
       } else {
-        setdisable(true);
+        
         const { data, error } = await supabase.from("PostJob").insert([
           {
             position: positions,
@@ -155,7 +157,7 @@ const PostJob = ({ isPost, isPostClose }) => {
         return;
       }
     } catch (error) {
-      toast.error("error" + error)
+      toast.error("error" + error);
     }
   };
 
@@ -173,6 +175,7 @@ const PostJob = ({ isPost, isPostClose }) => {
           </label>{" "}
           <div className="md:ml-[25%]  lg:ml-[10%] w-fit  md:flex px-5 text-lg ">
             <button
+              disabled={disable}
               className={`${
                 !disable
                   ? "  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -180,9 +183,19 @@ const PostJob = ({ isPost, isPostClose }) => {
               } text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2`}
               onClick={() => handleStoreData()}
             >
-              Post A job
+               {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Post a Job"
+              )}
             </button>
             <button
+              disabled={disable}
               onClick={() => isPostClose()}
               className=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
             >

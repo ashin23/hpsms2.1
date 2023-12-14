@@ -343,7 +343,6 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 placeholder="Email"
                 required
                 type="text"
-                // pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
               ></input>
             </div>
             {/* Verification Code */}

@@ -4,10 +4,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer, toast } from "react-toastify";
 import Deploy from "./Deploy";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
   const [employee, setemployee] = useState([]);
   const [userlist, setUserList] = useState([]);
-  const [datadisplay, setdatadisplay] = useState();
+  const [datadisplay, setdatadisplay] = useState("");
   const [email, setEmail] = useState();
   const [coord, setcoord] = useState("Coordinator");
 
@@ -41,7 +43,10 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
     setemployee(emp12);
   };
 
+  const [disable, setdisable] = useState(false);
+  
   const HandleSendCoordinator = async () => {
+    setdisable(true);
     if (!datadisplay) {
       toast.warning("Select Coordinator", {
         position: "top-center",
@@ -52,8 +57,10 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
         progress: undefined,
         theme: "light",
       });
+      setdisable(false);
       return;
     } else {
+     
       if (employee.length > 0) {
         const { data: coordinator } = await supabase
           .from("EmployeeListCoordinator")
@@ -64,7 +71,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
               Data: employee,
             },
           ]);
-
+          
         for (let index = 0; index < employee.length; index++) {
           const { data: emparray } = await supabase
             .from("Employee_List")
@@ -81,9 +88,8 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          isCloseDeploy();
-        }, [3000]);
+        setdisable(false);
+        isCloseDeploy();
       } else if (employee.length <= 0) {
         toast.warning("No data selected", {
           position: "top-center",
@@ -94,6 +100,8 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           progress: undefined,
           theme: "light",
         });
+        setdisable(false);
+        return
       }
     }
   };
@@ -123,21 +131,36 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           data-aos="zoom-in"
           className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] lg:w-[40%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
         >
-          <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
+          <div className="flex   sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
             <label
               className=" flex p-3 px-3  text-slate-100 md:text-[30px] h-fit text-xl  text-center font-semibold
-              bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl -mb-24"
+              bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl "
             >
               Selected Employees
             </label>
-            <div className="flex grid-cols-2 md:ml-2 md:-mb-14 md:mt-2">
+            <div className="flex grid-cols-2 md:ml-2 ">
               <button
+                disabled={disable}
                 onClick={() => HandleSendCoordinator()}
-                className="  focus:outline-none md:h-[40%] h-[50%] text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                className={`${
+                  !disable
+                    ? "focus:outline-none  bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                    : "bg-gray-500"
+                } md:h-[40%] h-[50%] text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2`}
               >
-                Send
+                 {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Send"
+              )}
               </button>
               <button
+                disabled={disable}
                 onClick={close}
                 className=" focus:outline-none md:h-[40%] h-[50%] text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900 "
               >
@@ -162,7 +185,6 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           <div className="md-mt-10">
             <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
             <input
-              value={datadisplay}
               onChange={(e) => setdatadisplay(e.target.value)}
               type="text"
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -203,17 +225,6 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
             </div>
           </div>
         </div>
-        <ToastContainer
-          position="top-center"
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover={false}
-          theme="light"
-        />
       </div>
     </>
   );

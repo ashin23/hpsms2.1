@@ -86,7 +86,7 @@ const Employee = ({ email }) => {
   const perpage = 5;
   const endoffsett = itemsOffset + perpage;
   useEffect(() => {
-    setpagecount(Math.ceil(employee.length / perpage));
+    setpagecount(Math.ceil(employee?.length / perpage));
   }, [itemsOffset, perpage, employee]);
 
   const handlePageClick = (event) => {
@@ -106,13 +106,17 @@ const Employee = ({ email }) => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Employee(<em> {employee.length} </em>)
-                </label>
+                {employee && emp1 && (
+                  <>
+                    <label className="">
+                      Total Employee(<em> {employee?.length} </em>)
+                    </label>
 
-                <label className="">
-                  New Employee(<em> {emp1.length} </em>)
-                </label>
+                    <label className="">
+                      New Employee(<em> {emp1?.length} </em>)
+                    </label>
+                  </>
+                )}
               </div>
               <div className="flex items-center h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input

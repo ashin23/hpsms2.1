@@ -6,7 +6,17 @@ import { ToastContainer, toast } from "react-toastify";
 import Deploy from "./Deploy";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
-function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
+function ModalDeploy({
+  isOpenDeploy,
+  isCloseDeploy,
+  Position,
+  Hotel,
+  Location,
+  Personel,
+  id,
+  Email,
+  checkerCompletion,
+}) {
   const [employee, setemployee] = useState([]);
   const [userlist, setUserList] = useState([]);
   const [datadisplay, setdatadisplay] = useState("");
@@ -44,10 +54,10 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
   };
 
   const [disable, setdisable] = useState(false);
-  
+
   const HandleSendCoordinator = async () => {
     setdisable(true);
-    if (!datadisplay) {
+    if (!Email) {
       toast.warning("Select Coordinator", {
         position: "top-center",
         hideProgressBar: false,
@@ -60,24 +70,35 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
       setdisable(false);
       return;
     } else {
-     
       if (employee.length > 0) {
         const { data: coordinator } = await supabase
           .from("EmployeeListCoordinator")
           .insert([
             {
               created_at: currentdate,
-              Email: datadisplay,
+              Email: Email,
               Data: employee,
+              Position: Position,
+              Hotel: Hotel,
+              Location: Location,
             },
           ]);
-          
+
+        let update = Personel - employee.length;
+
+        const { data: updatePersonel } = await supabase
+          .from("Request")
+          .update({ Personel: update })
+          .match({ id: id });
+
         for (let index = 0; index < employee.length; index++) {
           const { data: emparray } = await supabase
             .from("Employee_List")
             .update({ status: "Deploy" })
-            .eq("uuid", employee[index].uuid);
+            .eq("id", employee[index].id);
         }
+
+        checkerCompletion();
         setdatadisplay("");
         toast.success("Sent Succesfully!", {
           position: "top-center",
@@ -101,7 +122,7 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           theme: "light",
         });
         setdisable(false);
-        return
+        return;
       }
     }
   };
@@ -148,16 +169,16 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
                     : "bg-gray-500"
                 } md:h-[40%] h-[50%] text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2`}
               >
-                 {disable ? (
-                <l-line-spinner
-                  size="20"
-                  stroke="3"
-                  speed="1"
-                  color="black"
-                ></l-line-spinner>
-              ) : (
-                "Send"
-              )}
+                {disable ? (
+                  <l-line-spinner
+                    size="20"
+                    stroke="3"
+                    speed="1"
+                    color="black"
+                  ></l-line-spinner>
+                ) : (
+                  "Send"
+                )}
               </button>
               <button
                 disabled={disable}
@@ -185,44 +206,11 @@ function ModalDeploy({ isOpenDeploy, isCloseDeploy, Position }) {
           <div className="md-mt-10">
             <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
             <input
-              onChange={(e) => setdatadisplay(e.target.value)}
+              disabled={true}
+              value={Email}
               type="text"
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             ></input>
-            <div
-              className={`${
-                datadisplay === ""
-                  ? "hidden"
-                  : ` bg-slate-400 overflow-y-auto absolute`
-              }`}
-            >
-              {userlist
-                .filter((val) => {
-                  try {
-                    if (datadisplay === "") {
-                      return val;
-                    } else if (
-                      val.Email.toLowerCase().includes(
-                        datadisplay.toLowerCase()
-                      )
-                    ) {
-                      return val;
-                    } else {
-                      return val;
-                    }
-                  } catch (error) {}
-                })
-                .map((e) => (
-                  <div
-                    className={`${
-                      datadisplay === email ? "hidden" : "md:h-[20%] "
-                    }`}
-                    onClick={() => setdatadisplay(e.Email) || setEmail(e.Email)}
-                  >
-                    {e.Email}
-                  </div>
-                ))}
-            </div>
           </div>
         </div>
       </div>

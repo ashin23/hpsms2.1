@@ -3,9 +3,10 @@ import supabase from "./supabaseClient";
 import logo from "./images/magnifying-glass.png";
 import ArchiveConfig from "./ArchiveConfig";
 import { useEffect } from "react";
+import moment from "moment";
 
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
+import { CiWarning } from "react-icons/ci";
 const Archive = () => {
   const [search1, setSearch1] = useState("");
   const [archive12, setArchive] = useState([]);
@@ -13,6 +14,15 @@ const Archive = () => {
   const [notif, setnotif] = useState("false");
   const [arch, setarch] = useState([]);
   const [date, setDate] = useState("");
+  // Sample
+  // const currentDate1 = moment(new Date()).format();
+  // const newDate = moment(new Date()).add(1, "minutes").format();
+
+  const currentDate = moment(new Date()).format("yyyy-M-D");
+
+ 
+  const newDate = moment(new Date()).add(5, "days").format("yyyy-M-D");
+
   useEffect(() => {
     FetchArchive();
     archfetch();
@@ -27,7 +37,8 @@ const Archive = () => {
         }
       )
       .subscribe();
-  }, [date]);
+     
+  }, [newDate,currentDate]);
 
   const archfetch = async () => {
     const { data: arche } = await supabase
@@ -38,18 +49,43 @@ const Archive = () => {
   };
 
   const FetchArchive = async () => {
-    if (date === "") {
-      const { data: archive1 } = await supabase.from("Archive_List").select();
-      setArchive(archive1);
-    } else {
-      if (date !== "") {
-        const { data: archive122 } = await supabase
+    const { data: arch1 } = await supabase.from("Archive_List").select();
+    for (let index = 0; index < arch1.length; index++) {
+      if (arch1[index].created_at === currentDate) {
+        const { data: arch6 } = await supabase
           .from("Archive_List")
           .select()
-          .eq("created_at", date);
-        setArchive(archive122);
+          .eq("created_at", currentDate);
+        setArchive(arch6);
+      }
+      if (
+        moment(arch1[index].created_at).isAfter(newDate) &&
+        arch1[index].created_at !== currentDate
+      ) {
+        const { data: arch3 } = await supabase
+          .from("Archive_List")
+          .delete()
+          .eq("id", arch1[index].id);
+        setArchive(arch3);
       }
     }
+  };
+
+ 
+
+  const datespecific = async (e) => {
+    if (e.target.value === "") {
+      const { data: arch4 } = await supabase
+        .from("Archive_List")
+        .select()
+        .eq("created_at", currentDate);
+      return setArchive(arch4);
+    }
+    const { data: arch5 } = await supabase
+      .from("Archive_List")
+      .select()
+      .eq("created_at", e.target.value);
+    setArchive(arch5);
   };
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -60,7 +96,7 @@ const Archive = () => {
   const endoffsett = itemsOffset + perpage;
   useEffect(() => {
     setcurrentitems(archive12);
-    setpagecount(Math.ceil(archive12.length / perpage));
+    setpagecount(Math.ceil(archive12?.length / perpage));
   }, [itemsOffset, perpage, archive12]);
 
   const handlePageClick = (event) => {
@@ -79,13 +115,24 @@ const Archive = () => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Archive(<em> {archive12.length} </em>)
-                </label>
+                {archfetch && (
+                  <>
+                    <label className="whitespace-break-spaces">
+                      Total Archive(<em> {archive12?.length} </em>)
+                    </label>
 
-                <label className="">
-                  New Archive(<em> {arch.length} </em>)
-                </label>
+                    <label className="whitespace-break-spaces">
+                      New Archive(<em> {arch?.length} </em>)
+                    </label>
+
+                    <label className="whitespace-break-spaces flex items-center">
+                      <CiWarning className="text-2xl bg-yellow-300 rounded-md" />{" "}
+                      The data has a 5-day window for restoration; otherwise, it
+                      will be deleted
+                    </label>
+                  </>
+                )}
+                {/* <button onClick={() => abledelet()}>Enable auto delete</button> */}
               </div>
               <div className="flex items-center h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input
@@ -95,7 +142,7 @@ const Archive = () => {
                   onChange={(e) => setSearch1(e.target.value)}
                 />
                 <input
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => datespecific(e)}
                   className=" h-[30px] w-[40%]  pl-1 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   type="date"
                 />
@@ -110,8 +157,6 @@ const Archive = () => {
                     <label className="justify-center flex">POSITION</label>
                     <label className="justify-center flex">EMAIL</label>
                     <label className="justify-center flex">ACTION</label>
-                    
-                    
                   </div>
                   {archive12
                     .filter((val) => {

@@ -135,10 +135,10 @@ const UserList = () => {
   const perpage = 7;
 
   const endoffsett = itemsOffset + perpage;
-  
+
   useEffect(() => {
     setcurrentitems(userList);
-   
+
     setpagecount(Math.ceil(userList.length / perpage));
   }, [itemsOffset, perpage, userList]);
 
@@ -161,23 +161,31 @@ const UserList = () => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-xs  md:text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Applicants(<em> {usertotalapp.length} </em>)
-                </label>
+                {usertotalapp &&
+                  usertotalemp &&
+                  usertotalcoord &&
+                  usertotalhr &&
+                  usertotalrestricted && (
+                    <>
+                      <label className="">
+                        Total Applicants(<em> {usertotalapp.length} </em>)
+                      </label>
 
-                <label className="">
-                  Total Employee(<em> {usertotalemp.length} </em>)
-                </label>
-                <label className="">
-                  Total Coordinators(<em> {usertotalcoord.length} </em>)
-                </label>
-                <label className="">
-                  Total HR(<em> {usertotalhr.length} </em>)
-                </label>
-                <label className="">
-                  Total Restricted Accounts(
-                  <em> {usertotalrestricted.length} </em>)
-                </label>
+                      <label className="">
+                        Total Employee(<em> {usertotalemp.length} </em>)
+                      </label>
+                      <label className="">
+                        Total Coordinators(<em> {usertotalcoord.length} </em>)
+                      </label>
+                      <label className="">
+                        Total HR(<em> {usertotalhr.length} </em>)
+                      </label>
+                      <label className="">
+                        Total Restricted Accounts(
+                        <em> {usertotalrestricted.length} </em>)
+                      </label>
+                    </>
+                  )}
               </div>
               <div className="flex items-center  h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input
@@ -203,7 +211,7 @@ const UserList = () => {
                   <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
                     <label className="justify-start flex">NAME</label>
                     <label className="justify-center flex">POSITION</label>
-                    
+
                     <label className="justify-center flex">ACTION</label>
                   </div>
                   {userList
@@ -212,7 +220,9 @@ const UserList = () => {
                         if (search1 === "") {
                           return val;
                         } else if (
-                          val.Email.toLowerCase().includes(search1.toLowerCase())
+                          val.Email.toLowerCase().includes(
+                            search1.toLowerCase()
+                          )
                         ) {
                           return val;
                         }

@@ -4,14 +4,8 @@ import ModalDeploy from "./ModalDeploy";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ToastContainer } from "react-toastify";
-const RequestConfig = ({ e }) => {
+const RequestConfig = ({ e, fetchCoordList }) => {
   const [showModalDeploy, setShowModalDeploy] = useState(false);
-  const updateNotif = async () => {
-    const { data: update } = await supabase
-      .from("Request")
-      .update({ Notifications: "true" })
-      .eq("id", e.id);
-  };
 
   const [img, setImg] = useState();
   const [broken, isBroken] = useState(false);
@@ -64,12 +58,46 @@ const RequestConfig = ({ e }) => {
       >{`${name?.split(" ")[0][0]}`}</div>
     );
   }
+
+  const checkerCompletion = (status) => {
+    let NumOfReq = e.Personel;
+
+    if (NumOfReq === 0) {
+      deleteData();
+      return;
+    }
+    for (let index = 0; index < fetchCoordList.length; index++) {
+      if (
+        fetchCoordList[index].Hotel === e.Hotel &&
+        fetchCoordList[index].Position === e.Position &&
+        fetchCoordList[index].Location === e.Location
+      ) {
+        var numberEmp = fetchCoordList[index].Data.length;
+        if (numberEmp !== e.Personel) {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    }
+
+    // true complete
+    // false incomplete
+    // return true if completo na sya
+    // return false if hindi pa === sa numebr of request yung data na na send
+  };
+
+  const deleteData = async () => {
+    const { error } = await supabase.from("Request").delete().eq("id", e.id);
+
+    console.log(true);
+  };
   return (
     <div
       data-tooltip-id="my-tooltip"
       data-tooltip-content="View Profile"
       className={`${
-        e.Notifications === "false" && "border-2 border-red-500 "
+        !checkerCompletion(e.Notifications) && "border-2 border-red-500 "
       }  md:text-base text-[10px] h-fit grid grid-cols-3 md:grid-cols-7 justify-center items-center mb-1 bg-slate-200 p-1 rounded-md font-thin cursor-pointer`}
     >
       <div className="text-md flex items-center gap-1 text-blue-600">
@@ -88,10 +116,10 @@ const RequestConfig = ({ e }) => {
       <div className="text-md cursor-pointer flex justify-center">
         {e.Position}
       </div>
-      <div className="text-md cursor-pointer flex justify-center">{e.Personel}</div>
       <div className="text-md cursor-pointer flex justify-center">
-        {e.Date}
+        {e.Personel}
       </div>
+      <div className="text-md cursor-pointer flex justify-center">{e.Date}</div>
       <div className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate">
         {e.Hotel}
       </div>
@@ -100,13 +128,7 @@ const RequestConfig = ({ e }) => {
       </div>
       <div className="text-md  cursor-pointer flex justify-center gap-2 ml-14 md:ml-0">
         <button
-          className="text-white bg-green-700 whitespace-nowrap  hover:bg-green-800 focus:ring-4 focus:ring-green-300 md:font-medium  rounded-lg text-base px-1 md:px-3 md:py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-          onClick={updateNotif}
-        >
-          COMPLETE
-        </button>
-        <button
-          className="text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 md:font-medium rounded-lg text-base px-1 md:px-3 md:py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
           onClick={() => setShowModalDeploy(true)}
         >
           DEPLOY
@@ -117,10 +139,14 @@ const RequestConfig = ({ e }) => {
         isOpenDeploy={showModalDeploy}
         isCloseDeploy={() => setShowModalDeploy(false)}
         Position={e.Position}
+        Email={e.Email}
+        Hotel={e.Hotel}
+        Location={e.Location}
+        Personel={e.Personel}
+        id={e.id}
+        checkerCompletion={checkerCompletion}
       />
-      <ToastContainer
-          
-        />
+      <ToastContainer />
     </div>
   );
 };

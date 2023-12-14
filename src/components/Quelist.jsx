@@ -17,6 +17,8 @@ const Quelist = ({ email1 }) => {
 
   const currentDate = moment(new Date()).format("yyyy-M-D");
 
+
+  
   useEffect(() => {
     queList();
     que();
@@ -58,7 +60,6 @@ const Quelist = ({ email1 }) => {
         moment(que[index].created_at).isBefore(new Date()) &&
         que[index].created_at !== currentDate
       ) {
-       
         const { data: que3 } = await supabase
           .from("Queuing_List")
           .delete()
@@ -102,7 +103,7 @@ const Quelist = ({ email1 }) => {
   }, [itemsOffset, perpage, applicants]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * perpage) % applicants.length;
+    const newOffset = (event.selected * perpage) % applicants?.length;
 
     setItemOffset(newOffset);
   };
@@ -119,7 +120,7 @@ const Quelist = ({ email1 }) => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                {que && (
+                {applicants && app && (
                   <>
                     <label className="">
                       Total Queuing:(<em> {applicants?.length} </em>)

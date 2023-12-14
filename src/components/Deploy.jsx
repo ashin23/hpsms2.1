@@ -16,7 +16,7 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
   };
   const removeItem = (itemToRemove) => {
     // Filter out the itemToRemove from the array
-    const updatedArray = employee.filter((item) => item.uuid !== itemToRemove);
+    const updatedArray = employee.filter((item) => item.id !== itemToRemove);
     // Update the state with the new array
     setemployee(updatedArray);
   };
@@ -28,7 +28,7 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
         {pos.Email}
         <button
           className="p-1 bg-red-700 rounded-md px-2"
-          onClick={() => removeItem(pos.uuid)}
+          onClick={() => removeItem(pos.id)}
         >
           X
         </button>

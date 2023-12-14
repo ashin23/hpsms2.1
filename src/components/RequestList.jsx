@@ -14,8 +14,11 @@ const RequestList = () => {
   const [status, setstatus] = useState("false");
   const [req, setreq] = useState([]);
 
+  const [fetchCoordList, setCoordList] = useState([]);
+
   useEffect(() => {
     FetchRequest();
+    fetchCoordData();
     requ();
     supabase
       .channel("custom-insert-channel")
@@ -29,6 +32,13 @@ const RequestList = () => {
       )
       .subscribe();
   }, [date]);
+
+  const fetchCoordData = async () => {
+    const { data: data } = await supabase
+      .from("EmployeeListCoordinator")
+      .select();
+    setCoordList(data);
+  };
 
   const requ = async () => {
     const { data: reqe1 } = await supabase
@@ -82,13 +92,17 @@ const RequestList = () => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Request(<em> {request.length} </em>)
-                </label>
+                {request && req && (
+                  <>
+                    <label className="">
+                      Total Request(<em> {request.length} </em>)
+                    </label>
 
-                <label className="">
-                  New Request(<em> {req.length} </em>)
-                </label>
+                    <label className="">
+                      New Request(<em> {req.length} </em>)
+                    </label>
+                  </>
+                )}
               </div>
               <div className="flex items-center h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input
@@ -111,10 +125,18 @@ const RequestList = () => {
                   <div className=" grid grid-cols-3 md:grid-cols-7 bg-slate-200 p-2 mb-1 rounded-md font-bold">
                     <label className="justify-start flex">NAME</label>
                     <label className="justify-center flex">POSITION</label>
-                    <label className="justify-center md:flex hidden">PERSONNEL</label>
-                    <label className="justify-center md:flex hidden">DATE NEEDED</label>
-                    <label className="justify-center md:flex hidden">HOTEL</label>
-                    <label className="justify-center md:flex hidden">LOCATION</label>
+                    <label className="justify-center md:flex hidden">
+                      PERSONNEL
+                    </label>
+                    <label className="justify-center md:flex hidden">
+                      DATE NEEDED
+                    </label>
+                    <label className="justify-center md:flex hidden">
+                      HOTEL
+                    </label>
+                    <label className="justify-center md:flex hidden">
+                      LOCATION
+                    </label>
                     <label className="justify-center flex">ACTION</label>
                   </div>
                   {request
@@ -123,16 +145,22 @@ const RequestList = () => {
                         if (search1 === "") {
                           return val;
                         } else if (
-                          val.Email.toLowerCase().includes(search1.toLowerCase())
+                          val.Email.toLowerCase().includes(
+                            search1.toLowerCase()
+                          )
                         ) {
                           return val;
                         }
                       } catch (error) {}
                     })
-                    .sort((a, b) => (b.id > a.id ? 1 : -1))
+                    .sort((a, b) => (a.status <= b.status ? -1 : 1))
                     .slice(itemsOffset, endoffsett)
                     .map((e) => (
-                      <RequestConfig key={e.id} e={e} />
+                      <RequestConfig
+                        key={e.id}
+                        e={e}
+                        fetchCoordList={fetchCoordList}
+                      />
                     ))}
                 </div>
               )}

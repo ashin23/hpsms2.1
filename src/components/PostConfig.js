@@ -24,14 +24,16 @@ function PostConfig({
   Pjobtype,
   setInfo,
   email,
-  applychecker,
   setjobtitle,
   setFile1,
   setFile21,
   mobile,
+  setdisableButton,
 }) {
   const [file1, setFile] = useState();
   const [file12, setFile12] = useState();
+  const [hide, setHide] = useState(false);
+
   function HandleClick() {
     Pposition(postInfo.position);
     Plocation(postInfo.location);
@@ -51,13 +53,30 @@ function PostConfig({
     setFile1(file1);
     setFile21(file12);
     mobile();
-    if (email) applychecker(postInfo);
+    setdisableButton(null);
+    applychecker();
   }
+
+  const applychecker = async () => {
+    const { data: applicant } = await supabase.from("Applicant_List").select();
+
+    for (let index = 0; index < applicant.length; index++) {
+      if (
+        applicant[index].Hotel === postInfo.hotel &&
+        applicant[index].Email === email?.Email
+        // remove await
+      ) {
+        setdisableButton(true);
+        return;
+      } else {
+        setdisableButton(false);
+      }
+    }
+  };
   // fether images
   useEffect(() => {
     Handlefetchfile();
     Handlefetchfile1();
-    
   }, []);
   // cover photo
   const Handlefetchfile1 = async () => {

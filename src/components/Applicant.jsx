@@ -74,7 +74,7 @@ const Applicant = () => {
   }, [itemsOffset, perpage, applicants]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * perpage) % applicants.length;
+    const newOffset = (event.selected * perpage) % applicants?.length;
     setItemOffset(newOffset);
   };
 
@@ -90,13 +90,17 @@ const Applicant = () => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-medium text-base p-3 w-full md:justify-start justify-center">
-                <label className="">
-                  Total Applicants(<em> {applicants.length} </em>)
-                </label>
+                {applicants && app && (
+                  <>
+                    <label className="">
+                      Total Applicants(<em> {applicants?.length} </em>)
+                    </label>
 
-                <label className="">
-                  New Applicants(<em> {app.length} </em>)
-                </label>
+                    <label className="">
+                      New Applicants(<em> {app?.length} </em>)
+                    </label>
+                  </>
+                )}
               </div>
               <div className="flex items-center h-[100%] w-[100%] mr-1 gap-2 mb-5">
                 <input
@@ -136,10 +140,18 @@ const Applicant = () => {
                             )
                           ) {
                             return val;
-                          } else if(val.Hotel.toLowerCase().includes(search1.toLowerCase())){
-                            return val
-                          } else if (val.Position.toLowerCase().includes(search1.toLowerCase())){
-                            return val
+                          } else if (
+                            val.Hotel.toLowerCase().includes(
+                              search1.toLowerCase()
+                            )
+                          ) {
+                            return val;
+                          } else if (
+                            val.Position.toLowerCase().includes(
+                              search1.toLowerCase()
+                            )
+                          ) {
+                            return val;
                           }
                         } catch (error) {}
                       })

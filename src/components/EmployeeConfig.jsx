@@ -95,16 +95,16 @@ const EmployeeConfig = ({ e }) => {
           
         </div>
         <div className="text-lg cursor-pointer flex justify-center items-center">
-        <CgProfile className=""/> {e.Name}
+        <CgProfile className="mr-1"/> {e.Name}
         </div>
         <div className="text-lg cursor-pointer flex justify-center items-center">
-        <IoBriefcaseSharp/>  {e.Position}
+        <IoBriefcaseSharp className="mr-1"/>  {e.Position}
         </div>
         <div className="text-lg  items-center md:ml-3 text-blue-600 hover:underline cursor-pointer  justify-center flex truncate">
-        <MdEmail className="text-black"/> {e.Email}
+        <MdEmail className="text-black mr-1"/> {e.Email}
         </div>
         <div className="text-lg cursor-pointer flex justify-center items-center">
-         <FaBuilding/> {e.Hotel}
+         <FaBuilding className="mr-1"/> {e.Hotel}
         </div>
         </div>
       </div>

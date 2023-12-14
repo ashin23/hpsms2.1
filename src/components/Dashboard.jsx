@@ -36,7 +36,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [search2, setSearch2] = useState("");
   const [edit, setEdit] = useState(true);
   const [jobtitle, setjobtitle] = useState("");
-  const [disable, setdisable1] = useState(false);
+  const [disableButton, setdisableButton] = useState();
+  const [disableSpinner, setDisplaySpinner] = useState(false);
 
   const Job = useRef(null);
 
@@ -126,21 +127,6 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     setShowModal(true);
   }
 
-  const applychecker = async (postinfo) => {
-    const { data: applicant } = await supabase.from("Applicant_List").select();
-    for (let index = 0; index < applicant.length; index++) {
-      if (
-        applicant[index].Hotel === postinfo.hotel &&
-        applicant[index].Email === (await email.Email)
-        // remove await
-      ) {
-        setdisable1(true);
-        return;
-      } else {
-        setdisable1(false);
-      }
-    }
-  };
   const [file1, setFile] = useState();
   const [file12, setFile21] = useState();
   const [hide, sethide] = useState(false);
@@ -167,6 +153,8 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
     widthchecker();
     sethide(false);
   }, [window.innerWidth]);
+
+  const [data, setDataa] = useState();
   return (
     <>
       <div className="  h-screen  ">
@@ -247,10 +235,10 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           setInfo={setInfo}
                           setjobtitle={setjobtitle}
                           email={email}
-                          applychecker={applychecker}
                           setFile1={setFile}
                           setFile21={setFile21}
                           mobile={mobile}
+                          setdisableButton={setdisableButton}
                         />
                       ))}
                     <div className="-mr-5">
@@ -280,41 +268,42 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             )}
 
             {/* Sticky */}
+
             {widthchecker() && (
               <div
                 ref={Job}
                 className=" md:ml-10 overflow-x-hidden  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
               >
-                <button
-                  className="md:hidden visible text-left text-3xl text-blue-500  "
-                  onClick={() => mobile()}
-                >
-                  <IoMdArrowRoundBack />
-                </button>
-                {file12 && (
-                  <div className="flex mt-5 w-full justify-center  ">
-                    {file12.map((file1) => (
-                      <Coverviewer
-                        key={file1.id}
-                        file1={file1}
-                        Email={info.coveruuid}
-                      />
-                    ))}
-                  </div>
-                )}
-
-                {file1 && (
-                  <div className="flex mt-5">
-                    {file1.map((file1) => (
-                      <Logoviewer
-                        key={file1.id}
-                        file1={file1}
-                        Email={info.hoteluuid}
-                      />
-                    ))}
-                  </div>
-                )}
                 <div className=" ">
+                  <button
+                    className="md:hidden visible text-left text-3xl text-blue-500  "
+                    onClick={() => mobile()}
+                  >
+                    <IoMdArrowRoundBack />
+                  </button>
+                  {file12 && (
+                    <div className="flex mt-5 w-full justify-center  ">
+                      {file12.map((file1) => (
+                        <Coverviewer
+                          key={file1.id}
+                          file1={file1}
+                          Email={info.coveruuid}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {file1 && (
+                    <div className="flex mt-5">
+                      {file1.map((file1) => (
+                        <Logoviewer
+                          key={file1.id}
+                          file1={file1}
+                          Email={info.hoteluuid}
+                        />
+                      ))}
+                    </div>
+                  )}
                   {email !== "" && (
                     <ModalApply
                       isVisible={showModal}
@@ -436,18 +425,18 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                               {hotel}
                             </label>
                           </div>
-                          {applicant && (
+
+                          {disableButton !== null ? (
                             <button
-                              disabled={disable}
+                              disabled={disableButton}
                               onClick={apply1}
-                              className={`
-                        ${
-                          !disable
-                            ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300   dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                            : " bg-gray-400 "
-                        }    focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
+                              className={`${
+                                !disableButton
+                                  ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                  : " bg-gray-400 "
+                              } focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
                             >
-                              {/* {disable ? (
+                              {disableSpinner ? (
                                 <l-line-spinner
                                   size="20"
                                   stroke="3"
@@ -456,9 +445,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                                 ></l-line-spinner>
                               ) : (
                                 "APPLY"
-                              )} */}
-                              APPLY
+                              )}
                             </button>
+                          ) : (
+                            <l-line-spinner
+                              size="20"
+                              stroke="3"
+                              speed="1"
+                              color="black"
+                            ></l-line-spinner>
                           )}
 
                           <div className="mb-3 mt-10">

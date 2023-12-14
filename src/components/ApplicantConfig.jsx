@@ -93,18 +93,18 @@ function ApplicantConfig({ e }) {
             
           </div>
           <div className="text-lg cursor-pointer flex justify-center items-center">
-          <CgProfile className=""/> {e.Name}
+          <CgProfile className="mr-1"/> {e.Name}
           </div>
           <div className="text-lg cursor-pointer flex items-center justify-center">
-          <IoBriefcaseSharp/>  {e.Position}
+          <IoBriefcaseSharp className="mr-1"/>  {e.Position}
           
           </div>
 
           <div className="text-lg  text-blue-600 hover:underline cursor-pointer items-center  justify-center flex truncate">
-           <MdEmail className="text-black "/> {e.Email}
+           <MdEmail className="text-black mr-1 "/> {e.Email}
           </div>
           <div className="text-lg   hover:underline cursor-pointer items-center  justify-center flex truncate">
-           <FaBuilding className="text-black "/> {e.Hotel}
+           <FaBuilding className="text-black  mr-1"/> {e.Hotel}
           </div>
 
         </div>

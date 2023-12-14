@@ -241,15 +241,12 @@ const ArchiveConfig = ({ e }) => {
     }
   }
 
-
-
   const delete1 = async () => {
     const { data: arch } = await supabase
       .from("Archive_List")
       .delete()
       .eq("uuid", e.uuid);
   };
-
 
   return (
     <>
@@ -283,21 +280,19 @@ const ArchiveConfig = ({ e }) => {
           {e?.Email}
         </div>
         <div className="flex w-full  justify-center">
-        <button
-          onClick={() => handledelete()}
-          className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
-        >
-          DELETE
-        </button>
-        <button
-          className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-          onClick={() => restored()}
-        >
-          RESTORE
-        </button>
+          <button
+            className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+            onClick={() => restored()}
+          >
+            RESTORE
+          </button>
+          <button
+            onClick={() => handledelete()}
+            className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
+          >
+            DELETE
+          </button>
         </div>
-        
-        
       </div>
 
       <Tooltip id="my-tooltip" place="bottom" />

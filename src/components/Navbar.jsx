@@ -518,9 +518,9 @@ const Navbar = ({
     const { data: que } = await supabase.from("Queuing_List").select();
     var supadata = notifapp.concat(archive, que);
 
-    if (email.Email) {
+    if (email?.Email) {
       for (let index = 0; index < supadata.length; index++) {
-        if (email.Email === supadata[index].Email) {
+        if (email?.Email === supadata[index].Email) {
           array = array.concat(...data, supadata[index]);
           setdata(array);
         }

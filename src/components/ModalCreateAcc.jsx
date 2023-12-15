@@ -48,15 +48,15 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       });
       return;
     }
-    emailjs.send(
-      "service_yj6ye3j",
-      "template_aek4udy",
-      {
-        email2: email,
-        code: otpCode,
-      },
-      "-qtQXoQ1iYx4JDljO"
-    );
+    // emailjs.send(
+    //   "service_yj6ye3j",
+    //   "template_aek4udy",
+    //   {
+    //     email2: email,
+    //     code: otpCode,
+    //   },
+    //   "-qtQXoQ1iYx4JDljO"
+    // );
     console.log(otpCode);
     toast.success("Send Code", {
       position: "top-center",
@@ -118,9 +118,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          isClose1();
-        }, [3000]);
+        close();
         return;
       } else if (password2 === password && verCode === otpCode) {
         const { data, error } = await supabase.from("UserList").insert([
@@ -141,9 +139,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          isClose1();
-        }, [3000]);
+        close();
         return;
       } else if (password !== password2) {
         toast.error("Incorrect Password", {
@@ -241,9 +237,8 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             </div>
           </div>
 
-         
           <div className="text-md   gap-2">
-          <label className="flex font-bold">Confirm Password</label>
+            <label className="flex font-bold">Confirm Password</label>
             <input
               onChange={(e) => setPassword2(e.target.value)}
               className="pl-3 pr-3 py-2 w-[100%] md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
@@ -277,19 +272,6 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             Send Code
           </button>
         </div>
-
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover={false}
-          theme="light"
-        />
       </div>
     </div>
   );

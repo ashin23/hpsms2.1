@@ -26,10 +26,7 @@ function App() {
   const navigate = () => nav("/");
   const [userauth, setuserauth] = useState();
 
- 
-
-  useEffect(() => {
-  }, [userauth]);
+  useEffect(() => {}, [userauth]);
   return (
     <>
       <div className="App ">
@@ -64,16 +61,25 @@ function App() {
             />
             {userauth && (
               <>
-                {(userauth=== "admin" || userauth === "HR") && (
-                    <>
-                      <Route path="/Applicant" element={<Applicant />} />
-                      <Route path="/Quelist" element={<Quelist />} />
-                      <Route path="/Employee" element={<Employee />} />
-                      <Route path="/Archive" element={<Archive />} />
-                      <Route path="/RequestList" element={<RequestList />} />
-                      <Route path="/UserList" element={<UserList />} />
-                    </>
-                  )}
+                {userauth === "admin" && (
+                  <>
+                    <Route path="/Applicant" element={<Applicant />} />
+                    <Route path="/Quelist" element={<Quelist />} />
+                    <Route path="/Employee" element={<Employee />} />
+                    <Route path="/Archive" element={<Archive />} />
+                    <Route path="/RequestList" element={<RequestList />} />
+                    <Route path="/UserList" element={<UserList />} />
+                  </>
+                )}
+                {userauth === "HR" && (
+                  <>
+                    <Route path="/Applicant" element={<Applicant />} />
+                    <Route path="/Quelist" element={<Quelist />} />
+                    <Route path="/Employee" element={<Employee />} />
+                    <Route path="/Archive" element={<Archive />} />
+                    <Route path="/RequestList" element={<RequestList />} />
+                  </>
+                )}
                 {userauth === "Coordinator" && (
                   <>
                     <Route

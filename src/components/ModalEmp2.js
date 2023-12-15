@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Fileviewer from "./Fileviewer";
 import supabase from "./supabaseClient";
 import AOS from "aos";
@@ -13,7 +13,9 @@ import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
+import ReactToPrint from "react-to-print";
 
+import Layoutdoc from "./Layoutdoc.jsx";
 function ModalEmp2({ visible, Close, Info, srcIMG }) {
   const [file1, setFile] = useState();
 
@@ -174,6 +176,8 @@ function ModalEmp2({ visible, Close, Info, srcIMG }) {
     Close();
   }
 
+  const componentRef = useRef();
+
   if (!visible) return null;
   return (
     <div
@@ -194,7 +198,7 @@ justify-center items-center  top-50 flex overflow-auto "
           </button>
         </div>
         <div className="grid p-3 h-[100%] md:h-[90%]">
-          {/* MAIN INFORMATION */}
+          MAIN INFORMATION
           <div className="md:flex  grid-cols-1   w-[100%] h-fit">
             <img
               src={srcIMG}
@@ -228,6 +232,24 @@ justify-center items-center  top-50 flex overflow-auto "
                       "ARCHIVE"
                     )}
                   </button>
+                  <ReactToPrint
+                    trigger={() => {
+                      return (
+                        <button className="text-white text-sm font-medium bg-blue-700 rounded-lg md:p-4 p-2 focus:outline-none hover:bg-blue-800 focus:ring-4  focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          PRINT
+                        </button>
+                      );
+                    }}
+                    content={() => componentRef.current}
+                    documentTitle="new document"
+                  />
+                  <div className="h-[100%] overflow-y-auto hidden">
+                    <Layoutdoc
+                      componentRef={componentRef}
+                      Info={Info}
+                      srcIMG={srcIMG}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="mt-1 ml-2 gap-2 font-base">
@@ -432,8 +454,6 @@ justify-center items-center  top-50 flex overflow-auto "
             </div>
           </div>
         </div>
-
-        <div className=""></div>
       </div>
     </div>
   );

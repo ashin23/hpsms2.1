@@ -198,7 +198,7 @@ justify-center items-center  top-50 flex overflow-auto "
           </button>
         </div>
         <div className="grid p-3 h-[100%] md:h-[90%]">
-          MAIN INFORMATION
+          {/* MAIN INFORMATION */}
           <div className="md:flex  grid-cols-1   w-[100%] h-fit">
             <img
               src={srcIMG}
@@ -274,7 +274,6 @@ justify-center items-center  top-50 flex overflow-auto "
               </div>
             </div>
           </div>
-          {/* OTHER INFORMATION TABLE */}
           <div className="h-[75%] md:h-[100%]  overflow-y-auto overflow-x-hidden mt-2">
             <h1 className="font-semibold text-lg mt-7 flex gap-1 items-center">
               <IoIosInformationCircle className="h-fit w-fit text-[20px] text-blue-600" />{" "}

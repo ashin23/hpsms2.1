@@ -1,7 +1,11 @@
 import React from "react";
 import supabase from "./supabaseClient";
 import { toast } from "react-toastify";
+import moment from "moment/moment";
 const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
+  var date1 = moment(new Date()).format("yyyy-M-D");
+  
+
   const Reject = async () => {
     const { data: user } = await supabase.from("Archive_List").select();
     for (let index = 0; index < user.length; index++) {
@@ -9,6 +13,8 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
         const { data: arch } = await supabase
           .from("Archive_List")
           .update({
+            created_at: date1,
+            old_date: infoo.created_at,
             uuid: infoo.uuid,
             Email: infoo.Email,
             Password: infoo.Password,
@@ -58,17 +64,17 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
             oldtable: "applicanttable",
           })
           .eq("uuid", infoo.uuid);
-        setTimeout(() => {
-          delete1();
-        }, [1500]);
         toast.success("Moved to archived", {
           autoClose: 1500,
         });
+        delete1();
         return;
       }
     }
     await supabase.from("Archive_List").insert({
       // id:infoo.id,
+      old_date: infoo.created_at,
+      created_at: date1,
       uuid: infoo.uuid,
       Email: infoo.Email,
       Password: infoo.Password,

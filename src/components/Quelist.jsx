@@ -17,8 +17,6 @@ const Quelist = ({ email1 }) => {
 
   const currentDate = moment(new Date()).format("yyyy-M-D");
 
-
-  
   useEffect(() => {
     queList();
     que();
@@ -45,34 +43,38 @@ const Quelist = ({ email1 }) => {
 
   const queList = async () => {
     const { data: que } = await supabase.from("Queuing_List").select();
-    for (let index = 0; index < que.length; index++) {
-      if (
-        que[index].created_at === currentDate &&
-        applicantPosition === "Select Position"
-      ) {
-        const { data: que1 } = await supabase
+    if (que.length === 0) {
+      setApplicants(que);
+    } else {
+      for (let index = 0; index < que.length; index++) {
+        if (
+          que[index].created_at === currentDate &&
+          applicantPosition === "Select Position"
+        ) {
+          const { data: que1 } = await supabase
+            .from("Queuing_List")
+            .select()
+            .eq("created_at", currentDate);
+          setApplicants(que1);
+        }
+        if (
+          moment(que[index].created_at).isBefore(new Date()) &&
+          que[index].created_at !== currentDate
+        ) {
+          const { data: que3 } = await supabase
+            .from("Queuing_List")
+            .delete()
+            .eq("id", que[index].id);
+          setApplicants(que3);
+        }
+      }
+      if (applicantPosition !== "Select Position") {
+        const { data: que2 } = await supabase
           .from("Queuing_List")
           .select()
-          .eq("created_at", currentDate);
-        setApplicants(que1);
+          .eq("Position", applicantPosition);
+        setApplicants(que2);
       }
-      if (
-        moment(que[index].created_at).isBefore(new Date()) &&
-        que[index].created_at !== currentDate
-      ) {
-        const { data: que3 } = await supabase
-          .from("Queuing_List")
-          .delete()
-          .eq("id", que[index].id);
-        setApplicants(que3);
-      }
-    }
-    if (applicantPosition !== "Select Position") {
-      const { data: que2 } = await supabase
-        .from("Queuing_List")
-        .select()
-        .eq("Position", applicantPosition);
-      setApplicants(que2);
     }
   };
 
@@ -82,7 +84,7 @@ const Quelist = ({ email1 }) => {
         .from("Queuing_List")
         .select()
         .eq("created_at", currentDate);
-     return setApplicants(que3);
+      return setApplicants(que3);
     }
     const { data: que3 } = await supabase
       .from("Queuing_List")

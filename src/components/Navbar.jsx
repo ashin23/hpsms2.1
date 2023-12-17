@@ -341,6 +341,7 @@ const Navbar = ({
         }
         // HR
         if (verify === true && userlvl === "HR") {
+          window.localStorage.setItem("email", email);
           try {
             if (window.localStorage.getItem("token") === token) {
               const { data: getterHR } = await supabase

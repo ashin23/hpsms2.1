@@ -14,11 +14,11 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
 import ReactToPrint from "react-to-print";
-
+import moment from "moment";
 import Layoutdoc from "./Layoutdoc.jsx";
 function ModalEmp2({ visible, Close, Info, srcIMG }) {
   const [file1, setFile] = useState();
-
+  var date1 = moment(new Date()).format("yyyy-M-D");
   useEffect(() => {
     Handlefetchfile();
   }, [Info]);
@@ -44,6 +44,8 @@ function ModalEmp2({ visible, Close, Info, srcIMG }) {
         const { data: arch } = await supabase
           .from("Archive_List")
           .update({
+            created_at: date1,
+            old_date: Info.created_at,
             uuid: Info.uuid,
             Email: Info.Email,
             Password: Info.Password,
@@ -93,16 +95,18 @@ function ModalEmp2({ visible, Close, Info, srcIMG }) {
             oldtable: "Emptable",
           })
           .eq("uuid", Info.uuid);
+
+        deleted();
+        setdisable(false);
         toast.success("Moved to Archive", {
           autoClose: 1500,
         });
-        setdisable(false);
-        deleted();
         return;
       }
     }
     const { data: employee } = await supabase.from("Archive_List").insert({
-      // id:Info.id,
+      created_at: date1,
+      old_date: Info.created_at,
       uuid: Info.uuid,
       Email: Info.Email,
       Password: Info.Password,
@@ -144,23 +148,26 @@ function ModalEmp2({ visible, Close, Info, srcIMG }) {
       Pag_Ibig_No: Info.Pag_Ibig_No,
       Tin_Number: Info.Tin_Number,
       Position: Info.Position,
-      userlvl: "Employee",
+      userlvl: "applicant",
       status: "Undeploy",
       Notifications: "false",
+      Hotel: Info.Hotel,
+      action: "Rejected",
       oldtable: "Emptable",
     });
+
+    deleted();
+    setdisable(false);
     toast.success("Moved to Archive", {
       autoClose: 1500,
     });
-    setdisable(false);
-    deleted();
   };
 
   const deleted = async () => {
     const { error } = await supabase
       .from("Employee_List")
       .delete()
-      .eq("uuid", Info.uuid);
+      .eq("id", Info.id);
     Close();
   };
 
@@ -168,7 +175,7 @@ function ModalEmp2({ visible, Close, Info, srcIMG }) {
     const { data: update } = await supabase
       .from("Employee_List")
       .update({ Notifications: "true" })
-      .eq("uuid", Info.uuid);
+      .eq("id", Info.id);
   };
 
   function close() {

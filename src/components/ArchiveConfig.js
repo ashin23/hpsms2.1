@@ -5,9 +5,13 @@ import { Tooltip } from "react-tooltip";
 import { ToastContainer, toast } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
+import moment from "moment/moment";
 const ArchiveConfig = ({ e }) => {
+  var date1 = moment(new Date()).format("yyyy-M-D");
   const [showmodal, setShowModal] = useState(false);
-
+  const [disable, setdisable] = useState(false);
   if (showmodal) document.documentElement.style.overflowY = "hidden";
   else document.documentElement.style.overflowY = "unset";
 
@@ -71,8 +75,10 @@ const ArchiveConfig = ({ e }) => {
   }
 
   async function restored() {
+    setdisable(true);
     if (e.oldtable === "applicanttable") {
       const { data: app1 } = await supabase.from("Applicant_List").insert({
+        created_at: e.old_date,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,
@@ -121,15 +127,17 @@ const ArchiveConfig = ({ e }) => {
         action: "Pending",
       });
 
+      delete1();
+      setdisable(false);
       toast.success("Restored", {
         autoClose: 1500,
       });
-      delete1();
       return;
     }
 
     if (e.oldtable === "Que") {
       const { data: que } = await supabase.from("Queuing_List").insert({
+        created_at: e.old_date,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,
@@ -178,15 +186,17 @@ const ArchiveConfig = ({ e }) => {
         action: "Interview, Please check your email",
       });
 
+      delete1();
+      setdisable(false);
       toast.success("Restored", {
         autoClose: 1500,
       });
-      delete1();
       return;
     }
 
     if (e.oldtable === "Emptable") {
       const { data: emp } = await supabase.from("Employee_List").insert({
+        created_at: e.old_date,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,
@@ -233,10 +243,12 @@ const ArchiveConfig = ({ e }) => {
         Notifications: "false",
         Hotel: e.Hotel,
       });
+
+      delete1();
+      setdisable(false);
       toast.success("Restored", {
         autoClose: 1500,
       });
-      delete1();
       return;
     }
   }
@@ -245,7 +257,7 @@ const ArchiveConfig = ({ e }) => {
     const { data: arch } = await supabase
       .from("Archive_List")
       .delete()
-      .eq("uuid", e.uuid);
+      .eq("id", e.id);
   };
 
   return (
@@ -281,12 +293,23 @@ const ArchiveConfig = ({ e }) => {
         </div>
         <div className="flex w-full  justify-center">
           <button
+            disabled={disable}
             className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
             onClick={() => restored()}
           >
-            RESTORE
+            {disable ? (
+              <l-line-spinner
+                size="20"
+                stroke="3"
+                speed="1"
+                color="black"
+              ></l-line-spinner>
+            ) : (
+              "RESTORE"
+            )}
           </button>
           <button
+            disabled={disable}
             onClick={() => handledelete()}
             className="text-md md:ml-3  hover:underline cursor-pointer  justify-center flex truncate focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 w-[20%] items-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900"
           >

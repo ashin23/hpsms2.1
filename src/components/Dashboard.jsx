@@ -427,26 +427,30 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                           </div>
 
                           {disableButton !== null ? (
-                            <button
-                              disabled={disableButton}
-                              onClick={apply1}
-                              className={`${
-                                !disableButton
-                                  ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                                  : " bg-gray-400 "
-                              } focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
-                            >
-                              {disableSpinner ? (
-                                <l-line-spinner
-                                  size="20"
-                                  stroke="3"
-                                  speed="1"
-                                  color="black"
-                                ></l-line-spinner>
-                              ) : (
-                                "APPLY"
+                            <>
+                              {applicant && (
+                                <button
+                                  disabled={disableButton}
+                                  onClick={apply1}
+                                  className={`${
+                                    !disableButton
+                                      ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                      : " bg-gray-400 "
+                                  } focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
+                                >
+                                  {disableSpinner ? (
+                                    <l-line-spinner
+                                      size="20"
+                                      stroke="3"
+                                      speed="1"
+                                      color="black"
+                                    ></l-line-spinner>
+                                  ) : (
+                                    "APPLY"
+                                  )}
+                                </button>
                               )}
-                            </button>
+                            </>
                           ) : (
                             <l-line-spinner
                               size="20"

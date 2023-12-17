@@ -14,6 +14,7 @@ import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
+import moment from "moment/moment";
 function ModalEmp({
   showJobApplicant,
   setShowJobApplicant,
@@ -22,6 +23,7 @@ function ModalEmp({
   avatarComponent,
 }) {
   const [file1, setFile] = useState();
+  var date1 = moment(new Date()).format("yyyy-M-D");
 
   useEffect(() => {
     Handlefetchfile();
@@ -39,7 +41,7 @@ function ModalEmp({
   };
 
   const [disable, setdisable] = useState(false);
-
+  // Archive
   const HandleDelete = async () => {
     setdisable(true);
     const { data: arch } = await supabase.from("Archive_List").select();
@@ -48,6 +50,8 @@ function ModalEmp({
         const { data: arch } = await supabase
           .from("Archive_List")
           .update({
+            created_at: date1,
+            old_date: Info.created_at,
             uuid: Info.uuid,
             Email: Info.Email,
             Password: Info.Password,
@@ -97,17 +101,20 @@ function ModalEmp({
             oldtable: "Que",
           })
           .eq("uuid", Info.uuid);
+
+        delete1();
+        setdisable(false);
         toast.success("Moved to Archive", {
           autoClose: 1500,
         });
-        delete1();
-        setdisable(false);
         return;
       }
     }
 
     const { data: employee } = await supabase.from("Archive_List").insert({
       //  id:Info.id,
+      created_at: date1,
+      old_date: Info.created_at,
       uuid: Info.uuid,
       Email: Info.Email,
       Password: Info.Password,
@@ -157,11 +164,11 @@ function ModalEmp({
       oldtable: "Que",
     });
 
+    delete1();
+    setdisable(false);
     toast.success("Moved to Archive", {
       autoClose: 1500,
     });
-    setdisable(false);
-    delete1();
   };
 
   const delete1 = async () => {
@@ -171,7 +178,7 @@ function ModalEmp({
       .eq("id", Info.id);
     setShowJobApplicant();
   };
-
+  //Employee LIST
   const HandleAccept = async () => {
     setdisable(true);
     const { data: emp } = await supabase.from("Employee_List").select();
@@ -179,7 +186,7 @@ function ModalEmp({
       if (emp[index].uuid === Info.uuid) {
         const { data: employee } = await supabase
           .from("Employee_List")
-          .insert({
+          .update({
             // id:Info.id,
             uuid: Info.uuid,
             Email: Info.Email,
@@ -231,8 +238,9 @@ function ModalEmp({
         toast.success("Moved to Employee List", {
           autoClose: 1500,
         });
-        setdisable(false);
+
         delete2();
+        setdisable(false);
         return;
       }
     }
@@ -287,8 +295,8 @@ function ModalEmp({
     toast.success("Moved to Employee List", {
       autoClose: 1500,
     });
-    setdisable(false);
     delete2();
+    setdisable(false);
   };
 
   const delete2 = async () => {

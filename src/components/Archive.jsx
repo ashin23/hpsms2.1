@@ -13,20 +13,22 @@ const Archive = () => {
 
   const [notif, setnotif] = useState("false");
   const [arch, setarch] = useState([]);
-  const [date, setDate] = useState("");
+
+  const [deletebutton, setdeletebutton] = useState(true);
+  const [checkbox, setcheckbox] = useState();
   // Sample
   // const currentDate1 = moment(new Date()).format();
-  // const newDate = moment(new Date()).add(1, "minutes").format();
+  const newDate = moment(new Date()).add(1, "minutes").format("hh:mm:ss A");
 
   const currentDate = moment(new Date()).format("yyyy-M-D");
 
- 
-  const newDate = moment(new Date()).add(5, "days").format("yyyy-M-D");
+  // const newDate = moment(new Date()).add(5, "days").format("yyyy-M-D");
 
   useEffect(() => {
     FetchArchive();
     archfetch();
-    const Archive = supabase
+
+    const channels = supabase
       .channel("table-db-changes")
       .on(
         "postgres_changes",
@@ -37,9 +39,10 @@ const Archive = () => {
         }
       )
       .subscribe();
-     
-  }, [newDate,currentDate]);
+  }, [newDate, currentDate]);
 
+  useEffect(() => {
+  }, [deletebutton]);
   const archfetch = async () => {
     const { data: arche } = await supabase
       .from("Archive_List")
@@ -47,31 +50,70 @@ const Archive = () => {
       .eq("Notifications", notif);
     setarch(arche);
   };
+// BUTTON ON AND OFF
+  useEffect(() => {
+    var array = [];
+
+    const afetcher = async () => {
+      const { data: arch8 } = await supabase.from("Archive_List").select();
+      array = arch8;
+    };
+    afetcher();
+
+    const runFunctionBasedOnTime = async () => {
+      if (array.length > 0) {
+        for (let index = 0; index < array.length; index++) {
+          const currentTime = moment();
+
+          // Get a specific time you want to compare against
+          const specificTime = moment(array[index].created_date); // Replace '2023-12-17 12:30:00' with your desired time
+
+          // Check if the specific time has passed by 1 minute compared to the current time
+          const hasPassedByOneMinute =
+            currentTime.diff(specificTime, "minutes") > 0;
+
+          if (deletebutton) {
+            if (hasPassedByOneMinute) {
+              await supabase
+                .from("Archive_List")
+                .delete()
+                .eq("id", array[index].id);
+            }
+          }
+        }
+      }
+    };
+
+    runFunctionBasedOnTime();
+
+    const intervalId = setInterval(runFunctionBasedOnTime, 1000);
+  }, []);
 
   const FetchArchive = async () => {
+    const { data: userinfo } = await supabase
+      .from("UserList")
+      .select()
+      .eq("Email", window.localStorage.getItem("email"))
+      .single();
+    setdeletebutton(userinfo?.deletebutton);
+
     const { data: arch1 } = await supabase.from("Archive_List").select();
-    for (let index = 0; index < arch1.length; index++) {
-      if (arch1[index].created_at === currentDate) {
-        const { data: arch6 } = await supabase
-          .from("Archive_List")
-          .select()
-          .eq("created_at", currentDate);
-        setArchive(arch6);
-      }
-      if (
-        moment(arch1[index].created_at).isAfter(newDate) &&
-        arch1[index].created_at !== currentDate
-      ) {
-        const { data: arch3 } = await supabase
-          .from("Archive_List")
-          .delete()
-          .eq("id", arch1[index].id);
-        setArchive(arch3);
+    if (arch1.length === 0) {
+      setArchive(arch1);
+    } else {
+      for (let index = 0; index < arch1.length; index++) {
+        if (arch1[index].created_at === currentDate) {
+          const { data: arch6 } = await supabase
+            .from("Archive_List")
+            .select()
+            .eq("created_at", currentDate);
+          setArchive(arch6);
+        }
       }
     }
   };
 
- 
+  
 
   const datespecific = async (e) => {
     if (e.target.value === "") {
@@ -86,6 +128,16 @@ const Archive = () => {
       .select()
       .eq("created_at", e.target.value);
     setArchive(arch5);
+  };
+
+  const disabledelete = async (e) => {
+    setdeletebutton(!deletebutton);
+    await supabase
+      .from("UserList")
+      .update({
+        deletebutton: !deletebutton,
+      })
+      .eq("Email", window.localStorage.getItem("email"));
   };
 
   const [currentitems, setcurrentitems] = useState([]);
@@ -103,6 +155,7 @@ const Archive = () => {
     const newOffset = (event.selected * perpage) % archive12.length;
     setItemOffset(newOffset);
   };
+
   return (
     <div className="fixed inset-0 h-screen w-screen flex flex-col bg-black items-center justify-center place-content-center ">
       <div className="h-[100%] bg-white w-[100%] flex flex-col  ">
@@ -115,7 +168,7 @@ const Archive = () => {
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
               <div className="flex  gap-2 font-normal text-base p-3 w-full md:justify-start justify-center">
-                {archfetch && (
+                {archive12 && arch && (
                   <>
                     <label className="whitespace-break-spaces">
                       Total Archive(<em> {archive12?.length} </em>)
@@ -126,10 +179,17 @@ const Archive = () => {
                     </label>
 
                     <label className="whitespace-break-spaces flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={deletebutton}
+                      onChange={(e) => disabledelete(e)}
+                      value={deletebutton}
+                    ></input>
                       <CiWarning className="text-2xl bg-yellow-300 rounded-md" />{" "}
                       The data has a 5-day window for restoration; otherwise, it
                       will be deleted
                     </label>
+                    
                   </>
                 )}
                 {/* <button onClick={() => abledelet()}>Enable auto delete</button> */}
@@ -139,7 +199,7 @@ const Archive = () => {
                   className=" h-[30px] w-[90%]  pl-1 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                   placeholder="Search name"
                   type="search"
-                  onChange={(e) => setSearch1(e.target.value)}
+                  onChange={(e) => setSearch1(e)}
                 />
                 <input
                   onChange={(e) => datespecific(e)}

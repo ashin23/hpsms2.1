@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/hpsms2.1/static/css/main.fc030f5e.css",
-    "main.js": "/hpsms2.1/static/js/main.5d18b1df.js",
+    "main.css": "/hpsms2.1/static/css/main.b5be2db8.css",
+    "main.js": "/hpsms2.1/static/js/main.27fbfbf0.js",
+    "static/media/Jobsearch.jpg": "/hpsms2.1/static/media/Jobsearch.ee7246b86ec074dd456e.jpg",
     "static/media/hotelproimage.png": "/hpsms2.1/static/media/hotelproimage.5c95ab314063505ef5fe.png",
     "index.html": "/hpsms2.1/index.html",
-    "main.fc030f5e.css.map": "/hpsms2.1/static/css/main.fc030f5e.css.map",
-    "main.5d18b1df.js.map": "/hpsms2.1/static/js/main.5d18b1df.js.map"
+    "main.b5be2db8.css.map": "/hpsms2.1/static/css/main.b5be2db8.css.map",
+    "main.27fbfbf0.js.map": "/hpsms2.1/static/js/main.27fbfbf0.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc030f5e.css",
-    "static/js/main.5d18b1df.js"
+    "static/css/main.b5be2db8.css",
+    "static/js/main.27fbfbf0.js"
   ]
 }

@@ -118,7 +118,7 @@ const Navbar = ({
     getnotifemp();
     getnotiarch();
     getnotifreq();
-    
+
     const Applicant_List = supabase
       .channel("custom-all-channel")
       .on(
@@ -465,9 +465,11 @@ const Navbar = ({
   async function getnotifemp() {
     const { data: notifemp } = await supabase.from("Employee_List").select();
     for (let index = 0; index < notifemp.length; index++) {
-      if (notifemp[index].Notifications === "false") {
-        setNotifemp(true);
-        return;
+      if (moment(notifemp[index].created_at).isBefore(new Date())) {
+        if (notifemp[index].Notifications === "false") {
+          setNotifemp(true);
+          return;
+        }
       }
     }
     setNotifemp(false);
@@ -528,8 +530,6 @@ const Navbar = ({
       }
     }
   };
-  
-
 
   return (
     <div className="h-2  ">

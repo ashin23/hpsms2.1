@@ -98,11 +98,11 @@ const Signin = ({ isSignin, isSignClose, checker }) => {
         >
           <div className="flex justify-end" onClick={isSignClose}>
             {" "}
-            <GiCancel className="text-[150%] hover:bg-red-400 -mt-6 -mr-4" />
+            <GiCancel className="text-[150%] hover:text-red-700 -mt-6 -mr-4" />
           </div>
-          <CgProfile className="ml-[40%] text-5xl" />
+          <CgProfile className="ml-[45%] text-3xl" />
           <div className="grid grid-cols-1">
-            <label className="items-center font-semibold text-[30px] place-content-center justify-center flex">
+            <label className="items-center font-semibold text-[20px] place-content-center justify-center flex">
               Log in
             </label>
 

@@ -78,7 +78,7 @@ const ArchiveConfig = ({ e }) => {
     setdisable(true);
     if (e.oldtable === "applicanttable") {
       const { data: app1 } = await supabase.from("Applicant_List").insert({
-        created_at: e.old_date,
+        created_at: date1,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,
@@ -137,7 +137,7 @@ const ArchiveConfig = ({ e }) => {
 
     if (e.oldtable === "Que") {
       const { data: que } = await supabase.from("Queuing_List").insert({
-        created_at: e.old_date,
+        created_at: date1,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,

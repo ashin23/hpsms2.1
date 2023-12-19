@@ -219,6 +219,8 @@ justify-center items-center  top-50 flex overflow-auto "
                 >
                   Applicant Information
                 </label>
+              </div>
+              <div className="mt-1 ml-2 gap-2 font-base">
                 <div className="gap-1 flex">
                   <button
                     className={`${
@@ -258,8 +260,6 @@ justify-center items-center  top-50 flex overflow-auto "
                     />
                   </div>
                 </div>
-              </div>
-              <div className="mt-1 ml-2 gap-2 font-base">
                 <div className="flex  ">
                   Full Name: <p className="font-thin pl-1 pr-1">{Info.Name} </p>
                   (<em className="flex font-base">{Info.Sex}</em>)

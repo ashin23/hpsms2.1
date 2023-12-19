@@ -67,10 +67,12 @@ const ModalApplicantInfo = ({
               <div className="grid md:flex w-[100%] h-fit gap-y-2">
                 <label
                   className="p-2 md:p-4  flex whitespace-nowrap  text-slate-100 md:text-[30px] text-lg md:w-[70%]
-              text-start font-semibold rounded-2xl bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] "
+              text-start font-semibold rounded-2xl  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] "
                 >
                   Applicant Information
                 </label>
+              </div>
+              <div className="mt-1 ml-2 gap-2 font-base">
                 <div className="gap-1 flex">
                   <button
                     className="text-white text-sm font-medium bg-green-700 rounded-lg md:p-4 p-2
@@ -87,8 +89,6 @@ const ModalApplicantInfo = ({
                     REJECT
                   </button>
                 </div>
-              </div>
-              <div className="mt-1 ml-2 gap-2 font-base">
                 <div className="flex  ">
                   Full Name: <p className="font-thin pl-1 pr-1">{Info.Name} </p>
                   (<em className="flex font-base">{Info.Sex}</em>)

@@ -111,7 +111,6 @@ function QuelingConfig({ e }) {
         <Tooltip id="my-tooltip" place="bottom" />
         <ModalEmp
           Info={e}
-        
           srcIMG={`https://ibjkqyluohejixyzsewp.supabase.co/storage/v1/object/public/Files/${e.Email}/${img}`}
           showJobApplicant={showJobApplicant}
           setShowJobApplicant={setShowJobApplicant}

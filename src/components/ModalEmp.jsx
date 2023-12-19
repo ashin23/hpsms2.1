@@ -188,6 +188,7 @@ function ModalEmp({
           .from("Employee_List")
           .update({
             // id:Info.id,
+            created_at: date1,
             uuid: Info.uuid,
             Email: Info.Email,
             Password: Info.Password,
@@ -229,23 +230,24 @@ function ModalEmp({
             Pag_Ibig_No: Info.Pag_Ibig_No,
             Tin_Number: Info.Tin_Number,
             Position: Info.Position,
-            userlvl: "Employee",
+            userlvl: "applicant",
             status: "Undeploy",
             Notifications: "false",
+            Hotel: Info.Hotel,
+            documents: docu,
           })
           .eq("uuid", Info.uuid);
-
         toast.success("Moved to Employee List", {
           autoClose: 1500,
         });
-
-        delete2();
+         delete2();
         setdisable(false);
         return;
       }
     }
     const { data: employee } = await supabase.from("Employee_List").insert({
       // id:Info.id,
+      created_at: date1,
       uuid: Info.uuid,
       Email: Info.Email,
       Password: Info.Password,
@@ -290,12 +292,14 @@ function ModalEmp({
       userlvl: "Employee",
       status: "Undeploy",
       Notifications: "false",
+      Hotel: Info.Hotel,
+      documents: docu
     });
 
     toast.success("Moved to Employee List", {
       autoClose: 1500,
     });
-    delete2();
+     delete2();
     setdisable(false);
   };
 
@@ -303,7 +307,7 @@ function ModalEmp({
     const { error } = await supabase
       .from("Queuing_List")
       .delete()
-      .eq("uuid", Info.uuid);
+      .eq("id", Info.id);
     const { data } = await supabase
       .from("NewUser")
       .delete()
@@ -322,6 +326,8 @@ function ModalEmp({
       .update({ Notifications: "true" })
       .eq("id", Info.id);
   };
+
+  const [docu, setdocu] = useState();
 
   if (!showJobApplicant) return null;
   return (
@@ -353,10 +359,12 @@ function ModalEmp({
               <div className="grid md:flex w-[100%] h-fit gap-y-2">
                 <label
                   className="p-2 md:p-4  flex whitespace-nowrap  text-slate-100 md:text-[30px] text-lg md:w-[70%]
-              text-start font-semibold rounded-2xl bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] "
+              text-start font-semibold rounded-2xl bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] "
                 >
                   Applicant Information
                 </label>
+              </div>
+              <div className="mt-1 ml-2 gap-2 font-base">
                 <div className="gap-1 flex">
                   <button
                     disabled={disable}
@@ -400,8 +408,22 @@ function ModalEmp({
                     )}
                   </button>
                 </div>
-              </div>
-              <div className="mt-1 ml-2 gap-2 font-base">
+                <div className="gap-1 flex mt-1">
+                  <input
+                    value="Complete"
+                    type="radio"
+                    name="docu"
+                    onChange={(e) => setdocu(e.target.value)}
+                  />
+                  COMPLETE
+                  <input
+                    value="Incomplete"
+                    type="radio"
+                    name="docu"
+                    onChange={(e) => setdocu(e.target.value)}
+                  />
+                  INCOMPLETE
+                </div>
                 <div className="flex  ">
                   Full Name: <p className="font-thin pl-1 pr-1">{Info.Name} </p>
                   (<em className="flex font-base">{Info.Sex}</em>)

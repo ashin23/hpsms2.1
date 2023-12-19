@@ -9,9 +9,9 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
   const [email, setEmail] = useState("");
   const [position, setPosition] = useState("Select Position");
-
-  const [password2, setPassword2] = useState("");
-  const [password, setPassword] = useState("");
+  const currentDate = new Date().toDateString();
+  const [password2, setPassword2] = useState("123");
+  const [password, setPassword] = useState("123");
   const [view, setView] = useState(false);
   const [view1, setView1] = useState(false);
 
@@ -95,13 +95,11 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       );
       return;
     } else {
-      if (
-        password2 === password &&
-        verCode === otpCode &&
-        position === "Employee"
-      ) {
+      if (password2 === password && position === "Employee") {
         const { data, error } = await supabase.from("Employee_List").insert([
           {
+            documents: "Incomplete",
+            created_at: currentDate,
             Email: email,
             Password: password,
             userlvl: "Employee",
@@ -120,7 +118,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
         });
         close();
         return;
-      } else if (password2 === password && verCode === otpCode) {
+      } else if (password2 === password) {
         const { data, error } = await supabase.from("UserList").insert([
           {
             Email: email,
@@ -153,17 +151,6 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           theme: "light",
         });
         return;
-      } else {
-        toast.error("Incorrect Code", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
       }
     }
   };
@@ -174,12 +161,12 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       className=" z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center  flex w-screen h-screen"
     >
-      <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[65%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[40%] w-[100%] rounded-3xl shadow-2xl">
-        <div className="flex  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
+      <div className=" grid justify-center bg-white md:p-5   p-2 gap-3  md:h-[50%] overflow-scroll overflow-x-hidden  h-[80%]  md:w-[30%] w-[100%] rounded-3xl shadow-2xl">
+        <div className="  sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
           <label className="whitespace-nowrap py-3 pl-3 pr-10  md:pr-56 ml-2  my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl">
             Create Account
           </label>{" "}
-          <div className=" w-fit  md:flex px-5 text-lg ">
+          <div className=" w-fit  md:flex px-5 mt-5 text-lg ">
             <button
               className=" text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               onClick={() => HandleCreate()}
@@ -194,12 +181,13 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             </button>
           </div>
         </div>
+
         <div className="grid grid-cols-1   gap-5  ">
           <div>
             <label className="flex font-bold">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="pl-3 pr-3 py-2 md:w-[100%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-3 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Email"
               type="text"
             ></input>
@@ -208,7 +196,7 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             <label className="flex font-bold">Position</label>
             <select
               onChange={(e) => setPosition(e.target.value)}
-              className="w-[100%] border-2 md:w-[100%] border-gray-300 text-black  p-2  rounded-2xl  "
+              className="w-[100%] border-2  border-gray-300 text-black  p-2  rounded-2xl  "
             >
               {userlvl.map((user) => (
                 <option key={user.id} className="">
@@ -222,8 +210,9 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
             <label className="flex font-bold">Password</label>
             <div className="text-md flex  gap-2">
               <input
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-3 pr-3 py-2 w-[100%] md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-3 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Password"
                 type={view ? "text" : "password"}
               ></input>
@@ -240,12 +229,13 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
           <div className="text-md   gap-2">
             <label className="flex font-bold">Confirm Password</label>
             <input
+              value={password2}
               onChange={(e) => setPassword2(e.target.value)}
-              className="pl-3 pr-3 py-2 w-[100%] md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+              className="pl-3 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Confirm Password"
               type={view1 ? "text" : "password"}
             ></input>
-            <button className="-ml-10" onClick={() => setView1(!view1)}>
+            <button className="-ml-8" onClick={() => setView1(!view1)}>
               {view1 ? (
                 <AiFillEyeInvisible className="text-[20px]" />
               ) : (
@@ -253,24 +243,6 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
               )}
             </button>
           </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-2 items-center  mt-3 ">
-          <label className="flex font-bold w-[400px]">Verification Code</label>
-          <input
-            className="pl-2 pr-3 py-2 w-[95%] md:w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-            placeholder="Verification Code"
-            type="text"
-            value={verCode}
-            onChange={(e) => setVerCode(e.target.value)}
-          ></input>
-
-          <button
-            onClick={() => HandleSendCode()}
-            className="px-3 py-2 w-[80px] text-[10px] bg-white hover:bg-sky-400 hover:text-white rounded-lg border-2 border-blue-500"
-          >
-            Send Code
-          </button>
         </div>
       </div>
     </div>

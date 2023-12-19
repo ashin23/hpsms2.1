@@ -286,51 +286,15 @@ const Register = ({ isRegister, isRegisterClose }) => {
         onSubmit={HandleCreate}
         className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl"
       >
-        <div className="sticky top-0 bg-white  w-full h-[40%] md:h-[13%] p-5">
-          <div className="md:flex md:justify-between  grid grid-cols-1  ">
-            <button
-              disabled={disable}
-              type="submit"
-              className={`${
-                !disable
-                  ? "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  : "bg-gray-500"
-              } text-white md:ml-4   font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600`}
-            >
-              {disable ? (
-                <l-line-spinner
-                  size="20"
-                  stroke="3"
-                  speed="1"
-                  color="black"
-                ></l-line-spinner>
-              ) : (
-                "Submit"
-              )}
-            </button>
-            <label className="md:-ml-7 font-semibold text-xl">
-              Type N.A. if the data is not available.
-            </label>
-            <button
-              disabled={disable}
-              onClick={close}
-              className="md:-mr-7  focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-
         <div className="">
           <label
             className="flex
           md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             REGISTER
           </label>
-          {/* Button */}
 
           {/* Email  */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-10 gap-4 gap-y-9 mb-3 p-2">
@@ -418,7 +382,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             PROFILE
           </label>
@@ -627,7 +591,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             EDUCATIONAL BACKGROUND
           </label>
@@ -748,7 +712,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             EMPLOYMENT HISTORY
           </label>
@@ -757,7 +721,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
           </label>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div>
-              <label className="flex justify-center  font-bold md:ml-[30%]">
+              <label className="flex justify-center  font-bold ">
                 Inclusive Dates
               </label>
               <textarea
@@ -769,7 +733,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">
+              <label className="flex justify-center font-bold ">
                 Company/Employer
               </label>
               <textarea
@@ -781,9 +745,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center font-bold md:ml-[30%]">
-                Position
-              </label>
+              <label className="flex justify-center font-bold ">Position</label>
               <textarea
                 name="position_History"
                 required
@@ -796,13 +758,13 @@ const Register = ({ isRegister, isRegisterClose }) => {
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3 md:ml-2 md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-bold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             CHARACTER REFERENCES
           </label>
           <div className="grid grid-cols-1  md:grid-cols-3 gap-4 gap-y-9 mb-3 p-2">
             <div className="">
-              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold ">
                 Names
               </label>
               <textarea
@@ -814,7 +776,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold ">
                 Company/Employer
               </label>
               <textarea
@@ -826,7 +788,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
             <div>
-              <label className="flex justify-center lg:mr-[10%] font-bold md:ml-[30%]">
+              <label className="flex justify-center lg:mr-[10%] font-bold ">
                 Position
               </label>
               <textarea
@@ -838,23 +800,23 @@ const Register = ({ isRegister, isRegisterClose }) => {
               ></textarea>
             </div>
           </div>
-          <label className="flex font-bold ">Upload Image</label>
+          <label className="flex font-bold  ">Upload Image</label>
           <input
             // value={files}
-            className="block w-[250px] px-5 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
+            className="block w-[250px] px-5 py-2 text-sm text-white border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-500 dark:border-gray-400 dark:placeholder-gray-400"
             // id="multiple_files"
             type="file"
             onChange={(e) => setFiles(e.target.files[0])}
             accept="image/png, image/jpeg"
             required
           ></input>
-          <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
+          <div className="grid md:grid-cols-4 grid-cols-1  gap-4 gap-y-9 mb-3 p-2">
             <div>
               <label className="flex font-bold">SSS No:</label>
               <input
                 name="sSS_Number"
                 required
-                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="SSS Number"
                 onChange={handleChange}
                 type="text"
@@ -865,7 +827,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <input
                 name="phil_Health_No"
                 required
-                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Phil Heatlh Number"
                 onChange={handleChange}
                 type="text"
@@ -876,7 +838,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <input
                 name="pag_Ibig_No"
                 required
-                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-10 pr-3 py-2 w-[100%]  font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Pag-IBIG Number"
                 onChange={handleChange}
                 type="text"
@@ -887,7 +849,7 @@ const Register = ({ isRegister, isRegisterClose }) => {
               <input
                 name="tin_No"
                 required
-                className="pl-10 pr-3 py-2 w-[100%] md:w-[20%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
                 placeholder="Tin Number"
                 onChange={handleChange}
                 type="text"
@@ -902,6 +864,43 @@ const Register = ({ isRegister, isRegisterClose }) => {
                 Terms and Condition
               </button>
             </div>
+          </div>
+          {/* Button */}
+        </div>
+        <div className="sticky  -bottom-7 bg-white  w-full h-[40%] md:h-[13%] p-5 items-center justify-center  ">
+        <label className="md:-ml-7 font-semibold text-xl  w-full ">
+              Type N.A. if the data is not available.
+            </label>
+          <div className="md:flex md:justify-end justify-center items-center grid grid-cols-1  ">
+           
+            <button
+              disabled={disable}
+              type="submit"
+              className={`${
+                !disable
+                  ? "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  : "bg-gray-500"
+              } text-white md:ml-4   font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-blue-600`}
+            >
+              {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Submit"
+              )}
+            </button>
+
+            <button
+              disabled={disable}
+              onClick={close}
+              className="md:-mr-7  focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            >
+              Close
+            </button>
           </div>
         </div>
         <Termsandcondition isOpen={showTerms} isClose={() => setTerms(false)} />

@@ -204,7 +204,7 @@ function ModalDeploy({
           )}
 
           <div className="md-mt-10">
-            <h1 className="font-bold pb-2 text-[20px]">Select Coordinator</h1>
+            <h1 className="font-bold pb-2 text-[20px]">Coordinator</h1>
             <input
               disabled={true}
               value={Email}

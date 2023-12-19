@@ -155,7 +155,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
           <label
             className="flex md:text-[30px] h-fit text-xl
           pl-5 pr-36 py-3 my-4 mb-2
-          md:pl-9 md:pr-56 md:py-3  md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold whitespace-nowrap bg-gradient-to-r from-[#2a3695e7] via-[#2a3695e7] to-white rounded-2xl"
+          md:pl-9 md:pr-56 md:py-3  md:my-4 md:mb-7 text-slate-100 text-[30px] w-fit text-center font-semibold whitespace-nowrap  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl"
           >
             Select Schedule of Interview
           </label>
@@ -248,7 +248,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
             {/* message  */}
             <textarea
               className="mt-4 w-full order-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-              rows={10}
+              rows={5}
               type="text"
               value={message1}
               onChange={(e) => setMessage(e.target.value)}

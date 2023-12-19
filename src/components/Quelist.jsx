@@ -39,6 +39,7 @@ const Quelist = ({ email1 }) => {
       .select()
       .match({ Notifications: status, created_at: moment().from("yyyy-M-D") });
     setapp(app);
+   
   };
 
   const queList = async () => {

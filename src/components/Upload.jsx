@@ -36,6 +36,7 @@ const Upload = ({ isUpload, isCloseUpload, email }) => {
     const { data: updatemp } = await supabase
       .from("Employee_List")
       .update({
+        documents: "Complete",
         Notifications: "false",
         SSS_Number: sSS_Number,
         Phil_Health_No: phil_Health_No,

@@ -15,6 +15,8 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
+import Jobsearch from "./images/Jobsearch.jpg";
+import Signin from "./Signin";
 const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -155,6 +157,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
   }, [window.innerWidth]);
 
   const [data, setDataa] = useState();
+  const [isSignin, isSignClose] = useState(false);
   return (
     <>
       <div className="  h-screen  ">
@@ -166,7 +169,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
               Your Dream Job Awaits: Apply Now & Thrive!
             </p>
 
-            <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[56%] text-2xl absolute text-slate-400" />
+            <FaSearch className="md:mt-2 mt-4   -ml-[86%] md:-ml-[57%] text-2xl absolute text-slate-400" />
             <input
               className="top-96 w-[90%] md:w-[30%] mt-3 md:mt-0 mb-10 h-[30%]  md:h-10 pl-10 pr-3 py-2 px-24 font-semibold placeholder-gray-500 text-black rounded-s-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
               placeholder="Enter Position ,keywords or job title  "
@@ -183,14 +186,14 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             <FaLocationDot className="md:mt-2 mt-4 ml-8 text-2xl absolute text-slate-400" />
           </div>
           {/* right side */}
-          <div className="md:flex  grid grid-cols-1  shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]">
+          <div className="md:flex  grid grid-cols-1 md:pl-20  shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]">
             {/* Map */}
             {!hide && (
               <div className="md:w-[60%] ">
                 {currentitems && (
-                  <div className=" md:pl-14 pl-10 justify-center rounded-md rounded-e-none  md:w-[100%] ">
+                  <div className=" md:pl-16 pl-10 justify-center rounded-md rounded-e-none  md:w-[100%] ">
                     <h1 className="font-bold ml-[10px] md:text-lg text-[#162388] mt-10 ">
-                      TO APPLY
+                      JOB LISTINGS
                     </h1>
                     {currentitems
                       .filter((val) => {
@@ -272,7 +275,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             {widthchecker() && (
               <div
                 ref={Job}
-                className=" md:ml-10 overflow-x-hidden  h-[600px] w-[100%] right-0 rounded-xl mt-2   md:sticky grid grid-cols-1 top-10 overflow-y-auto  mb-24 p-5 mr-32 justify-center pl-2 text-center items-center      "
+                className=" border-2 border-[#020024] md:ml-20 overflow-x-hidden  h-[100%] w-[100%] right-0 rounded-xl mt-10   md:sticky grid grid-cols-1 top-10 overflow-y-auto   mb-24 p-5 mr-32 justify-center pl-2 text-center items-center"
               >
                 <div className=" ">
                   <button
@@ -436,7 +439,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                                     !disableButton
                                       ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                       : " bg-gray-400 "
-                                  } focus:outline-none items-center text-white rounded-lg text-sm px-10 py-2.5  mb-2 font-medium `}
+                                  }   `}
                                 >
                                   {disableSpinner ? (
                                     <l-line-spinner
@@ -578,7 +581,11 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                       )}
                     </>
                   ) : (
-                    <div className="pt-[30%] text-3xl text-[#162388] font-bold items-center">
+                    <div className="h-[100%] text-3xl text-[#162388]  font-bold  ">
+                      <img
+                        src={Jobsearch}
+                        className="md:ml-[26%]  h-[400px] items-center justify-center w-fit"
+                      />
                       JOB INFORMATION
                     </div>
                   )}
@@ -587,6 +594,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             )}
           </div>
         </div>
+
         <ToastContainer
           position="top-center"
           autoClose={3000}

@@ -24,7 +24,7 @@ const Displaycoordinator = ({
           <div data-tooltip-id="my-tooltip" data-tooltip-content="View Profile">
             {e.Email}
           </div>
-          <div>{e.Position}</div>
+          <div className="md:ml-[46%]">{e.Position}</div>
           <Tooltip id="my-tooltip" place="bottom" />
         </div>
       ):""}

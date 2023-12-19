@@ -78,8 +78,13 @@ const EmployeeConfig = ({ e }) => {
           e.Notifications === "false" && "border-2 border-red-500 "
         }  md:text-base text-[10px] h-fit   mb-1 bg-slate-200  p-1  rounded-md  font-normal cursor-pointer`}
         onClick={() => setShowModal(true)}
-      >
+      > 
+        <div className="justify-between flex">
         <MdNotificationsActive className={`${e.Notifications === "false" ? "text-red-500  " : "hidden"}`}/>
+        {e.documents === "Complete" &&  <label className="text-green-600 font-semibold">{e.documents}</label>}
+        {e.documents === "Incomplete" &&  <label className="text-red-600 font-semibold">{e.documents}</label>}
+        </div>
+       
         <div className="grid grid-rows-1">
         <div className="text-lg justify-center  flex  items-center   gap-1 ">
           {broken ? (

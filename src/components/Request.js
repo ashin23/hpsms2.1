@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "ldrs/ring";
 import { lineSpinner } from "ldrs";
-
+import moment from "moment/moment";
 const ModalRequest = ({ isVisible5, onClose5, email }) => {
   const [locations, setLocations] = useState("");
   const [hotel, setHotel] = useState("");
@@ -18,6 +18,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
 
   const [request1, setRequest] = useState();
   const [disable, setdisable] = useState(false);
+  var date1 = moment(new Date()).format("yyyy-M-D");
   const HandleRequst = async () => {
     try {
       setdisable(true);
@@ -61,6 +62,7 @@ const ModalRequest = ({ isVisible5, onClose5, email }) => {
       }
       const { data, error } = await supabase.from("Request").insert([
         {
+          created_at: date1,
           Email: email.Email,
           Location: locations,
           Date: date,

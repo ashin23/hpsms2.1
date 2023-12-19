@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
 const UserListConfig = ({ e, notify }) => {
   const [view, setView] = useState(false);
   const [password, setPassword] = useState("");
@@ -21,9 +23,11 @@ const UserListConfig = ({ e, notify }) => {
     AOS.init({ duration: 100, easing: "linear" });
   }, []);
 
-
+  const [disable, setdisable] = useState(false);
+  
   async function Handlerestricted() {
     var oldrole = e.userlvl;
+    setdisable(true);
     const { data: user } = await supabase
       .from("UserList")
       .update({ userlvl: "Restricted", oldRole: oldrole })
@@ -46,9 +50,11 @@ const UserListConfig = ({ e, notify }) => {
       progress: undefined,
       theme: "light",
     });
+    setdisable(false);
   }
 
   async function Handleunrestricted() {
+    setdisable(true);
     const { data: user } = await supabase
       .from("UserList")
       .update({ userlvl: e.oldRole })
@@ -71,8 +77,10 @@ const UserListConfig = ({ e, notify }) => {
       progress: undefined,
       theme: "light",
     });
+    setdisable(false);
   }
   async function Handleremovenotif() {
+    setdisable(true);
     const { data: user } = await supabase
       .from("UserList")
       .update({ Notifications: "true" })
@@ -95,10 +103,11 @@ const UserListConfig = ({ e, notify }) => {
       progress: undefined,
       theme: "light",
     });
+    setdisable(false);
   }
 
   async function Handledelete() {
-   
+    setdisable(true);
     const { data: user } = await supabase
       .from("UserList")
       .delete()
@@ -121,6 +130,7 @@ const UserListConfig = ({ e, notify }) => {
       progress: undefined,
       theme: "light",
     });
+    setdisable(false);
   }
 
   const getAvatar = async (email1) => {
@@ -164,7 +174,6 @@ const UserListConfig = ({ e, notify }) => {
     );
   }
 
-  
   return (
     <>
       {" "}
@@ -191,38 +200,76 @@ const UserListConfig = ({ e, notify }) => {
         <div className="text-md cursor-pointer flex justify-center">
           {e.userlvl}
         </div>
-        <div className=" grid-rows-3 w-[10%] ml-12 md:ml-[40%]  grid md:h-10  md:flex  gap-2 md:-mt-2 ">
+        <div className=" grid-rows-3 w-[10%] ml-12 md:ml-[40%]   grid md:h-10  md:flex  gap-2 md:-mt-2 ">
           {e.userlvl === "Restricted" ? (
             <button
+              disabled={disable}
               onClick={() => Handleunrestricted()}
               className="-ml-20 focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg md:text-sm   text-xs md:px-3 px-1 py-1 md:py-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900  "
             >
-              Unrestricted
+              {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Unrestricted"
+              )}
             </button>
           ) : (
             <button
+              disabled={disable}
               onClick={() => Handlerestricted()}
               className="-ml-20 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg md:text-sm  text-xs md:px-3 px-1 py-1 md:y-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  "
             >
-              Restricted
+              {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Restricted"
+              )}
             </button>
           )}
 
-         
           <button
+            disabled={disable}
             onClick={() => Handleremovenotif()}
             className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 "
           >
-            Complete
+            {disable ? (
+              <l-line-spinner
+                size="20"
+                stroke="3"
+                speed="1"
+                color="black"
+              ></l-line-spinner>
+            ) : (
+              "Verify"
+            )}
           </button>
           <button
+            disabled={disable}
             onClick={() => Handledelete()}
             className="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg md:text-sm md:px-3 text-xs px-1 py-1 md:y-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900 "
           >
-            Delete
+            {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Delete"
+              )}
           </button>
         </div>{" "}
-      
       </div>
       <ToastContainer
         position="top-center"
@@ -260,6 +307,3 @@ export default UserListConfig;
 //     <AiFillEye className="text-[20px]" />
 //   )}
 // </button>
-
-
-  

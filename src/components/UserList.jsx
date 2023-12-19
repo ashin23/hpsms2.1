@@ -160,7 +160,7 @@ const UserList = () => {
         <div className=" p-3 w-[100%] h-[69%] ">
           <div className="w-[100%] bg-slate-200 h-[100%] rounded-md items-center justify-start flex-col flex p-1 ">
             <div className="md:flex grid justify-between w-full">
-              <div className="flex  gap-2 font-normal text-xs  md:text-base p-3 w-full md:justify-start justify-center">
+              <div className="flex whitespace-nowrap gap-2 font-normal text-xs  md:text-base p-3 w-full md:justify-start justify-center">
                 {usertotalapp &&
                   usertotalemp &&
                   usertotalcoord &&
@@ -211,7 +211,6 @@ const UserList = () => {
                   <div className=" grid grid-cols-3 bg-slate-200 p-2 mb-1 rounded-md font-bold">
                     <label className="justify-start flex">NAME</label>
                     <label className="justify-center flex">POSITION</label>
-
                     <label className="justify-center flex">ACTION</label>
                   </div>
                   {userList

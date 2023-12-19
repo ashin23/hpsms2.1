@@ -5,9 +5,10 @@ import supabase from "./supabaseClient";
 import { useEffect } from "react";
 
 import EmployeeStatus from "./EmployeeStatus.json";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+
 import ReactPaginate from "react-paginate";
 import position from "./position.json";
+import document from "./document.json";
 const Employee = ({ email }) => {
   const [search1, setSearch1] = useState("");
   const [employee, setEmployee] = useState([]);
@@ -19,6 +20,7 @@ const Employee = ({ email }) => {
   const [date, setDate] = useState("");
   const [empPosition, setEmpPosition] = useState("Select Position");
   const [empStatus, setempstatus] = useState("Employee Status");
+  const [empdoc, setempdocu] = useState("");
 
   useEffect(() => {
     FetchEmployee();
@@ -34,7 +36,7 @@ const Employee = ({ email }) => {
         }
       )
       .subscribe();
-  }, [empStatus, empPosition, date]);
+  }, [empStatus, empPosition, date, empdoc]);
 
   const emp = async () => {
     const { data: emp } = await supabase
@@ -45,35 +47,44 @@ const Employee = ({ email }) => {
   };
 
   const FetchEmployee = async () => {
-    if (empStatus === "Employee Status" && empPosition === "Select Position") {
+    if (
+      empStatus === "Employee Status" &&
+      empPosition === "Select Position" &&
+      empdoc === ""
+    ) {
       const { data: emp } = await supabase.from("Employee_List").select();
       setEmployee(emp);
     } else {
-      if (
-        empStatus !== "Employee Status" &&
-        empPosition === "Select Position"
-      ) {
+      if (empStatus !== "Employee Status") {
         const { data: empS } = await supabase
           .from("Employee_List")
           .select()
           .eq("status", empStatus);
         setEmployee(empS);
-      } else if (
-        empPosition !== "Select Position" &&
-        empStatus === "Employee Status"
-      ) {
+      } else if (empPosition !== "Select Position") {
         const { data: empP } = await supabase
           .from("Employee_List")
           .select()
           .eq("Position", empPosition);
         setEmployee(empP);
+      } else if (
+        empdoc !== "" &&
+        empStatus === "Employee Status" &&
+        empPosition === "Select Position"
+      ) {
+        const { data: empP1 } = await supabase
+          .from("Employee_List")
+          .select()
+          .eq("documents", empdoc);
+        setEmployee(empP1);
       } else {
         const { data: empstats } = await supabase
           .from("Employee_List")
           .select()
           .match({
-            status: empStatus,
-            Position: empPosition,
+            status: empStatus !== "Select Position",
+            Position: empPosition !== "Employee Status",
+            documents: empdoc !== "",
           });
         setEmployee(empstats);
       }
@@ -142,6 +153,14 @@ const Employee = ({ email }) => {
                     <option key={employee.id}> {employee.Employestatus}</option>
                   ))}
                 </select>
+                <select
+                  className=" h-[30px] w-[40%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
+                  onChange={(e) => setempdocu(e.target.value)}
+                >
+                  {document.map((docu1) => (
+                    <option key={docu1.id}> {docu1.docu}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -199,130 +218,3 @@ const Employee = ({ email }) => {
 };
 
 export default Employee;
-// <div className=" ">
-//   <div className="h-screen overflow-y-hidden">
-//     <div className="sticky top-5 flex justify-center  pt-32 item-center  pb-8 bg-gradient-to-r from-[#708ef9] via-blue-300 to-blue-500">
-//       <div className="grid grid-cols-2 md:-mb-2 -mt-14 -mb-5 gap-2 p-2 md:-mt-10 md:gap-5">
-//         <div className="bg-white flex flex-col w-full text-center rounded-md">
-//           <label className="font-bold text-lg md:text-xl">
-//             Total Employee
-//           </label>
-//           <label className="font-bold text-lg md:text-4xl">
-//             {employee.length}
-//           </label>
-//         </div>
-//         <div className="bg-white flex  flex-col w-full text-center rounded-md">
-//           <label className="font-bold text-lg md:text-xl">
-//             New Employee
-//           </label>
-//           <label className="font-bold text-lg md:text-4xl">
-//             {emp1.length}
-//           </label>
-//         </div>
-//         <div>
-//           <label className=" md:ml-2  text-xl font-semibold text-white">
-//             Search Name
-//           </label>
-//           <input
-//             className="-mt-10 md:-mt-0 top-96 w-[100%] md:w-[100%] z-50 mb-10 h-[30%]   py-1 px-6 font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-//             placeholder="Search name"
-//             type="search"
-//             onChange={(e) => setSearch1(e.target.value)}
-//           ></input>
-//         </div>
-//         {/* <div >
-
-//         </div> */}
-
-//         <div className="text-black gap-2  ">
-//           <label className=" md:ml-2  text-xl font-semibold text-white">
-//             Employee Status
-//           </label>
-//           <select
-//             className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-//             onChange={(e) => setempstatus(e.target.value)}
-//           >
-//             {EmployeeStatus.map((status) => (
-//               <option key={status.id}> {status.Employestatus}</option>
-//             ))}
-//           </select>
-//         </div>
-//         <div className="text-black gap-2 md:-mt-12 -mt-11">
-//           <label className=" md:ml-2  text-xl font-semibold text-white">
-//             Position
-//           </label>
-//           <select
-//             className="pl-4 pr-3 py-1 w-[100%] font-semibold placeholder-gray-500 text-black rounded-md border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
-//             onChange={(e) => setEmpPosition(e.target.value)}
-//           >
-//             {position.map((position) => (
-//               <option key={position.id}> {position.position}</option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//     </div>
-//     <h1 className="md:mt-10 -mb-5 mt-4 z-50 font-bold flex flex-col md:mb-6 text-[25px] items-center">
-//       Employee List
-//     </h1>
-//     <div className="w-full md:-mt-10 justify-center flex items-center">
-//       <ReactPaginate
-//         previousLabel={
-//           <span className="mt-2 w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 mr-4">
-//             <BsChevronCompactLeft />
-//           </span>
-//         }
-//         nextLabel={
-//           <span className="mt-2 w-10 h-10 flex items-center justify-center mr-4 rounded-md bg-gray-200">
-//             <BsChevronCompactRight />
-//           </span>
-//         }
-//         breakLabel={<span className="mr-4 mt-4">...</span>}
-//         pageCount={pagecount}
-//         onPageChange={handlePageClick}
-//         renderOnZeroPageCount={null}
-//         pageRangeDisplayed={5}
-//         containerClassName="flex mt-2   "
-//         pageClassName="block mt-2 border border-2  focus:outline-none focus:border-gray-400 focus:ring focus:bg-gray-500 bg-gray-200 hover:bg-gray-300 w-10 h-10 flex items-center justify-center roundend-md mr-4 "
-//       />
-//     </div>
-//     <div className=" p-3  w-[100%] z-10  md:pl-16 justify-center bg-white shadow-[0_1px_60px_-15px_rgba(0,0,0,0.3)]  h-[590px] md:rounded-[60px] md:rounded-e-none   ">
-//       <div className=" grid grid-cols-3 w-[100%]  bg-slate-300">
-//         <div className="text-md p-3">Name</div>
-//         <div className="text-md p-3 md:ml-[20%]">Position</div>
-//         <div className="text-md p-3 md:ml-[20%]">Email</div>
-//       </div>
-
-//       {employee && (
-//         <div className="md:h-[40%] h-[9rem] overflow-y-auto overflow-x-hidden">
-//           {employee
-//             .filter((val) => {
-//               try {
-//                 if (search1 === "") {
-//                   return val;
-//                 } else if (
-//                   val.Position.toLowerCase().includes(search1.toLowerCase())
-//                 ) {
-//                   return val;
-//                 } else if (
-//                   val.Name.toLowerCase().includes(search1.toLowerCase())
-//                 ) {
-//                   return val;
-//                 }
-//               } catch (error) {}
-//             })
-//             .sort((a, b) => (b.id > a.id ? 1 : -1))
-//             .slice(itemsOffset, endoffsett)
-//             .map((empData) => (
-//               <EmployeeConfig
-//                 key={empData.id}
-//                 empData={empData}
-//                 // handleChange={HandleChange}
-//                 selectedData={selected}
-//               />
-//             ))}
-//         </div>
-//       )}
-//     </div>
-//   </div>
-// </div>

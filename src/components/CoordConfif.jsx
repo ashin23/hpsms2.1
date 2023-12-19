@@ -13,7 +13,7 @@ const CoordConfif = ({ CoordEmp ,coordinator}) => {
     <div className="flex   mt-2 ">
       <div className="p-3 rounded-md  w-[100%] ">
         {CoordEmp  ? (
-          <div className="h-[100%] overflow-auto overflow-x-hidden p-1">
+          <div className=" p-1">
             {CoordEmp.map((e,index) => (
               <>
                 <Displaycoordinator

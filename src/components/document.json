@@ -1,5 +1,5 @@
 [
-  { "id": 0, "docu": "" },
+  { "id": 0, "docu": "Document Status" },
   { "id": 1, "docu": "Complete" },
   { "id": 2, "docu": "Incomplete" }
 ]

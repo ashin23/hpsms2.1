@@ -64,12 +64,12 @@ function PostConfig({
       if (
         applicant[index].Hotel === postInfo.hotel &&
         applicant[index].Email === email?.Email
-        // remove await
       ) {
         setdisableButton(true);
         return;
       } else {
         setdisableButton(false);
+       
       }
     }
   };

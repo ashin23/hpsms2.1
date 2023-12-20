@@ -26,6 +26,7 @@ function Deploy({ pos, setemployee, employee, setemp1 }) {
       {pos.status === "Deploy"}
       <div className=" mt-2 p-1 bg-slate-300 rounded-md  flex justify-between">
         {pos.Email}
+        
         <button
           className="p-1 bg-red-700 rounded-md px-2"
           onClick={() => removeItem(pos.id)}

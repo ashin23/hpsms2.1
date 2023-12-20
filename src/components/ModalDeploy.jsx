@@ -150,7 +150,7 @@ function ModalDeploy({
       >
         <div
           data-aos="zoom-in"
-          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[20%] lg:h-[50%] lg:w-[40%] h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
+          className=" grid justify-center bg-white md:p-5  p-2 gap-3  overflow-auto overflow-x-hidden md:h-[40%]  h-[80%] md:w-[25%] w-[100%] rounded-3xl shadow-2xl"
         >
           <div className="flex   sticky top-0 h-fit justify-between  md:w-full items-center    bg-white">
             <label
@@ -159,35 +159,7 @@ function ModalDeploy({
             >
               Selected Employees
             </label>
-            <div className="flex grid-cols-2 md:ml-2 ">
-              <button
-                disabled={disable}
-                onClick={() => HandleSendCoordinator()}
-                className={`${
-                  !disable
-                    ? "focus:outline-none  bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-                    : "bg-gray-500"
-                } md:h-[40%] h-[50%] text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2`}
-              >
-                {disable ? (
-                  <l-line-spinner
-                    size="20"
-                    stroke="3"
-                    speed="1"
-                    color="black"
-                  ></l-line-spinner>
-                ) : (
-                  "Send"
-                )}
-              </button>
-              <button
-                disabled={disable}
-                onClick={close}
-                className=" focus:outline-none md:h-[40%] h-[50%] text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900 "
-              >
-                Cancel
-              </button>
-            </div>
+            
           </div>
 
           {employee && (
@@ -203,7 +175,7 @@ function ModalDeploy({
             </div>
           )}
 
-          <div className="md-mt-10">
+          <div className="md:mt-5">
             <h1 className="font-bold pb-2 text-[20px]">Coordinator</h1>
             <input
               disabled={true}
@@ -212,6 +184,35 @@ function ModalDeploy({
               className="pl-10 pr-3 py-2 w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2"
             ></input>
           </div>
+          <div className="flex grid-cols-2  justify-end pt-2 md:ml-2 ">
+              <button
+                disabled={disable}
+                onClick={() => HandleSendCoordinator()}
+                className={`${
+                  !disable
+                    ? "focus:outline-none  bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                    : "bg-gray-500"
+                }  text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2`}
+              >
+                {disable ? (
+                  <l-line-spinner
+                    size="20"
+                    stroke="3"
+                    speed="1"
+                    color="black"
+                  ></l-line-spinner>
+                ) : (
+                  "Send"
+                )}
+              </button>
+              <button
+                disabled={disable}
+                onClick={close}
+                className=" focus:outline-none  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900 "
+              >
+                Cancel
+              </button>
+            </div>
         </div>
       </div>
     </>

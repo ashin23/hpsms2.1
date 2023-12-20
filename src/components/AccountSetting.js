@@ -38,13 +38,13 @@ const AccountSetting = ({
   }, []);
 
   useEffect(() => {
-    if(email2)getter();
+    if (email2) getter();
     codeGenerator();
   }, [hr, admin, emp, coordinator, applicant]);
 
   const getter = async () => {
-     setEmail1( email2.Email);
-    setPass( email2.Password);
+    setEmail1(email2.Email);
+    setPass(email2.Password);
   };
 
   function handleEdit() {
@@ -70,7 +70,7 @@ const AccountSetting = ({
     //   },
     //   "-qtQXoQ1iYx4JDljO"
     // );
-    console.log(otpCode)
+    console.log(otpCode);
     toast.success("Send Code", {
       position: "top-center",
       autoClose: 3000,
@@ -166,22 +166,22 @@ const AccountSetting = ({
             >
               Account Settings
             </label>
-            <div className="flex mt-5 px-3 text-lg ">
+            <div className="mt-5 flex  px-3 text-lg ">
               <button
                 onClick={() => handleEdit()}
-                className="text-white bg-blue-700 whitespace-nowrap  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                className="text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-5 py-2 me-2 mb-2 bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
                 Edit
               </button>{" "}
               <button
                 onClick={() => saveChanges()}
-                className="text-white bg-green-700 whitespace-nowrap  hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-base px-5 py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+                className="text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-5 py-2 me-2 mb-2 bg-green-700  hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
               >
                 Save
               </button>
               <button
                 onClick={() => close()}
-                className=" text-white bg-gray-700 whitespace-nowrap  hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-base px-5 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+                className=" text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-5 py-2 me-2 mb-2 bg-gray-700  hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
               >
                 Cancel
               </button>
@@ -279,12 +279,8 @@ const AccountSetting = ({
               </div>
             </div>
           </div>
-
-          <div className=" flex w-[100%]   justify-center items-center h-fit mt-2"></div>
         </div>
       </div>
-
-      
     </>
   );
 };

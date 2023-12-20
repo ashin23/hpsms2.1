@@ -98,7 +98,7 @@ const Archive = () => {
     setdeletebutton(userinfo?.deletebutton);
 
     const { data: arch1 } = await supabase.from("Archive_List").select();
-    if (arch1.length === 0) {
+    if (arch1?.length === 0) {
       setArchive(arch1);
     } else {
       for (let index = 0; index < arch1.length; index++) {

@@ -8,7 +8,7 @@ const Termsandcondition = ({ isOpen, isClose }) => {
     justify-center items-center z-50 top-50 flex overflow-auto "
     >
       <div className="overflow-y-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[80%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl">
-        <label className="font-bold mb-2">
+        <label className="font-bold mb-2 text-2xl">
           User Information Terms and Conditions
         </label>
         <div className="mb-2">
@@ -125,7 +125,7 @@ const Termsandcondition = ({ isOpen, isClose }) => {
         </div>
         <button
           onClick={isClose}
-          className="md:-mr-7  focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          className="flex w-[10%]   focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         >
           Close
         </button>

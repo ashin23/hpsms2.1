@@ -13,6 +13,9 @@ import { FaBriefcase } from "react-icons/fa";
 import { VscReferences } from "react-icons/vsc";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { toast } from "react-toastify";
+import Layoutdoc from "./Layoutdoc.jsx";
+import ReactToPrint from "react-to-print";
+import { useRef } from "react";
 const ModalCoordconfig = ({
   isOpen,
   isClose,
@@ -40,6 +43,8 @@ const ModalCoordconfig = ({
     setFileView(await file);
   };
 
+  const [disable, setdisable] = useState(false);
+
   const HandleArchive = async () => {
     const updatedData = [...CoordEmp];
     for (let index = 0; index < CoordEmp.length; index++) {
@@ -49,7 +54,7 @@ const ModalCoordconfig = ({
         updatedData[index] = { ...updatedData[index], status: "Undeploy" }; // Update the status at the specified index
       }
     }
-
+    setdisable(true);
     const { data: empcoord } = await supabase
       .from("EmployeeListCoordinator")
       .update({
@@ -57,11 +62,19 @@ const ModalCoordconfig = ({
       })
       .eq("Email", window.localStorage.getItem("email"))
       .single();
-    toast.success("Moved to archived", {
+
+    const { data: emp } = await supabase
+      .from("Employee_List")
+      .update({ status: "Undeploy" })
+      .eq("uuid", coordInfo.uuid);
+    toast.success("Inquire for alternative information", {
       autoClose: 1500,
     });
+    setdisable(false);
     isClose();
   };
+  const componentRef = useRef();
+  const [img, setimg] = useState();
 
   if (!isOpen) return null;
   return (
@@ -75,6 +88,7 @@ justify-center items-center  top-50 flex overflow-auto "
       >
         <div className="flex justify-end mt-[10px] md:mt-0 p-1">
           <button
+            disabled={disable}
             onClick={handleclose}
             className="text-sm font-medium p-2  px-4 text-gray-900 focus:outline-none bg-gray-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
@@ -87,7 +101,7 @@ justify-center items-center  top-50 flex overflow-auto "
             {" "}
             <div className="">
               {fileview && (
-                <div className="md:h-[200px] md:w-[200px] w-[100px] h-[100px] md:ml-0 ml-[100px] -mt-8 md:-mt-0  shadow-md shadow-black rounded-full">
+                <div className="">
                   {fileview.map((view) => (
                     <Filecoord key={view.id} view={view} Email={coordInfo} />
                   ))}
@@ -102,17 +116,38 @@ justify-center items-center  top-50 flex overflow-auto "
                 >
                   Applicant Information
                 </label>
-                <div className="gap-1 flex">
-                  <button
-                    className="text-white text-sm font-medium bg-green-700 rounded-lg md:p-4 p-2
-              focus:outline-none hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                    onClick={() => HandleArchive()}
-                  >
-                    ARCHIVE
-                  </button>
-                </div>
               </div>
               <div className="mt-1 ml-2 gap-2 font-base">
+                <div className="gap-1 flex">
+                  <button
+                    disabled={disable}
+                    className="text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2 bg-red-700   hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800 focus:ring-red-300 "
+                    onClick={() => HandleArchive()}
+                  >
+                    DELETE
+                  </button>{" "}
+                  <ReactToPrint
+                    trigger={() => {
+                      return (
+                        <button
+                          disabled={disable}
+                          className="text-white  focus:ring-4  font-medium   rounded-lg text-sm px-2 py-2 mr-2 mb-2 bg-blue-700   hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 focus:ring-blue-300"
+                        >
+                          PRINT
+                        </button>
+                      );
+                    }}
+                    content={() => componentRef.current}
+                    documentTitle="new document"
+                  />
+                  <div className="h-[100%] overflow-y-auto hidden">
+                    <Layoutdoc
+                      componentRef={componentRef}
+                      Info={coordInfo}
+                      srcIMG={fileview}
+                    />
+                  </div>
+                </div>
                 <div className="flex  ">
                   Full Name:{" "}
                   <p className="font-thin pl-1 pr-1">{coordInfo.Name} </p>(

@@ -69,7 +69,7 @@ const EmployeeCoord = ({ email1 }) => {
     setItemOffset(newOffset);
   };
   
- 
+
   return (
     <div className="fixed inset-0 h-screen w-screen flex flex-col bg-black items-center justify-center place-content-center ">
     <div className="h-[100%] bg-white w-[100%] flex flex-col  ">
@@ -89,8 +89,6 @@ const EmployeeCoord = ({ email1 }) => {
                 type="search"
                 onChange={(e) => setSearch1(e.target.value)}
               />
-             
-              
             </div>
           </div>
 
@@ -100,7 +98,6 @@ const EmployeeCoord = ({ email1 }) => {
                 <div className=" grid grid-cols-2 bg-slate-200 p-2 mb-1 rounded-md font-bold">
                   <label className="justify-start flex">EMAIL</label>
                   <label className="justify-center flex">POSITION</label>
-                  
                 </div>
                 {coordinator
                   .filter((val) => {
@@ -108,9 +105,9 @@ const EmployeeCoord = ({ email1 }) => {
                       if (search === "") {
                         return val;
                       } else if (
-                        val.Email.toLowerCase().includes(search.toLowerCase())
+                        val.Data.toLowerCase().includes(search.toLowerCase())
                       ) {
-                  
+                        
                         return val;
                       }
                     } catch (error) {}

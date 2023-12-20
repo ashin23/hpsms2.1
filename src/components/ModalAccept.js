@@ -150,7 +150,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
       className="fixed inset-0 z-50 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex "
     >
-      <div className="overflow-scroll bg-white h-[70%] w-[80%] md:h-[70%] md:w-[50%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
+      <div className="overflow-y-auto overflow-x-hidden bg-white h-[70%] w-[80%] md:h-[70%] md:w-[50%] rounded-3xl  py-6 px-5 md:px-14 shadow-2xl">
         <div className="h-fit   bg-white top-0 w-[100%]">
           <label
             className="flex md:text-[30px] h-fit text-xl

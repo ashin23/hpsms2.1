@@ -144,7 +144,7 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
   justify-center items-center top-50 flex "
     >
       <div className="bg-white p-5 rounded-3xl  py-6 px-5 md:px-14 shadow-2xl ">
-        <h1 className="font-bold">Are you sure you want to reject?</h1>
+        <h1 className="font-bold">Would you like to proceed with rejection?</h1>
 
         <div
           className="flex

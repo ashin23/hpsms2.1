@@ -67,7 +67,7 @@ const ModalApplicantInfo = ({
               <div className="grid md:flex w-[100%] h-fit gap-y-2">
                 <label
                   className="p-2 md:p-4  flex whitespace-nowrap  text-slate-100 md:text-[30px] text-lg md:w-[70%]
-              text-start font-semibold rounded-2xl  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] "
+              text-start font-semibold rounded-2xl  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463]"
                 >
                   Applicant Information
                 </label>

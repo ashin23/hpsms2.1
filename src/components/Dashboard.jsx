@@ -275,7 +275,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
             {widthchecker() && (
               <div
                 ref={Job}
-                className=" border-2 border-[#020024] md:ml-20 overflow-x-hidden  h-[100%] w-[100%] right-0 rounded-xl mt-10   md:sticky grid grid-cols-1 top-10 overflow-y-auto   mb-24 p-5 mr-32 justify-center pl-2 text-center items-center"
+                className="bg-white border-2 border-[#020024] md:ml-20 overflow-x-hidden  h-[100%] w-[100%] right-0 rounded-xl mt-10   md:sticky grid grid-cols-1 top-10 overflow-y-auto   mb-24 p-5 mr-32 justify-center pl-2 text-center items-center"
               >
                 <div className=" ">
                   <button
@@ -429,38 +429,13 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                             </label>
                           </div>
 
-                          {disableButton !== null ? (
-                            <>
-                              {applicant && (
-                                <button
-                                  disabled={disableButton}
-                                  onClick={apply1}
-                                  className={`${
-                                    !disableButton
-                                      ? " bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                                      : " bg-gray-400 "
-                                  }   `}
-                                >
-                                  {disableSpinner ? (
-                                    <l-line-spinner
-                                      size="20"
-                                      stroke="3"
-                                      speed="1"
-                                      color="black"
-                                    ></l-line-spinner>
-                                  ) : (
-                                    "APPLY"
-                                  )}
-                                </button>
-                              )}
-                            </>
-                          ) : (
-                            <l-line-spinner
-                              size="20"
-                              stroke="3"
-                              speed="1"
-                              color="black"
-                            ></l-line-spinner>
+                          {applicant && (
+                            <button
+                              onClick={apply1}
+                              className="text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            >
+                              Apply
+                            </button>
                           )}
 
                           <div className="mb-3 mt-10">

@@ -15,7 +15,7 @@ const Notifications = ({ isOpen, isClose, email, data }) => {
         className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm
     justify-center items-center top-50 flex  w-screen h-screen"
       >
-        <div className=" overflow-y-scroll bg-white h-[40%] overflow-x-hidden  w-[80%] md:h-[40%] md:w-[30%] lg:h-[40%] lg:w-[25%] rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
+        <div className=" overflow-y-scroll bg-white h-[40%] overflow-x-hidden  w-[80%] md:h-[40%] md:w-[40%]  rounded-3xl  pb-6 px-5 md:px-14 shadow-2xl ">
           <div className="sticky top-0 bg-white w-full h-[13%] p-5">
             <div className="flex justify-end -mr-9 md:-mr-16 -mt-2">
               <button

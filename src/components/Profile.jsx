@@ -273,15 +273,15 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             } text-white font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 `}
           >
             {disable ? (
-                <l-line-spinner
-                  size="20"
-                  stroke="3"
-                  speed="1"
-                  color="black"
-                ></l-line-spinner>
-              ) : (
-                "Save"
-              )}
+              <l-line-spinner
+                size="20"
+                stroke="3"
+                speed="1"
+                color="black"
+              ></l-line-spinner>
+            ) : (
+              "Save"
+            )}
           </button>
         </div>
         <div className="">
@@ -756,55 +756,63 @@ const Profile = ({ isProfile, isProfileclose, email2, applicant }) => {
             ></textarea>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 gap-y-9 mb-3 p-2">
-          <label className="flex font-bold">SSS No:</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="SSS Number"
-            value={sSS_Number}
-            onChange={(e) => setSSS_Number(e.target.value)}
-            type="text"
-            id="sss_number"
-            disabled="true"
-          ></input>
-          <label className="flex font-bold">Phil Health No:</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Phil Heatlh Number"
-            value={phil_Health_No}
-            onChange={(e) => setPhil_Health_No(e.target.value)}
-            type="text"
-            disabled="true"
-            id="phil_health_no"
-          ></input>
-          <label className="flex font-bold">Pag-IBIG No:</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Pag-IBIG Number"
-            onChange={(e) => setPag_Ibig_No(e.target.value)}
-            value={pag_Ibig_No}
-            disabled="true"
-            id="pag_ibig_no"
-            type="text"
-          ></input>
-          <label className="flex font-bold">Tin No:</label>
-          <input
-            className={`${
-              allow ? "bg-blue-200 " : ""
-            } pl-10 pr-3 py-2 md:w-[20%] w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
-            placeholder="Tin Number"
-            value={tin_No}
-            onChange={(e) => setTin_No(e.target.value)}
-            disabled="true"
-            id="tin_no"
-            type="text"
-          ></input>
+        <div className="grid grid-cols-1 md:grid-cols-4  gap-4 gap-y-9 mb-3 p-2">
+          <div className="div">
+            <label className="flex font-bold">SSS No:</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="SSS Number"
+              value={sSS_Number}
+              onChange={(e) => setSSS_Number(e.target.value)}
+              type="text"
+              id="sss_number"
+              disabled="true"
+            ></input>
+          </div>
+          <div className="div">
+            <label className="flex font-bold">Phil Health No:</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Phil Heatlh Number"
+              value={phil_Health_No}
+              onChange={(e) => setPhil_Health_No(e.target.value)}
+              type="text"
+              disabled="true"
+              id="phil_health_no"
+            ></input>
+          </div>
+          <div className="div">
+            <label className="flex font-bold">Pag-IBIG No:</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Pag-IBIG Number"
+              onChange={(e) => setPag_Ibig_No(e.target.value)}
+              value={pag_Ibig_No}
+              disabled="true"
+              id="pag_ibig_no"
+              type="text"
+            ></input>
+          </div>
+          <div className="div">
+            <label className="flex font-bold">Tin No:</label>
+            <input
+              className={`${
+                allow ? "bg-blue-200 " : ""
+              } pl-10 pr-3 py-2  w-[100%] font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2`}
+              placeholder="Tin Number"
+              value={tin_No}
+              onChange={(e) => setTin_No(e.target.value)}
+              disabled="true"
+              id="tin_no"
+              type="text"
+            ></input>
+          </div>
         </div>
       </div>
     </div>

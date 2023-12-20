@@ -867,11 +867,11 @@ const Register = ({ isRegister, isRegisterClose }) => {
           </div>
           {/* Button */}
         </div>
-        <div className="sticky  -bottom-7 bg-white  w-full h-[40%] md:h-[13%] p-5 items-center justify-center  ">
+        <div className="sticky  -bottom-7 bg-white  w-full h-[40%] md:h-[12%] p-5 items-center justify-center  ">
         <label className="md:-ml-7 font-semibold text-xl  w-full ">
               Type N.A. if the data is not available.
             </label>
-          <div className="md:flex md:justify-end justify-center items-center grid grid-cols-1  ">
+          <div className="md:flex md:justify-end justify-center items-center grid grid-cols-1 -mt-10 ">
            
             <button
               disabled={disable}

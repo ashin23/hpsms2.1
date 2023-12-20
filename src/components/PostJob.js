@@ -173,35 +173,7 @@ const PostJob = ({ isPost, isPostClose }) => {
           <label className=" py-3 pl-3 pr-10  md:pr-56 ml-2  my-4 text-slate-100 text-[30px] md:text-[30px] h-fit text-xl w-fit text-center font-semibold  bg-gradient-to-r from-[#020024] via-[#040463] to-[#040463] rounded-2xl">
             Post a Job
           </label>{" "}
-          <div className="md:ml-[25%]  lg:ml-[10%] w-fit  md:flex px-5 text-lg ">
-            <button
-              disabled={disable}
-              className={`${
-                !disable
-                  ? "  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  : "bg-gray-500"
-              } text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2`}
-              onClick={() => handleStoreData()}
-            >
-               {disable ? (
-                <l-line-spinner
-                  size="20"
-                  stroke="3"
-                  speed="1"
-                  color="black"
-                ></l-line-spinner>
-              ) : (
-                "Post a Job"
-              )}
-            </button>
-            <button
-              disabled={disable}
-              onClick={() => isPostClose()}
-              className=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
-            >
-              Cancel
-            </button>
-          </div>
+         
         </div>
         {/* UPLOAD PHOTO */}
         <div className="m-5 grid-cols-1 md:grid-cols-2 md:mt-8 grid">
@@ -401,8 +373,37 @@ const PostJob = ({ isPost, isPostClose }) => {
               ></textarea>
             </div>
           </div>
-          <div className="flex  justify-between gap-2 mt-6   "></div>
+        
         </div>
+        <div className=" w-full justify-end sticky bottom-0  md:flex px-5 text-lg ">
+            <button
+              disabled={disable}
+              className={`${
+                !disable
+                  ? "  bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  : "bg-gray-500"
+              } text-white whitespace-nowrap  font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2`}
+              onClick={() => handleStoreData()}
+            >
+               {disable ? (
+                <l-line-spinner
+                  size="20"
+                  stroke="3"
+                  speed="1"
+                  color="black"
+                ></l-line-spinner>
+              ) : (
+                "Post a Job"
+              )}
+            </button>
+            <button
+              disabled={disable}
+              onClick={() => isPostClose()}
+              className=" text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm h-fit px-3 py-2 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
       </div>
     </div>
   );

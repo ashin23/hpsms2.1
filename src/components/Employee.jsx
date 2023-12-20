@@ -20,7 +20,7 @@ const Employee = ({ email }) => {
   const [date, setDate] = useState("");
   const [empPosition, setEmpPosition] = useState("Select Position");
   const [empStatus, setempstatus] = useState("Employee Status");
-  const [empdoc, setempdocu] = useState("");
+  const [empdoc, setempdocu] = useState("Document Status");
 
   useEffect(() => {
     FetchEmployee();
@@ -47,46 +47,73 @@ const Employee = ({ email }) => {
   };
 
   const FetchEmployee = async () => {
-    if (
-      empStatus === "Employee Status" &&
-      empPosition === "Select Position" &&
-      empdoc === ""
-    ) {
-      const { data: emp } = await supabase.from("Employee_List").select();
-      setEmployee(emp);
-    } else {
-      if (empStatus !== "Employee Status") {
-        const { data: empS } = await supabase
-          .from("Employee_List")
-          .select()
-          .eq("status", empStatus);
-        setEmployee(empS);
-      } else if (empPosition !== "Select Position") {
-        const { data: empP } = await supabase
-          .from("Employee_List")
-          .select()
-          .eq("Position", empPosition);
-        setEmployee(empP);
-      } else if (
-        empdoc !== "" &&
-        empStatus === "Employee Status" &&
-        empPosition === "Select Position"
-      ) {
-        const { data: empP1 } = await supabase
+    if (empStatus === "Employee Status" && empPosition === "Select Position") {
+      if (empdoc === "Document Status") {
+        const { data: emp } = await supabase.from("Employee_List").select();
+        setEmployee(emp);
+      } else {
+        const { data: emp1 } = await supabase
           .from("Employee_List")
           .select()
           .eq("documents", empdoc);
-        setEmployee(empP1);
+        setEmployee(emp1);
+      }
+    } else {
+      if (
+        empStatus !== "Employee Status" &&
+        empPosition === "Select Position"
+      ) {
+        if (empdoc === "Document Status") {
+          const { data: empS } = await supabase
+            .from("Employee_List")
+            .select()
+            .eq("status", empStatus);
+          setEmployee(empS);
+        } else {
+          const { data: empS } = await supabase
+            .from("Employee_List")
+            .select()
+            .match({ status: empStatus, documents: empdoc });
+          setEmployee(empS);
+        }
+      } else if (
+        empPosition !== "Select Position" &&
+        empStatus === "Employee Status"
+      ) {
+        if (empdoc === "Document Status") {
+          const { data: empP } = await supabase
+            .from("Employee_List")
+            .select()
+            .eq("Position", empPosition);
+          setEmployee(empP);
+        } else {
+          const { data: empP1 } = await supabase
+            .from("Employee_List")
+            .select()
+            .match({ Position: empPosition, documents: empdoc });
+          setEmployee(empP1);
+        }
       } else {
-        const { data: empstats } = await supabase
-          .from("Employee_List")
-          .select()
-          .match({
-            status: empStatus !== "Select Position",
-            Position: empPosition !== "Employee Status",
-            documents: empdoc !== "",
-          });
-        setEmployee(empstats);
+        if (empdoc === "Document Status") {
+          const { data: empstats } = await supabase
+            .from("Employee_List")
+            .select()
+            .match({
+              status: empStatus,
+              Position: empPosition,
+            });
+          setEmployee(empstats);
+        } else {
+          const { data: empstats } = await supabase
+            .from("Employee_List")
+            .select()
+            .match({
+              status: empStatus,
+              Position: empPosition,
+              documents: empdoc,
+            });
+          setEmployee(empstats);
+        }
       }
     }
   };

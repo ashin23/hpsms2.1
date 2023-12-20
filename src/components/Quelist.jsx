@@ -44,7 +44,7 @@ const Quelist = ({ email1 }) => {
 
   const queList = async () => {
     const { data: que } = await supabase.from("Queuing_List").select();
-    if (que.length === 0) {
+    if (que?.length === 0) {
       setApplicants(que);
     } else {
       for (let index = 0; index < que.length; index++) {

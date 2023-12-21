@@ -54,19 +54,19 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
       setdisable(false);
       return;
     }
-    // emailjs.send(
-    //   "service_yj6ye3j",
-    //   "template_v7ln2cg",
-    //   {
-    //     from_name: info.Name,
-    //     message: message1,
-    //     emailsend: email1,
-    //     location: location,
-    //     date: date1,
-    //     time: time1,
-    //   },
-    //   "-qtQXoQ1iYx4JDljO"
-    // );
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_v7ln2cg",
+      {
+        from_name: info.Name,
+        message: message1,
+        emailsend: email1,
+        location: location,
+        date: date1,
+        time: time1,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
     
     await supabase.from("Queuing_List").insert({
       // id: info.id,

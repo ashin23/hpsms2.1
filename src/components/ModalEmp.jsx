@@ -230,7 +230,7 @@ function ModalEmp({
             Pag_Ibig_No: Info.Pag_Ibig_No,
             Tin_Number: Info.Tin_Number,
             Position: Info.Position,
-            userlvl: "applicant",
+            userlvl: "Employee",
             status: "Undeploy",
             Notifications: "false",
             Hotel: Info.Hotel,

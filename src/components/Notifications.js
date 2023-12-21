@@ -43,7 +43,7 @@ const Notifications = ({ isOpen, isClose, email, data }) => {
                 <label>Position</label>
               </div>
               {data.map((data) => (
-                <div className="grid grid-cols-2 overflow-y-auto h-[100%]">
+                <div className="grid grid-cols-3 overflow-y-auto h-[100%]">
                   <div className="">{data?.Hotel}</div>
                   <div>{data?.action}</div>
                   <div>{data?.Position}</div>

@@ -113,7 +113,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
       Pag_Ibig_No: info.Pag_Ibig_No,
       Tin_Number: info.Tin_Number,
       Position: info.Position,
-      userlvl: "Employee",
+      userlvl: "applicant",
       status: "Undeploy",
       Notifications: "false",
       date: date,

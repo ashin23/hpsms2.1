@@ -492,6 +492,31 @@ const Navbar = ({
 
   useEffect(() => {
     fetchNotif();
+    const channels = supabase
+      .channel("custom-all-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Applicant_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Queuing_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "Archive_List" },
+        (payload) => {
+          fetchNotif();
+        }
+      )
+      .subscribe();
+
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setIsMobile(true);

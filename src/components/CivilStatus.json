@@ -1,0 +1,8 @@
+[
+    {"id": 0, "Civilstatus": "Select Here" },
+    {"id": 1, "Civilstatus": "Single" },
+    {"id": 2, "Civilstatus": "Married" },
+    {"id": 3, "Civilstatus": "Separated" },
+    {"id": 4, "Civilstatus": "Divorced" },
+    {"id": 5, "Civilstatus": "Widowed"}
+]

@@ -1,0 +1,6 @@
+[
+    {"id": 0, "position": "Select Position" },
+    {"id": 1, "position": "Waiter" },
+    {"id": 2, "position": "Dishwasher" },
+    {"id": 3, "position": "RoomAttendant" }
+]

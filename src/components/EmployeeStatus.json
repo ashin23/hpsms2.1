@@ -1,0 +1,5 @@
+[
+  { "id": 0, "Employestatus": "Employee Status" },
+  { "id": 1, "Employestatus": "Deploy" },
+  { "id": 2, "Employestatus": "Undeploy" }
+]

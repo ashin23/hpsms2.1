@@ -48,15 +48,15 @@ const ModalCreateAcc = ({ isOpen1, isClose1 }) => {
       });
       return;
     }
-    // emailjs.send(
-    //   "service_yj6ye3j",
-    //   "template_aek4udy",
-    //   {
-    //     email2: email,
-    //     code: otpCode,
-    //   },
-    //   "-qtQXoQ1iYx4JDljO"
-    // );
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_aek4udy",
+      {
+        email2: email,
+        code: otpCode,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
     console.log(otpCode);
     toast.success("Send Code", {
       position: "top-center",

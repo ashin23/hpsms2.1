@@ -14,7 +14,7 @@ const Archive = () => {
   const [notif, setnotif] = useState("false");
   const [arch, setarch] = useState([]);
 
-  const [deletebutton, setdeletebutton] = useState(true);
+  const [deletebutton, setdeletebutton] = useState();
   const [checkbox, setcheckbox] = useState();
   // Sample
   // const currentDate1 = moment(new Date()).format();
@@ -41,8 +41,6 @@ const Archive = () => {
       .subscribe();
   }, [newDate, currentDate]);
 
-  useEffect(() => {
-  }, [deletebutton]);
   const archfetch = async () => {
     const { data: arche } = await supabase
       .from("Archive_List")
@@ -50,7 +48,57 @@ const Archive = () => {
       .eq("Notifications", notif);
     setarch(arche);
   };
-// BUTTON ON AND OFF
+
+  const FetchArchive = async () => {
+    const { data: userinfo } = await supabase
+      .from("UserList")
+      .select()
+      .eq("Email", window.localStorage.getItem("email"))
+      .single();
+    setdeletebutton(userinfo?.deletebutton);
+
+    const { data: arch1 } = await supabase.from("Archive_List").select();
+    if (arch1?.length === 0) {
+      setArchive(arch1);
+    } else {
+      for (let index = 0; index < arch1.length; index++) {
+        if (arch1[index].created_at === currentDate) {
+          const { data: arch6 } = await supabase
+            .from("Archive_List")
+            .select()
+            .eq("created_at", currentDate);
+          setArchive(arch6);
+        }
+      }
+    }
+  };
+
+  const datespecific = async (e) => {
+    if (e.target.value === "") {
+      const { data: arch4 } = await supabase
+        .from("Archive_List")
+        .select()
+        .eq("created_at", currentDate);
+      return setArchive(arch4);
+    }
+    const { data: arch5 } = await supabase
+      .from("Archive_List")
+      .select()
+      .eq("created_at", e.target.value);
+    setArchive(arch5);
+  };
+
+  const disabledelete = async () => {
+    setdeletebutton(!deletebutton);
+    await supabase
+      .from("UserList")
+      .update({
+        deletebutton: !deletebutton,
+      })
+      .eq("Email", window.localStorage.getItem("email"));
+  };
+
+  // BUTTON ON AND OFF
   useEffect(() => {
     var array = [];
 
@@ -86,59 +134,9 @@ const Archive = () => {
 
     runFunctionBasedOnTime();
 
-    const intervalId = setInterval(runFunctionBasedOnTime, 1000);
-  }, []);
+    const intervalId = setInterval(runFunctionBasedOnTime, 500);
 
-  const FetchArchive = async () => {
-    const { data: userinfo } = await supabase
-      .from("UserList")
-      .select()
-      .eq("Email", window.localStorage.getItem("email"))
-      .single();
-    setdeletebutton(userinfo?.deletebutton);
-
-    const { data: arch1 } = await supabase.from("Archive_List").select();
-    if (arch1?.length === 0) {
-      setArchive(arch1);
-    } else {
-      for (let index = 0; index < arch1.length; index++) {
-        if (arch1[index].created_at === currentDate) {
-          const { data: arch6 } = await supabase
-            .from("Archive_List")
-            .select()
-            .eq("created_at", currentDate);
-          setArchive(arch6);
-        }
-      }
-    }
-  };
-
-  
-
-  const datespecific = async (e) => {
-    if (e.target.value === "") {
-      const { data: arch4 } = await supabase
-        .from("Archive_List")
-        .select()
-        .eq("created_at", currentDate);
-      return setArchive(arch4);
-    }
-    const { data: arch5 } = await supabase
-      .from("Archive_List")
-      .select()
-      .eq("created_at", e.target.value);
-    setArchive(arch5);
-  };
-
-  const disabledelete = async (e) => {
-    setdeletebutton(!deletebutton);
-    await supabase
-      .from("UserList")
-      .update({
-        deletebutton: !deletebutton,
-      })
-      .eq("Email", window.localStorage.getItem("email"));
-  };
+  }, [deletebutton]);
 
   const [currentitems, setcurrentitems] = useState([]);
   const [pagecount, setpagecount] = useState(0);
@@ -179,17 +177,16 @@ const Archive = () => {
                     </label>
 
                     <label className="whitespace-break-spaces flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={deletebutton}
-                      onChange={(e) => disabledelete(e)}
-                      value={deletebutton}
-                    ></input>
+                      <input
+                        type="checkbox"
+                        checked={deletebutton}
+                        onChange={() => disabledelete()}
+                        value={deletebutton}
+                      ></input>
                       <CiWarning className="text-2xl bg-yellow-300 rounded-md" />{" "}
                       The data has a 5-day window for restoration; otherwise, it
                       will be deleted
                     </label>
-                    
                   </>
                 )}
                 {/* <button onClick={() => abledelet()}>Enable auto delete</button> */}

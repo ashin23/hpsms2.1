@@ -76,17 +76,7 @@ const ModalApply = ({ isVisible, onClose, Position, Data, Hotel, checker }) => {
             action: "Pending",
           })
           .match({ uuid: Data.uuid, Hotel: Hotel, Position: Position });
-        toast.success("Submitted succesfully!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        toast.info("Please check your email for interview", {
+        toast.success("Your Application has been submitted", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,

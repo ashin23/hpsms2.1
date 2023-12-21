@@ -69,7 +69,6 @@ function PostConfig({
         return;
       } else {
         setdisableButton(false);
-       
       }
     }
   };
@@ -122,18 +121,19 @@ function PostConfig({
               </>
             )}
 
-            <h1 className="font-medium text-[#162388] text-2xl flex items-center gap-2 mb-5">
+            <h1 className="font-medium text-[#162388] text-2xl flex items-center gap-2  mb-5">
               {postInfo.jobtitle}{" "}
               <label
-                className={`${
-                  (postInfo.jobtype === "Full time" && "bg-green-500") ||
-                  (postInfo.jobtype === "Part-time" && "bg-blue-500") ||
-                  (postInfo.jobtype === "Temporary" && "bg-slate-500")
-                } rounded-md text-xs p-1 m-2 text-slate-200 `}
-              >
-                {postInfo.jobtype}
-              </label>
+              className={`${
+                (postInfo.jobtype === "Full time" && "bg-green-500") ||
+                (postInfo.jobtype === "Part-time" && "bg-blue-500") ||
+                (postInfo.jobtype === "Temporary" && "bg-slate-500")
+              } rounded-md text-xs p-1 m-2 text-slate-200 whitespace-nowrap `}
+            >
+              {postInfo.jobtype}
+            </label>
             </h1>
+           
             <p className="font-normal flex ">
               <FaBriefcase className="text-xl mr-1 text-slate-400" />
               {postInfo.position}

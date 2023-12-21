@@ -70,8 +70,9 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       setPostJobInfo(data);
     }
   };
-
+  const [disable, setdisable] = useState(false);
   const handleUpdate = async () => {
+    setdisable(true);
     const { data: update } = await supabase
       .from("PostJob")
       .update({
@@ -92,15 +93,17 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
       })
       .eq("id", info.id)
       .single();
-
+    setdisable(false);
     setEdit(!edit);
   };
 
   const handleDelete = async () => {
+    setdisable(true);
     const { data: deleted } = await supabase
       .from("PostJob")
       .delete()
       .eq("id", info.id);
+    setdisable(false);
   };
 
   const [postJobInfo, setPostJobInfo] = useState([]);
@@ -337,6 +340,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                               Edit
                             </button>
                             <button
+                              disabled={disable}
                               onClick={() => handleUpdate()}
                               className={`${
                                 Hrdashboard === "HR"
@@ -351,6 +355,7 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                               Update
                             </button>
                             <button
+                              disabled={disable}
                               onClick={() => handleDelete()}
                               className={`${
                                 Hrdashboard === "HR"
@@ -477,14 +482,15 @@ const Dashboard = ({ email, applicant, Hrdashboard, admindashboard }) => {
                               <p>{jobDescrip}</p>
                             ) : (
                               <div className="">
-                                <input
+                                <textarea
+                                  rows={5}
                                   type="text"
                                   value={jobDescrip}
                                   className="bg-blue-200"
                                   onChange={(e) =>
                                     setJobDescrip(e.target.value)
                                   }
-                                ></input>
+                                ></textarea>
                               </div>
                             )}
                           </div>

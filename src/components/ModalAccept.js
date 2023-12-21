@@ -19,8 +19,8 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
 
   const [email1, setEmail] = useState(info.Email);
 
-  const [name, setName] = useState(info.FullName);
-
+  const [name, setName] = useState(info.Name);
+  const [positionemail, setpositionemail] = useState(info.Position);
   const [company1, setCompany] = useState("Hotel Pro Services INC.");
   const [message1, setMessage] = useState("");
 
@@ -29,7 +29,6 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
   var time1 = moment(new Date(`2000-01-01T${time}`)).format("LT");
   const [disable, setdisable] = useState(false);
 
-  
   const InfoEmail = async () => {
     setdisable(true);
     if (!date || !location || !time || !email1) {
@@ -54,20 +53,22 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
       setdisable(false);
       return;
     }
-    // emailjs.send(
-    //   "service_yj6ye3j",
-    //   "template_v7ln2cg",
-    //   {
-    //     from_name: info.Name,
-    //     message: message1,
-    //     emailsend: email1,
-    //     location: location,
-    //     date: date1,
-    //     time: time1,
-    //   },
-    //   "-qtQXoQ1iYx4JDljO"
-    // );
-    
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_v7ln2cg",
+      {
+        from_name: info.Name,
+        message: message1,
+        emailsend: email1,
+        location: location,
+        date: date1,
+        time: time1,
+        name: name,
+        position: positionemail,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
+
     await supabase.from("Queuing_List").insert({
       // id: info.id,
       uuid: info.uuid,
@@ -120,11 +121,12 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
       Hotel: info.Hotel,
       action: "Interview, Please check your email",
     });
+
+    delete1();
+    setdisable(false);
     toast.success("Moved to queuing list", {
       autoClose: 1500,
     });
-    setdisable(false);
-    delete1();
   };
 
   const delete1 = async () => {
@@ -256,7 +258,7 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
             ></textarea>
             <div className="flex justify-end w-full mt-1 ">
               <button
-              disabled={disable}
+                disabled={disable}
                 onClick={() => InfoEmail()}
                 className={`${
                   !disable
@@ -265,18 +267,18 @@ const ModalAccept = ({ info, showAccept, setShowAccept, srcIMG, close }) => {
                 } focus:outline-none whitespace-nowrap text-white  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 `}
               >
                 {disable ? (
-                <l-line-spinner
-                  size="20"
-                  stroke="3"
-                  speed="1"
-                  color="black"
-                ></l-line-spinner>
-              ) : (
-                "Send to Email"
-              )}
+                  <l-line-spinner
+                    size="20"
+                    stroke="3"
+                    speed="1"
+                    color="black"
+                  ></l-line-spinner>
+                ) : (
+                  "Send to Email"
+                )}
               </button>
               <button
-              disabled={disable}
+                disabled={disable}
                 onClick={() => setShowAccept(false)}
                 className="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
               >

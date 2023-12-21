@@ -34,11 +34,11 @@ const Quelist = ({ email1 }) => {
   }, [applicantPosition, currentDate]);
 
   const que = async () => {
-    const { data: app } = await supabase
+    const { data: app1 } = await supabase
       .from("Queuing_List")
       .select()
-      .match({ Notifications: status, created_at: moment().from("yyyy-M-D") });
-    setapp(app);
+      .match({ Notifications: status, created_at: currentDate });
+    setapp(app1);
    
   };
 
@@ -130,7 +130,7 @@ const Quelist = ({ email1 }) => {
                     </label>
 
                     <label className="">
-                      New Que:(<em> {app?.length < 0 ? app?.length : "0"} </em>)
+                      New Que:(<em> {app?.length} </em>)
                     </label>
                   </>
                 )}

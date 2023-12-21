@@ -53,15 +53,15 @@ const Register = ({ isRegister, isRegisterClose }) => {
       });
       return;
     }
-    // emailjs.send(
-    //   "service_yj6ye3j",
-    //   "template_aek4udy",
-    //   {
-    //     email2: formdata.email,
-    //     code: otpCode,
-    //   },
-    //   "-qtQXoQ1iYx4JDljO"
-    // );
+    emailjs.send(
+      "service_yj6ye3j",
+      "template_aek4udy",
+      {
+        email2: formdata.email,
+        code: otpCode,
+      },
+      "-qtQXoQ1iYx4JDljO"
+    );
     toast.success("Code sent succesfully", {
       position: "top-center",
       autoClose: 3000,

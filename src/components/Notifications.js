@@ -37,14 +37,16 @@ const Notifications = ({ isOpen, isClose, email, data }) => {
           </label>
           {data && (
             <div>
-              <div className="grid grid-cols-2 font-bold text-2xl">
+              <div className="grid grid-cols-3 font-bold text-2xl">
                 <label>Hotel</label>
                 <label>Status</label>
+                <label>Position</label>
               </div>
               {data.map((data) => (
                 <div className="grid grid-cols-2 overflow-y-auto h-[100%]">
-                  <div className="">{data.Hotel}</div>
-                  <div>{data.action}</div>
+                  <div className="">{data?.Hotel}</div>
+                  <div>{data?.action}</div>
+                  <div>{data?.Position}</div>
                 </div>
               ))}
             </div>

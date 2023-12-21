@@ -2,11 +2,16 @@ import React from "react";
 import supabase from "./supabaseClient";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
+import "ldrs/ring";
+import { lineSpinner } from "ldrs";
+import { useState } from "react";
+
 const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
   var date1 = moment(new Date()).format("yyyy-M-D");
-  
+  const [disable, setdisable] = useState(false);
 
   const Reject = async () => {
+    setdisable(true);
     const { data: user } = await supabase.from("Archive_List").select();
     for (let index = 0; index < user.length; index++) {
       if (user[index].uuid === infoo.uuid) {
@@ -64,10 +69,12 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
             oldtable: "applicanttable",
           })
           .eq("uuid", infoo.uuid);
+        delete1();
+        close();
         toast.success("Moved to archived", {
           autoClose: 1500,
         });
-        delete1();
+        setdisable(false);
         return;
       }
     }
@@ -123,10 +130,12 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
       action: "Rejected",
       oldtable: "applicanttable",
     });
+    delete1();
+    close();
+    setdisable(false);
     toast.success("Moved to archived", {
       autoClose: 1500,
     });
-    delete1();
   };
 
   const delete1 = async () => {
@@ -134,7 +143,6 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
       .from("Applicant_List")
       .delete()
       .eq("uuid", infoo.uuid);
-    close();
   };
 
   if (!showReject) return null;
@@ -151,16 +159,27 @@ const ModalReject = ({ infoo, showReject, setShowReject, close }) => {
            w-[100%]  justify-center pb-2 gap-2 pt-5"
         >
           <button
+            disabled={disable}
             className="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             onClick={() => setShowReject(false)}
           >
             Cancel
           </button>
           <button
+            disabled={disable}
             onClick={() => Reject()}
             className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-8 py-4 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           >
-            Reject
+            {disable ? (
+              <l-line-spinner
+                size="20"
+                stroke="3"
+                speed="1"
+                color="black"
+              ></l-line-spinner>
+            ) : (
+              "Reject"
+            )}
           </button>
         </div>
       </div>

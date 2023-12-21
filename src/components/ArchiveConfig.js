@@ -196,7 +196,7 @@ const ArchiveConfig = ({ e }) => {
 
     if (e.oldtable === "Emptable") {
       const { data: emp } = await supabase.from("Employee_List").insert({
-        created_at: e.old_date,
+        created_at: date1,
         uuid: e.uuid,
         Email: e.Email,
         Password: e.Password,

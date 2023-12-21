@@ -55,9 +55,8 @@ const Upload = ({ isUpload, isCloseUpload, email }) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      isCloseUpload();
-    }, [3000]);
+
+    isCloseUpload();
   }
 
   if (!isUpload) return null;
